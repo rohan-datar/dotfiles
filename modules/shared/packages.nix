@@ -1,0 +1,25 @@
+{ config, pkgs, ... }:
+{
+  environment.systemPackages = with pkgs; [
+    neofetch
+    bat
+    python3
+    coreutils
+    codespell
+    fd
+    fzf
+    git
+    go
+    jq
+    lazygit
+    neovim
+    ripgrep
+    shellcheck
+    tmux
+    wget
+    yamllint
+    yq
+    zoxide
+    zsh
+  ];
+}
