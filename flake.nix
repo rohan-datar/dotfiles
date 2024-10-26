@@ -4,10 +4,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # home-manager = {
-    #   url = "github:nix-community/home-manager";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
@@ -31,7 +31,7 @@
       specialArgs = {inherit inputs;};
       modules = [
         ./hosts/${home-desktop}/configuration.nix
-        # inputs.home-manager.nixosModules.default
+        inputs.home-manager.nixosModules.default
       ];
     };
 

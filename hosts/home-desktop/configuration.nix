@@ -10,8 +10,15 @@
       ./hardware-configuration.nix
       ./system.nix
       ../../modules/shared
+      inputs.home-manager.nixosModules.home-manager
     ];
 
+  home-manager = {
+    extraSpecialArgs = { inherit inputs; };
+    users = {
+	rdatar = import ./home.nix;
+    };
+  };
 
 
   # Install firefox.
