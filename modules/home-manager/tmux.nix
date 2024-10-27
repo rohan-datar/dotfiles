@@ -1,22 +1,25 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{ config
+, pkgs
+, ...
+}:
+let
   tmux-nerd-font-window-name =
     pkgs.tmuxPlugins.mkTmuxPlugin
-    {
-      pluginName = "tmux-nerd-font-window-name";
-      version = "v2.1.2";
-      src = pkgs.fetchFromGithub {
-        owner = "joshmedeski";
-        repo = "tmux-nerd-font-window-name";
-        rev = "be794baa114de855bf3069c60765a49508935edc";
+      {
+        pluginName = "tmux-nerd-font-window-name";
+        version = "v2.1.2";
+        src = pkgs.fetchFromGithub {
+          owner = "joshmedeski";
+          repo = "tmux-nerd-font-window-name";
+          rev = "be794baa114de855bf3069c60765a49508935edc";
+        };
       };
-    };
-in {
+in
+{
   programs.tmux = {
     enable = true;
+
+    shell = "${pkgs.zsh}/bin/zsh";
 
     # set the prefix
     prefix = "C-s";
@@ -104,6 +107,8 @@ in {
       unbind -T copy-mode-vi MouseDragEnd1Pane # don't exit copy mode when dragging with mouse
 
       set-option -g status-position top
+      set -gu default-command
+      set -g default-shell "$SHELL"
     '';
   };
 }
