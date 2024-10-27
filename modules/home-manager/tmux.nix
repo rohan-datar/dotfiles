@@ -22,7 +22,7 @@ in
     terminal = "tmux-256color";
 
     # set vi key-mode
-    key-mode = "vi";
+    keyMode = "vi";
 
     # enable mouse support
     mouse = true;
