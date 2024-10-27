@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../modules/home.nix
+    ../../modules/home-manager
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.

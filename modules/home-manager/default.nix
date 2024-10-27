@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 
 {
-
+  imports = [
+    ./tmux.nix
+  ];
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -47,6 +49,16 @@
     # '';
   };
 
+  programs = {
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+    };
+  };
+
+
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
   # shell provided by Home Manager. If you don't want to manage your shell
@@ -64,8 +76,9 @@
   #  /etc/profiles/per-user/rdatar/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    EDITOR = "nvim";
     PATH = "$HOME/go/bin/:$PATH";
+    TERMINAL = "wezterm";
+    BROWSER = "zen-browser";
   };
 
   # Let Home Manager install and manage itself.
