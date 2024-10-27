@@ -38,5 +38,7 @@ git commit -am "$current"
 # Back to where you were
 popd
 
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 # Notify all OK!
 notify-send -e "NixOS Rebuilt OK!" --icon=software-update-available
+fi
