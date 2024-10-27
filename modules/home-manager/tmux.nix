@@ -1,17 +1,20 @@
-{ config, pkgs, ... }:
-let
-  tmux-nerd-font-window-name =  pkgs.tmuxPlugins.mkTmuxPlugin
-  {
-    pluginName = "tmux-nerd-font-window-name";
-    version = "v2.1.2";
-    src = pkgs.fetchFromGithub {
-      owner = "joshmedeski";
-      repo = "tmux-nerd-font-window-name";
-      rev = "be794baa114de855bf3069c60765a49508935edc";
-    };
-  };
-in
 {
+  config,
+  pkgs,
+  ...
+}: let
+  tmux-nerd-font-window-name =
+    pkgs.tmuxPlugins.mkTmuxPlugin
+    {
+      pluginName = "tmux-nerd-font-window-name";
+      version = "v2.1.2";
+      src = pkgs.fetchFromGithub {
+        owner = "joshmedeski";
+        repo = "tmux-nerd-font-window-name";
+        rev = "be794baa114de855bf3069c60765a49508935edc";
+      };
+    };
+in {
   programs.tmux = {
     enable = true;
 

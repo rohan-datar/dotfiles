@@ -1,16 +1,19 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   # Bootloader.
   boot.loader = {
-	  # systemd-boot.enable = true;
-	  efi.canTouchEfiVariables = true;
+    # systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
 
-	  grub = {
-		enable = true;
-		devices = [ "nodev" ];
-		efiSupport = true;
-		useOSProber = true;
-	  };
+    grub = {
+      enable = true;
+      devices = ["nodev"];
+      efiSupport = true;
+      useOSProber = true;
+    };
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -45,8 +48,8 @@
 
   # some settings for wayland
   hardware = {
-  	graphics.enable = true;
-	nvidia.modesetting.enable = true;
+    graphics.enable = true;
+    nvidia.modesetting.enable = true;
   };
 
   # Enable CUPS to print documents.
@@ -75,9 +78,9 @@
   users.users.rdatar = {
     isNormalUser = true;
     description = "Rohan Datar";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 

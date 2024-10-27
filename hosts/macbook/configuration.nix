@@ -1,6 +1,8 @@
-{ pkgs, config, ... }:
-
 {
+  pkgs,
+  config,
+  ...
+}: {
   imports = [
     ../../modules/shared
   ];
@@ -57,19 +59,17 @@
 
   fonts.packages = [
     pkgs.maple-mono-NF
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
+    (pkgs.nerdfonts.override {fonts = ["FiraCode"];})
   ];
 
-
   # script to force nix to make aliases for apps that can be indexed by MacOS
-  system.activationScripts.applications.text =
-    let
-      env = pkgs.buildEnv {
-        name = "system-applications";
-        paths = config.environment.systemPackages;
-        pathsToLink = "/Applications";
-      };
-    in
+  system.activationScripts.applications.text = let
+    env = pkgs.buildEnv {
+      name = "system-applications";
+      paths = config.environment.systemPackages;
+      pathsToLink = "/Applications";
+    };
+  in
     pkgs.lib.mkForce ''
       # Set up applications.
       echo "setting up /Applications..." >&2
@@ -125,13 +125,11 @@
 
     # Save screenshots to the desktop
     screencapture.location = "~/Desktop/Screenshots";
-
   };
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
-
 
   # Create /etc/zshrc that loads the nix-darwin environment.
   programs.zsh.enable = true; # default shell on catalina
