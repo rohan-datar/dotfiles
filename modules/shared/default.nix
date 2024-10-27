@@ -11,11 +11,8 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-    settings.warn-dirty = false;
+  nix.settings = {
+    warn-dirty = false;
+    experimental-features = ["nix-command" "flakes"];
   };
 }

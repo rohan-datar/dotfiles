@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-pushd ~/nixos/
+pushd ~/nix/
 
 # Early return if no changes were detected
 if git diff --quiet '*.nix'; then
