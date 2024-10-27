@@ -16,13 +16,21 @@ alejandra . &>/dev/null \
 # Shows your changes
 git diff -U0 '*.nix'
 
-echo "NixOS Rebuilding..."
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  echo "NixOS Rebuilding..."
+  # Rebuild, output simplified errors, log trackebacks
+  sudo nixos-rebuild switch --flake ~/nix#home-desktop &>nixos-switch.log || (cat nixos-switch.log | grep --color error && exit 1)
+  # Get current generation metadata
+  current=$(nixos-rebuild list-generations | grep current)
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  echo "Nix Darwin Rebuilding..."
+  darwin-rebuild switch --flake ~/nix#macbook &>nixos-switch.log || (cat nixos-switch.log | grep --color error && exit 1)
+  current=$(darwin-rebuild --list-generations | grep current)
+else
+  echo "$OSTYPE not supported"
+  exit 1
+fi
 
-# Rebuild, output simplified errors, log trackebacks
-sudo nixos-rebuild switch --flake ~/nix#home-desktop &>nixos-switch.log || (cat nixos-switch.log | grep --color error && exit 1)
-
-# Get current generation metadata
-current=$(nixos-rebuild list-generations | grep current)
 
 # Commit all changes witih the generation metadata
 git commit -am "$current"

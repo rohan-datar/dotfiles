@@ -1,7 +1,8 @@
-{ pkgs
-, config
-, inputs
-, ...
+{
+  pkgs,
+  config,
+  inputs,
+  ...
 }: {
   imports = [
     ./system.nix
@@ -10,7 +11,7 @@
   ];
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = {inherit inputs;};
     users = {
       rohandatar = import ./home.nix;
     };
@@ -68,9 +69,8 @@
 
   fonts.packages = [
     pkgs.maple-mono-NF
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
+    (pkgs.nerdfonts.override {fonts = ["FiraCode"];})
   ];
-
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;

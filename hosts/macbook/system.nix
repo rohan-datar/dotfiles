@@ -1,18 +1,20 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   users.users.rohandatar = {
     name = "rohandatar";
     home = "/Users/rohandatar";
   };
   # script to force nix to make aliases for apps that can be indexed by MacOS
-  system.activationScripts.applications.text =
-    let
-      env = pkgs.buildEnv {
-        name = "system-applications";
-        paths = config.environment.systemPackages;
-        pathsToLink = "/Applications";
-      };
-    in
+  system.activationScripts.applications.text = let
+    env = pkgs.buildEnv {
+      name = "system-applications";
+      paths = config.environment.systemPackages;
+      pathsToLink = "/Applications";
+    };
+  in
     pkgs.lib.mkForce ''
       # Set up applications.
       echo "setting up /Applications..." >&2
