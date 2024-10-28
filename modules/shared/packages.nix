@@ -27,8 +27,7 @@
     zsh
   ];
 
-  programs.neovim = {
-    defaultEditor = true;
-    vimAlias = true;
+  environment.shellAliases = {
+    vim = "nvim";
   };
 }
