@@ -26,4 +26,9 @@
     zoxide
     zsh
   ];
+
+  programs.neovim = {
+    defaultEditor = true;
+    vimAlias = true;
+  }
 }

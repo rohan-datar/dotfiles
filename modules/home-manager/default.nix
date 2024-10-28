@@ -58,12 +58,6 @@
   };
 
   programs = {
-    neovim = {
-      defaultEditor = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-    };
-
     kitty.enable = true;
   };
 
