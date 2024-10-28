@@ -13,7 +13,11 @@
   home-manager = {
     extraSpecialArgs = {inherit inputs;};
     users = {
-      rohandatar = import ./home.nix;
+      rohandatar = {
+        imports = [
+          ./home.nix
+        ];
+      };
     };
   };
 

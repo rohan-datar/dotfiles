@@ -18,6 +18,9 @@
 
     # Zen browser
     zen-browser.url = "github:rohan-datar/zen-browser-flake";
+
+    # catpuccin color scheme
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = {
@@ -35,6 +38,7 @@
       specialArgs = {inherit inputs;};
       modules = [
         ./hosts/${home-desktop}/configuration.nix
+        inputs.catpuccin.nixosModules.catpuccin
         inputs.home-manager.nixosModules.default
       ];
     };

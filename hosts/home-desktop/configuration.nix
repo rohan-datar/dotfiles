@@ -13,14 +13,22 @@
     ./system.nix
     ../../modules/shared
     inputs.home-manager.nixosModules.home-manager
+    inputs.catpuccin.nixosModules.catpuccin
   ];
 
   home-manager = {
     extraSpecialArgs = {inherit inputs;};
     users = {
-      rdatar = import ./home.nix;
+      rdatar = {
+        imports = [
+          ./home.nix
+          catppuccin.homeManagerModules.catppuccin
+        ];
+      };
     };
   };
+
+  catppuccin.enable = true;
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -49,6 +57,7 @@
     ungoogled-chromium
     obsidian
     inputs.zen-browser.packages."${system}".specific
+    gnomeExtensions.dash-to-dock
   ];
 
   fonts.packages = with pkgs; [
