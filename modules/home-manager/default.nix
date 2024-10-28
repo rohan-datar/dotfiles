@@ -58,6 +58,11 @@
   };
 
   programs = {
+    neovim = {
+      defaultEditor = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+    }
     lazygit.enable = true;
     kitty.enable = true;
   };

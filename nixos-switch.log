@@ -24,9 +24,9 @@ error:
 
        (stack trace truncated; use '--show-trace' to show the full, detailed trace)
 
-       error: syntax error, unexpected '*'
-       at /nix/store/yy785i4k1gmiab1h6cygypdn12psps2y-source/modules/home-manager/lazygit.nix:17:11:
-           16|         authorColors = {
-           17|           * = [ "#b4befe" ];
-             |           ^
-           18|         };
+       error: syntax error, unexpected '=', expecting ';'
+       at /nix/store/dry3zgrlh6hiq6fs0wssjg8yp6nl9zrj-source/modules/home-manager/default.nix:66:20:
+           65|     }
+           66|     lazygit.enable = true;
+             |                    ^
+           67|     kitty.enable = true;
