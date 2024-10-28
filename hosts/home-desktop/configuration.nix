@@ -15,12 +15,15 @@ in {
     ./system.nix
     ../../modules/shared
     inputs.home-manager.nixosModules.home-manager
-    inputs.catppuccin.nixosModules.catppuccin
   ];
 
-  catppuccin.enable = true;
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+  };
 
   home-manager = {
+    backupFileExtension = "backup";
     extraSpecialArgs = {inherit inputs;};
     users = {
       rdatar = {
@@ -60,6 +63,9 @@ in {
     obsidian
     inputs.zen-browser.packages."${system}".specific
     gnomeExtensions.dash-to-dock
+    libnotify
+    glib
+    mako
   ];
 
   fonts.packages = with pkgs; [

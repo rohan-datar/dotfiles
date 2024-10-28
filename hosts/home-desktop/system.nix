@@ -79,9 +79,6 @@
     isNormalUser = true;
     description = "Rohan Datar";
     extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [
-      #  thunderbird
-    ];
   };
 
   # Enable the X11 windowing system.

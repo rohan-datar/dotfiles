@@ -5,7 +5,13 @@
 }: {
   imports = [
     ./tmux.nix
+    ./lazygit.nix
   ];
+
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+  };
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -52,12 +58,8 @@
   };
 
   programs = {
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-    };
+    lazygit.enable = true;
+    kitty.enable = true;
   };
 
   # Home Manager can also manage your environment variables through
@@ -80,6 +82,10 @@
     PATH = "$HOME/go/bin/:$PATH";
     TERMINAL = "wezterm";
     BROWSER = "zen-browser";
+  };
+
+  home.shellAliases = {
+    vim = "nvim";
   };
 
   # Let Home Manager install and manage itself.
