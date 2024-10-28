@@ -18,6 +18,8 @@ in {
     inputs.catppuccin.nixosModules.catppuccin
   ];
 
+  catppuccin.enable = true;
+
   home-manager = {
     extraSpecialArgs = {inherit inputs;};
     users = {
@@ -29,8 +31,6 @@ in {
       };
     };
   };
-
-  catppuccin.enable = true;
 
   # Install firefox.
   programs.firefox.enable = true;
