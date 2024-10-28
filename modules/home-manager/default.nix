@@ -64,7 +64,6 @@
       vimdiffAlias = true;
     };
 
-    lazygit.enable = true;
     kitty.enable = true;
   };
 
