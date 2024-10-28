@@ -17,7 +17,7 @@
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     # Zen browser
-    zen-browser.url = "github:MarceColl/zen-browser-flake";
+    zen-browser.url = "github:rohan-datar/zen-browser-flake";
   };
 
   outputs = {

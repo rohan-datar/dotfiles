@@ -204,15 +204,15 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1727721329,
-        "narHash": "sha256-QYlWZwUSwrM7BuO+dXclZIwoPvBIuJr6GpFKv9XKFPI=",
-        "owner": "MarceColl",
+        "lastModified": 1730079034,
+        "narHash": "sha256-haEIc3EPqYtrFQnbLGQsWn3MgYbxzaSvzHHvk5Deo7o=",
+        "owner": "rohan-datar",
         "repo": "zen-browser-flake",
-        "rev": "e6ab73f405e9a2896cce5956c549a9cc359e5fcc",
+        "rev": "35a551469fd7bc2d166ba72439d680eb1920324f",
         "type": "github"
       },
       "original": {
-        "owner": "MarceColl",
+        "owner": "rohan-datar",
         "repo": "zen-browser-flake",
         "type": "github"
       }

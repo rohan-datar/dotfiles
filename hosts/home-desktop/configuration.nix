@@ -46,6 +46,8 @@
     cacert
     home-manager
     wl-clipboard
+    ungoogled-chromium
+    obsidian
     inputs.zen-browser.packages."${system}".specific
   ];
 
