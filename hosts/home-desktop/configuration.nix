@@ -6,14 +6,16 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  catppuccinHome = inputs.catppuccin.homeManagerModules.catppuccin;
+in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./system.nix
     ../../modules/shared
     inputs.home-manager.nixosModules.home-manager
-    inputs.catpuccin.nixosModules.catpuccin
+    inputs.catppuccin.nixosModules.catppuccin
   ];
 
   home-manager = {
@@ -22,7 +24,7 @@
       rdatar = {
         imports = [
           ./home.nix
-          catppuccin.homeManagerModules.catppuccin
+          catppuccinHome
         ];
       };
     };

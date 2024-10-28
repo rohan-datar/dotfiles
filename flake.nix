@@ -38,7 +38,7 @@
       specialArgs = {inherit inputs;};
       modules = [
         ./hosts/${home-desktop}/configuration.nix
-        inputs.catpuccin.nixosModules.catpuccin
+        inputs.catppuccin.nixosModules.catppuccin
         inputs.home-manager.nixosModules.default
       ];
     };

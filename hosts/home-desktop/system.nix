@@ -13,11 +13,6 @@
       devices = ["nodev"];
       efiSupport = true;
       useOSProber = true;
-
-      catppuccin = {
-        enable = true;
-        flavor = "mocha";
-      };
     };
   };
 
