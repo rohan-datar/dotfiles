@@ -1,15 +1,4 @@
-{pkgs, ...}: let
-  zsh-vim-mode = {
-    name = "zsh-vim-mode";
-    file = "zsh-vim-mode.plugin.zsh";
-    src = pkgs.fetchFromGitHub {
-      owner = "softmoth";
-      repo = "zsh-vim-mode";
-      rev = "1f9953b7d6f2f0a8d2cb8e8977baa48278a31eab";
-      sha256 = "sha256-a+6EWMRY1c1HQpNtJf5InCzU7/RphZjimLdXIXbO6cQ=";
-    };
-  };
-in {
+{pkgs, ...}: {
   programs.zsh = {
     enable = true;
 
@@ -20,10 +9,11 @@ in {
     zplug = {
       enable = true;
       plugins = [
-        {name = "zsh-syntax-highlighting";}
-        {name = "zsh-completions";}
-        {name = "zsh-autosuggestions";}
-        {name = "zsh-fzf-tab";}
+        {name = "zsh-users/zsh-syntax-highlighting";}
+        {name = "zsh-users/zsh-completions";}
+        {name = "zsh-users/zsh-autosuggestions";}
+        {name = "Aloxaf/fzf-tab";}
+        {name = "softmoth/zsh-vim-mode";}
       ];
     };
 
