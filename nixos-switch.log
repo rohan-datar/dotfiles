@@ -18,11 +18,22 @@ error:
 
        … while evaluating definitions from `/nix/store/lsy6c2f9alj2gkjj36h754kk63x6701l-source/nixos/modules/system/activation/top-level.nix':
 
-       … while evaluating the option `home-manager.users.rdatar.home.file':
+       … while evaluating the option `warnings':
+
+       … while evaluating definitions from `/nix/store/lsy6c2f9alj2gkjj36h754kk63x6701l-source/nixos/modules/system/boot/systemd.nix':
+
+       … while evaluating the option `systemd.services.home-manager-rdatar.serviceConfig':
+
+       … while evaluating definitions from `/nix/store/lsy6c2f9alj2gkjj36h754kk63x6701l-source/flake.nix':
+
+       … while evaluating the option `home-manager.users.rdatar.home.file.".zsh/plugins/zsh-vim-mode".source':
 
        … while evaluating definitions from `/nix/store/85g7hn66fv1l13di1irdg49hg5823q79-source/modules/programs/zsh.nix':
 
+       … while evaluating the option `home-manager.users.rdatar.programs.zsh.plugins."[definition 1-entry 1]".src':
+
+       … while evaluating definitions from `/nix/store/xb86lgyfya61sspjbz8b2013j7kpscpk-source/modules/home-manager/zsh.nix':
+
        (stack trace truncated; use '--show-trace' to show the full, detailed trace)
 
-       error: The option `home-manager.users.rdatar.programs.zsh.plugins."[definition 1-entry 1]".__ignoreNulls' does not exist. Definition values:
-       - In `/nix/store/a3n42g8ycaqplhr7n0zpzf11a4j37vgb-source/modules/home-manager/zsh.nix': true
+       error: You meant fetchFromGitHub, with a capital H

@@ -13,12 +13,18 @@ in {
     enable = true;
 
     plugins = with pkgs; [
-      zsh-syntax-highlighting
-      zsh-completions
-      zsh-autosuggestions
-      zsh-fzf-tab
       zsh-vim-mode
     ];
+
+    zplug = {
+      enable = true;
+      plugins = [
+        {name = "zsh-syntax-highlighting";}
+        {name = "zsh-completions";}
+        {name = "zsh-autosuggestions";}
+        {name = "zsh-fzf-tab";}
+      ];
+    };
 
     history = {
       append = true;
