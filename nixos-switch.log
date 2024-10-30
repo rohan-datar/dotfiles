@@ -22,15 +22,7 @@ error:
 
        … while evaluating definitions from `/nix/store/85g7hn66fv1l13di1irdg49hg5823q79-source/modules/programs/zsh.nix':
 
-       … while evaluating the option `home-manager.users.rdatar.programs.zsh.plugins':
-
-       … while evaluating definitions from `/nix/store/dadkyv4hfv6zd7acxspmk2swymwadq19-source/modules/home-manager/zsh.nix':
-
        (stack trace truncated; use '--show-trace' to show the full, detailed trace)
 
-       error: undefined variable 'fzf-tab'
-       at /nix/store/dadkyv4hfv6zd7acxspmk2swymwadq19-source/modules/home-manager/zsh.nix:19:7:
-           18|       zsh-autosuggestions
-           19|       fzf-tab
-             |       ^
-           20|       zsh-vim-mode
+       error: The option `home-manager.users.rdatar.programs.zsh.plugins."[definition 1-entry 1]".__ignoreNulls' does not exist. Definition values:
+       - In `/nix/store/a3n42g8ycaqplhr7n0zpzf11a4j37vgb-source/modules/home-manager/zsh.nix': true

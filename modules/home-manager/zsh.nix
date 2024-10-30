@@ -16,7 +16,7 @@ in {
       zsh-syntax-highlighting
       zsh-completions
       zsh-autosuggestions
-      fzf-tab
+      zsh-fzf-tab
       zsh-vim-mode
     ];
 
