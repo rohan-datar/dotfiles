@@ -6,6 +6,7 @@
       owner = "softmoth";
       repo = "zsh-vim-mode";
       rev = "1f9953b7d6f2f0a8d2cb8e8977baa48278a31eab";
+      sha256 = "sha256-a+6EWMRY1c1HQpNtJf5InCzU7/RphZjimLdXIXbO6cQ=";
     };
   };
 in {
@@ -28,10 +29,10 @@ in {
 
     history = {
       append = true;
-      IgnoreAllDups = true;
-      IgnoreDups = true;
+      ignoreAllDups = true;
+      ignoreDups = true;
       expireDuplicatesFirst = true;
-      IgnoreSpace = true;
+      ignoreSpace = true;
       share = true;
       save = 5000; # number of lines to save
       # path = ~/.zsh_history;
