@@ -31,6 +31,8 @@ in {
     mouse = true;
 
     plugins = with pkgs; [
+      tmux-nerd-font-window-name
+
       tmuxPlugins.vim-tmux-navigator
 
       {

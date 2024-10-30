@@ -29,5 +29,13 @@
 
   environment.shellAliases = {
     vim = "nvim";
+    c = "clear";
+
+    # ls aliases
+    ls = "ls --color";
+    lsa = "ls -lah";
+    l = "ls -lah";
+    ll = "ls -lh";
+    la = "ls -lAh";
   };
 }
