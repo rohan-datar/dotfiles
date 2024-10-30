@@ -2,10 +2,6 @@
   programs.zsh = {
     enable = true;
 
-    plugins = with pkgs; [
-      zsh-vim-mode
-    ];
-
     zplug = {
       enable = true;
       plugins = [
