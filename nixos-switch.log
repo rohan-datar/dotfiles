@@ -18,15 +18,19 @@ error:
 
        … while evaluating definitions from `/nix/store/lsy6c2f9alj2gkjj36h754kk63x6701l-source/nixos/modules/system/activation/top-level.nix':
 
-       … while evaluating the option `assertions':
+       … while evaluating the option `home-manager.users.rdatar.home.file':
 
-       … while evaluating definitions from `/nix/store/85g7hn66fv1l13di1irdg49hg5823q79-source/nixos/common.nix':
+       … while evaluating definitions from `/nix/store/85g7hn66fv1l13di1irdg49hg5823q79-source/modules/programs/zsh.nix':
+
+       … while evaluating the option `home-manager.users.rdatar.programs.zsh.plugins':
+
+       … while evaluating definitions from `/nix/store/dadkyv4hfv6zd7acxspmk2swymwadq19-source/modules/home-manager/zsh.nix':
 
        (stack trace truncated; use '--show-trace' to show the full, detailed trace)
 
-       error: undefined variable 'LS_COLORS'
-       at /nix/store/0zvfn9gqn79jnkf7k119ml74khdml816-source/modules/home-manager/zsh.nix:44:50:
-           43|       zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-           44|       zstyle ':completion:*' list-colors "${s.:. LS_COLORS}"
-             |                                                  ^
-           45|       zstyle ':completion:*' menu no
+       error: undefined variable 'fzf-tab'
+       at /nix/store/dadkyv4hfv6zd7acxspmk2swymwadq19-source/modules/home-manager/zsh.nix:19:7:
+           18|       zsh-autosuggestions
+           19|       fzf-tab
+             |       ^
+           20|       zsh-vim-mode
