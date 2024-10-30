@@ -1,4 +1,5 @@
 building the system configuration...
+warning: found empty hash, assuming 'sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA='
 error:
        … while calling the 'head' builtin
          at /nix/store/lsy6c2f9alj2gkjj36h754kk63x6701l-source/lib/attrsets.nix:1575:11:
@@ -26,14 +27,17 @@ error:
 
        … while evaluating definitions from `/nix/store/lsy6c2f9alj2gkjj36h754kk63x6701l-source/flake.nix':
 
-       … while evaluating the option `home-manager.users.rdatar.home.file.".zsh/plugins/zsh-vim-mode".source':
+       … while evaluating the option `home-manager.users.rdatar.home.file.".zshrc".source':
+
+       … while evaluating definitions from `/nix/store/85g7hn66fv1l13di1irdg49hg5823q79-source/modules/files.nix':
+
+       … while evaluating the option `home-manager.users.rdatar.home.file.".zshrc".text':
 
        … while evaluating definitions from `/nix/store/85g7hn66fv1l13di1irdg49hg5823q79-source/modules/programs/zsh.nix':
 
-       … while evaluating the option `home-manager.users.rdatar.programs.zsh.plugins."[definition 1-entry 1]".src':
-
-       … while evaluating definitions from `/nix/store/xb86lgyfya61sspjbz8b2013j7kpscpk-source/modules/home-manager/zsh.nix':
+       … while evaluating the option `home-manager.users.rdatar.programs.zsh.history':
 
        (stack trace truncated; use '--show-trace' to show the full, detailed trace)
 
-       error: You meant fetchFromGitHub, with a capital H
+       error: The option `home-manager.users.rdatar.programs.zsh.history.IgnoreAllDups' does not exist. Definition values:
+       - In `/nix/store/kf46h54ssz6idzp3w0w7bxskp0mxnjzg-source/modules/home-manager/zsh.nix': true

@@ -2,7 +2,7 @@
   zsh-vim-mode = {
     name = "zsh-vim-mode";
     file = "zsh-vim-mode.plugin.zsh";
-    src = pkgs.fetchFromGithub {
+    src = pkgs.fetchFromGitHub {
       owner = "softmoth";
       repo = "zsh-vim-mode";
       rev = "1f9953b7d6f2f0a8d2cb8e8977baa48278a31eab";
