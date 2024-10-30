@@ -16,6 +16,7 @@
       rohandatar = {
         imports = [
           ./home.nix
+          inputs.catppuccin.homeManagerModules.catppuccin
         ];
       };
     };
