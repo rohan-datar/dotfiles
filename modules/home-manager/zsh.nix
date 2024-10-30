@@ -45,7 +45,6 @@
     '';
 
     oh-my-zsh = {
-      package = pkgs.oh-my-zsh;
       enable = true;
       plugins = [
         "git"
