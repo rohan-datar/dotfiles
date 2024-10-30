@@ -6,6 +6,7 @@
   imports = [
     ./tmux.nix
     ./lazygit.nix
+    ./zsh.nix
   ];
 
   catppuccin = {

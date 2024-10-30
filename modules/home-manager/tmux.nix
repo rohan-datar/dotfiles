@@ -8,10 +8,11 @@
     {
       pluginName = "tmux-nerd-font-window-name";
       version = "v2.1.2";
-      src = pkgs.fetchFromGithub {
+      src = pkgs.fetchFromGitHub {
         owner = "joshmedeski";
         repo = "tmux-nerd-font-window-name";
         rev = "be794baa114de855bf3069c60765a49508935edc";
+        sha256 = "sha256-pHciRdF/t/h2geOPI0d6URgPmA0mlLb3fNEbU5NRNKY=";
       };
     };
 in {
