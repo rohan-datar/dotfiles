@@ -21,9 +21,15 @@
         "$character"
       ];
       right_format = lib.concatStrings [
-        "$time"
+        "$status"
         "$cmd_duration"
       ];
+      cmd_duration = {
+        format = "[ $duration]($style)";
+      };
+      status = {
+        disabled = false;
+      };
       os = {
         disabled = false;
       };
@@ -123,6 +129,13 @@
 
       git_branch = {
         symbol = " ";
+      };
+
+      git_status = {
+        format = lib.concatStrings [
+          "[$all_status$ahead_behind]($style)"
+        ];
+        style = "bold green";
       };
 
       git_commit = {
