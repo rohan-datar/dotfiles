@@ -33,6 +33,7 @@
 
       status = {
         disabled = false;
+        format = "[$symbol $status]($style)";
         symbol = "";
         not_found_symbol = "";
         not_executable_symbol = "";
