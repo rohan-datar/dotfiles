@@ -10,6 +10,9 @@
         {name = "zsh-users/zsh-autosuggestions";}
         {name = "Aloxaf/fzf-tab";}
         {name = "softmoth/zsh-vim-mode";}
+        {name = "ael-code/zsh-colored-man-pages";}
+        {name = "davidde/git";}
+        {name = "Tarrasch/zsh-command-not-found";}
       ];
     };
 
@@ -43,16 +46,5 @@
       eval "$(fzf --zsh)"
       eval "$(zoxide init --cmd cd zsh)"
     '';
-
-    oh-my-zsh = {
-      enable = true;
-      plugins = [
-        "git"
-        "sudo"
-        "command-not-found"
-        "colored-man-pages"
-        "tmux"
-      ];
-    };
   };
 }

@@ -81,6 +81,10 @@ in {
           set -g @continuum-restore 'on'
         '';
       }
+
+      {
+        plugin = tmuxPlugins.tmux-fzf;
+      }
     ];
 
     extraConfig = ''
