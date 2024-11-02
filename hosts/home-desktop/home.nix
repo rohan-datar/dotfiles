@@ -9,7 +9,7 @@
 
   programs = {
     kitty.enable = true;
-    kitty.font = pkgs.maple-mono-NF;
+    kitty.font.name = "Maple Mono NF";
   };
 
   # Home Manager needs a bit of information about you and the paths it should
