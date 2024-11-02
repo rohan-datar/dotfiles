@@ -20,16 +20,26 @@
         "└─"
         "$character"
       ];
+
       right_format = lib.concatStrings [
         "$status"
+        " "
         "$cmd_duration"
       ];
+
       cmd_duration = {
         format = "[ $duration]($style)";
       };
+
       status = {
         disabled = false;
+        symbol = "";
+        not_found_symbol = "";
+        not_executable_symbol = "";
+        sigint_symbol = "";
+        signal_symbol = "";
       };
+
       os = {
         disabled = false;
       };
