@@ -25,5 +25,7 @@
     yq
     zoxide
     zsh
+    pstree
+    starship
   ];
 }

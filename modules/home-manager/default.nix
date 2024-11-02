@@ -41,7 +41,6 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-    pkgs.oh-my-zsh
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -82,7 +81,7 @@
   home.sessionVariables = {
     PATH = "$HOME/go/bin/:$PATH";
     TERMINAL = "wezterm";
-    BROWSER = "zen-browser";
+    BROWSER = "zen";
   };
 
   home.shellAliases = {
