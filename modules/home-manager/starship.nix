@@ -10,8 +10,8 @@
     settings = {
       add_newline = false;
       format = lib.concatStrings [
-        "$line_break"
-        "$package"
+        "$os"
+        "$all"
         "$line_break"
         "$character"
       ];
