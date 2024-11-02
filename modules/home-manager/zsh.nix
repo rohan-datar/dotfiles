@@ -50,7 +50,7 @@
       type starship_zle-keymap-select >/dev/null || \
         {
           echo "Load starship"
-          eval "$(/usr/local/bin/starship init zsh)"
+          eval "$(/home/rdatar/.nix-profile/bin/starship init zsh)"
         }
     '';
   };
