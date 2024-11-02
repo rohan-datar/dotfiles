@@ -7,9 +7,11 @@
     enable = true;
     enableZshIntegration = true;
     enableTransience = true;
+
     settings = {
       add_newline = true;
       scan_timeout = 10;
+
       format = lib.concatStrings [
         "┌─ "
         "$os"
@@ -71,124 +73,124 @@
         Windows = "󰍲 ";
       };
 
-aws = {
-symbol = "  ";
+      aws = {
+        symbol = "  ";
       };
 
-buf = {
-symbol = " ";
+      buf = {
+        symbol = " ";
       };
 
-c = {
-symbol = " ";
+      c = {
+        symbol = " ";
       };
 
-conda = {
-symbol = " ";
+      conda = {
+        symbol = " ";
       };
 
-crystal = {
-symbol = " ";
+      crystal = {
+        symbol = " ";
       };
 
-dart = {
-symbol = " ";
+      dart = {
+        symbol = " ";
       };
 
-directory = {
-read_only = " 󰌾";
+      directory = {
+        read_only = " 󰌾";
       };
 
-docker_context = {
-symbol = " ";
+      docker_context = {
+        symbol = " ";
       };
 
-elixir = {
-symbol = " ";
+      elixir = {
+        symbol = " ";
       };
 
-elm = {
-symbol = " ";
+      elm = {
+        symbol = " ";
       };
 
-fennel = {
-symbol = " ";
+      fennel = {
+        symbol = " ";
       };
 
-fossil_branch = {
-symbol = " ";
+      fossil_branch = {
+        symbol = " ";
       };
 
-git_branch = {
-symbol = " ";
+      git_branch = {
+        symbol = " ";
       };
 
-git_commit = {
-tag_symbol = '  ';
-        };
-
-golang = {
-symbol = " ";
+      git_commit = {
+        tag_symbol = "  ";
       };
 
-guix_shell = {
-symbol = " ";
+      golang = {
+        symbol = " ";
       };
 
-haskell = {
-symbol = " ";
+      guix_shell = {
+        symbol = " ";
       };
 
-haxe = {
-symbol = " ";
+      haskell = {
+        symbol = " ";
       };
 
-hg_branch = {
-symbol = " ";
+      haxe = {
+        symbol = " ";
       };
 
-hostname = {
-ssh_symbol = " ";
+      hg_branch = {
+        symbol = " ";
       };
 
-java = {
-symbol = " ";
+      hostname = {
+        ssh_symbol = " ";
       };
 
-julia = {
-symbol = " ";
+      java = {
+        symbol = " ";
       };
 
-kotlin = {
-symbol = " ";
+      julia = {
+        symbol = " ";
       };
 
-lua = {
-symbol = " ";
+      kotlin = {
+        symbol = " ";
       };
 
-memory_usage = {
-symbol = "󰍛 ";
+      lua = {
+        symbol = " ";
       };
 
-meson = {
-symbol = "󰔷 ";
+      memory_usage = {
+        symbol = "󰍛 ";
       };
 
-nim = {
-symbol = "󰆥 ";
+      meson = {
+        symbol = "󰔷 ";
       };
 
-nix_shell = {
-symbol = " ";
+      nim = {
+        symbol = "󰆥 ";
       };
 
-nodejs = {
-symbol = " ";
+      nix_shell = {
+        symbol = " ";
       };
 
-ocaml = {
-symbol = " ";
+      nodejs = {
+        symbol = " ";
+      };
+
+      ocaml = {
+        symbol = " ";
       };
     };
   };
