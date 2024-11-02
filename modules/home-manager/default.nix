@@ -7,6 +7,7 @@
     ./tmux.nix
     ./lazygit.nix
     ./zsh.nix
+    ./starship.nix
   ];
 
   catppuccin = {
