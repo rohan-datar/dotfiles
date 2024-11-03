@@ -12,8 +12,9 @@
     kitty.font.name = "Maple Mono NF";
   };
 
-  xsession.pointerCursor = {
-    package = pkgs.gnome.adwaita-icon-theme;
+  pointerCursor = {
+    package = pkgs.adwaita-icon-theme;
+    x11.enable = true;
     name = "Adwaita";
     size = 38;
   };
