@@ -19,7 +19,6 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos-home-desktop"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -82,18 +81,22 @@
     extraGroups = ["networkmanager" "wheel"];
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver = {
+    # Enable the X11 windowing system.
+    enable = true;
+    videoDrivers = ["nvidia"];
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+    # Enable the GNOME Desktop Environment.
+    displayManager = {
+      gdm.enable = true;
+      gnome.enable = true;
+    };
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
+    # Configure keymap in X11
+    xkb = {
+      layout = "us";
+      variant = "";
+    };
   };
 
   # Enable automatic login for the user.
