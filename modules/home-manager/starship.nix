@@ -13,11 +13,11 @@
       scan_timeout = 10;
 
       format = lib.concatStrings [
-        "┌─ "
+        "╭─ "
         "$os"
         "$all"
         "$line_break"
-        "└─"
+        "╰─"
         "$character"
       ];
 
