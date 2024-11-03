@@ -57,7 +57,6 @@ in {
     gnumake
     gnome-tweaks
     cacert
-    home-manager
     wl-clipboard
     ungoogled-chromium
     obsidian
@@ -67,6 +66,9 @@ in {
     glib
     mako
     copyq
+    waybar
+    hyprpaper
+    wofi
   ];
 
   fonts.packages = with pkgs; [
@@ -81,21 +83,6 @@ in {
   };
 
   environment.variables.EDITOR = "neovim";
-
-  # Hyprland settings
-  # Enable Cachix for
-  nix.settings = {
-    substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-  };
-
-  programs.hyprland = {
-    enable = true;
-    # set the flake package
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    # make sure to also set the portal package, so that they are in sync
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -81,6 +81,25 @@
     extraGroups = ["networkmanager" "wheel"];
   };
 
+  # Hyprland settings
+  # Enable Cachix for
+  nix.settings = {
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  };
+
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+    nvidiaPatches = true;
+
+    # set the flake package
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+
+    # make sure to also set the portal package, so that they are in sync
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  };
+
   services.xserver = {
     # Enable the X11 windowing system.
     enable = true;
@@ -103,8 +122,8 @@
   };
 
   # Enable automatic login for the user.
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "rdatar";
+  # services.displayManager.autoLogin.enable = true;
+  # services.displayManager.autoLogin.user = "rdatar";
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
