@@ -27,5 +27,6 @@
     zsh
     pstree
     starship
+    nix-index
   ];
 }
