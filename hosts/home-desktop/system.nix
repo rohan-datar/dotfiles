@@ -49,6 +49,7 @@
   # some settings for wayland
   hardware = {
     graphics.enable = true;
+    nvidia.open = true;
     nvidia.modesetting.enable = true;
   };
 
@@ -83,6 +84,7 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  services.xserver.videoDrivers = ["nvidia"];
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
