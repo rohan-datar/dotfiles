@@ -12,7 +12,7 @@
     kitty.font.name = "Maple Mono NF";
   };
 
-  pointerCursor = {
+  home.pointerCursor = {
     package = pkgs.adwaita-icon-theme;
     x11.enable = true;
     name = "Adwaita";
