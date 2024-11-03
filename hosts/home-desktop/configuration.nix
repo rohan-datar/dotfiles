@@ -60,7 +60,7 @@ in {
     home-manager
     wl-clipboard
     ungoogled-chromium
-    obsidian
+    obsidian-wayland
     inputs.zen-browser.packages."${system}".specific
     gnomeExtensions.dash-to-dock
     libnotify
