@@ -8,20 +8,6 @@
     ./hypr
   ];
 
-  programs = {
-    kitty = {
-      enable = true;
-      font = {
-        name = "Maple Mono NF";
-        size = 19;
-      };
-      settings = {
-        background_opacity = 0.85;
-        background_blur = 16;
-      };
-    };
-  };
-
   home.pointerCursor = {
     package = pkgs.adwaita-icon-theme;
     x11.enable = true;

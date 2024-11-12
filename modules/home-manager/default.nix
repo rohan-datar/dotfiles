@@ -59,10 +59,23 @@
     # '';
   };
 
-  programs.nix-index = {
-    enable = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
+  programs = {
+    kitty = {
+      enable = true;
+      font = {
+        name = "Maple Mono NF";
+        size = 15;
+      };
+      settings = {
+        background_opacity = 0.65;
+        background_blur = 10;
+      };
+    };
+    nix-index = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+    };
   };
 
   # Home Manager can also manage your environment variables through
