@@ -52,7 +52,6 @@ in {
     gcc
     nodejs
     wezterm
-    kitty
     lua
     gnumake
     gnome-tweaks
