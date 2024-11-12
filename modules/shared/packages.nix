@@ -18,7 +18,7 @@
     lazygit
     neovim
     ripgrep
-    shellcheck
+    # shellcheck
     tmux
     wget
     yamllint
