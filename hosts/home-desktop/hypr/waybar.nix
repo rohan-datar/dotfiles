@@ -53,7 +53,7 @@
           format = "⏻ ";
           tooltip = false;
           menu = "on-click";
-          menu-file = "$HOME/.config/waybar/power_menu.xml"; # Menu file in resources folder
+          # menu-file = "$HOME/.config/waybar/power_menu.xml"; # Menu file in resources folder
           menu-actions = {
             shutdown = "shutdown";
             reboot = "reboot";
