@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  wayland.windowManager.hyperland = {
+  wayland.windowManager.hyprland = {
     enable = true;
     settings = {
       # keep automatic monitor config
