@@ -5,11 +5,22 @@
 }: {
   imports = [
     ../../modules/home-manager
+    ./hypr/
   ];
 
   programs = {
-    kitty.enable = true;
-    kitty.font.name = "Maple Mono NF";
+
+    kitty = {
+      enable = true;
+      font = {
+        name =  "Maple Mono NF";
+        size = 19;
+      };
+      settings = {
+        background_opacity = 0.85;
+        background_blur = 16;
+      };
+    };
   };
 
   home.pointerCursor = {
