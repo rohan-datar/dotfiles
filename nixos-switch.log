@@ -24,9 +24,9 @@ error:
 
        (stack trace truncated; use '--show-trace' to show the full, detailed trace)
 
-       error: syntax error, unexpected ',', expecting ';'
-       at /nix/store/b22w28g60kh68dxzs1fhazvinl7qpyxs-source/hosts/home-desktop/hypr/waybar.nix:33:86:
-           32|         "network" = {
-           33|           format-wifi = "<span size='13000' foreground='#f5e0dc'>  </span>{essid}",
-             |                                                                                      ^
-           34|           format-ethernet = "<span size='13000' foreground='#f5e0dc'>󰤭  </span> Disconnected",
+       error: syntax error, unexpected '}', expecting ';'
+       at /nix/store/zj03z3w1rj77ph5xln5iyjmn7p2i3p9i-source/hosts/home-desktop/hypr/waybar.nix:59:13:
+           58|                 hibernate= "systemctl hibernate"
+           59|             };
+             |             ^
+           60|         };

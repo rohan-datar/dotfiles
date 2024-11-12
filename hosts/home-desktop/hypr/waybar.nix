@@ -30,21 +30,22 @@
         };
 
         "network" = {
-          format-wifi = "<span size='13000' foreground='#f5e0dc'>  </span>{essid}",
-          format-ethernet = "<span size='13000' foreground='#f5e0dc'>󰤭  </span> Disconnected",
-          format-linked = "{ifname} (No IP) ",
-          format-disconnected = "<span size='13000' foreground='#f5e0dc'>  </span>Disconnected",
-          tooltip-format-wifi = "Signal Strenght: {signalStrength}%"
-        },
+          format-wifi = "<span size='13000' foreground='#f5e0dc'>  </span>{essid}";
+          format-ethernet = "<span size='13000' foreground='#f5e0dc'>󰤭  </span> Disconnected";
+          format-linked = "{ifname} (No IP) ";
+          format-disconnected = "<span size='13000' foreground='#f5e0dc'>  </span>Disconnected";
+          tooltip-format-wifi = "Signal Strength: {signalStrength}%";
+        };
 
         "pulseaudio" = {
-            format = "{icon}  {volume}%",
-            format-muted = "",
+            format = "{icon}  {volume}%";
+            format-muted = "";
             format-icons = {
-                default = ["", "", " "]
-            },
-            on-click = "pavucontrol"
-        }
+                default = ["" "" " "];
+            };
+            on-click = "pavucontrol";
+        };
+
         "custom/power" = {
             format = "⏻ ";
             tooltip= false;
@@ -55,8 +56,8 @@
                 reboot= "reboot";
                 suspend= "systemctl suspend";
                 hibernate= "systemctl hibernate"
-            }
-        }
+            };
+        };
     };
     };
   };
