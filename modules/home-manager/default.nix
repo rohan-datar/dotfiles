@@ -67,7 +67,7 @@
         size = 15;
       };
       settings = {
-        background_opacity = 0.65;
+        background_opacity = 0.85;
         background_blur = 10;
       };
     };
