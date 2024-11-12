@@ -71,6 +71,7 @@ in {
     hyprshot
     wofi
     swaynotificationcenter
+    pavucontrol
   ];
 
   fonts.packages = with pkgs; [
