@@ -1,0 +1,32 @@
+building the system configuration...
+error:
+       … while calling the 'head' builtin
+         at /nix/store/m68ikm8045fj7ys7qvgr608z9l70hh1k-source/lib/attrsets.nix:1575:11:
+         1574|         || pred here (elemAt values 1) (head values) then
+         1575|           head values
+             |           ^
+         1576|         else
+
+       … while evaluating the attribute 'value'
+         at /nix/store/m68ikm8045fj7ys7qvgr608z9l70hh1k-source/lib/modules.nix:816:9:
+          815|     in warnDeprecation opt //
+          816|       { value = addErrorContext "while evaluating the option `${showOption loc}':" value;
+             |         ^
+          817|         inherit (res.defsFinal') highestPrio;
+
+       … while evaluating the option `system.build.toplevel':
+
+       … while evaluating definitions from `/nix/store/m68ikm8045fj7ys7qvgr608z9l70hh1k-source/nixos/modules/system/activation/top-level.nix':
+
+       … while evaluating the option `assertions':
+
+       … while evaluating definitions from `/nix/store/pij5lycb56qqa5r0ks43az07f2xfqr2n-source/nixos/common.nix':
+
+       (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+
+       error: syntax error, unexpected ',', expecting ';'
+       at /nix/store/b22w28g60kh68dxzs1fhazvinl7qpyxs-source/hosts/home-desktop/hypr/waybar.nix:33:86:
+           32|         "network" = {
+           33|           format-wifi = "<span size='13000' foreground='#f5e0dc'>  </span>{essid}",
+             |                                                                                      ^
+           34|           format-ethernet = "<span size='13000' foreground='#f5e0dc'>󰤭  </span> Disconnected",

@@ -5,15 +5,14 @@
 }: {
   imports = [
     ../../modules/home-manager
-    ./hypr/
+    ./hypr
   ];
 
   programs = {
-
     kitty = {
       enable = true;
       font = {
-        name =  "Maple Mono NF";
+        name = "Maple Mono NF";
         size = 19;
       };
       settings = {
