@@ -10,8 +10,7 @@
       mainBar = {
         # // "layer": "top", // Waybar at top layer
         # // "position": "bottom", // Waybar position (top|bottom|left|right)
-        height = 30; # Waybar height (to be removed for auto height)
-        spacing = 4; # Gaps between modules (4px)
+        spacing = 6; # Gaps between modules (4px)
         # Choose the order of the modules
         modules-left = [
           "hyprland/workspaces"
@@ -53,7 +52,7 @@
           format = "⏻ ";
           tooltip = false;
           menu = "on-click";
-          # menu-file = "$HOME/.config/waybar/power_menu.xml"; # Menu file in resources folder
+          menu-file = "$HOME/.config/waybar/power_menu.xml"; # Menu file in resources folder
           menu-actions = {
             shutdown = "shutdown";
             reboot = "reboot";
@@ -66,7 +65,7 @@
 
     style = ''
       * {
-          font-family: "MesloLGS Nerd Font Mono Bold";
+          font-family: "Maple Mono NF, Bold";
           font-size: 16px;
           min-height: 0;
           font-weight: bold;
@@ -190,6 +189,39 @@
           padding-left: 6px;
           padding-right: 6px;
       }
+    '';
+  };
+
+  home.file = {
+    ".config/waybar/power_menu.xml".text = ''
+      <?xml version="1.0" encoding="UTF-8"?>
+      <interface>
+        <object class="GtkMenu" id="menu">
+          <child>
+              <object class="GtkMenuItem" id="suspend">
+                  <property name="label">Suspend</property>
+              </object>
+          </child>
+          <child>
+              <object class="GtkMenuItem" id="hibernate">
+                  <property name="label">Hibernate</property>
+              </object>
+          </child>
+          <child>
+              <object class="GtkMenuItem" id="shutdown">
+                  <property name="label">Shutdown</property>
+              </object>
+          </child>
+          <child>
+            <object class="GtkSeparatorMenuItem" id="delimiter1"/>
+          </child>
+          <child>
+              <object class="GtkMenuItem" id="reboot">
+                  <property name="label">Reboot</property>
+              </object>
+          </child>
+        </object>
+      </interface>
     '';
   };
 }
