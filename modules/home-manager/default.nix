@@ -68,7 +68,7 @@
       };
       settings = {
         background_opacity = 0.85;
-        background_blur = 10;
+        background_blur = 16;
       };
     };
     nix-index = {

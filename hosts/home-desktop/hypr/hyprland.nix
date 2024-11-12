@@ -18,8 +18,7 @@
       "$menu" = "wofi --show drun";
 
       exec-once = [
-        "waybar"
-        "hyprpaper"
+        "waybar & hyprpaper & swaync"
       ];
 
       env = [

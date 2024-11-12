@@ -68,7 +68,9 @@ in {
     copyq
     waybar
     hyprpaper
+    hyprshot
     wofi
+    swaynotificationcenter
   ];
 
   fonts.packages = with pkgs; [
