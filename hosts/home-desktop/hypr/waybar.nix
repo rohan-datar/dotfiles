@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   programs.waybar = {
     enable = true;
 
@@ -11,16 +14,16 @@
         spacing = 4; # Gaps between modules (4px)
         # Choose the order of the modules
         modules-left = [
-            "hyprland/workspaces"
+          "hyprland/workspaces"
         ];
         modules-center = [
-            "hyprland/window"
+          "hyprland/window"
         ];
         modules-right = [
-            "network"
-            "pulseaudio"
-            "clock"
-            "custom/power"
+          "network"
+          "pulseaudio"
+          "clock"
+          "custom/power"
         ];
 
         # Modules configuration
@@ -38,27 +41,27 @@
         };
 
         "pulseaudio" = {
-            format = "{icon}  {volume}%";
-            format-muted = "";
-            format-icons = {
-                default = ["" "" " "];
-            };
-            on-click = "pavucontrol";
+          format = "{icon}  {volume}%";
+          format-muted = "";
+          format-icons = {
+            default = ["" "" " "];
+          };
+          on-click = "pavucontrol";
         };
 
         "custom/power" = {
-            format = "⏻ ";
-            tooltip= false;
-            menu= "on-click";
-            menu-file= "$HOME/.config/waybar/power_menu.xml"; # Menu file in resources folder
-            menu-actions= {
-                shutdown= "shutdown";
-                reboot= "reboot";
-                suspend= "systemctl suspend";
-                hibernate= "systemctl hibernate"
-            };
+          format = "⏻ ";
+          tooltip = false;
+          menu = "on-click";
+          menu-file = "$HOME/.config/waybar/power_menu.xml"; # Menu file in resources folder
+          menu-actions = {
+            shutdown = "shutdown";
+            reboot = "reboot";
+            suspend = "systemctl suspend";
+            hibernate = "systemctl hibernate";
+          };
         };
-    };
+      };
     };
   };
 }

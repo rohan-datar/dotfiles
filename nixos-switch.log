@@ -24,9 +24,11 @@ error:
 
        (stack trace truncated; use '--show-trace' to show the full, detailed trace)
 
-       error: syntax error, unexpected '}', expecting ';'
-       at /nix/store/zj03z3w1rj77ph5xln5iyjmn7p2i3p9i-source/hosts/home-desktop/hypr/waybar.nix:59:13:
-           58|                 hibernate= "systemctl hibernate"
-           59|             };
-             |             ^
-           60|         };
+       error: The option `home-manager.users.rdatar.wayland.windowManager.hyperland' does not exist. Definition values:
+       - In `/nix/store/sdpyb82sxcaxxz4vskj58wxf9fdnk64z-source/hosts/home-desktop/hypr/hyprland.nix':
+           {
+             enable = true;
+             settings = {
+               "\$fileManager" = "nautilus";
+               "\$mainMod" = "Alt";
+           ...
