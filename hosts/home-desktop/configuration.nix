@@ -75,6 +75,7 @@ in {
     pavucontrol
     pulseaudio
     brightnessctl
+    playerctl
   ];
 
   fonts.packages = with pkgs; [
