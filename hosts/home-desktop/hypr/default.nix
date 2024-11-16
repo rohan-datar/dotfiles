@@ -4,6 +4,7 @@
     ./waybar.nix
     ./wofi.nix
     ./swaync.nix
+    ./networkmanager.nix
     ./hyprlock.nix
     ./hypridle.nix
   ];
