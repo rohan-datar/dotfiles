@@ -28,6 +28,7 @@
     pkgs.mkalias
     pkgs.iina
     pkgs.pngpaste
+    pkgs.aerospace
   ];
 
   homebrew = {
@@ -41,7 +42,7 @@
     ];
 
     casks = [
-      "aerospace"
+      # "aerospace"
       "appcleaner"
       "beeper"
       "chromium"
