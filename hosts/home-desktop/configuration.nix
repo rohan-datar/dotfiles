@@ -76,6 +76,7 @@ in {
     pulseaudio
     brightnessctl
     playerctl
+    networkmanager_dmenu
   ];
 
   fonts.packages = with pkgs; [

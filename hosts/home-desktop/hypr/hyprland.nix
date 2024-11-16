@@ -18,7 +18,7 @@
       "$menu" = "wofi --show drun";
 
       exec-once = [
-        "waybar & hyprpaper & swaync"
+        "waybar & hyprpaper & swaync & hypridle"
       ];
 
       xwayland = {
