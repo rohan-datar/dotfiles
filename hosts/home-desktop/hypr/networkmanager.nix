@@ -1,8 +1,8 @@
 {...}: {
   home.file = {
-    ".config/networkmanager_dmenu/config.ini".text = ''
+    ".config/networkmanager-dmenu/config.ini".text = ''
       [dmenu]
-      dmenu_command = /home/rdatar/.nix-profile/bin/wofi --dmenu
+      dmenu_command = wofi --dmenu
       active_chars = 󰱓
       highlight = True
       highlight_fg = #94e2d5
