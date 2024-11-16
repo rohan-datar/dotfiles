@@ -71,6 +71,7 @@ in {
     wofi
     swaynotificationcenter
     pavucontrol
+    pulseaudio
   ];
 
   fonts.packages = with pkgs; [
