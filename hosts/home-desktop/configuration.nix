@@ -73,6 +73,8 @@ in {
     pavucontrol
     pulseaudio
     brightnessctl
+    networkmanagerapplet
+    blueman
   ];
 
   fonts.packages = with pkgs; [
