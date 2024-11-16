@@ -77,6 +77,7 @@ in {
     brightnessctl
     playerctl
     networkmanager_dmenu
+    networkmanagerapplet
   ];
 
   fonts.packages = with pkgs; [
