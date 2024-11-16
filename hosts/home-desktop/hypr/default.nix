@@ -5,6 +5,7 @@
     ./wofi.nix
     ./swaync.nix
     ./hyprlock.nix
+    ./hypridle.nix
   ];
 
   services.hyprpaper = {
