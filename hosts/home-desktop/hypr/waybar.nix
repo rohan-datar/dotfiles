@@ -28,7 +28,7 @@
 
         # Modules configuration
         "clock" = {
-          format = "<span foreground='#f5c2e7'>   </span>{:%a %d %H:%M}";
+          format = "<span foreground='#a6e3a1'>   </span>{:%a %d %H:%M}";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
         };
 
@@ -51,7 +51,7 @@
         };
 
         "custom/power" = {
-          format = "⏻ ";
+          format = " ⏻ ";
           tooltip = false;
           menu = "on-click";
           menu-file = "$HOME/.config/waybar/power_menu.xml"; # Menu file in resources folder
@@ -65,7 +65,7 @@
 
         "custom/notification" = {
           tooltip = false;
-          format = "{} {icon}";
+          format = "<span foreground='#f5c2e7'> {} {icon} </span>";
           "format-icons" = {
             notification = "󱅫";
             none = "";
