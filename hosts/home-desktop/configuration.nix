@@ -80,12 +80,6 @@ in {
     networkmanagerapplet
   ];
 
-  fonts.packages = with pkgs; [
-    maple-mono-NF
-    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono" "Meslo"];})
-    font-awesome
-  ];
-
   environment.sessionVariables = {
     DEFAULT_BROWSER = "zen";
     WLR_NO_HARDWARE_CURSORS = "1";

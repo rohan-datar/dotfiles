@@ -33,4 +33,10 @@
     discord
     tailscale
   ];
+
+  fonts.packages = with pkgs; [
+    maple-mono-NF
+    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono" "Meslo" "Hack"];})
+    font-awesome
+  ];
 }

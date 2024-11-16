@@ -7,6 +7,7 @@
   imports = [
     ./system.nix
     ../../modules/shared
+    ./sketchybar.nix
     inputs.home-manager.darwinModules.home-manager
   ];
 
@@ -69,11 +70,6 @@
     onActivation.autoUpdate = true;
     onActivation.upgrade = true;
   };
-
-  fonts.packages = [
-    pkgs.maple-mono-NF
-    (pkgs.nerdfonts.override {fonts = ["FiraCode"];})
-  ];
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
