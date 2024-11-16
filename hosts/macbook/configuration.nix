@@ -34,7 +34,6 @@
   homebrew = {
     enable = true;
     brews = [
-      "tpm"
       "rust"
       "node"
       "mas"
@@ -42,18 +41,15 @@
     ];
 
     casks = [
-      # "aerospace"
       "appcleaner"
       "beeper"
       "chromium"
       "discord"
       "docker"
       "firefox"
-      "obsidian"
       "omnidisksweeper"
       "the-unarchiver"
       "thunderbird"
-      "wezterm"
       "zen-browser"
     ];
 
@@ -65,7 +61,7 @@
       "Keynote" = 409183694;
       "Numbers" = 409203825;
       "Pages" = 409201541;
-      "Tailscale" = 1475387142;
+      # "Tailscale" = 1475387142;
       "Xcode" = 497799835;
     };
     onActivation.cleanup = "zap";

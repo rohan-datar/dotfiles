@@ -10,13 +10,13 @@
   # Import this module in your nix-darin config to have applications copied
   # to /Applications/Nix Apps instead of being symlinked. GUI apps must be
   # added to environment packages, not home-manager for this to work.
-  system.activationScripts.applications.text = pkgs.lib.mkForce ''
-    echo "Setting up /Applications/Nix Apps" >&2
-    appsSrc="${config.system.build.applications}/Applications/"
-    baseDir="/Applications/Nix Apps"
-    rsyncArgs="--archive --checksum --chmod=-w --copy-unsafe-links --delete"
-    mkdir -p "$baseDir"
-    ${pkgs.rsync}/bin/rsync "$rsyncArgs" "$appsSrc" "$baseDir"
+  system.activationScripts.postUserActivation.text = ''
+    apps_source="${config.system.build.applications}/Applications"
+    moniker="Nix Trampolines"
+    app_target_base="$HOME/Applications"
+    app_target="$app_target_base/$moniker"
+    mkdir -p "$app_target"
+    ${pkgs.rsync}/bin/rsync --archive --checksum --chmod=-w --copy-unsafe-links --delete "$apps_source/" "$app_target"
   '';
 
   system.defaults = {

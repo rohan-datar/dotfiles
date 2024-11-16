@@ -29,5 +29,8 @@
     pstree
     starship
     nix-index
+    obsidian
+    discord
+    tailscale
   ];
 }
