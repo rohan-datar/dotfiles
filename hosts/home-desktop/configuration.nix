@@ -78,6 +78,7 @@ in {
     playerctl
     networkmanager_dmenu
     networkmanagerapplet
+    dmenu
   ];
 
   fonts.packages = with pkgs; [
