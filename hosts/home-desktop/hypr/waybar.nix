@@ -50,7 +50,7 @@
         };
 
         "custom/power" = {
-          format = "<span foreground='#f5e0dc' ⏻ </span>";
+          format = "<span foreground='#f5e0dc'> ⏻ </span>";
           tooltip = false;
           menu = "on-click";
           menu-file = "$HOME/.config/waybar/power_menu.xml"; # Menu file in resources folder
