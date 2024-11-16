@@ -15,6 +15,21 @@
     size = 38;
   };
 
+  gtk.enable = true;
+
+  gtk.catppuccin = {
+    enable = true;
+    flavor = "mocha";
+    accent = "blue";
+    size = "standard";
+    gnomeShellTheme = true;
+    icon = {
+      enable = true;
+      flavor = "mocha";
+      accent = "blue";
+    };
+  };
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "rdatar";
