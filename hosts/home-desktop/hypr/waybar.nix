@@ -38,6 +38,7 @@
           format-linked = "{ifname} (No IP) ";
           format-disconnected = "<span size='13000' foreground='#f5e0dc'>  </span>Disconnected";
           tooltip-format-wifi = "Signal Strength: {signalStrength}%";
+          on-click = "networkmanager_dmenu";
         };
 
         "pulseaudio" = {

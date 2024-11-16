@@ -13,7 +13,7 @@
       wifi_chars = ▂▄▆█
       wifi_icons = 󰤯󰤟󰤢󰤥󰤨
       # format = <Python style format string for the access point entries>
-      # format = {name}  {sec}  {icon}
+      format = {name}  {sec}  {icon}
       # # Available variables are:
       # #  * {name} - Access point name
       # #  * {sec} - Security type
