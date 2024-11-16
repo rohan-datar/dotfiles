@@ -68,13 +68,13 @@ in {
     waybar
     hyprpaper
     hyprshot
+    hyprlock
+    hypridle
     wofi
     swaynotificationcenter
     pavucontrol
     pulseaudio
     brightnessctl
-    networkmanagerapplet
-    blueman
   ];
 
   fonts.packages = with pkgs; [
