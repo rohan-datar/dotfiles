@@ -75,7 +75,7 @@ in {
 
   fonts.packages = with pkgs; [
     maple-mono-NF
-    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono" "MesloLGS"];})
+    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono" "MesloLG"];})
     font-awesome
   ];
 
