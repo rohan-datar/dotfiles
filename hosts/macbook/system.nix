@@ -7,26 +7,17 @@
     name = "rohandatar";
     home = "/Users/rohandatar";
   };
-  # script to force nix to make aliases for apps that can be indexed by MacOS
-  system.activationScripts.applications.text = let
-    env = pkgs.buildEnv {
-      name = "system-applications";
-      paths = config.environment.systemPackages;
-      pathsToLink = "/Applications";
-    };
-  in
-    pkgs.lib.mkForce ''
-      # Set up applications.
-      echo "setting up /Applications..." >&2
-      rm -rf /Applications/Nix\ Apps
-      mkdir -p /Applications/Nix\ Apps
-      find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
-      while read -r src; do
-        app_name=$(basename "$src")
-        echo "copying $src" >&2
-        ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
-      done
-    '';
+  # Import this module in your nix-darin config to have applications copied
+  # to /Applications/Nix Apps instead of being symlinked. GUI apps must be
+  # added to environment packages, not home-manager for this to work.
+  system.activationScripts.applications.text = pkgs.lib.mkForce ''
+    echo "Setting up /Applications/Nix Apps" >&2
+    appsSrc="${config.system.build.applications}/Applications/"
+    baseDir="/Applications/Nix Apps"
+    rsyncArgs="--archive --checksum --chmod=-w --copy-unsafe-links --delete"
+    mkdir -p "$baseDir"
+    ${pkgs.rsync}/bin/rsync "$rsyncArgs" "$appsSrc" "$baseDir"
+  '';
 
   system.defaults = {
     loginwindow.GuestEnabled = false;
