@@ -7,7 +7,6 @@
   imports = [
     ./system.nix
     ../../modules/shared
-    ./sketchybar.nix
     inputs.home-manager.darwinModules.home-manager
   ];
 
@@ -32,6 +31,8 @@
     aerospace
     sketchybar
   ];
+
+  services.sketchybar.enable = true;
 
   homebrew = {
     enable = true;
