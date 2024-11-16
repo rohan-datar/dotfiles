@@ -21,9 +21,14 @@
         "waybar & hyprpaper & swaync"
       ];
 
+      xwayland = {
+        "force_zero_scaling" = true;
+      };
+
       env = [
         "XCURSOR_SIZE,24"
         "HYPRCURSOR_SIZE,24"
+        "QT_QPA_PLATFORMTHEME,qt5ct"
       ];
 
       general = {
@@ -80,11 +85,6 @@
         preserve_split = "yes"; # you probably want this
       };
 
-      # master {
-      #     # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-      #     new_is_master = true
-      # }
-
       gestures = {
         # See https://wiki.hyprland.org/Configuring/Variables/ for more
         workspace_swipe = "off";
@@ -97,10 +97,10 @@
 
       # Example per-device config
       # See https://wiki.hyprland.org/Configuring/Keywords/#per-device-input-configs for more
-      device = {
-        name = "epic-mouse-v1";
-        sensitivity = "-0.5";
-      };
+      # device = {
+      #   name = "epic-mouse-v1";
+      #   sensitivity = "-0.5";
+      # };
 
       # Example windowrule v1
       # windowrule = float, ^(kitty)$
@@ -126,10 +126,10 @@
         "$mainMod, M, exit,"
         "$mainMod, V, togglefloating,"
         "$mainMod, space, exec, $menu"
-        "$SUPER_SHIFT, l, exec, hyprlock"
-        "$SUPER_SHIFT, R, exec, hyprctl reload"
-        "$SUPER_SHIFT, D, exec, hyprctl keyword monitor eDP-1, disable"
-        "$SUPER_SHIFT, F, exec, hyprctl keyword monitor eDP-1, enable"
+        "$ALT_SHIFT, l, exec, hyprlock"
+        # "$SUPER_SHIFT, R, exec, hyprctl reload"
+        # "$SUPER_SHIFT, D, exec, hyprctl keyword monitor eDP-1, disable"
+        # "$SUPER_SHIFT, F, exec, hyprctl keyword monitor eDP-1, enable"
         ", Print, exec, hyprshot -m window"
         "shift, Print, exec, hyprshot -m region"
         "$mainMod, P, pseudo, # dwindle"

@@ -75,7 +75,8 @@ in {
 
   fonts.packages = with pkgs; [
     maple-mono-NF
-    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono"];})
+    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono" "MesloLGS"];})
+    font-awesome
   ];
 
   environment.sessionVariables = {
