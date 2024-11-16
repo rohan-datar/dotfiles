@@ -102,10 +102,6 @@
       #   sensitivity = "-0.5";
       # };
 
-      # Example windowrule v1
-      # windowrule = float, ^(kitty)$
-      # Example windowrule v2
-      # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
       # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
       windowrulev2 = [
         "suppressevent maximize, class:.*" # You'll probably like this.
@@ -124,13 +120,16 @@
 
       # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
       bind = [
+        ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +10%"
+        ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -10%"
+        ", XF86AudioMut, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
         "$mainMod, return, exec, $terminal"
         "$mainMod, C, killactive,"
         "$mainMod, M, exit,"
         "$mainMod, V, togglefloating,"
         "$mainMod, space, exec, $menu"
         "$ALT_SHIFT, l, exec, hyprlock"
-        # "$SUPER_SHIFT, R, exec, hyprctl reload"
+        "$ALT_SHIFT, R, exec, hyprctl reload"
         # "$SUPER_SHIFT, D, exec, hyprctl keyword monitor eDP-1, disable"
         # "$SUPER_SHIFT, F, exec, hyprctl keyword monitor eDP-1, enable"
         ", Print, exec, hyprshot -m window"
