@@ -33,15 +33,15 @@
       };
 
       # DATE
-      label = {
-        text = ''cmd[update:43200000] echo "$(date +"%A, %d %B %Y")"'';
-        color = "$text";
-        font_size = 25;
-        font_family = "$font";
-        position = "-30, -150";
-        halign = "right";
-        valign = "top";
-      };
+      # label = {
+      #   text = ''cmd[update:43200000] echo "$(date +"%A, %d %B %Y")"'';
+      #   color = "$text";
+      #   font_size = 25;
+      #   font_family = "$font";
+      #   position = "-30, -150";
+      #   halign = "right";
+      #   valign = "top";
+      # };
 
       # USER AVATAR
 
