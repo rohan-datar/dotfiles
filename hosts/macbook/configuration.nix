@@ -24,11 +24,12 @@
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = [
-    pkgs.mkalias
-    pkgs.iina
-    pkgs.pngpaste
-    pkgs.aerospace
+  environment.systemPackages = with pkgs; [
+    mkalias
+    iina
+    pngpaste
+    aerospace
+    sketchybar
   ];
 
   homebrew = {
