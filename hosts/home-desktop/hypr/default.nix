@@ -2,7 +2,6 @@
   imports = [
     ./hyprland.nix
     ./waybar.nix
+    ./wofi.nix
   ];
-
-  programs.wofi.enable = true;
 }
