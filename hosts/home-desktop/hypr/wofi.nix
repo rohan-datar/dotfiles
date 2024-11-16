@@ -54,8 +54,9 @@
       @define-color	mantle-rgb  rgb(24, 24, 37);
       @define-color	crust  #11111b;
       @define-color	crust-rgb  rgb(17, 17, 27);
+
       * {
-        font-family: 'CaskaydiaCove Nerd Font', monospace;
+        font-family: 'MesloLGS Nerd Font', monospace;
         font-size: 18px;
       }
 
