@@ -14,7 +14,7 @@
       ];
 
       wallpaper = [
-        "~/.local/share/backgrounds/Cloudsnight.jpg"
+        ",~/.local/share/backgrounds/Cloudsnight.jpg"
       ];
     };
   };
