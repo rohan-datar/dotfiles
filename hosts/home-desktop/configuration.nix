@@ -72,6 +72,7 @@ in {
     swaynotificationcenter
     pavucontrol
     pulseaudio
+    brightnessctl
   ];
 
   fonts.packages = with pkgs; [
