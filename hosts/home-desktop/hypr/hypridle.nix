@@ -1,5 +1,5 @@
 {...}: {
-  programs.hypridle = {
+  services.hypridle = {
     enable = true;
     settings = {
       general = {
