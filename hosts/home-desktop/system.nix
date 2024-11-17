@@ -46,11 +46,20 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  boot.kernelParams = ["nvidia.NVreg_PreserveVideoMemoryAllocations=1"];
   # some settings for wayland
-  hardware = {
+  hardware = let
+    driverPkg = config.boot.kernelPackages.nvidiaPackages.beta;
+  in {
     graphics.enable = true;
-    nvidia.open = true;
-    nvidia.modesetting.enable = true;
+    nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = true;
+      powerManagement.finegrained = false;
+      open = false;
+      nvidiaSettings = false;
+      package = driverPkg;
+    };
   };
 
   # Enable CUPS to print documents.
