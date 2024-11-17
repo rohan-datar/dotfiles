@@ -64,9 +64,8 @@ in {
     gnomeExtensions.dash-to-dock
     libnotify
     glib
-    mako
     copyq
-    blueberry
+    overskride
     waybar
     hyprpaper
     hyprshot
