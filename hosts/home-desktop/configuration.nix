@@ -46,6 +46,7 @@ in {
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     busybox
+    cider
     bitwarden-desktop
     cargo
     clang
