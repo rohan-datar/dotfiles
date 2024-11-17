@@ -10,17 +10,6 @@
     inputs.home-manager.darwinModules.home-manager
   ];
 
-  home-manager = {
-    extraSpecialArgs = {inherit inputs;};
-    users = {
-      rohandatar = {
-        imports = [
-          ./home.nix
-          inputs.catppuccin.homeManagerModules.catppuccin
-        ];
-      };
-    };
-  };
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget

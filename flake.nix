@@ -73,8 +73,17 @@
         pkgs = nixpkgs.legacyPackages."x86_64-linux";
         extraSpecialArgs = {inherit inputs;};
         modules = [
-          ./hosts/home-desktop/home.nix
+          ./hosts/${home-desktop}/home.nix
           catppuccin.homeManagerModules.catppuccin
+        ];
+      };
+
+      rohandatar = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages."aarch64-darwin";
+        extraSpecialArgs = {inherit inputs;};
+        modules = [
+            ./hosts/${macbook}/configuration.nix
+            catppuccin.homeManagerModules.catppuccin
         ];
       };
     };
