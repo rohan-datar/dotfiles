@@ -73,7 +73,6 @@ in {
     wofi
     swaynotificationcenter
     pavucontrol
-    pulseaudio
     brightnessctl
     playerctl
     networkmanager_dmenu
