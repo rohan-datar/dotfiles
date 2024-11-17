@@ -6,9 +6,7 @@
   pkgs,
   inputs,
   ...
-}: let
-  catppuccinHome = inputs.catppuccin.homeManagerModules.catppuccin;
-in {
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -20,19 +18,6 @@ in {
   catppuccin = {
     enable = true;
     flavor = "mocha";
-  };
-
-  home-manager = {
-    backupFileExtension = "backup";
-    extraSpecialArgs = {inherit inputs;};
-    users = {
-      rdatar = {
-        imports = [
-          ./home.nix
-          catppuccinHome
-        ];
-      };
-    };
   };
 
   # Install firefox.

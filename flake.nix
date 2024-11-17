@@ -31,6 +31,8 @@
     nixpkgs,
     nix-darwin,
     nix-homebrew,
+    home-manager,
+    catppuccin,
     ...
   } @ inputs: let
     home-desktop = "home-desktop";
@@ -42,12 +44,11 @@
       modules = [
         ./hosts/${home-desktop}/configuration.nix
         inputs.catppuccin.nixosModules.catppuccin
-        inputs.home-manager.nixosModules.default
       ];
     };
 
     # config for macbook
-    darwinConfigurations.macbook = nix-darwin.lib.darwinSystem {
+    darwinConfigurations.${macbook} = nix-darwin.lib.darwinSystem {
       specialArgs = {inherit inputs;};
       modules = [
         ./hosts/${macbook}/configuration.nix
@@ -65,6 +66,17 @@
           };
         }
       ];
+    };
+
+    homeConfigurations = {
+      rdatar = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages."x86_64-linux";
+        extraSpecialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/home-desktop/home.nix
+          catppuccin.homeManagerModules.catppuccin
+        ];
+      };
     };
   };
 }
