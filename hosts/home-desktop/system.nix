@@ -18,6 +18,7 @@
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelParams = ["nvidia.NVreg_PreserveVideoMemoryAllocations=1"];
 
   networking.hostName = "nixos-home-desktop"; # Define your hostname.
 
@@ -46,11 +47,11 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  boot.kernelParams = ["nvidia.NVreg_PreserveVideoMemoryAllocations=1"];
   # some settings for wayland
   hardware = let
     driverPkg = config.boot.kernelPackages.nvidiaPackages.beta;
   in {
+    bluetooth.enable = true;
     graphics.enable = true;
     nvidia = {
       modesetting.enable = true;

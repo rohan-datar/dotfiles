@@ -65,6 +65,7 @@ in {
     glib
     mako
     copyq
+    blueberry
     waybar
     hyprpaper
     hyprshot
