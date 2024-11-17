@@ -1,65 +1,146 @@
 #!/bin/bash
-
 source "$CONFIG_DIR/colors.sh" # Loads all defined colors
-
-# This is a demo config to show some of the most important commands more easily.
-# This is meant to be changed and configured, as it is intentionally kept sparse.
-# For a more advanced configuration example see my dotfiles:
-# https://github.com/FelixKratz/dotfiles
 
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 ITEM_DIR="$CONFIG_DIR/items"
 
 ##### Bar Appearance #####
-# Configuring the general appearance of the bar, these are only some of the
-# options available. For all options see:
+# Configuring the general appearance of the bar.
+# These are only some of the options available. For all options see:
 # https://felixkratz.github.io/SketchyBar/config/bar
 # If you are looking for other colors, see the color picker:
 # https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
 
+# Animations
+sketchybar --animate sin 30 --bar y_offset=10 y_offset=0
+
+
 sketchybar --bar height=37        \
-                 blur_radius=30   \
+                 margin=2   \
+                 y_offset=0 \
+                 corner_radius=10 \
+                 blur_radius=9   \
+                 blur_radius=100 \
+                 popup.blur_radius=50 \
                  position=top     \
-                 sticky=off       \
+                 sticky=on       \
                  padding_left=10  \
                  padding_right=10 \
+                 padding_bottom=100 \
+                 font_smoothing=on \
+                 topmost=off \
                  color=$BAR_COLOR
 
 ##### Changing Defaults #####
-# We now change some default values that are applied to all further items
+# We now change some default values, which are applied to all further items.
 # For a full list of all available item properties see:
 # https://felixkratz.github.io/SketchyBar/config/items
 
-sketchybar --default icon.font="SF Pro:Semibold:15.0"  \
-                     icon.color=$WHITE                 \
-                     label.font="SF Pro:Semibold:15.0" \
-                     label.color=$WHITE                \
-                     background.color=$ITEM_BG_COLOR       \
-                     background.corner_radius=5            \
-                     background.height=24                  \
-                     padding_left=5                        \
-                     padding_right=5                       \
-                     label.padding_left=4                  \
-                     label.padding_right=10                \
-                     icon.padding_left=10                  \
-                     icon.padding_right=4
+# Liga SFMono Nerd Font:Regular
+#
+# icon.font="JetBrainsMonoNL Nerd Font Propo:Bold Italic:13.0"  \
+# label.font="JetBrainsMonoNL Nerd Font Propo:Bold Italic:13.0" \
+#
+# icon.font="Liga SFMono Nerd Font:Regular:13.0" \
+# label.font="Liga SFMono Nerd Font:Regular:13.0" \
 
-# -- Left Side Items --
-source $ITEM_DIR/spaces.sh
-source $ITEM_DIR/front_app.sh
+
+sketchybar --default icon.font="JetBrainsMonoNL Nerd Font Propo:Bold Italic:11.0"  \
+                     icon.color=$WHITE                    \
+                     label.font="JetBrainsMonoNL Nerd Font Propo:Bold Italic:11.0" \
+                     label.color=$WHITE                   \
+                     background.color=$ITEM_BG_COLOR      \
+                     background.corner_radius=5           \
+                     background.height=20                 \
+                     padding_left=5                       \
+                     padding_right=5                      \
+                     label.padding_left=5                \
+                     label.padding_right=5               \
+                     icon.padding_left=0                 \
+                     icon.padding_right=0
+##### Adding Mission Control Space Indicators #####
+# Let's add some mission control spaces:
+# https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item
+# to indicate active and available mission control spaces.
+#
+
+# - Left side items
+# source $ITEM_DIR/front_app.sh
 
 # -- Right Side Of Notch Items --
-source $ITEM_DIR/media.sh
+# source $ITEM_DIR/media.sh
 
 # -- Right Side Items --
 source $ITEM_DIR/calendar.sh
 source $ITEM_DIR/volume.sh
 source $ITEM_DIR/battery.sh
-source $ITEM_DIR/cpu.sh
+# source $ITEM_DIR/cpu.sh
+
+##### Adding Left Items #####
+# We add some regular items to the left side of the bar, where
+# only the properties deviating from the current defaults need to be set
+
+sketchybar --add item chevron left \
+           --set chevron icon= label.drawing=off \
+           --add item front_app left \
+           --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
+           --subscribe front_app front_app_switched
+
+# sketchybar --add item tmux.attached left \
+# 		       --set tmux.attached \
+# 			     icon.drawing=off  \
+# 			     script="$PLUGIN_DIR/tmux.attached.sh"				\
+# 		       --add event tmux_session_update \
+# 		       --subscribe tmux.attached tmux_session_update
+
+##### Adding Right Items #####
+# In the same way as the left items we can add items to the right side.
+# Additional position (e.g. center) are available, see:
+# https://felixkratz.github.io/SketchyBar/config/items#adding-items-to-sketchybar
+
+# Some items refresh on a fixed cycle, e.g. the clock runs its script once
+# every 10s. Other items respond to events they subscribe to, e.g. the
+# volume.sh script is only executed once an actual change in system audio
+# volume is registered. More info about the event system can be found here:
+# https://felixkratz.github.io/SketchyBar/config/events
+#
+# Add music event
+sketchybar -m --add event song_update com.apple.iTunes.playerInfo
+
+# Add Music Item
+sketchybar -m --add item music right                         \
+    --set music script="~/.config/sketchybar/scripts/music.sh"  \
+    click_script="~/.config/sketchybar/scripts/music_click.sh"  \
+    label.padding_right=10                                   \
+    drawing=off                                              \
+    --subscribe music song_update
+
+sketchybar --add item clock right \
+           --add item volume right \
+           --set volume script="$PLUGIN_DIR/volume.sh" \
+           --subscribe volume volume_change \
+           --add item battery right \
+           --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
+           --subscribe battery system_woke power_source_change
+
+           # --set clock update_freq=10 icon=  script="$PLUGIN_DIR/clock.sh" \
 
 
-##### Finalizing Setup #####
-# The below command is only needed at the end of the initial configuration to
-# force all scripts to run the first time, it should never be run in an item script.
+sketchybar --add event aerospace_workspace_change
+
+for sid in $(aerospace list-workspaces --all); do
+    sketchybar --add item space.$sid left \
+        --subscribe space.$sid aerospace_workspace_change \
+        --set space.$sid \
+        background.color=0x44ffffff \
+        background.corner_radius=5 \
+        background.height=20 \
+        background.drawing=on \
+        label="$sid" \
+        click_script="aerospace workspace $sid" \
+        script="$CONFIG_DIR/plugins/aerospace.sh $sid"
+done
+
+##### Force all scripts to run the first time (never do this in a script) #####
 
 sketchybar --update

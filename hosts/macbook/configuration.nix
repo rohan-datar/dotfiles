@@ -30,6 +30,7 @@
     pngpaste
     aerospace
     sketchybar
+    sketchybar-app-font
   ];
 
   services.sketchybar.enable = true;
