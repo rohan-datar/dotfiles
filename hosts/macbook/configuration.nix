@@ -42,7 +42,6 @@
       "node"
       "mas"
       "openjdk@21"
-      "font-sf-pro"
     ];
 
     casks = [
@@ -56,6 +55,7 @@
       "the-unarchiver"
       "thunderbird"
       "zen-browser"
+      "font-sf-pro"
       "sf-symbols"
     ];
 
