@@ -42,6 +42,7 @@
       "node"
       "mas"
       "openjdk@21"
+      "font-sf-pro"
     ];
 
     casks = [
@@ -55,6 +56,7 @@
       "the-unarchiver"
       "thunderbird"
       "zen-browser"
+      "sf-symbols"
     ];
 
     masApps = {
