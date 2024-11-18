@@ -4,7 +4,7 @@ pushd ~/nix/
 
 # Early return if no changes were detected
 if git diff --quiet '*.nix'; then
-    echo "to changes detected, exiting."
+    echo "no changes detected, exiting."
     popd
     exit 0
 fi
@@ -19,12 +19,12 @@ git diff -U0 '*.nix'
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   echo "NixOS Rebuilding..."
   # Rebuild, output simplified errors, log trackebacks
-  sudo nixos-rebuild switch --flake ~/nix#home-desktop &>nixos-switch.log || (cat nixos-switch.log | grep --color error && exit 1)
+  sudo nixos-rebuild switch --flake ~/nix#home-desktop
   # Get current generation metadata
   current=$(nixos-rebuild list-generations | grep current)
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   echo "Nix Darwin Rebuilding..."
-  darwin-rebuild switch --flake ~/nix#macbook &>nixos-switch.log || (cat nixos-switch.log | grep --color error && exit 1)
+  darwin-rebuild switch --flake ~/nix#macbook
   current=$(darwin-rebuild --list-generations | grep current)
 else
   echo "$OSTYPE not supported"

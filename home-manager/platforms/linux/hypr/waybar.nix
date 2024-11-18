@@ -14,11 +14,13 @@
         # Choose the order of the modules
         modules-left = [
           "hyprland/workspaces"
-        ];
-        modules-center = [
           "hyprland/window"
         ];
+        modules-center = [
+          "mpris"
+        ];
         modules-right = [
+          "bluetooth"
           "network"
           "pulseaudio"
           "clock"
@@ -43,24 +45,36 @@
 
         "pulseaudio" = {
           format = "{icon}  {volume}%";
-          format-muted = "";
+          format-bluetooth= "{volume}% {icon} {format_source}";
+          format-bluetooth-muted= " {icon} {format_source}";
+          format-source= "{volume}% ";
+          format-source-muted= "";
+          format-muted = " {format-source}";
           format-icons = {
+            headphone= " ";
+            hands-free= " ";
+            headset= " ";
+            phone= " ";
+            portable= " ";
+            car= " ";
             default = ["" "" " "];
           };
           on-click = "pavucontrol";
         };
 
+        "bluetooth" = {
+          format= " {status}";
+          # format-disabled= "";
+          # format-off= "";
+          interval= 30;
+          on-click= "blueman-manager";
+          # format-no-controller= "";
+        };
+
         "custom/power" = {
           format = "<span foreground='#f5e0dc'> ⏻ </span>";
-          tooltip = false;
-          menu = "on-click";
-          menu-file = "$HOME/.config/waybar/power_menu.xml"; # Menu file in resources folder
-          menu-actions = {
-            shutdown = "shutdown";
-            reboot = "reboot";
-            suspend = "systemctl suspend";
-            hibernate = "systemctl hibernate";
-          };
+          on-click= "wlogout";
+          tooltip-format= "Power Menu";
         };
 
         "custom/notification" = {
@@ -82,6 +96,19 @@
           "on-click" = "sleep 0.1 && swaync-client -t -sw";
           "on-click-right" = "sleep 0.1 && swaync-client -d -sw";
           escape = true;
+        };
+
+        "mpris" = {
+            format= "{player_icon} {dynamic}";
+            format-paused= "{status_icon} <i>{dynamic}</i>";
+            player-icons= {
+                default= "▶";
+                mpv= "🎵";
+            };
+            status-icons= {
+                paused= "⏸";
+            };
+            # "ignored-players": ["firefox"]
         };
       };
     };
@@ -143,7 +170,7 @@
 
       #pulseaudio,
       #clock,
-      #battery,
+      #bluetooth,
       #cpu,
       #memory,
       #disk,
@@ -173,8 +200,8 @@
       }
 
       #pulseaudio {
-          color: @blue;
-          border-bottom: 2px solid @blue;
+          color: @green;
+          border-bottom: 2px solid @green;
       }
 
       #network {
@@ -191,9 +218,9 @@
           color: @red;
       }
 
-      #battery {
-          color: @green;
-          border-bottom: 2px solid @green;
+      #bluetooth {
+          color: @blue;
+          border-bottom: 2px solid @blue;
       }
 
       /* If workspaces is the leftmost module, omit left margin */
@@ -215,36 +242,4 @@
     '';
   };
 
-  home.file = {
-    ".config/waybar/power_menu.xml".text = ''
-      <?xml version="1.0" encoding="UTF-8"?>
-      <interface>
-        <object class="GtkMenu" id="menu">
-          <child>
-              <object class="GtkMenuItem" id="suspend">
-                  <property name="label">Suspend</property>
-              </object>
-          </child>
-          <child>
-              <object class="GtkMenuItem" id="hibernate">
-                  <property name="label">Hibernate</property>
-              </object>
-          </child>
-          <child>
-              <object class="GtkMenuItem" id="shutdown">
-                  <property name="label">Shutdown</property>
-              </object>
-          </child>
-          <child>
-            <object class="GtkSeparatorMenuItem" id="delimiter1"/>
-          </child>
-          <child>
-              <object class="GtkMenuItem" id="reboot">
-                  <property name="label">Reboot</property>
-              </object>
-          </child>
-        </object>
-      </interface>
-    '';
-  };
 }

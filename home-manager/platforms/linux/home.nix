@@ -16,8 +16,9 @@
   };
 
   home.packages = with pkgs; [
-    overskride
+    blueman
     waybar
+    waybar-mpris
     hyprpaper
     hyprshot
     hyprlock
@@ -29,6 +30,7 @@
     playerctl
     networkmanager_dmenu
     networkmanagerapplet
+    wlogout
   ];
 
   gtk.enable = true;
