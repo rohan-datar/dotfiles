@@ -1,11 +1,11 @@
 {...}: {
   programs.hyprlock = {
     enable = true;
-    # catppuccin = {
-    #   enable = true;
-    #   flavor = "mocha";
-    #   accent = "blue";
-    # };
+    catppuccin = {
+      enable = false;
+      # flavor = "mocha";
+      # accent = "blue";
+    };
 
     settings = {
       # GENERAL
@@ -67,7 +67,8 @@
         inner_color = "$surface0";
         font_color = "$text";
         fade_on_empty = "false";
-        placeholder_text = ''<span foreground="##$textAlpha"><i>󰌾 Logged in as </i><span foreground="##$accentAlpha">$USER</span></span>'';
+        # placeholder_text = ''<span foreground="##$textAlpha"><i>󰌾 Logged in as </i><span foreground="##$accentAlpha">$USER</span></span>'';
+        placeholder_text = "󰌾 Logged in as $USER";
         hide_input = "false";
         check_color = "$accent";
         fail_color = "$red";
