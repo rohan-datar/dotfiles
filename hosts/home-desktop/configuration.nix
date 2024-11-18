@@ -37,7 +37,6 @@
     clang
     gcc
     nodejs
-    wezterm
     lua
     gnumake
     gnome-tweaks
@@ -46,23 +45,9 @@
     ungoogled-chromium
     obsidian
     inputs.zen-browser.packages."${system}".specific
-    gnomeExtensions.dash-to-dock
     libnotify
     glib
     copyq
-    overskride
-    waybar
-    hyprpaper
-    hyprshot
-    hyprlock
-    hypridle
-    wofi
-    swaynotificationcenter
-    pavucontrol
-    brightnessctl
-    playerctl
-    networkmanager_dmenu
-    networkmanagerapplet
   ];
 
   environment.sessionVariables = {

@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    ../../modules/home-manager
+    ../../common
     ./hypr
   ];
 
@@ -14,6 +14,22 @@
     name = "Adwaita";
     size = 38;
   };
+
+  home.packages = with pkgs; [
+    overskride
+    waybar
+    hyprpaper
+    hyprshot
+    hyprlock
+    hypridle
+    wofi
+    swaynotificationcenter
+    pavucontrol
+    brightnessctl
+    playerctl
+    networkmanager_dmenu
+    networkmanagerapplet
+  ];
 
   gtk.enable = true;
 
