@@ -1,11 +1,11 @@
 {...}: {
   programs.hyprlock = {
     enable = true;
-    catppuccin = {
-      enable = true;
-      flavor = "mocha";
-      accent = "blue";
-    };
+    # catppuccin = {
+    #   enable = true;
+    #   flavor = "mocha";
+    #   accent = "blue";
+    # };
 
     settings = {
       # GENERAL
