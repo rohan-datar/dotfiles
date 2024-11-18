@@ -45,36 +45,36 @@
 
         "pulseaudio" = {
           format = "{icon}  {volume}%";
-          format-bluetooth= "{volume}% {icon} {format_source}";
-          format-bluetooth-muted= " {icon} {format_source}";
-          format-source= "{volume}% ";
-          format-source-muted= "";
+          format-bluetooth = "{volume}% {icon} {format_source}";
+          format-bluetooth-muted = " {icon} {format_source}";
+          format-source = "{volume}% ";
+          format-source-muted = "";
           format-muted = " {format-source}";
           format-icons = {
-            headphone= " ";
-            hands-free= " ";
-            headset= " ";
-            phone= " ";
-            portable= " ";
-            car= " ";
+            headphone = " ";
+            hands-free = " ";
+            headset = " ";
+            phone = " ";
+            portable = " ";
+            car = " ";
             default = ["" "" " "];
           };
           on-click = "pavucontrol";
         };
 
         "bluetooth" = {
-          format= " {status}";
+          format = " {status}";
           # format-disabled= "";
           # format-off= "";
-          interval= 30;
-          on-click= "blueman-manager";
+          interval = 30;
+          on-click = "blueman-manager";
           # format-no-controller= "";
         };
 
         "custom/power" = {
           format = "<span foreground='#f5e0dc'> ⏻ </span>";
-          on-click= "wlogout";
-          tooltip-format= "Power Menu";
+          on-click = "wlogout";
+          tooltip-format = "Power Menu";
         };
 
         "custom/notification" = {
@@ -99,23 +99,23 @@
         };
 
         "mpris" = {
-            format= "{player_icon} {dynamic}";
-            format-paused= "{status_icon} <i>{dynamic}</i>";
-            player-icons= {
-                default= "▶";
-                mpv= "🎵";
-            };
-            status-icons= {
-                paused= "⏸";
-            };
-            # "ignored-players": ["firefox"]
+          format = "{player_icon} {dynamic}";
+          format-paused = "{status_icon} <i>{dynamic}</i>";
+          player-icons = {
+            default = "▶";
+            mpv = "🎵";
+          };
+          status-icons = {
+            paused = "⏸";
+          };
+          # "ignored-players": ["firefox"]
         };
       };
     };
 
     style = ''
       * {
-          font-family: "MesloLGS Nerd Font Mono Bold";
+          font-family: "meslolgs nerd font mono bold";
           font-size: 16px;
           min-height: 0;
           font-weight: bold;
@@ -131,9 +131,19 @@
       }
 
       #window {
-          margin: 8px;
-          padding-left: 8;
-          padding-right: 8;
+          color: @flamingo;
+          background: @mantle;
+          margin: 10px 15px 10px 0px;
+          padding: 2px 10px 0px 10px;
+          border-radius: 12px;
+      }
+
+      #mpris {
+          color: @teal;
+          background: @mantle;
+          margin: 10px 15px 10px 0px;
+          padding: 2px 10px 0px 10px;
+          border-radius: 12px;
       }
 
       button {
@@ -223,12 +233,12 @@
           border-bottom: 2px solid @blue;
       }
 
-      /* If workspaces is the leftmost module, omit left margin */
+      /* if workspaces is the leftmost module, omit left margin */
             .modules-left>widget:first-child>#workspaces {
           margin-left: 0;
       }
 
-      /* If workspaces is the rightmost module, omit right margin */
+      /* if workspaces is the rightmost module, omit right margin */
             .modules-right>widget:last-child>#workspaces {
           margin-right: 0;
       }
@@ -241,5 +251,4 @@
       }
     '';
   };
-
 }
