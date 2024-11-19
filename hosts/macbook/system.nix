@@ -61,5 +61,9 @@
 
     # Save screenshots to the desktop
     screencapture.location = "~/Desktop/Screenshots";
+
+    NSGlobalDomain._HIHideMenuBar = true;
+
+    dock.autohide = true;
   };
 }
