@@ -49,7 +49,6 @@
     ];
 
     masApps = {
-      "Amphetamine" = 937984704;
       "Bitwarden" = 1352778147;
       "CopyClip" = 595191960;
       "Keynote" = 409183694;
