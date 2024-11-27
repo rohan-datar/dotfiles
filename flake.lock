@@ -564,11 +564,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1731385337,
-        "narHash": "sha256-RslSc1DnuzqrWtLn7jl8Y/B5U2F8LxZ2t53F4UtrqEs=",
+        "lastModified": 1732750432,
+        "narHash": "sha256-MItNxOPg3dmBUPT2EJZ6J+B4myjarRX06OnNw6nNolY=",
         "owner": "rohan-datar",
         "repo": "zen-browser-flake",
-        "rev": "13d5f8723a3c033570fb4fbd6562a8d265f250e7",
+        "rev": "702f6eca179b84b5d00d803479573c6e7adb99bc",
         "type": "github"
       },
       "original": {
