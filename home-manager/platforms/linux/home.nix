@@ -57,6 +57,7 @@
   #   name = "Catppuccin-GTK";
   #
   # };
+  gtk.enable = true;
   gtk.theme = {
     name = "Catppuccin-GTK";
     package = pkgs.magnetic-catppuccin-gtk.override {
