@@ -36,11 +36,11 @@
 
         "network" = {
           format-wifi = "<span size='13000' foreground='#f5e0dc'>  </span>{essid}";
-          format-ethernet = "<span size='13000' foreground='#f5e0dc'>󰈀  </span> {ipaddr}/{cidr}";
+          format-ethernet = "<span size='13000' foreground='#f5e0dc'>󰈀 </span>";
           format-linked = "{ifname} (No IP) ";
           format-disconnected = "<span size='13000' foreground='#f5e0dc'>  </span>Disconnected";
           tooltip-format-wifi = "Signal Strength: {signalStrength}%";
-          tooltip-format-ethernet = "{ifname} ";
+          tooltip-format-ethernet = "{ipaddr}/{cidr} via {gwaddr}";
           on-click = "networkmanager_dmenu";
         };
 

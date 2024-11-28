@@ -8,11 +8,17 @@
     ./hypr
   ];
 
-  home.pointerCursor = {
-    package = pkgs.adwaita-icon-theme;
-    x11.enable = true;
-    name = "Adwaita";
-    size = 38;
+  # home.pointerCursor = {
+  #   package = pkgs.adwaita-icon-theme;
+  #   x11.enable = true;
+  #   name = "Adwaita";
+  #   size = 38;
+  # };
+
+  catppuccin.pointerCursor = {
+    enable = true;
+    flavor = "mocha";
+    accent = "dark";
   };
 
   home.packages = with pkgs; [
@@ -33,18 +39,31 @@
     wlogout
   ];
 
-  gtk.enable = true;
+  # gtk.catppuccin = {
+  #   enable = true;
+  #   flavor = "mocha";
+  #   accent = "blue";
+  #   size = "standard";
+  #   gnomeShellTheme = true;
+  #   icon = {
+  #     enable = true;
+  #     flavor = "mocha";
+  #     accent = "blue";
+  #   };
+  # };
 
-  gtk.catppuccin = {
-    enable = true;
-    flavor = "mocha";
-    accent = "blue";
-    size = "standard";
-    gnomeShellTheme = true;
-    icon = {
-      enable = true;
-      flavor = "mocha";
-      accent = "blue";
+  # gtk = {
+  #   enable = true;
+  #   name = "Catppuccin-GTK";
+  #
+  # };
+  gtk.theme = {
+    name = "Catppuccin-GTK";
+    package = pkgs.magnetic-catppuccin-gtk.override {
+      tweaks = [
+        "black"
+        "macos"
+      ];
     };
   };
 
