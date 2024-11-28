@@ -37,6 +37,7 @@
     networkmanager_dmenu
     networkmanagerapplet
     wlogout
+    gnomeExtensions.user-themes
   ];
 
   # gtk.catppuccin = {
@@ -65,6 +66,19 @@
         "black"
         "macos"
       ];
+    };
+  };
+
+  dconf.settings = {
+    "org/gnome/shell" = {
+      disable-user-extensions = false;
+      enabled-extensions = ["user-theme@gnome-shell-extensions.gcampax.github.com"];
+    };
+    "org/gnome/shell/extensions/user-theme" = {
+      inherit "Catppuccin-GTK";
+    };
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
     };
   };
 
