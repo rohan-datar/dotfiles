@@ -74,9 +74,7 @@
       disable-user-extensions = false;
       enabled-extensions = ["user-theme@gnome-shell-extensions.gcampax.github.com"];
     };
-    "org/gnome/shell/extensions/user-theme" = {
-      inherit "Catppuccin-GTK";
-    };
+    "org/gnome/shell/extensions/user-theme" = "Catppuccin-GTK";
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
     };
