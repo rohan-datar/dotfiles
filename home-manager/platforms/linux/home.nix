@@ -53,20 +53,15 @@
   #   };
   # };
 
-  # gtk = {
-  #   enable = true;
-  #   name = "Catppuccin-GTK";
-  #
-  # };
   gtk.enable = true;
   gtk.theme = {
     name = "Catppuccin-GTK";
-    package = pkgs.magnetic-catppuccin-gtk.override {
-      tweaks = [
-        "black"
-        "macos"
-      ];
-    };
+    # package = pkgs.magnetic-catppuccin-gtk.override {
+    #   tweaks = [
+    #     "black"
+    #   ];
+    # };
+    package = pkgs.magnetic-catppuccin-gtk;
   };
 
   dconf.settings = {
@@ -74,7 +69,9 @@
       disable-user-extensions = false;
       enabled-extensions = ["user-theme@gnome-shell-extensions.gcampax.github.com"];
     };
-    "org/gnome/shell/extensions/user-theme" = "Catppuccin-GTK";
+    "org/gnome/shell/extensions/user-theme" = {
+      name = "Catppuccin-GTK";
+    };
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
     };
