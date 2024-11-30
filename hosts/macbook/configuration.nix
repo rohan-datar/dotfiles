@@ -19,7 +19,6 @@
     aerospace
     sketchybar
     sketchybar-app-font
-    swift
   ];
 
   services.sketchybar.enable = true;
@@ -32,6 +31,7 @@
       "mas"
       "openjdk@21"
       "switchaudio-osx"
+      "swift"
     ];
 
     casks = [
