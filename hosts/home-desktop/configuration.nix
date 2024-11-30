@@ -40,6 +40,7 @@
     lua
     gnumake
     gnome-tweaks
+    gnome-terminal
     cacert
     wl-clipboard
     ungoogled-chromium
