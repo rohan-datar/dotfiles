@@ -129,7 +129,11 @@
       layout = "us";
       variant = "";
     };
+
+    excludePackages = [pkgs.xterm];
   };
+
+  environment.gnome.excludePackages = [pkgs.gnome-console];
 
   # Enable automatic login for the user.
   # services.displayManager.autoLogin.enable = true;
