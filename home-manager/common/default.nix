@@ -96,7 +96,7 @@
   #
   home.sessionVariables = {
     PATH = "$HOME/go/bin/:$PATH";
-    TERMINAL = "wezterm";
+    TERMINAL = "kitty";
     BROWSER = "zen";
   };
 
