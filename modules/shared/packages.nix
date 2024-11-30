@@ -33,6 +33,8 @@
     discord
     tailscale
     sourcekit-lsp
+    swift
+    zig
   ];
 
   fonts.packages = with pkgs; [
