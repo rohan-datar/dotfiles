@@ -44,7 +44,7 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Catppuccin-GTK";
+      name = "Catppuccin-GTK-Dark";
       package = pkgs.magnetic-catppuccin-gtk;
     };
 
@@ -69,7 +69,7 @@
       enabled-extensions = ["user-theme@gnome-shell-extensions.gcampax.github.com"];
     };
     "org/gnome/shell/extensions/user-theme" = {
-      name = "Catppuccin-GTK";
+      name = "Catppuccin-GTK-Dark";
     };
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
