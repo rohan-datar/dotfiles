@@ -48,6 +48,7 @@
     libnotify
     glib
     copyq
+    gdm-settings
   ];
 
   environment.sessionVariables = {
