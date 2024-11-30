@@ -38,31 +38,30 @@
     networkmanagerapplet
     wlogout
     gnomeExtensions.user-themes
+    magnetic-catppuccin-gtk
   ];
 
-  # gtk.catppuccin = {
-  #   enable = true;
-  #   flavor = "mocha";
-  #   accent = "blue";
-  #   size = "standard";
-  #   gnomeShellTheme = true;
-  #   icon = {
-  #     enable = true;
-  #     flavor = "mocha";
-  #     accent = "blue";
-  #   };
-  # };
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Catppuccin-GTK";
+      package = pkgs.magnetic-catppuccin-gtk;
+    };
 
-  gtk.enable = true;
-  gtk.theme = {
-    name = "Catppuccin-GTK";
-    # package = pkgs.magnetic-catppuccin-gtk.override {
-    #   tweaks = [
-    #     "black"
-    #   ];
-    # };
-    package = pkgs.magnetic-catppuccin-gtk;
+    gtk3.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+
+    gtk4.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
   };
+
+  home.sessionVariables.GTK_THEME = "Catppuccin-GTK";
 
   dconf.settings = {
     "org/gnome/shell" = {
