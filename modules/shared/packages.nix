@@ -32,6 +32,7 @@
     obsidian
     discord
     tailscale
+    sourcekit-lsp
   ];
 
   fonts.packages = with pkgs; [
