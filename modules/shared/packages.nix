@@ -39,10 +39,10 @@
 
   fonts.packages = with pkgs; [
     maple-mono-NF
-    nerdfonts.fira-code
-    nerdfonts.jetbrains-mono
-    nerdfonts.meslo-lg
-    nerdfonts.hack
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.meslo-lg
+    nerd-fonts.hack
     font-awesome
   ];
 }
