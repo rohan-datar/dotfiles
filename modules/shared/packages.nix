@@ -34,6 +34,7 @@
     tailscale
     sourcekit-lsp
     zig
+    tree-sitter
   ];
 
   fonts.packages = with pkgs; [
