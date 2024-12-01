@@ -39,7 +39,10 @@
 
   fonts.packages = with pkgs; [
     maple-mono-NF
-    (nerdfonts.override {fonts = ["FiraCode" "JetBrainsMono" "Meslo" "Hack"];})
+    nerdfonts.fira-code
+    nerdfonts.jetbrains-mono
+    nerdfonts.meslo-lg
+    nerdfonts.hack
     font-awesome
   ];
 }
