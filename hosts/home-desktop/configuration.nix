@@ -49,6 +49,7 @@
     libnotify
     glib
     copyq
+    swift
   ];
 
   environment.sessionVariables = {

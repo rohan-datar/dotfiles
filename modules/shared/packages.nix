@@ -33,7 +33,6 @@
     discord
     tailscale
     sourcekit-lsp
-    swift
     zig
   ];
 
