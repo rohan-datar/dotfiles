@@ -18,7 +18,11 @@
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelParams = ["nvidia.NVreg_PreserveVideoMemoryAllocations=1"];
+  boot.kernelParams = [
+    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+    "nvidia-drm.modeset=1"
+    "nvidia-drm.fbdev=1"
+  ];
 
   networking.hostName = "nixos-home-desktop"; # Define your hostname.
 
