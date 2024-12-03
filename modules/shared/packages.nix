@@ -5,6 +5,7 @@
 }: {
   environment.systemPackages = with pkgs; [
     alejandra
+    kitty
     neofetch
     bat
     python3
