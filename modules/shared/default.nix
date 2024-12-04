@@ -10,7 +10,6 @@
 
   environment.shellAliases = {
     vim = "nvim";
-    c = "clear";
 
     # ls aliases
     ls = "ls --color";
