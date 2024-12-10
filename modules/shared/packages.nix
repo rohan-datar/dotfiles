@@ -35,6 +35,7 @@
     sourcekit-lsp
     zig
     tree-sitter
+    aoc-cli
   ];
 
   fonts.packages = with pkgs; [
