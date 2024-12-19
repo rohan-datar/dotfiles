@@ -30,6 +30,15 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # this is to make sure that the nvim wrapper app opens with kitty
+    (lib.hiPrio (pkgs.runCommand "nvim.desktop-hide" {} ''
+      mkdir -p "$out/share/applications"
+      cat "${config.programs.neovim.finalPackage}/share/applications/nvim.desktop" > "$out/share/applications/nvim.desktop"
+      substituteInPlace $out/share/applications/nvim.desktop \
+        --replace-fail "Exec=nvim %F" "Exec=sh -c \"\$TERMINAL nvim %F\"" \
+        --replace-fail "Terminal=true" "Terminal=false"
+    ''))
+
     busybox
     cider
     bitwarden-desktop
@@ -58,17 +67,6 @@
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
   };
-
-  # this is to make sure that the nvim wrapper app opens with kitty
-  environment.systemPackages = [
-    (lib.hiPrio (pkgs.runCommand "nvim.desktop-hide" {} ''
-      mkdir -p "$out/share/applications"
-      cat "${config.programs.neovim.finalPackage}/share/applications/nvim.desktop" > "$out/share/applications/nvim.desktop"
-      substituteInPlace $out/share/applications/nvim.desktop \
-        --replace-fail "Exec=nvim %F" "Exec=sh -c \"\$TERMINAL nvim %F\"" \
-        --replace-fail "Terminal=true" "Terminal=false"
-    ''))
-  ];
 
   environment.variables.EDITOR = "neovim";
 
