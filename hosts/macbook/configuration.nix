@@ -32,6 +32,7 @@
       "openjdk@21"
       "switchaudio-osx"
       "swift"
+      "swift-format"
     ];
 
     casks = [
