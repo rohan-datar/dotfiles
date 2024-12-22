@@ -18,7 +18,8 @@
       "$menu" = "wofi --show drun";
 
       exec-once = [
-        "waybar & hyprpaper & swaync & hypridle"
+        "waybar 2>&1 > ~/somelog.txt &"
+        "hyprpaper & swaync & hypridle"
       ];
 
       xwayland = {
