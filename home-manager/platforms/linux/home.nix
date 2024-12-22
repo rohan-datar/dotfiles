@@ -15,7 +15,7 @@
   #   size = 38;
   # };
 
-  catppuccin.pointerCursor = {
+  catppuccin.cursors = {
     enable = true;
     flavor = "mocha";
     accent = "dark";
