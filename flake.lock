@@ -624,11 +624,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1735025486,
-        "narHash": "sha256-vegCNs9bW8Xu0lRTddKwFk9uCg/MbkiNsPEEhlM84L4=",
+        "lastModified": 1735026188,
+        "narHash": "sha256-TkV42PgIaxMLweYT42jMp1LEMvln7rN0ZU1m4uXHVVw=",
         "owner": "rohan-datar",
         "repo": "zen-browser-flake",
-        "rev": "cee2c321caf0651b751eaf4448660cba44c34bc0",
+        "rev": "754a1d1280819243eb6e12472d8a6a7889dd1acc",
         "type": "github"
       },
       "original": {
