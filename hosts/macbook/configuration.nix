@@ -48,6 +48,7 @@
       "zen-browser"
       "font-sf-pro"
       "sf-symbols"
+      "ghostty"
     ];
 
     masApps = {
