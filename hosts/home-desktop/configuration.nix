@@ -54,7 +54,6 @@
     copyq
     swift
     thunderbird
-    mailspring
   ];
 
   environment.sessionVariables = {
