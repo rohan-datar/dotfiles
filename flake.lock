@@ -923,11 +923,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1735026188,
-        "narHash": "sha256-TkV42PgIaxMLweYT42jMp1LEMvln7rN0ZU1m4uXHVVw=",
+        "lastModified": 1735365323,
+        "narHash": "sha256-pdI2qOv8Q+pLqkY9GycuEoqcIxX++l8/3aDFyDxhKBE=",
         "owner": "rohan-datar",
         "repo": "zen-browser-flake",
-        "rev": "754a1d1280819243eb6e12472d8a6a7889dd1acc",
+        "rev": "2f027304d31083b9971621343cde2dcfd4486c4f",
         "type": "github"
       },
       "original": {
