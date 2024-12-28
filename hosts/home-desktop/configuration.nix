@@ -13,6 +13,7 @@
     ./system.nix
     ../../modules/shared
     inputs.home-manager.nixosModules.home-manager
+    ./overlays.nix
   ];
 
   catppuccin = {
