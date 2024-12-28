@@ -32,7 +32,7 @@
   # plain files is through 'home.file'.
   home.file = {
     ".config/ghostty" = {
-      source = ./ghostty/config;
+      source = ./ghostty;
     };
   };
 
