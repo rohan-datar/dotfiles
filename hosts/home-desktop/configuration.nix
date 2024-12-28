@@ -53,6 +53,7 @@
     glib
     copyq
     swift
+    bluemail
   ];
 
   environment.sessionVariables = {
