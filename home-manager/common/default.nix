@@ -38,7 +38,7 @@
 
   programs = {
     kitty = {
-      enable = false;
+      enable = true;
       font = {
         name = "Maple Mono NF";
         size = 16;

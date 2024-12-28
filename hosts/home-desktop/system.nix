@@ -19,6 +19,7 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
+    "initcall_blacklist=simpledrm_platform_driver_init"
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     "nvidia-drm.modeset=1"
     "nvidia-drm.fbdev=1"
