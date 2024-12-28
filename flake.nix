@@ -24,6 +24,9 @@
 
     # hyprland window manager
     hyprland.url = "github:hyprwm/Hyprland";
+
+    # Ghostty Terminal
+    ghostty. url = "github:ghostty-org/ghostty";
   };
 
   outputs = {
