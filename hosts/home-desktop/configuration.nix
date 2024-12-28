@@ -53,7 +53,7 @@
     glib
     copyq
     swift
-    evolution
+    thunderbird
   ];
 
   environment.sessionVariables = {
