@@ -139,6 +139,7 @@
   };
 
   environment.gnome.excludePackages = [pkgs.gnome-console];
+  services.gnome.gnome-keyring.enable = true;
 
   # Enable automatic login for the user.
   # services.displayManager.autoLogin.enable = true;
