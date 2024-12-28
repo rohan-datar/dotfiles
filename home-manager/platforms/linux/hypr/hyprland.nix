@@ -7,7 +7,10 @@
     enable = true;
     settings = {
       # keep automatic monitor config
-      "monitor" = ",preferred,auto,auto";
+      "monitor" = [
+        ",preferred,auto,auto"
+        "HDMI-A-1,preferred,auto,auto"
+      ];
 
       # set alt as the mod key
       "$mainMod" = "Alt";
