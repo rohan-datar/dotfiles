@@ -13,7 +13,7 @@
       "$mainMod" = "Alt";
 
       # Set programs that you use
-      "$terminal" = "kitty";
+      "$terminal" = "ghostty";
       "$fileManager" = "nautilus";
       "$menu" = "wofi --show drun";
 
