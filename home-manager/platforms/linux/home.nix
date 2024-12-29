@@ -90,6 +90,18 @@
       --replace-fail "Terminal=true" "Terminal=false"
   ''}/nvim.desktop";
 
+  programs.kitty = {
+    enable = true;
+    font = {
+      name = "Maple Mono NF";
+      size = 16;
+    };
+    settings = {
+      background_opacity = 0.85;
+      background_blur = 16;
+    };
+  };
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "rdatar";

@@ -38,17 +38,6 @@
   };
 
   programs = {
-    kitty = {
-      enable = true;
-      font = {
-        name = "Maple Mono NF";
-        size = 16;
-      };
-      settings = {
-        background_opacity = 0.85;
-        background_blur = 16;
-      };
-    };
     nix-index = {
       enable = true;
       enableBashIntegration = true;
