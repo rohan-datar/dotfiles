@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     # Zen browser
@@ -36,6 +41,7 @@
     nix-homebrew,
     home-manager,
     catppuccin,
+    agenix,
     ...
   } @ inputs: let
     home-desktop = "home-desktop";
@@ -46,7 +52,8 @@
       specialArgs = {inherit inputs;};
       modules = [
         ./hosts/${home-desktop}/configuration.nix
-        inputs.catppuccin.nixosModules.catppuccin
+        catppuccin.nixosModules.catppuccin
+        agenix.nixosModules.default
       ];
     };
 
@@ -67,6 +74,7 @@
             autoMigrate = true;
           };
         }
+        agenix.darwinModules.default
       ];
     };
 

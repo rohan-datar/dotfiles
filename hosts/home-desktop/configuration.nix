@@ -12,7 +12,6 @@
     ./hardware-configuration.nix
     ./system.nix
     ../../modules/shared
-    inputs.home-manager.nixosModules.home-manager
     ./overlays.nix
   ];
 
@@ -57,7 +56,7 @@
   ];
 
   environment.sessionVariables = {
-    TERMINAL = "kitty";
+    TERMINAL = "ghostty";
     DEFAULT_BROWSER = "zen";
     NIXOS_OZONE_WL = "1";
   };

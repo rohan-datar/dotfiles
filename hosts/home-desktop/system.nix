@@ -25,7 +25,7 @@
     "nvidia-drm.fbdev=1"
   ];
 
-  networking.hostName = "nixos-home-desktop"; # Define your hostname.
+  networking.hostName = "home-desktop"; # Define your hostname.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -33,6 +33,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  services.openssh.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
@@ -101,8 +102,6 @@
     substituters = ["https://hyprland.cachix.org"];
     trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
   };
-
-  services.openssh.enable = true;
 
   programs.hyprland = {
     enable = true;
