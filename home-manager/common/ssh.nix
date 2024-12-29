@@ -9,6 +9,7 @@
 
       "homemedia" = {
         hostname = "media.rdatar.com";
+        user = "rdatar";
         identityFile = "~/.ssh/id_ed25519";
       };
     };
