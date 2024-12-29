@@ -35,6 +35,7 @@
     zig
     tree-sitter
     aoc-cli
+    agenix.packages.${system}.default
   ];
 
   fonts.packages = with pkgs; [
