@@ -22,7 +22,10 @@
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     # Zen browser
-    zen-browser.url = "github:rohan-datar/zen-browser-flake";
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # catpuccin color scheme
     catppuccin.url = "github:catppuccin/nix";
