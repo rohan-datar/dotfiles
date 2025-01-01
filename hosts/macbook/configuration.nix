@@ -19,7 +19,6 @@
     aerospace
     sketchybar
     sketchybar-app-font
-    swiftbar
   ];
 
   services.sketchybar.enable = true;
