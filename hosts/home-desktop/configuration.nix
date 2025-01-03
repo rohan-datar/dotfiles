@@ -54,6 +54,15 @@
     thunderbird
     cifs-utils
   ];
+  age.secrets.smbcredentials.file = ../../secrets/smbcredentials.age;
+  filesystems."/mnt/data-share" = {
+    device = "10.10.1.10/data-share";
+    fsType = "cifs";
+    options = let
+      # this line prevents hanging on network split
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+    in ["${automount_opts},credentials=${config.age.secrets.smbcredentials.path},uid=1000,gid=3000"];
+  };
 
   environment.sessionVariables = {
     TERMINAL = "ghostty";
