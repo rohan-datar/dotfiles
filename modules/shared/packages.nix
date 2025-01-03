@@ -31,7 +31,6 @@
     nix-index
     obsidian
     discord
-    tailscale
     sourcekit-lsp
     zig
     tree-sitter
