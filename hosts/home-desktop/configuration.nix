@@ -55,7 +55,7 @@
     cifs-utils
   ];
   age.secrets.smbcredentials.file = ../../secrets/smbcredentials.age;
-  filesystems."/mnt/data-share" = {
+  fileSystems."/mnt/data-share" = {
     device = "10.10.1.10/data-share";
     fsType = "cifs";
     options = let
