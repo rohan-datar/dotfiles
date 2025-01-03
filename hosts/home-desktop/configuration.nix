@@ -62,7 +62,7 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  environment.variables.EDITOR = "neovim";
+  environment.variables.EDITOR = "nvim";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
