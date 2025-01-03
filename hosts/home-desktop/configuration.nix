@@ -53,6 +53,7 @@
     copyq
     swift
     thunderbird
+    cifs-utils
   ];
 
   environment.sessionVariables = {
