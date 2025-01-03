@@ -56,7 +56,7 @@
   ];
   age.secrets.smbcredentials.file = ../../secrets/smbcredentials.age;
   fileSystems."/mnt/data-share" = {
-    device = "10.10.1.10/data-share";
+    device = "//10.10.1.10/data-share";
     fsType = "cifs";
     options = let
       # this line prevents hanging on network split
