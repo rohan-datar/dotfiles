@@ -33,7 +33,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.namservers = ["10.10.0.1" "1.1.1.1"];
+  networking.nameservers = ["10.10.0.1" "1.1.1.1"];
   services.openssh.enable = true;
 
   # Set your time zone.
