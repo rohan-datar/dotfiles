@@ -70,8 +70,6 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  services.flaresolverr.enable = true;
-
   environment.variables.EDITOR = "nvim";
 
   # This value determines the NixOS release from which the default
