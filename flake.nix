@@ -35,8 +35,6 @@
 
     # Ghostty Terminal
     ghostty. url = "github:ghostty-org/ghostty";
-
-    nixarr.url = "github:rohan-datar/nixarr";
   };
 
   outputs = {
@@ -47,7 +45,6 @@
     home-manager,
     catppuccin,
     agenix,
-    nixarr,
     ...
   } @ inputs: let
     home-desktop = "home-desktop";
@@ -60,7 +57,6 @@
         ./hosts/${home-desktop}/configuration.nix
         catppuccin.nixosModules.catppuccin
         agenix.nixosModules.default
-        nixarr.nixosModules.default
       ];
     };
 
