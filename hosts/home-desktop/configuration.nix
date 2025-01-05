@@ -15,6 +15,11 @@
     # ./overlays.nix
   ];
 
+  nixarr = {
+    enable = true;
+    flaresolverr.enable = true;
+  };
+
   catppuccin = {
     enable = true;
     flavor = "mocha";
