@@ -20,10 +20,6 @@
     flavor = "mocha";
   };
 
-  services.jellyseer = {
-    enable = true;
-    configDir = ../../../Desktop/jellyseerr;
-  };
   # Install firefox.
   programs.firefox.enable = true;
 
