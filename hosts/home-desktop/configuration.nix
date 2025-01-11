@@ -20,6 +20,10 @@
     flavor = "mocha";
   };
 
+  services.jellyseerr = {
+    enable = true;
+    configDir = "/home/rdatar/Desktop/";
+  };
   # Install firefox.
   programs.firefox.enable = true;
 
