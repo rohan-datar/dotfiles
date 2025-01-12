@@ -22,6 +22,7 @@
     swiftlint
     swift-format
     xcbeautify
+    rubyPackages.xcodeproj
   ];
 
   services.sketchybar.enable = true;
