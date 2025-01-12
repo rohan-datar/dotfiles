@@ -36,6 +36,7 @@
     tree-sitter
     aoc-cli
     inputs.agenix.packages.${system}.default
+    lldb
   ];
 
   fonts.packages = with pkgs; [
