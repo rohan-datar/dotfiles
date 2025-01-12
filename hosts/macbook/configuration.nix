@@ -21,6 +21,7 @@
     sketchybar-app-font
     swiftlint
     swift-format
+    xcbeautify
   ];
 
   services.sketchybar.enable = true;
