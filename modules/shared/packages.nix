@@ -37,6 +37,7 @@
     aoc-cli
     inputs.agenix.packages.${system}.default
     lldb
+    lua-language-server
   ];
 
   fonts.packages = with pkgs; [
