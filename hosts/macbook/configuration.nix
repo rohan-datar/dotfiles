@@ -38,6 +38,7 @@
       "swift"
       "xcode-build-server"
       "pkl"
+      "spim"
     ];
 
     casks = [

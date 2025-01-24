@@ -40,6 +40,7 @@
     lua-language-server
     stylua
     javaCup
+    jflex
   ];
 
   fonts.packages = with pkgs; [
