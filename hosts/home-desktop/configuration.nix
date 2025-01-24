@@ -53,6 +53,7 @@
     swift
     thunderbird
     cifs-utils
+    xspim
   ];
   age.secrets.smbcredentials.file = ../../secrets/smbcredentials.age;
   fileSystems."/mnt/data-share" = {
