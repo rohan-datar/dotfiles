@@ -39,6 +39,7 @@
     lldb
     lua-language-server
     stylua
+    java-cup
   ];
 
   fonts.packages = with pkgs; [
