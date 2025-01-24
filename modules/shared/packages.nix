@@ -38,6 +38,7 @@
     inputs.agenix.packages.${system}.default
     lldb
     lua-language-server
+    stylua
   ];
 
   fonts.packages = with pkgs; [
