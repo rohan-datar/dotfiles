@@ -14,12 +14,12 @@
     settings = {
       preload = [
         "~/.local/share/backgrounds/nixos-wallpaper-catppuccin-mocha.png"
-        "~/.local/share/backgrounds/Cloudsnight.jpg"
+        # "~/.local/share/backgrounds/Cloudsnight.jpg"
       ];
 
       wallpaper = [
         ",~/.local/share/backgrounds/nixos-wallpaper-catppuccin-mocha.png"
-        ",~/.local/share/backgrounds/Cloudsnight.jpg"
+        # ",~/.local/share/backgrounds/Cloudsnight.jpg"
       ];
     };
   };
