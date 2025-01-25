@@ -12,7 +12,7 @@
     ./hardware-configuration.nix
     ./system.nix
     ../../modules/shared
-    # ./overlays.nix
+    ./overlays.nix
   ];
 
   catppuccin = {
