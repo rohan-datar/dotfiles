@@ -41,6 +41,7 @@
     stylua
     javaCup
     jflex
+    jdt-language-server
   ];
 
   fonts.packages = with pkgs; [
