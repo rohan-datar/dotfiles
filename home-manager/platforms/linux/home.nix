@@ -40,7 +40,8 @@
     wlogout
     gnomeExtensions.user-themes
     magnetic-catppuccin-gtk
-    inputs.ghostty.packages.x86_64-linux.default
+    ghostty
+    # inputs.ghostty.packages.x86_64-linux.default
   ];
 
   gtk = {

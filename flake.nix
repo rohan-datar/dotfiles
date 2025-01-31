@@ -34,7 +34,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
 
     # Ghostty Terminal
-    ghostty. url = "github:ghostty-org/ghostty";
+    # ghostty. url = "github:ghostty-org/ghostty";
   };
 
   outputs = {

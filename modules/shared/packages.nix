@@ -5,6 +5,7 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
+    # ghostty
     alejandra
     neofetch
     bat
