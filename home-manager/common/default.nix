@@ -65,6 +65,7 @@
     PATH = "$HOME/go/bin/:$PATH";
     TERMINAL = "kitty";
     BROWSER = "zen";
+    MANPAGER="nvim '+Man!'-"
   };
 
   home.shellAliases = {
