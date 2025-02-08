@@ -37,7 +37,7 @@
     tree-sitter
     aoc-cli
     inputs.agenix.packages.${system}.default
-    lldb
+    # lldb
     lua-language-server
     stylua
     javaCup
