@@ -43,6 +43,7 @@
     javaCup
     jflex
     jdt-language-server
+    btop
   ];
 
   fonts.packages = with pkgs; [
