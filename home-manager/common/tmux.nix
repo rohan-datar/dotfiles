@@ -68,12 +68,12 @@ in {
         '';
       }
 
-      # {
-      #   plugin = tmuxPlugins.resurrect;
-      #   extraConfig = ''
-      #     set -g @resurrect-capture-pane-contents 'on'
-      #   '';
-      # }
+      {
+        plugin = tmuxPlugins.resurrect;
+        extraConfig = ''
+          set -g @resurrect-capture-pane-contents 'on'
+        '';
+      }
 
       {
         plugin = tmuxPlugins.continuum;
