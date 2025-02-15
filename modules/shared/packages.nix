@@ -44,6 +44,7 @@
     jflex
     jdt-language-server
     btop
+    wireguard-ui
   ];
 
   fonts.packages = with pkgs; [
