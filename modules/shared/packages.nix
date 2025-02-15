@@ -37,14 +37,13 @@
     tree-sitter
     aoc-cli
     inputs.agenix.packages.${system}.default
-    # lldb
+    lldb
     lua-language-server
     stylua
     javaCup
     jflex
     jdt-language-server
     btop
-    wireguard-ui
   ];
 
   fonts.packages = with pkgs; [
