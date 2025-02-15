@@ -64,6 +64,7 @@
       "Numbers" = 409203825;
       "Pages" = 409201541;
       "Xcode" = 497799835;
+      "WireGuard" = 1451685025;
     };
     onActivation.cleanup = "zap";
     onActivation.autoUpdate = true;
