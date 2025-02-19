@@ -66,7 +66,7 @@
       powerManagement.finegrained = false;
       open = false;
       nvidiaSettings = false;
-      # package = driverPkg;
+      package = driverPkg;
     };
   };
 
