@@ -105,14 +105,6 @@
     };
   };
 
-  wayland.windowManager.sway = {
-    enable = true;
-    config = rec {
-      terminal = "ghostty";
-      modifier = "Mod1";
-    };
-  };
-
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "rdatar";
