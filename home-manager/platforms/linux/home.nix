@@ -109,7 +109,7 @@
     enable = true;
     config = rec {
       terminal = "ghostty";
-      modifier = "Alt";
+      modifier = "Mod1";
     };
   };
 
