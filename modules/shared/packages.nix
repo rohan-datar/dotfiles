@@ -44,6 +44,7 @@
     jflex
     jdt-language-server
     btop
+    bat
   ];
 
   fonts.packages = with pkgs; [

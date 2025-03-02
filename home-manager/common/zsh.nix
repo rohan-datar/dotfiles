@@ -29,6 +29,7 @@
     shellAliases = {
       lg = "lazygit";
       c = "clear";
+      cat = "bat";
     };
 
     initExtra = ''
