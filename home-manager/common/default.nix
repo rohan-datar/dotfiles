@@ -72,6 +72,7 @@
 
   home.shellAliases = {
     vim = "nvim";
+    cat = "bat";
   };
 
   # Let Home Manager install and manage itself.
