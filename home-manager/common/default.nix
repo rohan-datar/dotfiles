@@ -43,6 +43,8 @@
       enableBashIntegration = true;
       enableZshIntegration = true;
     };
+
+    bat.enable = true;
   };
 
   # Home Manager can also manage your environment variables through
@@ -63,7 +65,7 @@
   #
   home.sessionVariables = {
     PATH = "$HOME/go/bin/:$PATH";
-    TERMINAL = "kitty";
+    TERMINAL = "ghostty";
     BROWSER = "zen";
     MANPAGER = "nvim '+Man!'-";
   };
