@@ -26,6 +26,12 @@
     "nvidia-drm.fbdev=1"
   ];
 
+  # allows for running binaries compiled for different architectures
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+    "x86_64-windows"
+  ];
+
   networking.hostName = "home-desktop"; # Define your hostname.
 
   # Configure network proxy if necessary
