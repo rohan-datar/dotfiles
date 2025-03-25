@@ -48,7 +48,7 @@
   ];
 
   fonts.packages = with pkgs; [
-    maple-mono-NF
+    maple-mono.NF
     nerd-fonts.fira-code
     nerd-fonts.jetbrains-mono
     nerd-fonts.meslo-lg
