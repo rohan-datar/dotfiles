@@ -84,7 +84,7 @@
         extraSpecialArgs = {inherit inputs;};
         modules = [
           ./home-manager/platforms/linux/home.nix
-          catppuccin.homeManagerModules.catppuccin
+          catppuccin.homeModules.catppuccin
         ];
       };
 
@@ -93,7 +93,7 @@
         extraSpecialArgs = {inherit inputs;};
         modules = [
           ./home-manager/platforms/macos/home.nix
-          catppuccin.homeManagerModules.catppuccin
+          catppuccin.homeModules.catppuccin
         ];
       };
     };
