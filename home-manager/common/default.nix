@@ -68,7 +68,6 @@
     TERMINAL = "ghostty";
     BROWSER = "zen";
     MANPAGER = "nvim '+Man!'-";
-    MANPATH = "";
   };
 
   home.shellAliases = {
