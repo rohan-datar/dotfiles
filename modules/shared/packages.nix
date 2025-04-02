@@ -45,6 +45,7 @@
     jdt-language-server
     btop
     bat
+    man-pages
   ];
 
   fonts.packages = with pkgs; [
