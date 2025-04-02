@@ -14,6 +14,7 @@
       devices = ["nodev"];
       efiSupport = true;
       useOSProber = true;
+      configurationLimit = 50;
     };
   };
 
@@ -150,7 +151,7 @@
   nix.gc = {
     automatic = true;
     randomizedDelaySec = "14m";
-    options = "--delete-older-than 10d";
+    options = "--delete-older-than 15d";
   };
 
   # Enable automatic login for the user.
