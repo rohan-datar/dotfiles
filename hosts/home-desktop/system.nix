@@ -147,6 +147,12 @@
 
   environment.gnome.excludePackages = [pkgs.gnome-console];
 
+  nix.gc = {
+    automatic = true;
+    randomizedDelaySec = "14m";
+    options = "--delete-older-than 10d";
+  };
+
   # Enable automatic login for the user.
   # services.displayManager.autoLogin.enable = true;
   # services.displayManager.autoLogin.user = "rdatar";
