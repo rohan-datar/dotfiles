@@ -57,4 +57,10 @@
     nerd-fonts.hack
     font-awesome
   ];
+
+  documentation = {
+    enable = true;
+    man.enable = true;
+    info.enable = true;
+  }
 }
