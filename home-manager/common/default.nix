@@ -9,6 +9,7 @@
     ./zsh.nix
     ./starship.nix
     ./ssh.nix
+    ./git.nix
   ];
 
   catppuccin = {
