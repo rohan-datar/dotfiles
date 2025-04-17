@@ -65,6 +65,7 @@
       "Pages" = 409201541;
       "Xcode" = 497799835;
       "WireGuard" = 1451685025;
+      "Beeper" = 6499013100;
     };
     onActivation.cleanup = "zap";
     onActivation.autoUpdate = true;
