@@ -49,7 +49,7 @@
     inputs.zen-browser.packages."${system}".default
     libnotify
     glib
-    copyq
+    # copyq
     swift
     thunderbird
     cifs-utils
