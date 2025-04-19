@@ -9,18 +9,18 @@
     ./hypr
   ];
 
-  # home.pointerCursor = {
-  #   package = pkgs.adwaita-icon-theme;
-  #   x11.enable = true;
-  #   name = "Adwaita";
-  #   size = 38;
-  # };
-
-  catppuccin.cursors = {
-    enable = true;
-    flavor = "mocha";
-    accent = "dark";
+  home.pointerCursor = {
+    package = pkgs.adwaita-icon-theme;
+    x11.enable = true;
+    name = "Adwaita";
+    size = 38;
   };
+
+  # catppuccin.cursors = {
+  #   enable = true;
+  #   flavor = "mocha";
+  #   accent = "dark";
+  # };
 
   home.packages = with pkgs; [
     blueman
@@ -41,7 +41,6 @@
     gnomeExtensions.user-themes
     magnetic-catppuccin-gtk
     ghostty
-    # inputs.ghostty.packages.x86_64-linux.default
   ];
 
   gtk = {
