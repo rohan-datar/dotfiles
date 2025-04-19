@@ -179,25 +179,11 @@
         ]
       },
       "locked": {
-<<<<<<< HEAD
-        "lastModified": 1745272532,
-        "narHash": "sha256-+sFbKw1vFkulKYxsAbz84N0V/goSg808IgFh8iWe/As=",
-||||||| parent of 61bf2e6 (211 current  2025-04-18 23:47:24  25.05.20250417.b024ced  6.12.23                          *)
-        "lastModified": 1744919155,
-        "narHash": "sha256-IJksPW32V9gid9vDxoloJMRk+YGjxq5drFHBFeBkKU8=",
-=======
         "lastModified": 1745033012,
         "narHash": "sha256-KjBMsjCzIOWgDqTZMYIriPFmHiQcCb2RhuDh5JF0VVc=",
->>>>>>> 61bf2e6 (211 current  2025-04-18 23:47:24  25.05.20250417.b024ced  6.12.23                          *)
         "owner": "nix-community",
         "repo": "home-manager",
-<<<<<<< HEAD
-        "rev": "81541ea36d1fead4be7797e826ee325d4c19308b",
-||||||| parent of 61bf2e6 (211 current  2025-04-18 23:47:24  25.05.20250417.b024ced  6.12.23                          *)
-        "rev": "72526a5f7cde2ef9075637802a1e2a8d2d658f70",
-=======
         "rev": "ae84885d9b6b62dc58ccd300e9ab321a3fd9f9c7",
->>>>>>> 61bf2e6 (211 current  2025-04-18 23:47:24  25.05.20250417.b024ced  6.12.23                          *)
         "type": "github"
       },
       "original": {
@@ -301,25 +287,11 @@
         "xdph": "xdph"
       },
       "locked": {
-<<<<<<< HEAD
-        "lastModified": 1745271027,
-        "narHash": "sha256-HlfNGLjNog0aPcKYaw7Pps3j1ZMZO6LaFenWVCtPfm0=",
-||||||| parent of 61bf2e6 (211 current  2025-04-18 23:47:24  25.05.20250417.b024ced  6.12.23                          *)
         "lastModified": 1744921985,
         "narHash": "sha256-to3lo8FYzHl4Z0O30wHprOZHUQdKYvAecWyX+zdoEEY=",
-=======
-        "lastModified": 1745018190,
-        "narHash": "sha256-A+qY3YZp9/J6EDaRsCxbfAm6yBJuPtBRnn7pu4HituQ=",
->>>>>>> 61bf2e6 (211 current  2025-04-18 23:47:24  25.05.20250417.b024ced  6.12.23                          *)
         "owner": "hyprwm",
         "repo": "Hyprland",
-<<<<<<< HEAD
-        "rev": "a4f7d7c594c70408f299ec8b794211c534709eaa",
-||||||| parent of 61bf2e6 (211 current  2025-04-18 23:47:24  25.05.20250417.b024ced  6.12.23                          *)
         "rev": "ddae3036ca6a1729ffe7854a59184116d2622809",
-=======
-        "rev": "f48ee7a3d17810c9a0bf229fc3131e15b09ef179",
->>>>>>> 61bf2e6 (211 current  2025-04-18 23:47:24  25.05.20250417.b024ced  6.12.23                          *)
         "type": "github"
       },
       "original": {
@@ -749,25 +721,11 @@
         ]
       },
       "locked": {
-<<<<<<< HEAD
-        "lastModified": 1745111733,
-        "narHash": "sha256-FVsS0LcSYwt4qiw1inlI8F9dc7PZaRaWAr4vqvvnekg=",
-||||||| parent of 61bf2e6 (211 current  2025-04-18 23:47:24  25.05.20250417.b024ced  6.12.23                          *)
-        "lastModified": 1744910227,
-        "narHash": "sha256-qDAz+M2ZsqMEtar8WCkNkppDnXop83wB2GL66GbL1Lo=",
-=======
         "lastModified": 1745024827,
         "narHash": "sha256-NjYyRsHrWwUVjbd78FV8E/HZC+gH4CYS6Qnjh2O29b4=",
->>>>>>> 61bf2e6 (211 current  2025-04-18 23:47:24  25.05.20250417.b024ced  6.12.23                          *)
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-<<<<<<< HEAD
-        "rev": "67df3e64a216db8ac3c8bc669143af090bf4e6ad",
-||||||| parent of 61bf2e6 (211 current  2025-04-18 23:47:24  25.05.20250417.b024ced  6.12.23                          *)
-        "rev": "df60f61389c91f9db119cebc450580ede16d316f",
-=======
         "rev": "e6893892b832d92f1ceb508fcdae250d41927b38",
->>>>>>> 61bf2e6 (211 current  2025-04-18 23:47:24  25.05.20250417.b024ced  6.12.23                          *)
         "type": "github"
       },
       "original": {
