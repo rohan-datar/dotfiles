@@ -32,7 +32,7 @@
   environment.systemPackages = with pkgs; [
     kitty
     busybox
-    cider
+    cider-2
     bitwarden-desktop
     cargo
     clang
