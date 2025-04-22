@@ -29,9 +29,6 @@
 
     # catpuccin color scheme
     catppuccin.url = "github:catppuccin/nix";
-
-    # hyprland window manager
-    # hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = {
