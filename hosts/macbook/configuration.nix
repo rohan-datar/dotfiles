@@ -17,8 +17,8 @@
     iina
     pngpaste
     aerospace
-    sketchybar
-    sketchybar-app-font
+    # sketchybar
+    # sketchybar-app-font
     swiftlint
     swift-format
     xcbeautify
