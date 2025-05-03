@@ -108,11 +108,25 @@
         ]
       },
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1746243165,
         "narHash": "sha256-DQycVmlyLQNLjLJ/FzpokVmbxGQ8HjQQ4zN4nyq2vII=",
+||||||| parent of 3be8a7d (213 current  2025-04-21 22:18:31  25.05.20250417.b024ced  6.12.23                          *)
+        "lastModified": 1745771770,
+        "narHash": "sha256-kC1yYNAO69i0Q9nnQFTxu5kdwcoHRE7x4jtJyIB5QSg=",
+=======
+        "lastModified": 1745272532,
+        "narHash": "sha256-+sFbKw1vFkulKYxsAbz84N0V/goSg808IgFh8iWe/As=",
+>>>>>>> 3be8a7d (213 current  2025-04-21 22:18:31  25.05.20250417.b024ced  6.12.23                          *)
         "owner": "nix-community",
         "repo": "home-manager",
+<<<<<<< HEAD
         "rev": "c0962eeeabfb8127713f859ec8a5f0e86dead0f2",
+||||||| parent of 3be8a7d (213 current  2025-04-21 22:18:31  25.05.20250417.b024ced  6.12.23                          *)
+        "rev": "0fbd8207e913b2d1660a7662f9ae80e5e639de65",
+=======
+        "rev": "81541ea36d1fead4be7797e826ee325d4c19308b",
+>>>>>>> 3be8a7d (213 current  2025-04-21 22:18:31  25.05.20250417.b024ced  6.12.23                          *)
         "type": "github"
       },
       "original": {
@@ -295,11 +309,25 @@
         ]
       },
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1746241415,
         "narHash": "sha256-wJ8rmhNvJVKgasY36hmaSf4QlzcAvZEcc0iCrjtrb4A=",
+||||||| parent of 3be8a7d (213 current  2025-04-21 22:18:31  25.05.20250417.b024ced  6.12.23                          *)
+        "lastModified": 1745757285,
+        "narHash": "sha256-kDCv++sAfALKJM4unFdX6Pz3R4y2twchJ8lSLOIOkbQ=",
+=======
+        "lastModified": 1745111733,
+        "narHash": "sha256-FVsS0LcSYwt4qiw1inlI8F9dc7PZaRaWAr4vqvvnekg=",
+>>>>>>> 3be8a7d (213 current  2025-04-21 22:18:31  25.05.20250417.b024ced  6.12.23                          *)
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
+<<<<<<< HEAD
         "rev": "97ce051e94db0ca08514acf411c6125adb195ea5",
+||||||| parent of 3be8a7d (213 current  2025-04-21 22:18:31  25.05.20250417.b024ced  6.12.23                          *)
+        "rev": "e70d270a3927d8e78254ad049908b3535ba40f73",
+=======
+        "rev": "67df3e64a216db8ac3c8bc669143af090bf4e6ad",
+>>>>>>> 3be8a7d (213 current  2025-04-21 22:18:31  25.05.20250417.b024ced  6.12.23                          *)
         "type": "github"
       },
       "original": {
