@@ -10,6 +10,7 @@
     ./starship.nix
     ./ssh.nix
     ./git.nix
+    ./ghostty.nix
   ];
 
   catppuccin = {
@@ -32,11 +33,11 @@
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
-  home.file = {
-    ".config/ghostty" = {
-      source = ./ghostty;
-    };
-  };
+  # home.file = {
+  #   ".config/ghostty" = {
+  #     source = ./ghostty;
+  #   };
+  # };
 
   programs = {
     nix-index = {
