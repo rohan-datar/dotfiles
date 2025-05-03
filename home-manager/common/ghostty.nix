@@ -5,7 +5,7 @@
     enableBashIntegration = true;
   };
   settings = {
-    cursor-style = block;
+    cursor-style = "block";
     # fonts with fallback
     font-family = [
       "Maple Mono NF"
