@@ -10,12 +10,13 @@
     ./starship.nix
     ./ssh.nix
     ./git.nix
-    ./ghostty.nix
+    # ./ghostty.nix
   ];
 
   catppuccin = {
     enable = true;
     flavor = "mocha";
+    mako.enable = false;
   };
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -33,11 +34,11 @@
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
-  # home.file = {
-  #   ".config/ghostty" = {
-  #     source = ./ghostty;
-  #   };
-  # };
+  home.file = {
+    ".config/ghostty" = {
+      source = ./ghostty;
+    };
+  };
 
   programs = {
     nix-index = {
