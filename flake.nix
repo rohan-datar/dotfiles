@@ -67,6 +67,10 @@
             enableRosetta = true;
 
             user = "rohandatar";
+            taps = {
+              "homebrew/homebrew-core" = homebrew-core;
+              "homebrew/homebrew-cask" = homebrew-cask;
+            };
 
             autoMigrate = true;
           };
