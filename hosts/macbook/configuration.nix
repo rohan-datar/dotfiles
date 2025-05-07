@@ -23,8 +23,6 @@
     rubyPackages.xcodeproj
   ];
 
-  services.sketchybar.enable = true;
-
   homebrew = {
     enable = true;
     brews = [
@@ -40,7 +38,6 @@
 
     casks = [
       "appcleaner"
-      "beeper"
       "chromium"
       "discord"
       "firefox"
