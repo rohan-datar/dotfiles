@@ -36,7 +36,6 @@
       "swift"
       "xcode-build-server"
       "pkl"
-      "spim"
     ];
 
     casks = [
@@ -44,14 +43,10 @@
       "beeper"
       "chromium"
       "discord"
-      "docker"
       "firefox"
       "omnidisksweeper"
-      "the-unarchiver"
       "thunderbird"
       "zen-browser"
-      "font-sf-pro"
-      "sf-symbols"
       "ghostty"
     ];
 
