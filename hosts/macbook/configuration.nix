@@ -42,7 +42,6 @@
       "discord"
       "firefox"
       "omnidisksweeper"
-      "thunderbird"
       "zen-browser"
       "ghostty"
     ];
