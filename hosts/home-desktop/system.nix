@@ -45,10 +45,6 @@
   networking.nameservers = ["10.10.0.1" "1.1.1.1"];
   services.openssh.enable = true;
 
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
-
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
@@ -80,7 +76,10 @@
       nvidiaSettings = false;
       package = driverPkg;
     };
+    bluetooth.enable = true;
+    bluetooth.powerOnBoot = true;
   };
+  services.blueman.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
