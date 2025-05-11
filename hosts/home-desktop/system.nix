@@ -113,7 +113,12 @@
 
   services = {
     desktopManager.plasma6.enable = true;
-    displayManager.sddm.enable = true;
+    displayManager.sddm = {
+      enable = true;
+      autoNumlock = true;
+      wayland.enable = true;
+    };
+    # xserver.enable = true;
 
     # xserver = {
     #   # Enable the X11 windowing system.
