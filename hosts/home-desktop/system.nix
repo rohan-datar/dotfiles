@@ -118,7 +118,8 @@
 
     # Enable the GNOME Desktop Environment.
     displayManager = {
-      gdm.enable = true;
+      sddm.enable = true;
+      # gdm.enable = true;
     };
 
     desktopManager = {
