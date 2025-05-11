@@ -34,6 +34,7 @@
       "swift"
       "xcode-build-server"
       "pkl"
+      "zen-browser"
     ];
 
     casks = [
@@ -42,7 +43,6 @@
       "discord"
       "firefox"
       "omnidisksweeper"
-      "zen-browser"
       "ghostty"
     ];
 
