@@ -111,32 +111,37 @@
     xwayland.enable = true;
   };
 
-  services.xserver = {
-    # Enable the X11 windowing system.
-    enable = true;
-    videoDrivers = ["nvidia"];
+  services = {
+    desktopManager.plasma6.enable = true;
+    displayManager.sddm.enable = true;
 
-    # Enable the GNOME Desktop Environment.
-    displayManager = {
-      sddm.enable = true;
-      # gdm.enable = true;
-    };
+    # xserver = {
+    #   # Enable the X11 windowing system.
+    #   enable = true;
+    #   videoDrivers = ["nvidia"];
 
-    desktopManager = {
-      # gnome.enable = true;
-      plasma6.enable = true;
-    };
+    #   # Enable the GNOME Desktop Environment.
+    #   displayManager = {
+    #     sddm.enable = true;
+    #     # gdm.enable = true;
+    #   };
 
-    # Configure keymap in X11
-    xkb = {
-      layout = "us";
-      variant = "";
-    };
+    #   desktopManager = {
+    #     # gnome.enable = true;
+    #     plasma6.enable = true;
+    #   };
 
-    excludePackages = [pkgs.xterm];
+    #   # Configure keymap in X11
+    #   xkb = {
+    #     layout = "us";
+    #     variant = "";
+    #   };
+
+    #   excludePackages = [pkgs.xterm];
+    # };
   };
 
-  environment.gnome.excludePackages = [pkgs.gnome-console];
+  # environment.gnome.excludePackages = [pkgs.gnome-console];
 
   nix.gc = {
     automatic = true;
