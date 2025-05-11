@@ -123,7 +123,8 @@
     };
 
     desktopManager = {
-      gnome.enable = true;
+      # gnome.enable = true;
+      plasma6.enable = true;
     };
 
     # Configure keymap in X11

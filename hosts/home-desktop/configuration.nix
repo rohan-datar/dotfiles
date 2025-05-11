@@ -39,8 +39,8 @@
     nodejs
     lua
     gnumake
-    gnome-tweaks
-    gnome-terminal
+    # gnome-tweaks
+    # gnome-terminal
     cacert
     wl-clipboard
     ungoogled-chromium
