@@ -78,6 +78,10 @@
     };
   };
 
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -118,32 +122,29 @@
       autoNumlock = true;
       wayland.enable = true;
     };
-    # xserver.enable = true;
 
-    # xserver = {
-    #   # Enable the X11 windowing system.
-    #   enable = true;
-    #   videoDrivers = ["nvidia"];
+    xserver = {
+      # Enable the X11 windowing system.
+      enable = true;
+      videoDrivers = ["nvidia"];
 
-    #   # Enable the GNOME Desktop Environment.
-    #   displayManager = {
-    #     sddm.enable = true;
-    #     # gdm.enable = true;
-    #   };
+      # Enable the GNOME Desktop Environment.
+      # displayManager = {
+      #   gdm.enable = true;
+      # };
 
-    #   desktopManager = {
-    #     # gnome.enable = true;
-    #     plasma6.enable = true;
-    #   };
+      # desktopManager = {
+      #   gnome.enable = true;
+      # };
 
-    #   # Configure keymap in X11
-    #   xkb = {
-    #     layout = "us";
-    #     variant = "";
-    #   };
+      # Configure keymap in X11
+      xkb = {
+        layout = "us";
+        variant = "";
+      };
 
-    #   excludePackages = [pkgs.xterm];
-    # };
+      # excludePackages = [pkgs.xterm];
+    };
   };
 
   # environment.gnome.excludePackages = [pkgs.gnome-console];
