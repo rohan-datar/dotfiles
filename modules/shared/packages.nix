@@ -16,15 +16,12 @@
     fzf
     git
     go
-    jq
     lazygit
     neovim
     ripgrep
     shellcheck
     tmux
     wget
-    yamllint
-    yq
     zoxide
     zsh
     pstree
@@ -39,7 +36,6 @@
     inputs.agenix.packages.${system}.default
     lldb
     lua-language-server
-    stylua
     javaCup
     jflex
     jdt-language-server

@@ -10,6 +10,7 @@
     ./starship.nix
     ./ssh.nix
     ./git.nix
+    ./neovim.nix
     # ./ghostty.nix
   ];
 
