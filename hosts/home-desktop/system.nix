@@ -18,8 +18,8 @@
     };
   };
 
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages;
   boot.kernelParams = [
     "initcall_blacklist=simpledrm_platform_driver_init"
     "nvidia.NVreg_OpenRmEnableUnsupportedGpus=1"
