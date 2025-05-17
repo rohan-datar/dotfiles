@@ -20,9 +20,6 @@
     flavor = "mocha";
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
-
   # Set zsh as the default shell
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;

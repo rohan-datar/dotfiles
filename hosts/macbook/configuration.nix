@@ -40,7 +40,6 @@
       "appcleaner"
       "chromium"
       "discord"
-      "firefox"
       "omnidisksweeper"
       "zen"
       "ghostty"
