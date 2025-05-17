@@ -33,7 +33,6 @@
       "switchaudio-osx"
       "swift"
       "xcode-build-server"
-      "pkl"
     ];
 
     casks = [

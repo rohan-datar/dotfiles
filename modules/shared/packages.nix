@@ -44,6 +44,7 @@
     bat
     man-pages
     man-pages-posix
+    pkl
   ];
 
   fonts.packages = with pkgs; [
