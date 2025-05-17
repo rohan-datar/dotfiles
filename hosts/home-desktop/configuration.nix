@@ -50,7 +50,8 @@
     thunderbird
     cifs-utils
     xspim
-    jdk
+    # jdk
+    zulu
   ];
   age.secrets.smbcredentials.file = ../../secrets/smbcredentials.age;
   fileSystems."/mnt/data-share" = {
