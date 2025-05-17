@@ -18,7 +18,6 @@ return {
 			animate = { enabled = false },
 		},
 		scope = { enabled = true },
-		input = { enabled = true },
 		quickfile = { enabled = true },
 		picker = {
 			sources = {
