@@ -15,7 +15,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   current=$(nixos-rebuild list-generations | grep current)
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   echo "Nix Darwin Rebuilding..."
-  darwin-rebuild switch --flake ~/nix#macbook
+  sudo darwin-rebuild switch --flake ~/nix#macbook
   current=$(darwin-rebuild --list-generations | grep current)
 else
   echo "$OSTYPE not supported"

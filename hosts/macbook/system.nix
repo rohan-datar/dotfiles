@@ -19,6 +19,8 @@
   #   sudo ${pkgs.rsync}/bin/rsync --archive --checksum --chmod=-w --copy-unsafe-links --delete "$apps_source/" "$app_target"
   # '';
 
+  system.primaryUser = "rohandatar";
+
   system.defaults = {
     loginwindow.GuestEnabled = false;
     NSGlobalDomain.AppleInterfaceStyle = "Dark";
