@@ -45,7 +45,6 @@
     man-pages
     man-pages-posix
     pkl
-    topiary
   ];
 
   fonts.packages = with pkgs; [
