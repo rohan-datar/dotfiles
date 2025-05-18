@@ -1,4 +1,4 @@
-{
+return {
   "apple/pkl-neovim",
   lazy = true,
   ft = "pkl",
