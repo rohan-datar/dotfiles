@@ -20,7 +20,7 @@
   catppuccin.cursors = {
     enable = true;
     flavor = "mocha";
-    accent = "blue";
+    accent = "sky";
   };
 
   home.packages = with pkgs; [
