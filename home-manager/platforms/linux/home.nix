@@ -44,6 +44,8 @@
     ghostty
   ];
 
+  programs.fzf.enable = true;
+
   programs.kitty = {
     enable = true;
     font = {
