@@ -10,12 +10,12 @@
     ./app-themes.nix
   ];
 
-  # home.pointerCursor = {
-  #   package = pkgs.adwaita-icon-theme;
-  #   x11.enable = true;
-  #   name = "Adwaita";
-  #   size = 38;
-  # };
+  home.pointerCursor = {
+    package = pkgs.adwaita-icon-theme;
+    x11.enable = true;
+    name = "Adwaita";
+    size = 38;
+  };
 
   catppuccin.cursors = {
     enable = false;
