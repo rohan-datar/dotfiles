@@ -23,6 +23,7 @@
       #   p.markdown
       #   p.markdown_inline
       # ]))
+      vimPlugins.nvim-java
     ];
     extraPackages = with pkgs; [
       tree-sitter
