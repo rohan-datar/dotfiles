@@ -13,10 +13,12 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   sudo nixos-rebuild switch --flake ~/nix#home-desktop
   # Get current generation metadata
   current=$(nixos-rebuild list-generations | grep current)
+  home-manager switch --flake ~/nix#rdatar
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   echo "Nix Darwin Rebuilding..."
   sudo darwin-rebuild switch --flake ~/nix#macbook
   current=$(darwin-rebuild --list-generations | grep current)
+  home-manager switch --flake ~/nix#rohandatar
 else
   echo "$OSTYPE not supported"
   exit 1
