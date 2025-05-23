@@ -18,9 +18,9 @@
   # };
 
   catppuccin.cursors = {
-    enable = true;
+    enable = false;
     flavor = "mocha";
-    accent = "sky";
+    accent = "dark";
   };
 
   home.packages = with pkgs; [

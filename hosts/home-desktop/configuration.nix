@@ -65,6 +65,7 @@
     TERMINAL = "ghostty";
     DEFAULT_BROWSER = "zen";
     NIXOS_OZONE_WL = "1";
+    WLR_NO_HARDWARE_CURSORS = "1";
   };
 
   environment.variables.EDITOR = "nvim";
