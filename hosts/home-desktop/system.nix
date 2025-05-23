@@ -123,6 +123,7 @@
   services = {
     displayManager.sddm = {
       enable = true;
+      package = pkgs.kdePackages.sddm;
       autoNumlock = true;
       wayland.enable = true;
     };
