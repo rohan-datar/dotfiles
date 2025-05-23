@@ -6,6 +6,7 @@
     ./networkmanager.nix
     ./hyprlock.nix
     ./hypridle.nix
+    ./wlogout.nix
   ];
 
   services.swaync.enable = true;
