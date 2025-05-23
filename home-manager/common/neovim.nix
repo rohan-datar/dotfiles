@@ -12,18 +12,6 @@
     plugins = with pkgs; [
       vimPlugins.nvim-treesitter.withAllGrammars
       vimPlugins.nvim-treesitter
-      # (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
-      #   p.c
-      #   p.lua
-      #   p.nix
-      #   p.go
-      #   p.python
-      #   p.regex
-      #   p.bash
-      #   p.markdown
-      #   p.markdown_inline
-      # ]))
-      vimPlugins.nvim-java
     ];
     extraPackages = with pkgs; [
       tree-sitter
@@ -57,7 +45,6 @@
       javaCup
       jflex
       sourcekit-lsp
-      lua-language-server
     ];
   };
   home.file = {

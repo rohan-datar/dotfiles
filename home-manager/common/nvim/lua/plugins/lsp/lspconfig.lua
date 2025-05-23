@@ -73,6 +73,7 @@ return {
 			lspconfig.html.setup({})
 			-- htmx = {},
 			lspconfig.yamlls.setup({})
+			lspconfig.jdtls.setup({})
 
 			lspconfig.markdown_oxide.setup({
 				capabilities = {
