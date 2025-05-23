@@ -36,8 +36,6 @@
     nodejs
     lua
     gnumake
-    # gnome-tweaks
-    # gnome-terminal
     cacert
     wl-clipboard
     ungoogled-chromium
@@ -45,11 +43,11 @@
     inputs.zen-browser.packages."${system}".default
     libnotify
     glib
-    # copyq
     swift
     thunderbird
     cifs-utils
     xspim
+    nautilus
     # jdk
     zulu
   ];

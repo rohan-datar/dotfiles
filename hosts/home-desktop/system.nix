@@ -111,38 +111,20 @@
 
   programs.hyprland = {
     enable = true;
+    withUWSM = true;
     xwayland.enable = true;
   };
 
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [xdg-desktop-portal-hyprland];
+  };
+
   services = {
-    desktopManager.plasma6.enable = true;
     displayManager.sddm = {
       enable = true;
       autoNumlock = true;
       wayland.enable = true;
-    };
-
-    xserver = {
-      # Enable the X11 windowing system.
-      enable = true;
-      videoDrivers = ["nvidia"];
-
-      # Enable the GNOME Desktop Environment.
-      # displayManager = {
-      #   gdm.enable = true;
-      # };
-
-      # desktopManager = {
-      #   gnome.enable = true;
-      # };
-
-      # Configure keymap in X11
-      xkb = {
-        layout = "us";
-        variant = "";
-      };
-
-      # excludePackages = [pkgs.xterm];
     };
   };
 

@@ -19,6 +19,7 @@
       "$terminal" = "ghostty";
       "$fileManager" = "nautilus";
       "$menu" = "wofi --show drun";
+      "$browser" = "zen";
 
       exec-once = [
         "waybar 2>&1 > ~/somelog.txt &"
@@ -136,6 +137,7 @@
         "$mainMod, C, killactive,"
         "$mainMod, M, exit,"
         "$mainMod, V, togglefloating,"
+        "$mainMod, B, exec, $browser"
         "$mainMod, space, exec, $menu"
         "$ALT_SHIFT, l, exec, hyprlock"
         "$ALT_SHIFT, R, exec, hyprctl reload"
