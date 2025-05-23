@@ -31,6 +31,8 @@ else
   exit 1
 fi
 
+home-manager switch --flake "~/nix#$USER"
+
 
 # Commit all changes witih the generation metadata
 git commit -am "$current"

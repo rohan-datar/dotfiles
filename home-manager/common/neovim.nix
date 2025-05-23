@@ -52,6 +52,11 @@
       yamllint
       jq
       yq
+      jdt-language-server
+      javaCup
+      jflex
+      sourcekit-lsp
+      lua-language-server
     ];
   };
   home.file = {

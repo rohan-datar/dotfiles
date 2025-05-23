@@ -20,7 +20,6 @@
     lazygit
     neovim
     ripgrep
-    shellcheck
     tmux
     wget
     zoxide
@@ -30,16 +29,11 @@
     nix-index
     obsidian
     discord
-    sourcekit-lsp
     zig
     tree-sitter
     aoc-cli
     inputs.agenix.packages.${system}.default
     lldb
-    lua-language-server
-    javaCup
-    jflex
-    jdt-language-server
     btop
     bat
     man-pages

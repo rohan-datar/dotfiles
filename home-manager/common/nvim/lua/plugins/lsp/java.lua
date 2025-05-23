@@ -66,13 +66,13 @@ return {
 				invalid_mason_registry = false,
 			},
 
-			mason = {
-				-- These mason registries will be prepended to the existing mason
-				-- configuration
-				registries = {
-					"github:nvim-java/mason-registry",
-				},
-			},
+			-- mason = {
+			-- 	-- These mason registries will be prepended to the existing mason
+			-- 	-- configuration
+			-- 	registries = {
+			-- 		"github:nvim-java/mason-registry",
+			-- 	},
+			-- },
 		})
 
 		require("lspconfig").jdtls.setup({

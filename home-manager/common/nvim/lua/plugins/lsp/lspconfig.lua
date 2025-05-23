@@ -73,21 +73,6 @@ return {
 			lspconfig.html.setup({})
 			-- htmx = {},
 			lspconfig.yamlls.setup({})
-			lspconfig.jdtls.setup({
-				settings = {
-					java = {
-						configuration = {
-							runtimes = {
-								{
-									name = "JavaSE-21",
-									path = "/usr/bin/java",
-									default = true,
-								},
-							},
-						},
-					},
-				},
-			})
 
 			lspconfig.markdown_oxide.setup({
 				capabilities = {
