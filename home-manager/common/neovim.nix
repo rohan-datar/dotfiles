@@ -23,6 +23,7 @@
       tree-sitter-grammars.tree-sitter-regex
       tree-sitter-grammars.tree-sitter-markdown
       tree-sitter-grammars.tree-sitter-json
+      tree-sitter-grammars.tree-sitter-latex
 
       nodePackages_latest.vscode-json-languageserver
       fzf
@@ -45,6 +46,7 @@
       javaCup
       jflex
       sourcekit-lsp
+      texliveMedium
     ];
   };
   home.file = {
