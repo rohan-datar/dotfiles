@@ -46,7 +46,7 @@
       javaCup
       jflex
       sourcekit-lsp
-      texliveMedium
+      texliveFull
     ];
   };
   home.file = {
