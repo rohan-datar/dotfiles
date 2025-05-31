@@ -97,7 +97,7 @@
   };
 
   hardware = let
-    driverPkg = config.boot.kernelPackages.nvidiaPackages.beta;
+    # driverPkg = config.boot.kernelPackages.nvidiaPackages.beta;
   in {
     graphics.enable = true;
     nvidia = {
@@ -106,7 +106,7 @@
       powerManagement.finegrained = false;
       open = false;
       nvidiaSettings = false;
-      package = driverPkg;
+      # package = driverPkg;
     };
 
     # bluetooth
