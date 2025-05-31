@@ -6,13 +6,13 @@
         label = "lock";
         action = "pidof hyprlock || hyprlock";
         text = "Lock";
-        keybind = "l"
+        keybind = "l";
       }
       {
-          label = "hibernate";
-          action = "systemctl hibernate";
-          text = "Hibernate";
-          keybind = "h";
+        label = "hibernate";
+        action = "systemctl hibernate";
+        text = "Hibernate";
+        keybind = "h";
       }
       {
         label = "logout";
@@ -20,22 +20,22 @@
         text = "Logout";
       }
       {
-          label = "shutdown";
-          action = "systemctl poweroff";
-          text = "Shutdown";
-          keybind = "s";
+        label = "shutdown";
+        action = "systemctl poweroff";
+        text = "Shutdown";
+        keybind = "s";
       }
       {
-          label = "suspend";
-          action = "systemctl suspend";
-          text = "Suspend";
-          keybind = "u";
+        label = "suspend";
+        action = "systemctl suspend";
+        text = "Suspend";
+        keybind = "u";
       }
       {
-          label = "reboot";
-          action = "systemctl reboot";
-          text = "Reboot";
-          keybind = "r";
+        label = "reboot";
+        action = "systemctl reboot";
+        text = "Reboot";
+        keybind = "r";
       }
     ];
   };
