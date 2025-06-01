@@ -39,6 +39,7 @@
     man-pages
     man-pages-posix
     pkl
+    direnv
   ];
 
   fonts.packages = with pkgs; [
