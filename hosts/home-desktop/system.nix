@@ -166,17 +166,19 @@
 
   # environment.gnome.excludePackages = [pkgs.gnome-console];
 
-  nix.gc = {
-    automatic = true;
-    randomizedDelaySec = "14m";
-    options = "--delete-older-than 15d";
+  nix = {
+    gc = {
+      automatic = true;
+      randomizedDelaySec = "14m";
+      options = "--delete-older-than 15d";
+    };
+
+    optimise = {
+      automatic = true;
+    };
   };
 
   # Enable automatic login for the user.
-  # services.displayManager.autoLogin.enable = true;
-  # services.displayManager.autoLogin.user = "rdatar";
-
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  # systemd.services."getty@tty1".enable = false;
-  # systemd.services."autovt@tty1".enable = false;
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "rdatar";
 }
