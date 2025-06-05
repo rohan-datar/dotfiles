@@ -20,7 +20,7 @@
 
         format = lib.concatStrings [
           "╭─ "
-          "$os"
+          "$os "
           "$all"
           "$line_break"
           "╰─"
@@ -52,7 +52,7 @@
         };
 
         directory = {
-          format = "[ $path ]($style)[$read_only ]($read_only_style)";
+          format = "[ $path ]($style)[$read_only]($read_only_style)";
           style = "bold blue";
           read_only = " 󰌾";
         };
