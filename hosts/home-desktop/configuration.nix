@@ -64,10 +64,11 @@
 
   console = {
     earlySetup = true;
-    packages = with pkgs; [
-      maple-mono.NF
+    font = "ter-powerline-v24b";
+    packages = [
+      pkgs.terminus_font
+      pkgs.powerline-fonts
     ];
-    font = "Maple Mono NF";
   };
 
   environment.sessionVariables = {
