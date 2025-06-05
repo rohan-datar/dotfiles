@@ -10,8 +10,6 @@
     enableZshIntegration = true;
     enableTransience = true;
 
-    presets = ["nerd-font-symbols"];
-
     settings =
       lib.recursiveUpdate
       (lib.mergeAttrsList [
