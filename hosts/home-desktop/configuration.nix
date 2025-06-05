@@ -50,6 +50,7 @@
     nautilus
     # jdk
     zulu
+    font-manager
   ];
   age.secrets.smbcredentials.file = ../../secrets/smbcredentials.age;
   fileSystems."/mnt/data-share" = {
@@ -60,6 +61,13 @@
       automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
     in ["${automount_opts},credentials=${config.age.secrets.smbcredentials.path},uid=1000,gid=3000"];
   };
+
+  # console = {
+  #   earlySetup = true;
+  #   packages = with pkgs; [
+  #     maple-mono.NF
+  #   ];
+  # };
 
   environment.sessionVariables = {
     TERMINAL = "ghostty";
