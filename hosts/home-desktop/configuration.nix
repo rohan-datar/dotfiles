@@ -62,12 +62,13 @@
     in ["${automount_opts},credentials=${config.age.secrets.smbcredentials.path},uid=1000,gid=3000"];
   };
 
-  # console = {
-  #   earlySetup = true;
-  #   packages = with pkgs; [
-  #     maple-mono.NF
-  #   ];
-  # };
+  console = {
+    earlySetup = true;
+    packages = with pkgs; [
+      maple-mono.NF
+    ];
+    font = "Maple Mono NF";
+  };
 
   environment.sessionVariables = {
     TERMINAL = "ghostty";
