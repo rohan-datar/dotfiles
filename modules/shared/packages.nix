@@ -40,6 +40,7 @@
     man-pages-posix
     pkl
     direnv
+    pandoc
   ];
 
   fonts.packages = with pkgs; [
