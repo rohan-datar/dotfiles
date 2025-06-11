@@ -41,6 +41,7 @@
     pkl
     direnv
     pandoc
+    wireguard-ui
   ];
 
   fonts.packages = with pkgs; [
