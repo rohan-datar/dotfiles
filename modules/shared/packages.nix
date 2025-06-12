@@ -41,6 +41,7 @@
     pkl
     direnv
     pandoc
+    wireshark
   ];
 
   fonts.packages = with pkgs; [
