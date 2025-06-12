@@ -43,6 +43,7 @@
       "zen"
       "ghostty"
       "beeper"
+      "wireshark"
     ];
 
     masApps = {
