@@ -30,7 +30,7 @@
     # };
 
     cursor = {
-      pkgs = pkgs.catppuccin-cursors.mochaBlue;
+      package = pkgs.catppuccin-cursors.mochaBlue;
       name = "Catppuccin Mocha Blue";
     };
   };
