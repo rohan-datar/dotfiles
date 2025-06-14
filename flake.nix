@@ -16,7 +16,11 @@
 
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+        darwin.follows = "nix-darwin";
+      };
     };
 
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
@@ -24,7 +28,10 @@
     # Zen browser
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
     };
 
     # catpuccin color scheme
@@ -35,6 +42,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         tinted-schemes.follows = "tinted-schemes";
+        home-manager.follows = "home-manager";
       };
     };
 
