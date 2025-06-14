@@ -15,7 +15,6 @@
   environment.systemPackages = with pkgs; [
     mkalias
     iina
-    pngpaste
     aerospace
     swiftlint
     swift-format
