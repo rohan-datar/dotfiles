@@ -32,8 +32,10 @@
 
     stylix = {
       url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      tinted-schemes.follows = "tinted-schemes";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        tinted-schemes.follows = "tinted-schemes";
+      };
     };
 
     tinted-schemes = {
