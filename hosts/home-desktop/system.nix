@@ -154,6 +154,17 @@
     enable = true;
     extraPortals = with pkgs; [xdg-desktop-portal-hyprland];
   };
+  environment.systemPackages = [
+    (
+      pkgs.catppuccin-sddm.override {
+        flavor = "mocha";
+        font = "JetBrainsMono Nerd Font Propo";
+        fontSize = "12";
+        background = "~/.local/share/backgrounds/nixos-wallpaper-catppuccin-mocha.png";
+        loginBackground = true;
+      }
+    )
+  ];
 
   services = {
     displayManager.sddm = {
@@ -161,10 +172,9 @@
       package = pkgs.kdePackages.sddm;
       autoNumlock = true;
       wayland.enable = true;
+      theme = "catppuccin-mocha";
     };
   };
-
-  # environment.gnome.excludePackages = [pkgs.gnome-console];
 
   nix = {
     gc = {
