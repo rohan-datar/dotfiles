@@ -60,7 +60,7 @@
 
         shlvl = {
           disabled = false;
-          format = "[$shlvl]($style)"
+          format = "[$shlvl]($style)";
         };
       };
   };
