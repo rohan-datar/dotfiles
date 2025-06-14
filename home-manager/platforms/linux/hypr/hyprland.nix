@@ -40,9 +40,6 @@
         # See https://wiki.hyprland.org/Configuring/Variables/ for more
         border_size = "3";
 
-        "col.active_border" = "$mauve $flamingo 90deg";
-        "col.inactive_border" = "$subtext0";
-
         resize_on_border = "true";
 
         "gaps_in" = "4";
