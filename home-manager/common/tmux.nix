@@ -62,6 +62,7 @@ in {
         extraConfig = ''
           set -g @catppuccin_flavor 'mocha'
         '';
+      }
     ];
 
     extraConfig = ''
