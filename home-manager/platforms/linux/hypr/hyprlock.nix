@@ -14,7 +14,6 @@
         path = "~/.local/share/backgrounds/nixos-wallpaper-catppuccin-mocha.png";
         # path = "~/.local/share/backgrounds/Cloudsnight.jpg";
         blur_passes = 2;
-        color = "$base";
       };
 
       label = [

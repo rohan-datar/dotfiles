@@ -24,7 +24,6 @@
           "$all"
           "$line_break"
           "╰─"
-          "$shlvl"
           "$character"
         ];
 
