@@ -42,6 +42,8 @@
     direnv
     pandoc
     wireshark
+    comma
+    nh
   ];
 
   fonts.packages = with pkgs; [

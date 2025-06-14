@@ -47,12 +47,7 @@
       eval "$(fzf --zsh)"
       eval "$(zoxide init --cmd cd zsh)"
 
-      # Check that the function `starship_zle-keymap-select()` is defined.
-      # xref: https://github.com/starship/starship/issues/3418
-      # type starship_zle-keymap-select >/dev/null || \
-      #   {
-      #     eval "$(/home/rdatar/.nix-profile/bin/starship init zsh)"
-      #   }
+      any-nix-shell zsh --info-right | source /dev/stdin
     '';
   };
 }

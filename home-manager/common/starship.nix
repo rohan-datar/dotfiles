@@ -56,6 +56,10 @@
           style = "bold blue";
           read_only = " 󰌾";
         };
+
+        shlvl = {
+          disabled = false;
+        };
       };
   };
 }
