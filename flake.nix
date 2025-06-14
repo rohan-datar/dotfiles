@@ -33,6 +33,13 @@
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
+      tinted-schemes.follows = "tinted-schemes";
+    };
+
+    tinted-schemes = {
+      flake = false;
+
+      url = "github:tinted-theming/schemes";
     };
   };
 
@@ -44,6 +51,7 @@
     home-manager,
     # catppuccin,
     stylix,
+    tinted-schemes,
     agenix,
     ...
   } @ inputs: let

@@ -44,6 +44,7 @@
     wireshark
     comma
     nh
+    any-nix-shell
   ];
 
   fonts.packages = with pkgs; [

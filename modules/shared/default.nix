@@ -2,10 +2,12 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   imports = [
     ./packages.nix
+    ./stylix.nix
   ];
 
   environment.shellAliases = {
