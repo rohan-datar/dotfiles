@@ -1,8 +1,8 @@
 {...}: {
   imports = [
     ./hyprland.nix
-    ./waybar.nix
-    ./wofi.nix
+    # ./waybar.nix
+    # ./wofi.nix
     ./networkmanager.nix
     ./hyprlock.nix
     ./hypridle.nix

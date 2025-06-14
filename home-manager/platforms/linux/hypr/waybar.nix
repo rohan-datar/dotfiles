@@ -114,143 +114,143 @@
       };
     };
 
-    style = ''
-        * {
-            font-family: "meslolgs nerd font mono bold";
-            font-size: 16px;
-            min-height: 0;
-            font-weight: bold;
-        }
+    # style = ''
+    #     * {
+    #         font-family: "meslolgs nerd font mono bold";
+    #         font-size: 16px;
+    #         min-height: 0;
+    #         font-weight: bold;
+    #     }
 
-        window#waybar {
-            background: transparent;
-            background-color: @crust;
-            color: @overlay0;
-            transition-property: background-color;
-            transition-duration: 0.1s;
-            border-bottom: 1px solid @overlay1;
-        }
+    #     window#waybar {
+    #         background: transparent;
+    #         background-color: @crust;
+    #         color: @overlay0;
+    #         transition-property: background-color;
+    #         transition-duration: 0.1s;
+    #         border-bottom: 1px solid @overlay1;
+    #     }
 
-        #window {
-            color: @flamingo;
-            background: @mantle;
-            margin: 10px 15px 10px 0px;
-            padding: 2px 10px 0px 10px;
-            border-radius: 12px;
-        }
+    #     #window {
+    #         color: @flamingo;
+    #         background: @mantle;
+    #         margin: 10px 15px 10px 0px;
+    #         padding: 2px 10px 0px 10px;
+    #         border-radius: 12px;
+    #     }
 
-        #mpris {
-            color: @teal;
-            background: @mantle;
-            margin: 10px 15px 10px 0px;
-            padding: 2px 10px 0px 10px;
-            border-radius: 12px;
-        }
+    #     #mpris {
+    #         color: @teal;
+    #         background: @mantle;
+    #         margin: 10px 15px 10px 0px;
+    #         padding: 2px 10px 0px 10px;
+    #         border-radius: 12px;
+    #     }
 
-        button {
-            box-shadow: inset 0 -3px transparent;
-            border: none;
-            border-radius: 0;
-        }
+    #     button {
+    #         box-shadow: inset 0 -3px transparent;
+    #         border: none;
+    #         border-radius: 0;
+    #     }
 
-        button:hover {
-            background: inherit;
-            color: @mauve;
-            border-top: 2px solid @mauve;
-        }
+    #     button:hover {
+    #         background: inherit;
+    #         color: @mauve;
+    #         border-top: 2px solid @mauve;
+    #     }
 
-        #workspaces button {
-            padding: 0 4px;
-        }
+    #     #workspaces button {
+    #         padding: 0 4px;
+    #     }
 
-        #workspaces button.focused {
-            background-color: rgba(0, 0, 0, 0.3);
-            color: @rosewater;
-            border-top: 2px solid @rosewater;
-        }
+    #     #workspaces button.focused {
+    #         background-color: rgba(0, 0, 0, 0.3);
+    #         color: @rosewater;
+    #         border-top: 2px solid @rosewater;
+    #     }
 
-        #workspaces button.active {
-            background-color: rgba(0, 0, 0, 0.3);
-            color: @mauve;
-            border-top: 2px solid @mauve;
-        }
+    #     #workspaces button.active {
+    #         background-color: rgba(0, 0, 0, 0.3);
+    #         color: @mauve;
+    #         border-top: 2px solid @mauve;
+    #     }
 
-        #workspaces button.urgent {
-                  background-color: #eb4d4b;
-        }
+    #     #workspaces button.urgent {
+    #               background-color: #eb4d4b;
+    #     }
 
-        #pulseaudio,
-        #clock,
-        #bluetooth,
-        #cpu,
-        #memory,
-        #disk,
-        #temperature,
-        #backlight,
-        #wireplumber,
-        #tray,
-        #network,
-        #mode,
-        #scratchpad {
-          margin-top: 2px;
-          margin-bottom: 2px;
-          margin-left: 4px;
-          margin-right: 4px;
-          padding-left: 4px;
-          padding-right: 4px;
-        }
+    #     #pulseaudio,
+    #     #clock,
+    #     #bluetooth,
+    #     #cpu,
+    #     #memory,
+    #     #disk,
+    #     #temperature,
+    #     #backlight,
+    #     #wireplumber,
+    #     #tray,
+    #     #network,
+    #     #mode,
+    #     #scratchpad {
+    #       margin-top: 2px;
+    #       margin-bottom: 2px;
+    #       margin-left: 4px;
+    #       margin-right: 4px;
+    #       padding-left: 4px;
+    #       padding-right: 4px;
+    #     }
 
-        #clock {
-            color: @maroon;
-            border-bottom: 2px solid @maroon;
-        }
+    #     #clock {
+    #         color: @maroon;
+    #         border-bottom: 2px solid @maroon;
+    #     }
 
-        #clock.date {
-            color: @mauve;
-            border-bottom: 2px solid @mauve;
-        }
+    #     #clock.date {
+    #         color: @mauve;
+    #         border-bottom: 2px solid @mauve;
+    #     }
 
-        #pulseaudio {
-            color: @green;
-            border-bottom: 2px solid @green;
-        }
+    #     #pulseaudio {
+    #         color: @green;
+    #         border-bottom: 2px solid @green;
+    #     }
 
-      #network {
-          color: @yellow;
-          border-bottom: 2px solid @yellow;
-      }
+    #   #network {
+    #       color: @yellow;
+    #       border-bottom: 2px solid @yellow;
+    #   }
 
-        #idle_inhibitor {
-            margin-right: 12px;
-                  color: #7cb342;
-        }
+    #     #idle_inhibitor {
+    #         margin-right: 12px;
+    #               color: #7cb342;
+    #     }
 
-        #idle_inhibitor.activated {
-            color: @red;
-        }
+    #     #idle_inhibitor.activated {
+    #         color: @red;
+    #     }
 
-        #bluetooth {
-            color: @blue;
-            border-bottom: 2px solid @blue;
-        }
+    #     #bluetooth {
+    #         color: @blue;
+    #         border-bottom: 2px solid @blue;
+    #     }
 
-        /* if workspaces is the leftmost module, omit left margin */
-              .modules-left>widget:first-child>#workspaces {
-            margin-left: 0;
-        }
+    #     /* if workspaces is the leftmost module, omit left margin */
+    #           .modules-left>widget:first-child>#workspaces {
+    #         margin-left: 0;
+    #     }
 
-        /* if workspaces is the rightmost module, omit right margin */
-              .modules-right>widget:last-child>#workspaces {
-            margin-right: 0;
-        }
+    #     /* if workspaces is the rightmost module, omit right margin */
+    #           .modules-right>widget:last-child>#workspaces {
+    #         margin-right: 0;
+    #     }
 
-        #custom-vpn {
-            color: @lavender;
-            border-radius: 15px;
-            padding-left: 6px;
-            padding-right: 6px;
-        }
-    '';
+    #     #custom-vpn {
+    #         color: @lavender;
+    #         border-radius: 15px;
+    #         padding-left: 6px;
+    #         padding-right: 6px;
+    #     }
+    # '';
 
     # style = ''
 

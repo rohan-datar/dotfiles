@@ -36,7 +36,7 @@
       # prompt = <Pinentry prompt> (Default: Password:)
 
       [editor]
-      terminal = kitty
+      terminal = ghostty
       # gui_if_available = <True or False> (Default: True)
       # gui = <name of gui editor> (Default: nm-connection-editor)
 
