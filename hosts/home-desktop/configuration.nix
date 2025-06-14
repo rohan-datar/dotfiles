@@ -15,10 +15,10 @@
     # ./overlays.nix
   ];
 
-  catppuccin = {
-    enable = true;
-    flavor = "mocha";
-  };
+  # catppuccin = {
+  #   enable = true;
+  #   flavor = "mocha";
+  # };
 
   # Set zsh as the default shell
   programs.zsh.enable = true;

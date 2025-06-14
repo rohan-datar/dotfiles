@@ -24,6 +24,7 @@
           "$all"
           "$line_break"
           "╰─"
+          "$shlvl"
           "$character"
         ];
 
@@ -59,6 +60,7 @@
 
         shlvl = {
           disabled = false;
+          format = "[$shlvl]($style)"
         };
       };
   };

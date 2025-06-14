@@ -7,7 +7,7 @@
   imports = [
     ../../common
     ./hypr
-    ./app-themes.nix
+    # ./app-themes.nix
   ];
 
   home.pointerCursor = {
@@ -17,11 +17,11 @@
     size = 38;
   };
 
-  catppuccin.cursors = {
-    enable = false;
-    flavor = "mocha";
-    accent = "dark";
-  };
+  # catppuccin.cursors = {
+  #   enable = false;
+  #   flavor = "mocha";
+  #   accent = "dark";
+  # };
 
   home.packages = with pkgs; [
     blueman

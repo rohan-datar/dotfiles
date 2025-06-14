@@ -28,7 +28,12 @@
     };
 
     # catpuccin color scheme
-    catppuccin.url = "github:catppuccin/nix";
+    # catppuccin.url = "github:catppuccin/nix";
+
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -37,7 +42,8 @@
     nix-darwin,
     nix-homebrew,
     home-manager,
-    catppuccin,
+    # catppuccin,
+    stylix,
     agenix,
     ...
   } @ inputs: let
@@ -49,7 +55,8 @@
       specialArgs = {inherit inputs;};
       modules = [
         ./hosts/${home-desktop}/configuration.nix
-        catppuccin.nixosModules.catppuccin
+        # catppuccin.nixosModules.catppuccin
+        stylix.nixosModules.stylix
         agenix.nixosModules.default
       ];
     };
@@ -72,6 +79,7 @@
           };
         }
         agenix.darwinModules.default
+        stylix.darwinModules.stylix
       ];
     };
 
@@ -81,7 +89,8 @@
         extraSpecialArgs = {inherit inputs;};
         modules = [
           ./home-manager/platforms/linux/home.nix
-          catppuccin.homeModules.catppuccin
+          # catppuccin.homeModules.catppuccin
+          stylix.homeModules.stylix
         ];
       };
 
@@ -90,7 +99,8 @@
         extraSpecialArgs = {inherit inputs;};
         modules = [
           ./home-manager/platforms/macos/home.nix
-          catppuccin.homeModules.catppuccin
+          # catppuccin.homeModules.catppuccin
+          stylix.homeModules.stylix
         ];
       };
     };

@@ -14,11 +14,38 @@
     # ./ghostty.nix
   ];
 
-  catppuccin = {
+  # catppuccin = {
+  #   enable = true;
+  #   flavor = "mocha";
+  #   mako.enable = false;
+  # };
+
+  stylix = {
     enable = true;
-    flavor = "mocha";
-    mako.enable = false;
+    stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+    fonts = {
+      serif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Serif";
+      };
+
+      sansSerif = {
+        package = pkgs.jetbrains-mono;
+        name = "JetBrains Mono Nerd Font Propo";
+      };
+
+      monospace = {
+        package = pkgs.maple-mono.NF;
+        name = "Maple Mono NF";
+      };
+
+      emoji = {
+        package = pkgs.noto-fonts-emoji;
+        name = "Noto Color Emoji";
+      };
+    };
   };
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
