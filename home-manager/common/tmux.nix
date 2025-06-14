@@ -56,6 +56,12 @@ in {
           TMUX_FZF_LAUNCH_KEY="Space"
         '';
       }
+
+      {
+        plugin = tmuxPlugins.catppuccin;
+        extraConfig = ''
+          set -g @catppuccin_flavor 'mocha'
+        '';
     ];
 
     extraConfig = ''

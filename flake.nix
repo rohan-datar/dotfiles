@@ -34,9 +34,6 @@
       };
     };
 
-    # catpuccin color scheme
-    # catppuccin.url = "github:catppuccin/nix";
-
     stylix = {
       url = "github:danth/stylix";
       inputs = {

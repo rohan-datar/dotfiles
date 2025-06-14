@@ -6,7 +6,6 @@
 }: {
   imports = [
     ./tmux.nix
-    ./lazygit.nix
     ./zsh.nix
     ./starship.nix
     ./ssh.nix
@@ -15,12 +14,6 @@
     # ./ghostty.nix
     ../../modules/shared/stylix.nix
   ];
-
-  # catppuccin = {
-  #   enable = true;
-  #   flavor = "mocha";
-  #   mako.enable = false;
-  # };
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
