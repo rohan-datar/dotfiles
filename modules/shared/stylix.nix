@@ -5,7 +5,7 @@
 }: {
   stylix = {
     enable = true;
-    base16Scheme = "${inputs.tinted-schemes}/schemes/base24/catppuccin-mocha.yaml";
+    base16Scheme = "${inputs.tinted-schemes}/base24/catppuccin-mocha.yaml";
     polarity = "dark";
     fonts = {
       serif = {
