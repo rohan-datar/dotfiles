@@ -29,6 +29,13 @@
     #   };
     # };
 
+    opacity = let
+      default_opacity = 0.85;
+    in {
+      desktop = default_opacity;
+      terminal = default_opacity;
+    };
+
     cursor = {
       package = pkgs.catppuccin-cursors.mochaBlue;
       name = "Catppuccin Mocha Blue";
