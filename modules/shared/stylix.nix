@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }: {
   stylix = {
@@ -36,7 +37,7 @@
       terminal = default_opacity;
     };
 
-    cursor = {
+    cursor = lib.mkIf pkgs.stdenv.isLinux {
       package = pkgs.catppuccin-cursors.mochaBlue;
       name = "Catppuccin Mocha Blue";
       size = 45;
