@@ -28,5 +28,10 @@
     #     name = "Noto Color Emoji";
     #   };
     # };
+
+    cursor = {
+      pkgs = pkgs.catppuccin-cursors.mochaBlue;
+      name = "Catppuccin Mocha Blue";
+    };
   };
 }
