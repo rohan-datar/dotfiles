@@ -15,6 +15,12 @@
     ../../modules/shared/stylix.nix
   ];
 
+  stylix.cursor = {
+    package = pkgs.catppuccin-cursors.mochaBlue;
+    name = "Catppuccin Mocha Blue";
+    size = 45;
+  };
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.

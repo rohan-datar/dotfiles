@@ -36,11 +36,5 @@
       desktop = default_opacity;
       terminal = default_opacity;
     };
-
-    cursor = lib.mkIf pkgs.stdenv.isLinux {
-      package = pkgs.catppuccin-cursors.mochaBlue;
-      name = "Catppuccin Mocha Blue";
-      size = 45;
-    };
   };
 }
