@@ -9,7 +9,7 @@
     base16Scheme = "${inputs.tinted-schemes}/base24/catppuccin-mocha.yaml";
     polarity = "dark";
     fonts = {
-      sansSerif = stylix.fonts.serif = config.stylix.fonts.sansSerif;
+      sansSerif = config.stylix.fonts.serif;
 
       serif = {
         package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd;
