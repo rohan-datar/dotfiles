@@ -29,14 +29,6 @@
     settings = {
       bar = {
         autoHide = "never";
-        battery = {
-          hideLabelWhenFull = false;
-          label = true;
-          middleClick = "";
-          rightClick = "";
-          scrollDown = "";
-          scrollUp = "";
-        };
         bluetooth = {
           label = true;
           middleClick = "";
@@ -417,7 +409,7 @@
                 tooltip = "Color Picker";
               };
               shortcut3 = {
-                command = "bash -c \"${../scripts/snapshot.sh}\"";
+                command = "bash -c \"/nix/store/l3s52iggy014p38vi1ri5mi4rjb4qggb-snapshot.sh\"";
                 icon = "󰄀";
                 tooltip = "Screenshot";
               };
@@ -624,9 +616,6 @@
             card_radius = "0.4em";
             enableShadow = false;
             menu = {
-              battery = {
-                scaling = 100;
-              };
               bluetooth = {
                 scaling = 100;
               };

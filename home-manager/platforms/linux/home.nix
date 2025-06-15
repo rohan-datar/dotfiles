@@ -18,8 +18,6 @@
 
   home.packages = with pkgs; [
     blueman
-    waybar
-    waybar-mpris
     hyprpaper
     hyprshot
     hyprlock
