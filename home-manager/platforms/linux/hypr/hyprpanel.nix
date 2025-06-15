@@ -10,12 +10,6 @@
     # Default: false
     enable = true;
 
-    # Automatically restart HyprPanel with systemd.
-    # Useful when updating your config so that you
-    # don't need to manually restart it.
-    # Default: false
-    systemd.enable = true;
-
     # Add '/nix/store/.../hyprpanel' to your
     # Hyprland config 'exec-once'.
     # Default: false
@@ -132,15 +126,6 @@
             rightClick = "";
             round = true;
           };
-          power = {
-            icon = "";
-            leftClick = "menu:powerdropdown";
-            middleClick = "";
-            rightClick = "";
-            scrollDown = "";
-            scrollUp = "";
-            showLabel = true;
-          };
           ram = {
             icon = "";
             label = true;
@@ -219,8 +204,7 @@
           };
         };
         launcher = {
-          autoDetectIcon = false;
-          icon = "󰣇";
+          autoDetectIcon = true;
           middleClick = "";
           rightClick = "";
           scrollDown = "";
@@ -458,9 +442,9 @@
         showActionsOnHover = false;
         timeout = 7000;
       };
-      scalingPriority = "gdk";
+      scalingPriority = "hyprland";
       tear = false;
-      terminal = "$TERM";
+      terminal = "ghostty";
       theme = {
         bar = {
           border = {
