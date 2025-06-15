@@ -412,18 +412,6 @@
           hideAuthor = false;
           noMediaText = "No Media Currently Playing";
         };
-        # power = {
-        #   confirmation = true;
-        #   logout = "hyprctl dispatch exit";
-        #   lowBatteryNotification = false;
-        #   lowBatteryNotificationText = "Your battery is running low ($POWER_LEVEL %).\\n\\nPlease plug in your charger.";
-        #   lowBatteryNotificationTitle = "Warning: Low battery";
-        #   lowBatteryThreshold = 20;
-        #   reboot = "systemctl reboot";
-        #   showLabel = true;
-        #   shutdown = "systemctl poweroff";
-        #   sleep = "systemctl suspend";
-        # };
         transition = "crossfade";
         transitionTime = 200;
         volume = {
@@ -455,10 +443,6 @@
           buttons = {
             background_hover_opacity = 100;
             background_opacity = 100;
-            battery = {
-              enableBorder = false;
-              spacing = "0.5em";
-            };
             bluetooth = {
               enableBorder = false;
               spacing = "0.5em";
