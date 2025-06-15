@@ -54,6 +54,7 @@
     nerd-fonts.meslo-lg
     nerd-fonts.hack
     font-awesome
+    inputs.apple-fonts.packages.${pkgs.system}
   ];
 
   documentation = {

@@ -34,6 +34,7 @@
     wlogout
     gnomeExtensions.user-themes
     ghostty
+    ashell
   ];
 
   programs.fzf.enable = true;

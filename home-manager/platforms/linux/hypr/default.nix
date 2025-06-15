@@ -11,6 +11,8 @@
 
   services.swaync.enable = true;
 
+  home.file.".config/ashell".source = ./ashell;
+
   services.hyprpaper = {
     enable = true;
     settings = {

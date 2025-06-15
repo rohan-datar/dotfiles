@@ -10,17 +10,18 @@
     base16Scheme = "${inputs.tinted-schemes}/base24/catppuccin-mocha.yaml";
     polarity = "dark";
     fonts = {
-      sansSerif = config.stylix.fonts.serif;
-
       serif = {
         package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd;
         name = "SFProDisplay Nerd Font";
       };
 
-      monospace = {
-        package = pkgs.maple-mono.NF;
-        name = "Maple Mono NF";
-      };
+      sansSerif = config.stylix.fonts.serif;
+      monospace = config.stylix.fonts.serif;
+
+      # monospace = {
+      #   package = pkgs.maple-mono.NF;
+      #   name = "Maple Mono NF";
+      # };
 
       emoji = {
         package = pkgs.noto-fonts-emoji;
