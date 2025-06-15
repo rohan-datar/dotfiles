@@ -43,9 +43,10 @@
       };
     };
 
+    apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
+
     tinted-schemes = {
       flake = false;
-
       url = "github:tinted-theming/schemes";
     };
   };
@@ -56,9 +57,7 @@
     nix-darwin,
     nix-homebrew,
     home-manager,
-    # catppuccin,
     stylix,
-    tinted-schemes,
     agenix,
     ...
   } @ inputs: let

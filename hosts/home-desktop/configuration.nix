@@ -66,12 +66,6 @@
     ];
   };
 
-  stylix.cursor = {
-    package = pkgs.catppuccin-cursors.mochaBlue;
-    name = "Catppuccin Mocha Blue";
-    size = 45;
-  };
-
   environment.sessionVariables = {
     TERMINAL = "ghostty";
     DEFAULT_BROWSER = "zen";
