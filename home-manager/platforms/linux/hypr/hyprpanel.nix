@@ -366,14 +366,14 @@
             enabled = true;
             left = {
               shortcut1 = {
-                command = "microsoft-edge-stable";
-                icon = "󰇩";
-                tooltip = "Microsoft Edge";
+                command = "zen";
+                icon = "󰖟";
+                tooltip = "Zen Browser";
               };
               shortcut2 = {
-                command = "spotify-launcher";
-                icon = "";
-                tooltip = "Spotify";
+                command = "ghostty";
+                icon = "󰊠";
+                tooltip = "Ghostty";
               };
               shortcut3 = {
                 command = "discord";
@@ -381,7 +381,7 @@
                 tooltip = "Discord";
               };
               shortcut4 = {
-                command = "rofi -show drun";
+                command = "wofi -show drun";
                 icon = "";
                 tooltip = "Search Apps";
               };
@@ -412,18 +412,18 @@
           hideAuthor = false;
           noMediaText = "No Media Currently Playing";
         };
-        power = {
-          confirmation = true;
-          logout = "hyprctl dispatch exit";
-          lowBatteryNotification = false;
-          lowBatteryNotificationText = "Your battery is running low ($POWER_LEVEL %).\\n\\nPlease plug in your charger.";
-          lowBatteryNotificationTitle = "Warning: Low battery";
-          lowBatteryThreshold = 20;
-          reboot = "systemctl reboot";
-          showLabel = true;
-          shutdown = "systemctl poweroff";
-          sleep = "systemctl suspend";
-        };
+        # power = {
+        #   confirmation = true;
+        #   logout = "hyprctl dispatch exit";
+        #   lowBatteryNotification = false;
+        #   lowBatteryNotificationText = "Your battery is running low ($POWER_LEVEL %).\\n\\nPlease plug in your charger.";
+        #   lowBatteryNotificationTitle = "Warning: Low battery";
+        #   lowBatteryThreshold = 20;
+        #   reboot = "systemctl reboot";
+        #   showLabel = true;
+        #   shutdown = "systemctl poweroff";
+        #   sleep = "systemctl suspend";
+        # };
         transition = "crossfade";
         transitionTime = 200;
         volume = {
