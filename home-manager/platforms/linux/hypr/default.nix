@@ -1,17 +1,15 @@
 {...}: {
   imports = [
     ./hyprland.nix
-    ./waybar.nix
     ./wofi.nix
     ./networkmanager.nix
     ./hyprlock.nix
     ./hypridle.nix
     ./wlogout.nix
+    ./hyprpanel.nix
   ];
 
   services.swaync.enable = true;
-
-  # home.file.".config/ashell".source = ./ashell;
 
   services.hyprpaper = {
     enable = true;

@@ -22,8 +22,8 @@
       "$browser" = "zen";
 
       exec-once = [
-        "waybar 2>&1 > ~/somelog.txt &"
-        "hyprpaper & swaync & hypridle"
+        # "waybar 2>&1 > ~/somelog.txt &"
+        "hyprpaper &  hypridle"
       ];
 
       xwayland = {

@@ -47,14 +47,19 @@
     any-nix-shell
   ];
 
-  fonts.packages = with pkgs; [
-    maple-mono.NF
-    nerd-fonts.fira-code
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.meslo-lg
-    nerd-fonts.hack
-    font-awesome
-    inputs.apple-fonts.packages.${pkgs.system}
+  fonts.packages = [
+    pkgs.maple-mono.NF
+    pkgs.nerd-fonts.fira-code
+    pkgs.nerd-fonts.jetbrains-mono
+    pkgs.nerd-fonts.meslo-lg
+    pkgs.nerd-fonts.hack
+    pkgs.font-awesome
+    inputs.apple-fonts.packages.${pkgs.system}.sf-pro
+    inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd
+    inputs.apple-fonts.packages.${pkgs.system}.sf-compact
+    inputs.apple-fonts.packages.${pkgs.system}.sf-compact-nerd
+    inputs.apple-fonts.packages.${pkgs.system}.ny
+    inputs.apple-fonts.packages.${pkgs.system}.ny-nerd
   ];
 
   documentation = {

@@ -34,6 +34,7 @@
       };
     };
 
+    # NixOS view configuration
     stylix = {
       url = "github:danth/stylix";
       inputs = {
@@ -48,6 +49,11 @@
     tinted-schemes = {
       flake = false;
       url = "github:tinted-theming/schemes";
+    };
+
+    hyprpanel = {
+      url = "github:jas-singhfsu/hyprpanel";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -103,8 +109,8 @@
         extraSpecialArgs = {inherit inputs;};
         modules = [
           ./home-manager/platforms/linux/home.nix
-          # catppuccin.homeModules.catppuccin
           stylix.homeModules.stylix
+          {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
         ];
       };
 
@@ -113,7 +119,6 @@
         extraSpecialArgs = {inherit inputs;};
         modules = [
           ./home-manager/platforms/macos/home.nix
-          # catppuccin.homeModules.catppuccin
           stylix.homeModules.stylix
         ];
       };
