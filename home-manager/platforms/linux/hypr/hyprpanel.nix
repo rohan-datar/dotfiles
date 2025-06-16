@@ -653,8 +653,8 @@
           transparent = false;
         };
         font = {
-          # name = "SFProDisplay Nerd Font";
-          name = "MesloLGS Nerd Font";
+          name = "SFProDisplay Nerd Font";
+          # name = "MesloLGS Nerd Font";
           size = "1.2rem";
           weight = 600;
         };
