@@ -11,22 +11,28 @@
     polarity = "dark";
     fonts = {
       serif = {
+        package = inputs.apple-fonts.packages.${pkgs.system}.ny-nerd;
+        name = "SFProDisplay Nerd Font";
+      };
+
+      sansSerif = {
         package = inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd;
         name = "SFProDisplay Nerd Font";
       };
 
-      sansSerif = config.stylix.fonts.serif;
-      monospace = config.stylix.fonts.serif;
-
-      # monospace = {
-      #   package = pkgs.maple-mono.NF;
-      #   name = "Maple Mono NF";
-      # };
+      monospace = config.stylix.fonts.sansSerif;
 
       emoji = {
         package = pkgs.noto-fonts-emoji;
         name = "Noto Color Emoji";
       };
+    };
+
+    iconTheme = {
+      enable = true;
+      package = pkgs.papirus-icon-theme;
+      light = "Papirus Light";
+      dark = "Papirus Dark";
     };
 
     opacity = let

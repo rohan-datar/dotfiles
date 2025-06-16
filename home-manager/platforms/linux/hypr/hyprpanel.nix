@@ -21,6 +21,22 @@
     overwrite.enable = true;
 
     settings = {
+      layout = {
+        "bar.layouts" = {
+          "0" = {
+            left = ["dashboard" "workspaces" "windowtitle"];
+            middle = ["media"];
+            right = [
+              "volume"
+              "network"
+              "bluetooth"
+              "clock"
+              "notifications"
+              "power"
+            ];
+          };
+        };
+      };
       bar = {
         autoHide = "never";
         bluetooth = {
@@ -223,11 +239,7 @@
         };
         network = {
           label = true;
-          middleClick = "";
-          rightClick = "";
-          scrollDown = "";
-          scrollUp = "";
-          showWifiInfo = false;
+          showWifiInfo = true;
           truncation = true;
           truncation_size = 7;
         };
@@ -240,10 +252,6 @@
           show_total = false;
         };
         scrollSpeed = 5;
-        systray = {
-          ignore = [
-          ];
-        };
         volume = {
           label = true;
           middleClick = "";
@@ -256,19 +264,12 @@
           custom_title = true;
           icon = true;
           label = true;
-          leftClick = "";
-          middleClick = "";
-          rightClick = "";
-          scrollDown = "";
-          scrollUp = "";
           truncation = true;
           truncation_size = 50;
         };
         workspaces = {
           applicationIconEmptyWorkspace = "";
           applicationIconFallback = "󰣆";
-          applicationIconMap = {
-          };
           applicationIconOncePerWorkspace = true;
           icons = {
             active = "";
@@ -284,7 +285,7 @@
           showApplicationIcons = false;
           showWsIcons = false;
           show_icons = false;
-          show_numbered = false;
+          show_numbered = true;
           spacing = 1.0;
           workspaceIconMap = {
           };
@@ -297,20 +298,11 @@
         restartAgs = true;
         restartCommand = "${pkgs.hyprpanel}/bin/hyprpanel q; ${pkgs.hyprpanel}/bin/hyprpanel";
       };
-      layout = {
-      };
       menus = {
         clock = {
           time = {
             hideSeconds = false;
             military = false;
-          };
-          weather = {
-            enabled = true;
-            interval = 60000;
-            key = "";
-            location = "Los Angeles";
-            unit = "imperial";
           };
         };
         dashboard = {
@@ -400,7 +392,7 @@
             };
           };
           stats = {
-            enable_gpu = false;
+            enable_gpu = true;
             enabled = true;
             interval = 2000;
           };
@@ -661,18 +653,12 @@
           transparent = false;
         };
         font = {
-          name = "Ubuntu Nerd Font";
+          # name = "SFProDisplay Nerd Font";
+          name = "MesloLGS Nerd Font";
           size = "1.2rem";
           weight = 600;
         };
-        matugen = false;
-        matugen_settings = {
-          contrast = 0;
-          mode = "dark";
-          scheme_type = "tonal-spot";
-          variation = "standard_1";
-        };
-        name = "catppuccin_mocha";
+        name = "catppuccin_mocha_split";
         notification = {
           border_radius = "0.6em";
           enableShadow = false;
