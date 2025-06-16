@@ -21,9 +21,9 @@
     playerctl
     networkmanager_dmenu
     networkmanagerapplet
-    wlogout
     gnomeExtensions.user-themes
     ghostty
+    hyprpanel
   ];
 
   programs.fzf.enable = true;
