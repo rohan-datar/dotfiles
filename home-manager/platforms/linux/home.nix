@@ -16,14 +16,12 @@
     hyprlock
     hypridle
     wofi
+    swaynotificationcenter
     pavucontrol
     brightnessctl
-    playerctl
     networkmanager_dmenu
     networkmanagerapplet
-    gnomeExtensions.user-themes
     ghostty
-    hyprpanel
   ];
 
   programs.fzf.enable = true;

@@ -8,6 +8,8 @@
     ./hyprpanel.nix
   ];
 
+  services.swaync.enable = true;
+
   services.hyprpaper = {
     enable = true;
     settings = {
