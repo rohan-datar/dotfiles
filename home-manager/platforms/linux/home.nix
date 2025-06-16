@@ -9,13 +9,6 @@
     ./hypr
   ];
 
-  # home.pointerCursor = {
-  #   package = pkgs.adwaita-icon-theme;
-  #   x11.enable = true;
-  #   name = "Adwaita";
-  #   size = 38;
-  # };
-
   home.packages = with pkgs; [
     blueman
     hyprpaper
@@ -23,7 +16,6 @@
     hyprlock
     hypridle
     wofi
-    swaynotificationcenter
     pavucontrol
     brightnessctl
     playerctl

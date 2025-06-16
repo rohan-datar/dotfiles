@@ -5,11 +5,8 @@
     ./networkmanager.nix
     ./hyprlock.nix
     ./hypridle.nix
-    ./wlogout.nix
     ./hyprpanel.nix
   ];
-
-  services.swaync.enable = true;
 
   services.hyprpaper = {
     enable = true;
