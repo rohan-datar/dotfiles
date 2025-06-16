@@ -37,6 +37,13 @@
   ];
   fonts.fontconfig.enable = true;
 
+  stylix.iconTheme = {
+    enable = true;
+    package = pkgs.papirus-icon-theme;
+    light = "Papirus Light";
+    dark = "Papirus Dark";
+  };
+
   programs.fzf.enable = true;
 
   # Home Manager needs a bit of information about you and the paths it should

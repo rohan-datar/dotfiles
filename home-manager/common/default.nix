@@ -21,12 +21,6 @@
       name = "Catppuccin Mocha Blue";
       size = 45;
     };
-    iconTheme = {
-      enable = true;
-      package = pkgs.papirus-icon-theme;
-      light = "Papirus Light";
-      dark = "Papirus Dark";
-    };
   };
 
   # This value determines the Home Manager release that your configuration is
