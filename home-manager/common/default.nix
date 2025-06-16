@@ -15,10 +15,23 @@
     ../../modules/shared/stylix.nix
   ];
 
-  stylix.cursor = {
-    package = pkgs.catppuccin-cursors.mochaBlue;
-    name = "Catppuccin Mocha Blue";
-    size = 45;
+  stylix = {
+    cursor = {
+      package = pkgs.catppuccin-cursors.mochaBlue;
+      name = "Catppuccin Mocha Blue";
+      size = 45;
+    };
+    iconTheme = {
+      enable = true;
+      package = pkgs.papirus-icon-theme;
+      light = "Papirus Light";
+      dark = "Papirus Dark";
+    };
+  };
+
+  gtk.iconTheme = {
+    package = pkgs.papirus-icon-theme;
+    name = "Papirus Light";
   };
 
   # This value determines the Home Manager release that your configuration is

@@ -28,13 +28,6 @@
       };
     };
 
-    iconTheme = {
-      enable = true;
-      package = pkgs.papirus-icon-theme;
-      light = "Papirus Light";
-      dark = "Papirus Dark";
-    };
-
     opacity = let
       default_opacity = 0.85;
     in {
