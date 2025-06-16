@@ -21,6 +21,10 @@
       };
 
       monospace = config.stylix.fonts.sansSerif;
+      # monospace = {
+      #   package = pkgs.maple-mono.NF;
+      #   name = "Maple Mono NF";
+      # };
 
       emoji = {
         package = pkgs.noto-fonts-emoji;
