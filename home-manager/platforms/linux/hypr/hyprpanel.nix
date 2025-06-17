@@ -58,6 +58,7 @@
         workspaces = {
           show_numbered = true;
         };
+        launcher.audotDetectIcon = true;
       };
       dummy = true;
       hyprpanel = {
@@ -84,8 +85,8 @@
                 label = "󰉏 Videos";
               };
               directory3 = {
-                command = "bash -c \"xdg-open $HOME/Projects/\"";
-                label = "󰚝 Projects";
+                command = "bash -c \"xdg-open $HOME/nix/\"";
+                label = " Nix Config";
               };
             };
             right = {
@@ -105,17 +106,9 @@
           };
           powermenu = {
             avatar = {
-              image = "$HOME/.face.icon";
+              image = "$HOME/Pictures/HAL.png";
               name = "system";
             };
-            confirmation = true;
-            logout = "hyprctl dispatch exit";
-            reboot = "systemctl reboot";
-            shutdown = "systemctl poweroff";
-            sleep = "systemctl suspend";
-          };
-          recording = {
-            path = "$HOME/Videos/Screencasts";
           };
           shortcuts = {
             enabled = true;
@@ -136,7 +129,7 @@
                 tooltip = "Discord";
               };
               shortcut4 = {
-                command = "wofi -show drun";
+                command = "fuzzel";
                 icon = "";
                 tooltip = "Search Apps";
               };
@@ -154,39 +147,9 @@
               };
             };
           };
-          stats = {
-            enable_gpu = true;
-            enabled = true;
-            interval = 2000;
-          };
         };
-        media = {
-          displayTime = false;
-          displayTimeTooltip = false;
-          hideAlbum = false;
-          hideAuthor = false;
-          noMediaText = "No Media Currently Playing";
-        };
-        transition = "crossfade";
-        transitionTime = 200;
-        volume = {
-          raiseMaximumVolume = false;
-        };
-      };
-      notifications = {
-        active_monitor = true;
-        cache_actions = true;
-        clearDelay = 100;
-        displayedTotal = 10;
-        ignore = [
-        ];
-        monitor = 0;
-        position = "top right";
-        showActionsOnHover = false;
-        timeout = 7000;
       };
       scalingPriority = "hyprland";
-      tear = false;
       terminal = "ghostty";
       theme = {
         bar = {
