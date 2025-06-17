@@ -58,7 +58,7 @@
         workspaces = {
           show_numbered = true;
         };
-        launcher.audotDetectIcon = true;
+        launcher.autoDetectIcon = true;
       };
       dummy = true;
       hyprpanel = {
