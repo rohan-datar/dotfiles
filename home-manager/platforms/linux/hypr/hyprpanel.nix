@@ -24,13 +24,22 @@
       layout = {
         "bar.layouts" = {
           "0" = {
-            left = ["dashboard" "workspaces" "windowtitle"];
-            middle = ["media"];
-            right = [
-              "volume"
-              "network"
-              "bluetooth"
+            left = [
+              "dashboard"
+              "workspaces"
+              "windowtitle"
+              "cpu"
+              "ram"
+              "media"
+            ];
+            middle = [
               "clock"
+            ];
+            right = [
+              "weather"
+              "bluetooth"
+              "network"
+              "volume"
               "notifications"
               "power"
             ];
@@ -38,24 +47,6 @@
         };
       };
       bar = {
-        autoHide = "never";
-        bluetooth = {
-          label = true;
-          middleClick = "";
-          rightClick = "";
-          scrollDown = "";
-          scrollUp = "";
-        };
-        clock = {
-          format = "%a %b %d  %I:%M:%S %p";
-          icon = "󰸗";
-          middleClick = "";
-          rightClick = "";
-          scrollDown = "";
-          scrollUp = "";
-          showIcon = true;
-          showTime = true;
-        };
         customModules = {
           cpu = {
             icon = "";
@@ -81,41 +72,6 @@
             sensor = "";
             showUnit = true;
             unit = "metric";
-          };
-          hypridle = {
-            label = true;
-            middleClick = "";
-            offIcon = "";
-            offLabel = "Off";
-            onIcon = "";
-            onLabel = "On";
-            pollingInterval = 2000;
-            rightClick = "";
-            scrollDown = "";
-            scrollUp = "";
-          };
-          hyprsunset = {
-            label = true;
-            middleClick = "";
-            offIcon = "󰛨";
-            offLabel = "Off";
-            onIcon = "󱩌";
-            onLabel = "On";
-            pollingInterval = 2000;
-            rightClick = "";
-            scrollDown = "";
-            scrollUp = "";
-            temperature = "6000k";
-          };
-          kbLayout = {
-            icon = "󰌌";
-            label = true;
-            labelType = "code";
-            leftClick = "";
-            middleClick = "";
-            rightClick = "";
-            scrollDown = "";
-            scrollUp = "";
           };
           microphone = {
             label = true;
@@ -152,7 +108,6 @@
             rightClick = "";
             round = true;
           };
-          scrollSpeed = 5;
           storage = {
             icon = "󰋊";
             label = true;
@@ -162,35 +117,6 @@
             pollingInterval = 2000;
             rightClick = "";
             round = false;
-          };
-          submap = {
-            disabledIcon = "󰌌";
-            disabledText = "Submap off";
-            enabledIcon = "󰌐";
-            enabledText = "Submap On";
-            label = true;
-            leftClick = "";
-            middleClick = "";
-            rightClick = "";
-            scrollDown = "";
-            scrollUp = "";
-            showSubmapName = true;
-          };
-          updates = {
-            autoHide = false;
-            icon = {
-              pending = "󰏗";
-              updated = "󰏖";
-            };
-            label = true;
-            leftClick = "";
-            middleClick = "";
-            padZero = true;
-            pollingInterval = 1440000;
-            rightClick = "";
-            scrollDown = "";
-            scrollUp = "";
-            updateCommand = "";
           };
           weather = {
             label = true;
@@ -219,23 +145,8 @@
             ];
           };
         };
-        launcher = {
-          autoDetectIcon = true;
-          middleClick = "";
-          rightClick = "";
-          scrollDown = "";
-          scrollUp = "";
-        };
         media = {
           format = "{artist: - }{title}";
-          middleClick = "";
-          rightClick = "";
-          scrollDown = "";
-          scrollUp = "";
-          show_active_only = false;
-          show_label = true;
-          truncation = true;
-          truncation_size = 30;
         };
         network = {
           label = true;
@@ -251,11 +162,8 @@
           scrollUp = "";
           show_total = false;
         };
-        scrollSpeed = 5;
         volume = {
           label = true;
-          middleClick = "";
-          rightClick = "";
           scrollDown = "${pkgs.hyprpanel}/bin/hyprpanel 'vol -5'";
           scrollUp = "${pkgs.hyprpanel}/bin/hyprpanel 'vol +5'";
         };
