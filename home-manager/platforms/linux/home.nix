@@ -22,6 +22,7 @@
     networkmanager_dmenu
     networkmanagerapplet
     ghostty
+    fuzzel
 
     #fonts
 

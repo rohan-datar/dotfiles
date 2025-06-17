@@ -30,6 +30,8 @@
         package = pkgs.noto-fonts-emoji;
         name = "Noto Color Emoji";
       };
+
+      sizes.popups = 14;
     };
 
     opacity = let
@@ -38,5 +40,8 @@
       desktop = default_opacity;
       terminal = default_opacity;
     };
+
+    targets.font-packages.enable = true;
+    targets.fontconfig.enable = true;
   };
 }

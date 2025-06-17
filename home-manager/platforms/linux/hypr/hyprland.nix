@@ -18,7 +18,8 @@
       # Set programs that you use
       "$terminal" = "ghostty";
       "$fileManager" = "nautilus";
-      "$menu" = "wofi --show drun";
+      # "$menu" = "wofi --show drun";
+      "$menu" = "fuzzel";
       "$browser" = "zen";
 
       exec-once = [
