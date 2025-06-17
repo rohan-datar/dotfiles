@@ -16,7 +16,7 @@
     hyprlock
     hypridle
     wofi
-    swaynotificationcenter
+    dunst
     pavucontrol
     brightnessctl
     networkmanager_dmenu

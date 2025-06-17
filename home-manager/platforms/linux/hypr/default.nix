@@ -8,7 +8,7 @@
     ./hyprpanel.nix
   ];
 
-  services.swaync.enable = true;
+  services.dunst.enable = true;
   programs.fuzzel = {
     enable = true;
   };
