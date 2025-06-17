@@ -40,8 +40,5 @@
       desktop = default_opacity;
       terminal = default_opacity;
     };
-
-    targets.font-packages.enable = true;
-    targets.fontconfig.enable = true;
   };
 }

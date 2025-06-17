@@ -37,6 +37,8 @@
   ];
   fonts.fontconfig.enable = true;
 
+  stylix.targets.font-packages.enable = true;
+  stylix.targets.fontconfig.enable = true;
   stylix.iconTheme = {
     enable = true;
     package = pkgs.papirus-icon-theme;
