@@ -650,11 +650,10 @@
           scaling = 100;
           shadow = "0px 1px 2px 1px #16161e";
           shadowMargins = "0px 0px 4px 0px";
-          transparent = false;
+          transparent = true;
         };
         font = {
           name = "SFProDisplay Nerd Font";
-          # name = "MesloLGS Nerd Font";
           size = "1.2rem";
           weight = 600;
         };

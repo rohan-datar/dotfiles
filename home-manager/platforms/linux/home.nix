@@ -15,7 +15,6 @@
     hyprshot
     hyprlock
     hypridle
-    wofi
     dunst
     pavucontrol
     brightnessctl
