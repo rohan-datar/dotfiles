@@ -28,15 +28,14 @@
               "dashboard"
               "workspaces"
               "windowtitle"
-              "cpu"
-              "ram"
               "media"
             ];
             middle = [
               "clock"
             ];
             right = [
-              "weather"
+              "cpu"
+              "ram"
               "bluetooth"
               "network"
               "volume"
@@ -47,158 +46,17 @@
         };
       };
       bar = {
-        customModules = {
-          cpu = {
-            icon = "";
-            label = true;
-            leftClick = "";
-            middleClick = "";
-            pollingInterval = 2000;
-            rightClick = "";
-            round = true;
-            scrollDown = "";
-            scrollUp = "";
-          };
-          cpuTemp = {
-            icon = "";
-            label = true;
-            leftClick = "";
-            middleClick = "";
-            pollingInterval = 2000;
-            rightClick = "";
-            round = true;
-            scrollDown = "";
-            scrollUp = "";
-            sensor = "";
-            showUnit = true;
-            unit = "metric";
-          };
-          microphone = {
-            label = true;
-            leftClick = "menu:audio";
-            middleClick = "";
-            mutedIcon = "󰍭";
-            rightClick = "";
-            scrollDown = "";
-            scrollUp = "";
-            unmutedIcon = "󰍬";
-          };
-          netstat = {
-            dynamicIcon = false;
-            icon = "󰖟";
-            label = true;
-            labelType = "full";
-            leftClick = "";
-            middleClick = "";
-            networkInLabel = "↓";
-            networkInterface = "";
-            networkOutLabel = "↑";
-            pollingInterval = 2000;
-            rateUnit = "auto";
-            rightClick = "";
-            round = true;
-          };
-          ram = {
-            icon = "";
-            label = true;
-            labelType = "percentage";
-            leftClick = "";
-            middleClick = "";
-            pollingInterval = 2000;
-            rightClick = "";
-            round = true;
-          };
-          storage = {
-            icon = "󰋊";
-            label = true;
-            labelType = "percentage";
-            leftClick = "";
-            middleClick = "";
-            pollingInterval = 2000;
-            rightClick = "";
-            round = false;
-          };
-          weather = {
-            label = true;
-            leftClick = "";
-            middleClick = "";
-            rightClick = "";
-            scrollDown = "";
-            scrollUp = "";
-            unit = "imperial";
-          };
-          worldclock = {
-            divider = "  ";
-            format = "%I:%M:%S %p %Z";
-            formatDiffDate = "%a %b %d  %I:%M:%S %p %Z";
-            icon = "󱉊";
-            middleClick = "";
-            rightClick = "";
-            scrollDown = "";
-            scrollUp = "";
-            showIcon = true;
-            showTime = true;
-            tz = [
-              "America/New_York"
-              "Europe/Paris"
-              "Asia/Tokyo"
-            ];
-          };
-        };
-        media = {
-          format = "{artist: - }{title}";
-        };
-        network = {
-          label = true;
-          showWifiInfo = true;
-          truncation = true;
-          truncation_size = 7;
-        };
+        clock.showIcon = false;
         notifications = {
-          hideCountWhenZero = false;
-          middleClick = "";
-          rightClick = "";
-          scrollDown = "";
-          scrollUp = "";
-          show_total = false;
+          show_total = true;
         };
         volume = {
           label = true;
           scrollDown = "${pkgs.hyprpanel}/bin/hyprpanel 'vol -5'";
           scrollUp = "${pkgs.hyprpanel}/bin/hyprpanel 'vol +5'";
         };
-        windowtitle = {
-          class_name = true;
-          custom_title = true;
-          icon = true;
-          label = true;
-          truncation = true;
-          truncation_size = 50;
-        };
         workspaces = {
-          applicationIconEmptyWorkspace = "";
-          applicationIconFallback = "󰣆";
-          applicationIconOncePerWorkspace = true;
-          icons = {
-            active = "";
-            available = "";
-            occupied = "";
-          };
-          ignored = "";
-          monitorSpecific = true;
-          numbered_active_indicator = "underline";
-          reverse_scroll = false;
-          scroll_speed = 5;
-          showAllActive = true;
-          showApplicationIcons = false;
-          showWsIcons = false;
-          show_icons = false;
           show_numbered = true;
-          spacing = 1.0;
-          workspaceIconMap = {
-          };
-          workspaceMask = false;
-          workspaces = 5;
         };
       };
       dummy = true;
@@ -208,14 +66,11 @@
       };
       menus = {
         clock = {
-          time = {
-            hideSeconds = false;
-            military = false;
-          };
+          weather.enabled = false;
         };
         dashboard = {
           controls = {
-            enabled = true;
+            enabled = false;
           };
           directories = {
             enabled = true;
