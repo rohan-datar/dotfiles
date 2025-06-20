@@ -53,6 +53,14 @@
     };
 
     bat.enable = true;
+
+    kitty = {
+      enable = true;
+      font = {
+        name = "Maple Mono NF";
+        size = 14;
+      };
+    };
   };
 
   # Home Manager can also manage your environment variables through
