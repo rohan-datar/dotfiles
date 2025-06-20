@@ -6,6 +6,7 @@
 }: {
   environment.systemPackages = with pkgs; [
     firefox
+    floorp
     # ghostty
     alejandra
     neofetch

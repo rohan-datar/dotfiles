@@ -3,7 +3,9 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  pwaBrowser = pkgs.lib.getExe pkgs.google-chrome;
+in {
   imports = [
     ../../common
     ./hypr
@@ -47,6 +49,12 @@
   };
 
   programs.fzf.enable = true;
+
+  # set up PWAs
+  xdg.desktopEntries.appleMusic = {
+    name = "Apple Music";
+    exec = "${pwaBrowser} --app=https://music.apple.com/in/";
+  };
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.

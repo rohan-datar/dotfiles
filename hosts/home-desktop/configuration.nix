@@ -70,7 +70,6 @@
     TERMINAL = "ghostty";
     DEFAULT_BROWSER = "zen";
   };
-
   environment.variables.EDITOR = "nvim";
 
   # This value determines the NixOS release from which the default
