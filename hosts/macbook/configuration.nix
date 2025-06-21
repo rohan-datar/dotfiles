@@ -36,7 +36,6 @@
 
     casks = [
       "appcleaner"
-      "chromium"
       "discord"
       "omnidisksweeper"
       "zen"
