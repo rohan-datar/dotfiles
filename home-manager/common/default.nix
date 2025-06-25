@@ -47,6 +47,7 @@
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
+      database.comma.enable = true;
     };
 
     bat.enable = true;

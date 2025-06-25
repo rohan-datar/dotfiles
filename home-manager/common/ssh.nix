@@ -3,7 +3,7 @@
     enable = true;
     matchBlocks = {
       "uwgcloud" = {
-        hostname = "34.44.86.64";
+        hostname = "34.59.220.193";
         identityFile = "~/.ssh/id_rsa";
       };
 
