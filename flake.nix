@@ -13,6 +13,10 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     agenix = {
       url = "github:ryantm/agenix";
@@ -111,6 +115,7 @@
           ./home-manager/platforms/linux/home.nix
           stylix.homeModules.stylix
           {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
+          inputs.nix-index-database.hmModules.nix-index
         ];
       };
 
@@ -120,6 +125,7 @@
         modules = [
           ./home-manager/platforms/macos/home.nix
           stylix.homeModules.stylix
+          inputs.nix-index-database.hmModules.nix-index
         ];
       };
     };

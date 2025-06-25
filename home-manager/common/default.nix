@@ -47,7 +47,9 @@
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
-      database.comma.enable = true;
+    };
+    nix-index-database = {
+      comma.enable = true;
     };
 
     bat.enable = true;
