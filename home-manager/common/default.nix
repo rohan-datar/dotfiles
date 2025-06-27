@@ -42,6 +42,11 @@
     };
   };
 
+  home.packages = with pkgs; [
+    nix-output-monitor
+    nvd
+  ];
+
   programs = {
     nix-index = {
       enable = true;
@@ -50,6 +55,16 @@
     };
     nix-index-database = {
       comma.enable = true;
+    };
+
+    nh = {
+      enable = true;
+      clean = {
+        enable = true;
+        extraArgs = "--keep-since 7d --keep 5";
+      };
+
+      flake = "~/nix";
     };
 
     bat.enable = true;

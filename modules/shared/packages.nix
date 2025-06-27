@@ -43,7 +43,6 @@
     pandoc
     wireshark
     comma
-    nh
     any-nix-shell
   ];
 
