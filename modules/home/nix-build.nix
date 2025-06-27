@@ -12,7 +12,7 @@ with lib; let
         notify-send -e "NixOS Rebuilt OK!" --icon=software-update-available
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         echo "Nix Darwin Rebuilding..."
-        nh darwin switch $NIX_FLAKE_LOCATION
+        nh darwin switch .
         current=$(sudo darwin-rebuild --list-generations | grep current | awk '{printf " %s %s %s, MacOs\n", $1, $2, $3}')
     fi
         nh home switch .
