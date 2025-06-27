@@ -100,6 +100,7 @@
     TERMINAL = "ghostty";
     BROWSER = "zen";
     MANPAGER = "nvim '+Man!'-";
+    NIX_FLAKE_LOCATION = "$HOME/nix";
   };
 
   home.shellAliases = {
