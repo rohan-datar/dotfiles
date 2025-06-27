@@ -72,14 +72,13 @@
     ...
   } @ inputs: let
     home-desktop = "home-desktop";
-    macbook = "macbook";
+    macbook = "Rohans-MacBook";
   in {
     # config for desktop
     nixosConfigurations.${home-desktop} = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
         ./hosts/${home-desktop}/configuration.nix
-        # catppuccin.nixosModules.catppuccin
         stylix.nixosModules.stylix
         agenix.nixosModules.default
       ];
@@ -87,9 +86,9 @@
 
     # config for macbook
     darwinConfigurations.${macbook} = nix-darwin.lib.darwinSystem {
-      specialArgs = {inherit inputs;};
+      specialArgs = {inherit inputs macbook;};
       modules = [
-        ./hosts/${macbook}/configuration.nix
+        ./hosts/macbook/configuration.nix
         nix-homebrew.darwinModules.nix-homebrew
         {
           nix-homebrew = {

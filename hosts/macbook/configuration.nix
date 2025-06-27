@@ -2,6 +2,7 @@
   pkgs,
   config,
   inputs,
+  macbook,
   ...
 }: {
   imports = [
@@ -60,6 +61,12 @@
   # Auto upgrade nix package and the daemon service.
   nix.enable = true;
   nix.package = pkgs.nix;
+
+  networking = {
+    hostName = macbook;
+    localHostName = macbook;
+    computerName = macbook;
+  };
 
   # Create /etc/zshrc that loads the nix-darwin environment.
   programs.zsh.enable = true; # default shell on catalina

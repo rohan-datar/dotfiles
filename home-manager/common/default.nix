@@ -13,6 +13,7 @@
     ./neovim.nix
     # ./ghostty.nix
     ../../modules/shared/stylix.nix
+    ../../modules/home/nix-build.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
