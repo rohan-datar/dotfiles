@@ -7,7 +7,7 @@ with lib; let
   build_stage = ''
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         echo "NixOS Rebuilding.."
-        nh os switch $NIX_FLAKE_LOCATION
+        nh os switch .
         current=$(nixos-rebuild list-generations | grep True | awk '{printf "%s %s %s %s, NixOs\n", $1, $2, $3, $5}')
         notify-send -e "NixOS Rebuilt OK!" --icon=software-update-available
     elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -15,7 +15,7 @@ with lib; let
         nh darwin switch $NIX_FLAKE_LOCATION
         current=$(sudo darwin-rebuild --list-generations | grep current | awk '{printf " %s %s %s, MacOs\n", $1, $2, $3}')
     fi
-        nh home switch $NIX_FLAKE_LOCATION
+        nh home switch .
   '';
   rebuild = ''
     pushd "$NIX_FLAKE_LOCATION"
