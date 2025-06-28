@@ -3,22 +3,10 @@
   pkgs,
   ...
 }: {
-  imports = [inputs.hyprpanel.homeManagerModules.hyprpanel];
-
   programs.hyprpanel = {
     # Enable the module.
     # Default: false
     enable = true;
-
-    # Add '/nix/store/.../hyprpanel' to your
-    # Hyprland config 'exec-once'.
-    # Default: false
-    hyprland.enable = true;
-
-    # Fix the overwrite issue with HyprPanel.
-    # See below for more information.
-    # Default: false
-    overwrite.enable = true;
 
     settings = {
       layout = {
@@ -153,19 +141,10 @@
       terminal = "ghostty";
       theme = {
         bar = {
-          border_radius = "0.4em";
-          buttons = {
-            background_hover_opacity = 100;
-            background_opacity = 80;
-          };
-          opacity = 100;
-          scaling = 100;
           transparent = true;
         };
         font = {
           name = "SFProDisplay Nerd Font";
-          size = "1.2rem";
-          weight = 600;
         };
         name = "catppuccin_mocha_split";
       };

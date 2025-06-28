@@ -54,11 +54,6 @@
       flake = false;
       url = "github:tinted-theming/schemes";
     };
-
-    hyprpanel = {
-      url = "github:jas-singhfsu/hyprpanel";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
@@ -113,7 +108,6 @@
         modules = [
           ./home-manager/platforms/linux/home.nix
           stylix.homeModules.stylix
-          {nixpkgs.overlays = [inputs.hyprpanel.overlay];}
           inputs.nix-index-database.hmModules.nix-index
         ];
       };
