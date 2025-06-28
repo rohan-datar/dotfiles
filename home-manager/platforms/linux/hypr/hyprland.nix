@@ -13,7 +13,7 @@
       ];
 
       # set alt as the mod key
-      "$mainMod" = "Alt";
+      "$mainMod" = "Super";
 
       # Set programs that you use
       "$terminal" = "ghostty";
