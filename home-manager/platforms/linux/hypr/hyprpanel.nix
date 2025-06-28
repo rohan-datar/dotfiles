@@ -9,9 +9,9 @@
     enable = true;
 
     settings = {
-      layout = {
-        "bar.layouts" = {
-          "0" = {
+      bar = {
+        layouts = {
+          "*" = {
             left = [
               "dashboard"
               "workspaces"
@@ -32,8 +32,6 @@
             ];
           };
         };
-      };
-      bar = {
         clock.showIcon = false;
         notifications = {
           show_total = true;
