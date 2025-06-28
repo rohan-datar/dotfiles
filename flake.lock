@@ -364,11 +364,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750618016,
-        "narHash": "sha256-wn6XV23Sz/nsDPI+1FGjtyMfAWJWcXRpNcryS47DJdY=",
+        "lastModified": 1751078933,
+        "narHash": "sha256-XZZVoQWUblmTorqZpYNgg3GIfSo8wtrOHJR7yfc61Tg=",
         "owner": "jas-singhfsu",
         "repo": "hyprpanel",
-        "rev": "2c0c66a8ddcdff69b2ff694fefbcd8df4387a9e7",
+        "rev": "a46929e4c54a95a4b7333e1a304d83862293a4ee",
         "type": "github"
       },
       "original": {
@@ -788,11 +788,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750979960,
-        "narHash": "sha256-ODzTyHMk+ZWotuk+FQCSDMIxoY/l7aLHyXoEg+HqYCI=",
+        "lastModified": 1751080437,
+        "narHash": "sha256-deRp3545Hz2wOuPsnQZ/aVTYWdscrkTI9TBASHB2JKY=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "ba65621f10400885d94604a3fd9af378000bfb35",
+        "rev": "81666597b1172da12ea3eba28ea4145039ae7209",
         "type": "github"
       },
       "original": {
