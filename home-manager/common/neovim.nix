@@ -24,6 +24,7 @@
       tree-sitter-grammars.tree-sitter-markdown
       tree-sitter-grammars.tree-sitter-json
       tree-sitter-grammars.tree-sitter-latex
+      tree-sitter-grammars.tree-sitter-sql
 
       nodePackages_latest.vscode-json-languageserver
       fzf
