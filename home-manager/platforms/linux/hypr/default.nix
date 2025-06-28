@@ -7,7 +7,7 @@
     ./hyprpanel.nix
   ];
 
-  services.dunst.enable = true;
+  # services.dunst.enable = true;
   programs.fuzzel = {
     enable = true;
   };

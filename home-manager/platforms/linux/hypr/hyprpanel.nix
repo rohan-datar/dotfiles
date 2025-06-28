@@ -8,6 +8,8 @@
     # Default: false
     enable = true;
 
+    systemd.enable = true;
+
     settings = {
       bar = {
         layouts = {
@@ -137,14 +139,10 @@
       };
       scalingPriority = "hyprland";
       terminal = "ghostty";
+
       theme = {
-        bar = {
-          transparent = true;
-        };
-        font = {
-          name = "SFProDisplay Nerd Font";
-        };
-        name = "catppuccin_mocha_split";
+        "font.name" = "SFProDisplay Nerd Font Regular";
+        "bar.transparent" = "true";
       };
     };
   };

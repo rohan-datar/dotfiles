@@ -17,7 +17,7 @@ in {
     hyprshot
     hyprlock
     hypridle
-    dunst
+    # dunst
     pavucontrol
     brightnessctl
     networkmanager_dmenu
