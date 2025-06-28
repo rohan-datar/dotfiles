@@ -13,11 +13,9 @@ in {
 
   home.packages = with pkgs; [
     blueman
-    hyprpaper
     hyprshot
     hyprlock
     hypridle
-    # dunst
     pavucontrol
     brightnessctl
     networkmanager_dmenu

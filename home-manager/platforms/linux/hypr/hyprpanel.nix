@@ -4,8 +4,6 @@
   ...
 }: {
   programs.hyprpanel = {
-    # Enable the module.
-    # Default: false
     enable = true;
 
     systemd.enable = true;
