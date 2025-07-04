@@ -5,15 +5,13 @@
   ...
 }: {
   # Bootloader.
-  boot.loader = {
-    grub = {
-      enable = true;
-      devices = ["nodev"];
-      efiSupport = true;
-      useOSProber = true;
-      configurationLimit = 50;
-      efiInstallAsRemovable = true;
-    };
+  boot.loader.grub = {
+    enable = true;
+    devices = ["nodev"];
+    efiSupport = true;
+    useOSProber = true;
+    configurationLimit = 50;
+    efiInstallAsRemovable = true;
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
