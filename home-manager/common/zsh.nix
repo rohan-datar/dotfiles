@@ -2,19 +2,18 @@
   programs.zsh = {
     enable = true;
 
-    plugins = [
-      {name = "zsh-users/zsh-syntax-highlighting";}
-      {name = "zsh-users/zsh-completions";}
-      {name = "zsh-users/zsh-autosuggestions";}
-      {name = "Aloxaf/fzf-tab";}
-      {name = "ael-code/zsh-colored-man-pages";}
-      {name = "davidde/git";}
-      {
-        name = "vi-mode";
-        src = pkgs.zsh-vi-mode;
-        file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
-      }
-    ];
+    zplug = {
+      enable = true;
+      plugins = [
+        {name = "zsh-users/zsh-syntax-highlighting";}
+        {name = "zsh-users/zsh-completions";}
+        {name = "zsh-users/zsh-autosuggestions";}
+        {name = "Aloxaf/fzf-tab";}
+        {name = "ael-code/zsh-colored-man-pages";}
+        {name = "davidde/git";}
+        {name = "jeffreytse/zsh-vi-mode";}
+      ];
+    };
 
     history = {
       append = true;
