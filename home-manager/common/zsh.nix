@@ -9,9 +9,13 @@
         {name = "zsh-users/zsh-completions";}
         {name = "zsh-users/zsh-autosuggestions";}
         {name = "Aloxaf/fzf-tab";}
-        {name = "softmoth/zsh-vim-mode";}
         {name = "ael-code/zsh-colored-man-pages";}
         {name = "davidde/git";}
+        {
+          name = "vi-mode";
+          src = pkgs.zsh-vi-mode;
+          file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+        }
       ];
     };
 
