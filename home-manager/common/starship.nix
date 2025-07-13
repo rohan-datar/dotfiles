@@ -10,6 +10,7 @@
     enableZshIntegration = true;
     enableFishIntegration = true;
     enableTransience = true;
+    enableInteractive = true;
 
     settings =
       lib.recursiveUpdate

@@ -49,11 +49,19 @@
   ];
 
   programs = {
+    fzf = {
+      enable = true;
+      enableZshIntegration = true;
+      enableFishIntegration = true;
+      tmux.enableShellIntegration = true;
+    };
+
     nix-index = {
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
     };
+
     nix-index-database = {
       comma.enable = true;
     };

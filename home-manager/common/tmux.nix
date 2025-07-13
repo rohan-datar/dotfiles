@@ -31,6 +31,8 @@ in {
     # enable mouse support
     mouse = true;
 
+    shell = "${pkgs.fish}/bin/fish";
+
     plugins = with pkgs; [
       tmux-nerd-font-window-name
 
@@ -89,8 +91,8 @@ in {
       unbind -T copy-mode-vi MouseDragEnd1Pane # don't exit copy mode when dragging with mouse
 
       set-option -g status-position top
-      set -gu default-command
-      set -g default-shell "$SHELL"
+      # set -gu default-command
+      # set -g default-shell "$SHELL"
     '';
   };
 }

@@ -46,8 +46,6 @@ in {
     dark = "Papirus Dark";
   };
 
-  programs.fzf.enable = true;
-
   # set up PWAs
   xdg.desktopEntries.appleMusic = {
     name = "Apple Music";

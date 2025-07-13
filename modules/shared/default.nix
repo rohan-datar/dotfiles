@@ -11,14 +11,12 @@
   ];
 
   environment.shellAliases = {
-    vim = "nvim";
-
     # ls aliases
     ls = "ls --color";
     lsa = "ls -lah";
     l = "ls -lah";
     ll = "ls -lh";
-    la = "ls -lAh";
+    la = "ls -lAH";
   };
 
   # Allow unfree packages

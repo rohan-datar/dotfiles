@@ -48,5 +48,7 @@ require("lazy").setup({
 			lazy = "💤 ",
 		},
 	},
+
+	timeout = 800,
 })
 require("lazy").setup({ { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" } })
