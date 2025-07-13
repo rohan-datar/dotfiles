@@ -61,6 +61,7 @@ in {
           # resetting all bindings.
           # The argument specifies the initial mode (insert, "default" or visual).
           fish_vi_key_bindings --no-erase insert
+          bind --mode insert --erase ctrl-n
         '';
       };
     };
