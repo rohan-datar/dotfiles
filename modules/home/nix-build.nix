@@ -26,8 +26,8 @@ with lib; let
     fi
 
     # Autoformat your nix files
-    ${pkgs.alejandra} . &> /dev/null \
-        || ( ${pkgs.alejandra} . ; echo "formatting failed" && exit 1)
+    ${pkgs.alejandra}/bin/alejandra . &> /dev/null \
+        || ( ${pkgs.alejandra}/bin/alejandra . ; echo "formatting failed" && exit 1)
 
 
     ${build_stage}
