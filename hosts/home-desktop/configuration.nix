@@ -18,7 +18,7 @@
   # Set zsh as the default shell
   programs.zsh.enable = true;
   programs.fish.enable = true;
-  # users.defaultUserShell = pkgs.zsh;
+  users.defaultUserShell = pkgs.zsh;
 
   # this overrides the default shell for interactive sessions to be fish
   # but keeps bash in other scenarios to avoid compatibility issues
