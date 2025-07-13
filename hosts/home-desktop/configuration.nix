@@ -85,6 +85,7 @@
     DEFAULT_BROWSER = "zen";
   };
   environment.variables.EDITOR = "nvim";
+  stylix.targets.fish.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
