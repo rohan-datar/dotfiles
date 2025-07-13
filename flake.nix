@@ -44,7 +44,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         tinted-schemes.follows = "tinted-schemes";
-        home-manager.follows = "home-manager";
       };
     };
 
@@ -108,7 +107,7 @@
         modules = [
           ./home-manager/platforms/linux/home.nix
           stylix.homeModules.stylix
-          inputs.nix-index-database.hmModules.nix-index
+          inputs.nix-index-database.homeModules.nix-index
         ];
       };
 
