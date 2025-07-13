@@ -117,7 +117,7 @@
         modules = [
           ./home-manager/platforms/macos/home.nix
           stylix.homeModules.stylix
-          inputs.nix-index-database.hmModules.nix-index
+          inputs.nix-index-database.homeModules.nix-index
         ];
       };
     };
