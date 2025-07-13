@@ -7,6 +7,7 @@
   imports = [
     ./tmux.nix
     ./zsh.nix
+    ./fish.nix
     ./starship.nix
     ./ssh.nix
     ./git.nix

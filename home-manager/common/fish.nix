@@ -35,7 +35,7 @@
     '';
     shellInitLast = ''
       any-nix-shell fish --info-right | source
-      zoxide init fish | source
+      zoxide init --cmd cd fish | source
       starship init fish | source
       enable_transience
     '';
