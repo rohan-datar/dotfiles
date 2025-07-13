@@ -25,6 +25,7 @@
       name = "Catppuccin Mocha Blue";
       size = 45;
     };
+    targets.fish.enable = false;
   };
 
   # This value determines the Home Manager release that your configuration is
