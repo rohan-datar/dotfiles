@@ -27,10 +27,6 @@ in {
       la = "ls -lAH";
     };
 
-    shellAliases = {
-      bat = "cat";
-    };
-
     plugins = [
       {
         name = "macos";
