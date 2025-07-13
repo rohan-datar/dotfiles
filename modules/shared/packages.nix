@@ -45,6 +45,7 @@
     wireshark
     comma
     any-nix-shell
+    floorp
   ];
 
   fonts.packages = [
