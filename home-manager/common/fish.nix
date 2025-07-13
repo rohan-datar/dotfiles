@@ -50,13 +50,13 @@ in {
       }
     ];
 
-    binds = {
-      "ctrl-n" = {
-        enable = true;
-        mode = "insert";
-        command = "down-or-search";
-      };
-    };
+    # binds = {
+    #   "ctrl-n" = {
+    #     enable = true;
+    #     mode = "insert";
+    #     command = "down-or-search";
+    #   };
+    # };
 
     functions = {
       fish_user_key_bindings = {
