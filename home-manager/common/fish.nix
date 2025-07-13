@@ -1,4 +1,12 @@
-{...}: {
+{pkgs, ...}: let
+  catppuccin-fish = pkgs.fetchFromGitHub {
+    owner = "catppuccin";
+    repo = "fish";
+    rev = "6a85af2ff722ad0f9fbc8424ea0a5c454661dfed";
+    hash = "sha256-Oc0emnIUI4LV7QJLs4B2/FQtCFewRFVp7EDv8GawFsA=";
+  };
+in {
+  xdg.configFile."fish/themes/Catppuccin Latte.theme".source = "${catppuccin-fish}/themes/Catppuccin Latte.theme";
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -24,14 +32,41 @@
     };
 
     plugins = [
-      pkgs.fishPlugins.macos
-      pkgs.fishPlugins.sponge
-      pkgs.fishPlugins.fzf
-      pkgs.fishPlugins.colored-man-pages
+      {
+        name = "macos";
+        src = pkgs.fishPlugins.macos.src;
+      }
+      {
+        name = "sponge";
+        src = pkgs.fishPlugins.sponge.src;
+      }
+      {
+        name = "fzf";
+        src = pkgs.fishPlugins.fzf.src;
+      }
+      {
+        name = "colored-man-pages";
+        src = pkgs.fishPlugins.colored-man-pages.src;
+      }
     ];
 
+    functions = {
+      fish_user_key_bindings = {
+        body = ''
+          # Execute this once per mode that emacs bindings should be used in
+          fish_default_key_bindings -M insert
+
+          # Then execute the vi-bindings so they take precedence when there's a conflict.
+          # Without --no-erase fish_vi_key_bindings will default to
+          # resetting all bindings.
+          # The argument specifies the initial mode (insert, "default" or visual).
+          fish_vi_key_bindings --no-erase insert
+        '';
+      };
+    };
+
     shellInit = ''
-      set -g fish_key_bindings fish_vi_key_bindings
+      set -g fish_key_bindings fish_user_key_bindings
     '';
     shellInitLast = ''
       any-nix-shell fish --info-right | source
