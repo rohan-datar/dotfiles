@@ -65,7 +65,7 @@
         extraArgs = "--keep-since 7d --keep 5";
       };
 
-      flake = "~/nix";
+      flake = "$HOME/nix";
     };
 
     bat.enable = true;

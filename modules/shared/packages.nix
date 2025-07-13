@@ -24,6 +24,7 @@
     wget
     zoxide
     zsh
+    fish
     pstree
     starship
     nix-index
