@@ -64,8 +64,6 @@
         enable = true;
         extraArgs = "--keep-since 7d --keep 5";
       };
-
-      flake = "$HOME/nix";
     };
 
     bat.enable = true;
@@ -104,7 +102,6 @@
   };
 
   home.shellAliases = {
-    vim = "nvim";
     cat = "bat";
   };
 

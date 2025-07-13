@@ -8,6 +8,7 @@
   in {
     enable = true;
     enableZshIntegration = true;
+    enableFishIntegration = true;
     enableTransience = true;
 
     settings =
@@ -19,11 +20,9 @@
         scan_timeout = 10;
 
         format = lib.concatStrings [
-          "╭─ "
           "$os "
           "$all"
           "$line_break"
-          "╰─"
           "$character"
         ];
 

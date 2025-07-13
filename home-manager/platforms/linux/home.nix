@@ -54,6 +54,8 @@ in {
     exec = "${pwaBrowser} --app=https://music.apple.com/in/";
   };
 
+  programs.nh.flake = /home/rdatar/nix;
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "rdatar";
