@@ -92,7 +92,7 @@
           };
           powermenu = {
             avatar = {
-              image = "$HOME/Pictures/HAL.png";
+              image = ../assets/HAL-9000-icon.png;
               name = "system";
             };
           };
@@ -139,8 +139,7 @@
       terminal = "ghostty";
 
       theme = {
-        # "font.name" = "SFProDisplay Nerd Font";
-        "font.name" = "JetBrainsMono Nerd Font Propo";
+        "font.name" = "SFProDisplay Nerd Font";
         "bar.transparent" = "true";
       };
     };

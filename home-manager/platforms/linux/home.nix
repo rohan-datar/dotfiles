@@ -41,9 +41,9 @@ in {
   stylix.targets.fontconfig.enable = true;
   stylix.iconTheme = {
     enable = true;
-    package = pkgs.papirus-icon-theme;
-    light = "Papirus Light";
-    dark = "Papirus Dark";
+    package = pkgs.adwaita-icon-theme;
+    light = "Adwaita";
+    dark = "Adwaita";
   };
 
   # set up PWAs
