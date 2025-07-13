@@ -139,7 +139,8 @@
       terminal = "ghostty";
 
       theme = {
-        "font.name" = "SFProDisplay Nerd Font Regular";
+        # "font.name" = "SFProDisplay Nerd Font";
+        "font.name" = "JetBrainsMono Nerd Font Propo";
         "bar.transparent" = "true";
       };
     };

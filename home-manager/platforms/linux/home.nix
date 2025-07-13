@@ -50,6 +50,7 @@ in {
   xdg.desktopEntries.appleMusic = {
     name = "Apple Music";
     exec = "${pwaBrowser} --app=https://music.apple.com/in/";
+    icon = ./assets/icons8-apple-music-480.png;
   };
 
   programs.nh.flake = /home/rdatar/nix;

@@ -1,7 +1,6 @@
 {...}: {
   imports = [
     ./hyprland.nix
-    ./networkmanager.nix
     ./hyprlock.nix
     ./hypridle.nix
     ./hyprpanel.nix
