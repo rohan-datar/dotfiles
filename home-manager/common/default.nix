@@ -111,10 +111,6 @@
     NIX_FLAKE_LOCATION = "$HOME/nix";
   };
 
-  home.shellAliases = {
-    cat = "bat";
-  };
-
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
