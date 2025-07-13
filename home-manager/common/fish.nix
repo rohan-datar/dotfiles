@@ -50,9 +50,20 @@ in {
       }
     ];
 
-    shellInit = ''
-      set -g fish_key_bindings fish_vi_key_bindings
-    '';
+    functions = {
+      fish_user_key_bindings = {
+        body = ''
+          # Execute this once per mode that emacs bindings should be used in
+
+          # Then execute the vi-bindings so they take precedence when there's a conflict.
+          # Without --no-erase fish_vi_key_bindings will default to
+          # resetting all bindings.
+          # The argument specifies the initial mode (insert, "default" or visual).
+          fish_vi_key_bindings --no-erase insert
+        '';
+      };
+    };
+
     shellInitLast = ''
       any-nix-shell fish --info-right | source
       zoxide init --cmd cd fish | source
