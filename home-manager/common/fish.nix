@@ -50,6 +50,14 @@ in {
       }
     ];
 
+    binds = {
+      "ctrl-n" = {
+        enable = true;
+        mode = "insert";
+        command = "down-or-search";
+      };
+    };
+
     functions = {
       fish_user_key_bindings = {
         body = ''
@@ -61,7 +69,6 @@ in {
           # resetting all bindings.
           # The argument specifies the initial mode (insert, "default" or visual).
           fish_vi_key_bindings --no-erase insert
-          bind --mode insert --erase ctrl-n
         '';
       };
     };
