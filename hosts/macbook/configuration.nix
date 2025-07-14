@@ -16,7 +16,6 @@
   environment.systemPackages = with pkgs; [
     mkalias
     iina
-    aerospace
     swiftlint
     swift-format
     xcbeautify

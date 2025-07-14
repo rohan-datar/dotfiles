@@ -5,12 +5,13 @@
 }: {
   imports = [
     ../../common
+    ./aerospace.nix
   ];
-  home.file = {
-    ".config/aerospace/aerospace.toml" = {
-      source = ./aerospace/aerospace.toml;
-    };
-  };
+  # home.file = {
+  #   ".config/aerospace/aerospace.toml" = {
+  #     source = ./aerospace/aerospace.toml;
+  #   };
+  # };
 
   programs.nh.flake = /Users/rohandatar/nix;
 
