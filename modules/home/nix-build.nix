@@ -8,12 +8,12 @@ with lib; let
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         echo "NixOS Rebuilding.."
         nh os switch .
-        current=$(nh os info | grep current | awk -v date="$(date +"%y/%m/%d %H:%M:%S")" '{printf " %s %s , NixOS\n", $1, date}')
+        current=$(nh os info | grep current | awk -v date="$(date +"%y/%m/%d %H:%M:%S")" '{printf " %s %s: NixOS\n", $1, date}')
         notify-send -e "NixOS Rebuilt OK!" --icon=software-update-available
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         echo "Nix Darwin Rebuilding..."
         nh darwin switch .
-        current=$(nh os info | grep current | awk -v date="$(date +"%y/%m/%d %H:%M:%S")" '{printf " %s %s , MacOs\n", $1, date}')
+        current=$(nh os info | grep current | awk -v date="$(date +"%y/%m/%d %H:%M:%S")" '{printf " %s %s: MacOs\n", $1, date}')
     fi
         nh home switch .
   '';
