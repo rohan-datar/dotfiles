@@ -33,10 +33,6 @@ in {
         src = pkgs.fishPlugins.macos.src;
       }
       {
-        name = "sponge";
-        src = pkgs.fishPlugins.sponge.src;
-      }
-      {
         name = "fzf";
         src = pkgs.fishPlugins.fzf.src;
       }
@@ -68,6 +64,7 @@ in {
     };
 
     shellInitLast = ''
+      fish_config theme choose 'Catppuccin Mocha'
       any-nix-shell fish --info-right | source
       zoxide init --cmd cd fish | source
       starship init fish | source
