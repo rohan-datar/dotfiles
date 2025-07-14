@@ -15,7 +15,7 @@
     after-login-command = []
 
     after-startup-command = [
-      'exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=0xffd79921 inactive_color=0xff282828 width=3.0'
+      'exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 &'
     ]
 
     # Start AeroSpace at login
@@ -57,12 +57,12 @@
     #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
     #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
     [gaps]
-    inner.horizontal = 7
-    inner.vertical =   7
-    outer.left =       7
-    outer.bottom =     7
-    outer.top =        7 #[{monitor."built-in.*" = 0}, 37]
-    outer.right =      7
+    inner.horizontal = 9
+    inner.vertical =   9
+    outer.left =       9
+    outer.bottom =     9
+    outer.top =        9 #[{monitor."built-in.*" = 0}, 37]
+    outer.right =      9
 
     # 'main' binding mode declaration
     # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
