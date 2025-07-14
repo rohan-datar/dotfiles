@@ -47,6 +47,7 @@
     gnumake
     cacert
     wl-clipboard
+    ungoogled-chromium
     obsidian
     inputs.zen-browser.packages."${system}".default
     libnotify
