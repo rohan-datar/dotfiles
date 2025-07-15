@@ -34,7 +34,7 @@ in {
       }
       {
         name = "fzf";
-        src = pkgs.fishPlugins.fzf.src;
+        src = pkgs.fishPlugins.fzf-fish.src;
       }
       {
         name = "colored-man-pages";
