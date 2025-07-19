@@ -44,8 +44,6 @@
       jq
       yq
       jdt-language-server
-      javaCup
-      jflex
       sourcekit-lsp
       texliveFull
     ];
