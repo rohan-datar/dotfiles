@@ -57,8 +57,6 @@
     cifs-utils
     xspim
     nautilus
-    # jdk
-    zulu
     font-manager
   ];
   age.secrets.smbcredentials.file = ../../secrets/smbcredentials.age;
