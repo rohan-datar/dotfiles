@@ -61,6 +61,10 @@
           disabled = false;
           format = "[$shlvl ]($style)";
         };
+
+        direnv = {
+          disabled = false;
+        };
       };
   };
 }
