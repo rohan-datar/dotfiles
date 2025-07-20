@@ -87,11 +87,6 @@
     WLR_NO_HARDWARE_CURSORS = "1";
   };
 
-  services.xserver = {
-    enable = true;
-    videoDrivers = ["nvidia"];
-  };
-
   hardware = let
     # driverPkg = config.boot.kernelPackages.nvidiaPackages.beta;
   in {
@@ -130,9 +125,6 @@
     #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.rdatar = {
     isNormalUser = true;
@@ -150,17 +142,6 @@
     enable = true;
     extraPortals = with pkgs; [xdg-desktop-portal-hyprland];
   };
-  environment.systemPackages = [
-    (
-      pkgs.catppuccin-sddm.override {
-        flavor = "mocha";
-        font = "JetBrainsMono Nerd Font Propo";
-        fontSize = "12";
-        background = "~/.local/share/backgrounds/nixos-wallpaper-catppuccin-mocha.png";
-        loginBackground = true;
-      }
-    )
-  ];
 
   services = {
     displayManager.sddm = {
