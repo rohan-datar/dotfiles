@@ -46,6 +46,7 @@
       jdt-language-server
       sourcekit-lsp
       texliveFull
+      sqls
     ];
   };
   home.file = {

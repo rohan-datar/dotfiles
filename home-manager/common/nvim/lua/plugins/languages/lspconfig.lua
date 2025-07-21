@@ -130,6 +130,8 @@ return {
 					},
 				},
 			})
+
+			lspconfig.sqls.setup({})
 		end,
 	},
 }
