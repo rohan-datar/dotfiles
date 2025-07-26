@@ -84,7 +84,7 @@
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
 
     NVD_BACKEND = "direct";
-    WLR_NO_HARDWARE_CURSORS = "1";
+    # WLR_NO_HARDWARE_CURSORS = "1";
   };
 
   hardware = let
