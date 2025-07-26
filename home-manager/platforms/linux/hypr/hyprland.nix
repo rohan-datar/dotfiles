@@ -18,12 +18,11 @@
       # Set programs that you use
       "$terminal" = "ghostty";
       "$fileManager" = "nautilus";
-      # "$menu" = "wofi --show drun";
       "$menu" = "fuzzel";
       "$browser" = "zen";
 
       exec-once = [
-        "hyprpaper &  hypridle"
+        "hypridle"
       ];
 
       xwayland = {
@@ -32,7 +31,7 @@
 
       env = [
         "XCURSOR_SIZE,24"
-        "HYPRCURSOR_SIZE,24"
+        # "HYPRCURSOR_SIZE,24"
         "QT_QPA_PLATFORMTHEME,qt5ct"
       ];
 
