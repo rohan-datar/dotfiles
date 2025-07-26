@@ -1,4 +1,4 @@
-{...}: {
+{lib, ...}: {
   imports = [
     ./hyprland.nix
     ./hyprlock.nix
@@ -21,8 +21,11 @@
     };
   };
 
-  home.pointerCursor.hyprcursor = {
-    enable = true;
-    size = 24;
+  home.pointerCursor = {
+    x11 = lib.mkForce true;
+    hyprcursor = {
+      enable = true;
+      size = 24;
+    };
   };
 }
