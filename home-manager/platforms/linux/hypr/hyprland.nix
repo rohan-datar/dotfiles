@@ -30,7 +30,6 @@
       };
 
       env = [
-        "XCURSOR_SIZE,24"
         "QT_QPA_PLATFORMTHEME,qt5ct"
         "LIBVA_DRIVER_NAME,nvidia"
         "XDG_SESSION_TYPE,wayland"

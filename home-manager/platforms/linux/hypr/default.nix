@@ -22,7 +22,7 @@
   };
 
   home.pointerCursor = {
-    x11 = lib.mkForce true;
+    x11.enable = lib.mkForce true;
     hyprcursor = {
       enable = true;
       size = 24;
