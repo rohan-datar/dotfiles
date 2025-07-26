@@ -31,8 +31,10 @@
 
       env = [
         "XCURSOR_SIZE,24"
-        # "HYPRCURSOR_SIZE,24"
         "QT_QPA_PLATFORMTHEME,qt5ct"
+        "LIBVA_DRIVER_NAME,nvidia"
+        "XDG_SESSION_TYPE,wayland"
+        "WLR_NO_HARDWARE_CURSORS,1"
       ];
 
       general = {
