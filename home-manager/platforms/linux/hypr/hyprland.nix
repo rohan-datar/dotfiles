@@ -34,8 +34,13 @@
         "QT_QPA_PLATFORMTHEME,qt5ct"
         "LIBVA_DRIVER_NAME,nvidia"
         "XDG_SESSION_TYPE,wayland"
-        "WLR_NO_HARDWARE_CURSORS,1"
+        "GBM_BACKEND,nvidia-drm"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
       ];
+
+      cursor = {
+        "no_hardware_cursors" = true;
+      };
 
       general = {
         # See https://wiki.hyprland.org/Configuring/Variables/ for more

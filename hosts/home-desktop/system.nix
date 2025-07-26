@@ -86,9 +86,7 @@
     NVD_BACKEND = "direct";
   };
 
-  hardware = let
-    # driverPkg = config.boot.kernelPackages.nvidiaPackages.beta;
-  in {
+  hardware = {
     graphics.enable = true;
     nvidia = {
       modesetting.enable = true;
@@ -96,7 +94,6 @@
       powerManagement.finegrained = false;
       open = false;
       nvidiaSettings = false;
-      # package = driverPkg;
     };
 
     # bluetooth
