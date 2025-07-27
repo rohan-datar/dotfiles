@@ -195,11 +195,11 @@
     # if.app-id = 'md.obsidian'
     # run = "move-node-to-workspace N"
   '';
-  xdg.configFile."sketchybar/sketchybarrc".executable = true;
   xdg.configFile."sketchybar/sketchybarrc".source = ./sketchybar/sketchybarrc;
+  xdg.configFile."sketchybar/sketchybarrc".executable = true;
 
-  xdg.configFile."sketchybar/items".source = ./sketchybar/items;
-  xdg.configFile."sketchybar/plugins".source = ./sketchybar/plugins;
+  xdg.configFile."sketchybar/items/".source = ./sketchybar/items;
+  xdg.configFile."sketchybar/plugins/".source = ./sketchybar/plugins;
   xdg.configFile."sketchybar/colors.sh".source = ./sketchybar/colors.sh;
   xdg.configFile."sketchybar/colors.sh".executable = true;
 }
