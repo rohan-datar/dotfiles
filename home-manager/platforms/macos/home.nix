@@ -9,12 +9,11 @@
   ];
 
   programs.sketchybar.config = {
-    source = ./sketchybar/;
+    source = ./sketchybar;
     recursive = true;
   };
 
-
-  home.packages =  [ pkgs.sketchybar-app-font ];
+  home.packages = [pkgs.sketchybar-app-font];
 
   programs.nh.flake = /Users/rohandatar/nix;
 
