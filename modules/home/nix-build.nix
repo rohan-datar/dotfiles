@@ -38,8 +38,6 @@ with lib; let
     # Commit all changes witih the generation metadata
     git commit -am "$current"
 
-    # Back to where you were
-    popd
   '';
   update = ''
     pushd "$NIX_FLAKE_LOCATION"
@@ -52,8 +50,6 @@ with lib; let
     # Commit all changes witih the generation metadata
     git commit -am "$current"
 
-    # Back to where you were
-    popd
   '';
 
   rebuilder = pkgs.writeShellScriptBin "nxr" rebuild;
