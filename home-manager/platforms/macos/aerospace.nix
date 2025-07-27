@@ -2,7 +2,6 @@
   home.packages = with pkgs; [
     aerospace
     jankyborders
-    sketchybar
   ];
 
   xdg.configFile."aerospace/aerospace.toml".text = ''
@@ -15,7 +14,6 @@
     after-login-command = []
 
     after-startup-command = [
-      'exec-and-forget ${pkgs.fish}/bin/fish -c ${pkgs.sketchybar}/bin/sketchybar',
       'exec-and-forget ${pkgs.jankyborders}/bin/borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 &'
 
     ]
@@ -50,12 +48,6 @@
     # See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
     # Fallback value (if you omit the key): on-focused-monitor-changed = []
     on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
-    # Notify Sketchybar about workspace change
-    exec-on-workspace-change = [
-        '/bin/bash',
-        '-c',
-        '${pkgs.sketchybar}/bin/sketchybar --trigger aerospace_workspace_change AEROSPACE_FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE AEROSPACE_PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE',
-    ]
 
     # Gaps between windows (inner-*) and between monitor edges (outer-*).
     # Possible values:
@@ -195,11 +187,4 @@
     # if.app-id = 'md.obsidian'
     # run = "move-node-to-workspace N"
   '';
-  xdg.configFile."sketchybar/sketchybarrc".source = ./sketchybar/sketchybarrc;
-  xdg.configFile."sketchybar/sketchybarrc".executable = true;
-
-  xdg.configFile."sketchybar/items/".source = ./sketchybar/items;
-  xdg.configFile."sketchybar/plugins/".source = ./sketchybar/plugins;
-  xdg.configFile."sketchybar/colors.sh".source = ./sketchybar/colors.sh;
-  xdg.configFile."sketchybar/colors.sh".executable = true;
 }
