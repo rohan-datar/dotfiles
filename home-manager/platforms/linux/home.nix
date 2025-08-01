@@ -53,7 +53,7 @@ in {
     icon = ./assets/icons8-apple-music-480.png;
   };
 
-  programs.nh.flake = /home/rdatar/nix;
+  programs.nh.flake = "/home/rdatar/nix";
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
