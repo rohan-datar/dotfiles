@@ -17,6 +17,7 @@ return {
 
 			-- clangd = {},
 			lspconfig.gopls.setup({
+				capabilities = capabilities,
 				settings = {
 					gopls = {
 						gofumpt = true,
@@ -26,6 +27,7 @@ return {
 			})
 
 			lspconfig.lua_ls.setup({
+				capabilities = capabilities,
 				on_init = function(client)
 					if client.workspace_folders then
 						local path = client.workspace_folders[1].name
@@ -68,12 +70,12 @@ return {
 				},
 			})
 
-			lspconfig.jedi_language_server.setup({})
-			lspconfig.templ.setup({})
-			lspconfig.html.setup({})
-			lspconfig.htmx.setup({})
-			lspconfig.yamlls.setup({})
-			lspconfig.jdtls.setup({})
+			lspconfig.jedi_language_server.setup({ capabilities = capabilities })
+			lspconfig.templ.setup({ capabilities = capabilities })
+			lspconfig.html.setup({ capabilities = capabilities })
+			lspconfig.htmx.setup({ capabilities = capabilities })
+			lspconfig.yamlls.setup({ capabilities = capabilities })
+			lspconfig.jdtls.setup({ capabilities = capabilities })
 
 			lspconfig.markdown_oxide.setup({
 				capabilities = {
