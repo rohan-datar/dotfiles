@@ -71,7 +71,7 @@ return {
 			lspconfig.jedi_language_server.setup({})
 			lspconfig.templ.setup({})
 			lspconfig.html.setup({})
-			-- htmx = {},
+			lspconfig.htmx.setup({})
 			lspconfig.yamlls.setup({})
 			lspconfig.jdtls.setup({})
 

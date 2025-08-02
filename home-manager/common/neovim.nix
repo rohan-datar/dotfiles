@@ -47,6 +47,8 @@
       sourcekit-lsp
       texliveFull
       sqls
+      htmx-lsp
+      vscode-langservers-extracted
     ];
   };
   home.file = {
