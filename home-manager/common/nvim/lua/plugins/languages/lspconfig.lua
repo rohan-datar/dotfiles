@@ -72,7 +72,7 @@ return {
 
 			lspconfig.jedi_language_server.setup({ capabilities = capabilities })
 			lspconfig.templ.setup({ capabilities = capabilities })
-			lspconfig.html.setup({ capabilities = capabilities })
+			lspconfig.superhtml.setup({ capabilities = capabilities })
 			lspconfig.htmx.setup({ capabilities = capabilities })
 			lspconfig.yamlls.setup({ capabilities = capabilities })
 			lspconfig.jdtls.setup({ capabilities = capabilities })

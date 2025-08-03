@@ -48,7 +48,7 @@
       texliveFull
       sqls
       htmx-lsp
-      vscode-langservers-extracted
+      superhtml
     ];
   };
   home.file = {

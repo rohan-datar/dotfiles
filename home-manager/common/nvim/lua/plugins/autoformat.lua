@@ -21,6 +21,7 @@ return { -- Autoformat
 			json = { "jq" },
 			swift = { "swiftformat" },
 			nix = { "alejandra" },
+			html = { "superhtml" },
 			["*"] = { "trim_newlines", "trim_whitespace" },
 		},
 	},
