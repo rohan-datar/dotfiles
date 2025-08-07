@@ -12,26 +12,16 @@ return {
 		},
 	},
 	{ "Bilal2453/luvit-meta", lazy = true },
-	-- {
-	-- 	"ray-x/lsp_signature.nvim",
-	-- 	event = "VeryLazy",
-	-- 	opts = {
-	-- 		bind = true,
-	-- 		padding = " ",
-	-- 		handler_opts = {
-	-- 			border = "rounded",
-	-- 		},
-	-- 	},
-	-- },
 	{
 		"catgoose/templ-goto-definition",
 		ft = { "go" },
 		config = true,
 		dependenciies = "nvim-treesitter/nvim-treesitter", -- optional
+		enabled = false,
 	},
-
 	{
 		"fatih/vim-go",
 		ft = { "go" },
+		enabled = false,
 	},
 }
