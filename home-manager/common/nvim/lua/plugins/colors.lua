@@ -27,6 +27,9 @@ return { -- You can easily change to a different colorscheme.
 				flavor = "mocha",
 				transparent_background = true,
 				show_end_of_buffer = true,
+				float = {
+					transparent = true,
+				},
 			})
 
 			vim.cmd("colorscheme catppuccin")

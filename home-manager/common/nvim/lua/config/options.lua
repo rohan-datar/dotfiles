@@ -1,7 +1,7 @@
 -- [[ Setting options ]]
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
+
+-- rounded borders on floating windows
+vim.opt.winborder = "rounded"
 
 -- cursor
 vim.opt.guicursor = ""
