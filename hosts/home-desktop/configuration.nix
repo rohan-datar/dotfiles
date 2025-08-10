@@ -12,7 +12,6 @@
     ./hardware-configuration.nix
     ./system.nix
     ../../modules/shared
-    # ./overlays.nix
   ];
 
   # Set zsh as the default shell
@@ -58,6 +57,7 @@
     xspim
     nautilus
     font-manager
+    beeper
   ];
   age.secrets.smbcredentials.file = ../../secrets/smbcredentials.age;
   fileSystems."/mnt/data-share" = {

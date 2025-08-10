@@ -125,8 +125,11 @@
   users.users.rdatar = {
     isNormalUser = true;
     description = "Rohan Datar";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "libvirtd"];
   };
+
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
 
   programs.hyprland = {
     enable = true;
