@@ -46,6 +46,7 @@
     comma
     any-nix-shell
     floorp
+    vscode
   ];
 
   fonts.packages = [

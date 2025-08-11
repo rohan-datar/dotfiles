@@ -3,6 +3,7 @@ return {
 	{ "tpope/vim-surround", event = "VeryLazy" },
 	{ "tpope/vim-repeat", event = "VeryLazy" },
 	{ "tpope/vim-dadbod", event = "VeryLazy" },
+	{ "github/copilot.vim" },
 	{
 		"nvimdev/hlsearch.nvim",
 		event = "BufRead",
