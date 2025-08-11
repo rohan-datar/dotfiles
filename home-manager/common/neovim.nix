@@ -26,17 +26,6 @@
       tree-sitter-grammars.tree-sitter-latex
       tree-sitter-grammars.tree-sitter-sql
 
-      (tree-sitter.buildGrammar {
-        language = "leaf";
-        version = "7ca9aca";
-        src = pkgs.fetchFromGitHub {
-          owner = "visualbam";
-          repo = "tree-sitter-leaf";
-          rev = "7ca9aca731a3cd1b8b38743e88d828465fc6d480";
-          sha256 = "sha256-U0GsIR1NLbc6V2Vu1/ZoV3Zy+x0edOIsX9a/r2ZeY6o=";
-        };
-      })
-
       nodePackages_latest.vscode-json-languageserver
       fzf
       lua-language-server
