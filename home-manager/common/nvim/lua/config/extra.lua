@@ -1,4 +1,3 @@
-
 -- Add custom filetypes for Java CUP and JLex
 vim.filetype.add({
 	extension = {
