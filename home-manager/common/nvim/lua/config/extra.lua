@@ -5,6 +5,7 @@ vim.filetype.add({
 		jflex = "jflex",
 		cup = "cup",
 		grammar = "ebnf",
+		leaf = "html",
 	},
 })
 
