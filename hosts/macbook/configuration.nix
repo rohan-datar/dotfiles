@@ -20,6 +20,7 @@
     swift-format
     xcbeautify
     rubyPackages.xcodeproj
+    raycast
   ];
 
   homebrew = {
