@@ -49,9 +49,6 @@
     # Finder: show path bar
     # finder.ShowPathBar = true;
 
-    # Keep folders on top when sorting by name
-    finder._FXSortFoldersFirst = true;
-
     # When performing a search, search the current folder by default
     finder.FXDefaultSearchScope = "SCcf";
 
