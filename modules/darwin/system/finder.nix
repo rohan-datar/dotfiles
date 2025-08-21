@@ -4,20 +4,25 @@
     NSGlobalDomain.AppleShowAllFiles = true;
     NSGlobalDomain.AppleShowAllExtensions = true;
 
-    # Use list view in all Finder windows by default
-    # Four-letter codes for the other view modes: `icnv`, `clmv`, `glyv`
-    finder.FXPreferredViewStyle = "Nlsv";
+    finder = {
+      # show all file extensions
+      AppleShowAllExtensions = true;
 
-    # Finder: show path bar
-    finder.ShowPathBar = true;
+      # Use list view in all Finder windows by default
+      # Four-letter codes for the other view modes: `icnv`, `clmv`, `glyv`
+      FXPreferredViewStyle = "Nlsv";
 
-    # Keep folders on top when sorting by name
-    finder._FXSortFoldersFirst = true;
+      # Finder: show path bar
+      ShowPathBar = true;
 
-    # When performing a search, search the current folder by default
-    finder.FXDefaultSearchScope = "SCcf";
+      # Keep folders on top when sorting by name
+      _FXSortFoldersFirst = true;
 
-    # Disable the warning when changing a file extension
-    finder.FXEnableExtensionChangeWarning = false;
+      # When performing a search, search the current folder by default
+      FXDefaultSearchScope = "SCcf";
+
+      # Disable the warning when changing a file extension
+      FXEnableExtensionChangeWarning = false;
+    };
   };
 }

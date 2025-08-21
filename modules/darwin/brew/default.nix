@@ -1,0 +1,55 @@
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
+{
+  imports = [
+    inputs.homebrew.darwinModules.nix-homebrew
+    ./environment.nix
+  ];
+
+  config = {
+    nix-homebrew = {
+      enable = true;
+
+      # we need a user to install the packages for
+      user = "rohandatar"; # TODO: find a way to customize this per host
+
+      enableRosetta = true;
+
+
+      autoMigrate = true;
+    };
+
+    homebrew = {
+      enable = true;
+      brews = [
+        "mas"
+        "openjdk@21"
+        "swift"
+        "xcode-build-server"
+      ];
+
+      casks = [
+        "omnidisksweeper"
+        "zen"
+        "ghostty"
+        "beeper"
+      ];
+
+      masApps = {
+      # "Bitwarden" = 1352778147;
+      # "WireGuard" = 1451685025;
+        "Keynote" = 409183694;
+        "Numbers" = 409203825;
+        "Pages" = 409201541;
+        "Xcode" = 497799835;
+      };
+      onActivation.cleanup = "zap";
+      onActivation.autoUpdate = true;
+      onActivation.upgrade = true;
+    };
+  };
+};
