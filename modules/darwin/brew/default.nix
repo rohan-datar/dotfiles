@@ -23,29 +23,28 @@
       autoMigrate = true;
     };
 
+    # default brews
     homebrew = {
       enable = true;
       brews = [
         "mas"
-        "openjdk@21"
+        # "openjdk@21"
         "swift"
-        "xcode-build-server"
+        # "xcode-build-server"
       ];
 
       casks = [
-        "omnidisksweeper"
+        # "omnidisksweeper"
         "zen"
         "ghostty"
-        "beeper"
+        # "beeper"
       ];
 
       masApps = {
-      # "Bitwarden" = 1352778147;
-      # "WireGuard" = 1451685025;
         "Keynote" = 409183694;
         "Numbers" = 409203825;
         "Pages" = 409201541;
-        "Xcode" = 497799835;
+        # "Xcode" = 497799835;
       };
       onActivation.cleanup = "zap";
       onActivation.autoUpdate = true;
