@@ -36,7 +36,7 @@
       stylua
       cargo
       rustc
-      nixfmt-rfc-style
+      nixfmt
       zls
       ripgrep
       delve
@@ -45,9 +45,6 @@
       yq
       jdt-language-server
       sourcekit-lsp
-      texliveFull
-      sqls
-      htmx-lsp
       superhtml
     ];
   };

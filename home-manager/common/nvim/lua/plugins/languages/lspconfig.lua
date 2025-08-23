@@ -15,7 +15,6 @@ return {
 				lineFoldingOnly = true,
 			}
 
-			-- clangd = {},
 			lspconfig.gopls.setup({
 				capabilities = capabilities,
 				settings = {
@@ -73,9 +72,9 @@ return {
 			lspconfig.jedi_language_server.setup({ capabilities = capabilities })
 			lspconfig.templ.setup({ capabilities = capabilities })
 			lspconfig.superhtml.setup({ capabilities = capabilities })
-			lspconfig.htmx.setup({ capabilities = capabilities })
 			lspconfig.yamlls.setup({ capabilities = capabilities })
 			lspconfig.jdtls.setup({ capabilities = capabilities })
+			lspconfig.nixd.setup({ capabilities = capabilities })
 
 			lspconfig.markdown_oxide.setup({
 				capabilities = {
@@ -132,8 +131,6 @@ return {
 					},
 				},
 			})
-
-			lspconfig.sqls.setup({})
 		end,
 	},
 }

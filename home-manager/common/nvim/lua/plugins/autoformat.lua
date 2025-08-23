@@ -20,7 +20,7 @@ return { -- Autoformat
 			yaml = { "yq" },
 			json = { "jq" },
 			swift = { "swiftformat" },
-			nix = { "alejandra" },
+			nix = { "nixfmt" },
 			html = { "superhtml" },
 			["*"] = { "trim_newlines", "trim_whitespace" },
 		},
