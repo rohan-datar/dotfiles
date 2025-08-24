@@ -4,8 +4,6 @@
 }:
 {
   programs.tmux = {
-    enable = true;
-
     # set the prefix
     prefix = "C-s";
 

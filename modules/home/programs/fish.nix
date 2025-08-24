@@ -11,7 +11,6 @@ in
   xdg.configFile."fish/themes/Catppuccin Mocha.theme".source =
     "${catppuccin-fish}/themes/Catppuccin Mocha.theme";
   programs.fish = {
-    enable = true;
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
     '';
@@ -73,4 +72,6 @@ in
       enable_transience
     '';
   };
+
+  stylix.targets.fish.enable = false;
 }

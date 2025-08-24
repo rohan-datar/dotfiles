@@ -8,12 +8,11 @@ let
   inherit (lib) mkOption;
   inherit (lib.types) str;
 
-  sys = config.olympus.system;
 in
 {
   options.olympus.environment.flakePath = mkOption {
     type = str;
-    default = "/${if (_class == "nixos") then "home" else "Users"}/${sys.mainUser}/.config/flake";
+    default = "";
     description = "The path to the configuration";
   };
 

@@ -2,7 +2,6 @@
   imports = [
     # keep-sorted start
     ./defaults.nix
-    ./bat.nix
     ./direnv.nix
     ./fish.nix
     ./fzf.nix

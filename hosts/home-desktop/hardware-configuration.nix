@@ -22,6 +22,15 @@
     "sd_mod"
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelParams = [
+    "initcall_blacklist=simpledrm_platform_driver_init"
+    "nvidia.NVreg_OpenRmEnableUnsupportedGpus=1"
+    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+    "nvidia-drm.modeset=1"
+  ];
+
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/c72edfb1-4e8b-43f6-a38b-1a0dce854963";
     fsType = "ext4";
@@ -34,6 +43,18 @@
       "fmask=0077"
       "dmask=0077"
     ];
+  };
+
+  age.secrets.smbcredentials.file = ../../secrets/smbcredentials.age;
+  fileSystems."/mnt/data-share" = {
+    device = "//10.10.1.10/data-share";
+    fsType = "cifs";
+    options =
+      let
+        # this line prevents hanging on network split
+        automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+      in
+      [ "${automount_opts},credentials=${config.age.secrets.smbcredentials.path},uid=1000,gid=3000" ];
   };
 
   swapDevices = [

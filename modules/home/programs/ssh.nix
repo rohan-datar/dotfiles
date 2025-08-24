@@ -1,6 +1,5 @@
 {
   programs.ssh = {
-    enable = true;
     matchBlocks = {
       "uwgcloud" = {
         hostname = "104.198.64.179";
