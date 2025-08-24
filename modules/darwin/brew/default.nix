@@ -28,23 +28,18 @@
       enable = true;
       brews = [
         "mas"
-        # "openjdk@21"
         "swift"
-        # "xcode-build-server"
       ];
 
       casks = [
-        # "omnidisksweeper"
         "zen"
         "ghostty"
-        # "beeper"
       ];
 
       masApps = {
         "Keynote" = 409183694;
         "Numbers" = 409203825;
         "Pages" = 409201541;
-        # "Xcode" = 497799835;
       };
       onActivation.cleanup = "zap";
       onActivation.autoUpdate = true;

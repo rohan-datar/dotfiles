@@ -4,7 +4,8 @@
   inputs,
   macbook,
   ...
-}: {
+}:
+{
   imports = [
     ./system.nix
     ../../modules/shared
@@ -13,74 +14,40 @@
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs; [
-    mkalias
-    iina
-    swiftlint
-    swift-format
-    xcbeautify
-    rubyPackages.xcodeproj
-    raycast
-  ];
+  olympus.packages = {
+    inherit (pkgs)
+      mkalias
+      iina
+      swiftlint
+      swift-format
+      xcbeautify
+      raycast
+      appcleaner
+      ;
+  };
 
   homebrew = {
     enable = true;
     brews = [
-      "rust"
-      "node"
-      "mas"
       "openjdk@21"
-      "switchaudio-osx"
-      "swift"
       "xcode-build-server"
     ];
 
     casks = [
-      "appcleaner"
-      "discord"
       "omnidisksweeper"
-      "zen"
-      "ghostty"
       "beeper"
     ];
 
     masApps = {
-      "Bitwarden" = 1352778147;
-      "CopyClip" = 595191960;
-      "Keynote" = 409183694;
-      "Numbers" = 409203825;
-      "Pages" = 409201541;
       "Xcode" = 497799835;
-      "WireGuard" = 1451685025;
     };
-    onActivation.cleanup = "zap";
-    onActivation.autoUpdate = true;
-    onActivation.upgrade = true;
   };
-
-  # Auto upgrade nix package and the daemon service.
-  nix.enable = true;
-  nix.package = pkgs.nix;
 
   networking = {
     hostName = macbook;
     localHostName = macbook;
     computerName = macbook;
   };
-
-  # Create /etc/zshrc that loads the nix-darwin environment.
-  programs.zsh.enable = true; # default shell on catalina
-  programs.zsh.interactiveShellInit = ''
-    # this overrides the default shell for interactive sessions to be fish
-    # but keeps bash in other scenarios to avoid compatibility issues
-    # see https://wiki.nixos.org/wiki/Fish#section_Setting_fish_as_default_shell
-    if [[ $(ps -o command= -p "$PPID" | awk '{print $1}') != 'fish' ]]
-    then
-        exec fish -l
-    fi
-  '';
-
-  programs.fish.enable = true;
 
   # Set Git commit hash for darwin-version.
   # system.configurationRevision = self.rev or self.dirtyRev or null;

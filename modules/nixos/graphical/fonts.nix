@@ -1,15 +1,16 @@
 {
   pkgs,
-  inputs,
   lib,
+  inputs,
   config,
   ...
-}: {
-  stylix = {
-    enable = true;
-    base16Scheme = "${inputs.tinted-schemes}/base24/catppuccin-mocha.yaml";
-    polarity = "dark";
-    fonts = {
+}:
+let
+  cfg = config.olympus.aspects;
+in
+{
+  config = lib.mkIf cfg.graphical.enable {
+    stylix.fonts = {
       serif = {
         package = inputs.apple-fonts.packages.${pkgs.system}.ny-nerd;
         name = "SFProDisplay Nerd Font";
@@ -20,11 +21,10 @@
         name = "SFProDisplay Nerd Font";
       };
 
-      monospace = config.stylix.fonts.sansSerif;
-      # monospace = {
-      #   package = pkgs.maple-mono.NF;
-      #   name = "Maple Mono NF";
-      # };
+      monospace = {
+        package = inputs.apple-fonts.packages.${pkgs.system}.sf-mono-nerd;
+        name = "SFMono Nerd Font";
+      };
 
       emoji = {
         package = pkgs.noto-fonts-emoji;
@@ -32,13 +32,8 @@
       };
 
       sizes.popups = 14;
-    };
 
-    opacity = let
-      default_opacity = 0.85;
-    in {
-      desktop = default_opacity;
-      terminal = default_opacity;
     };
   };
+
 }

@@ -2,6 +2,7 @@
     _class = "darwin";
 
     imports = [
+        # keep-sorted start
         ../shared/
         ./brew
         ./system
@@ -9,5 +10,7 @@
         ./extras.nix
         ./nix.nix
         ./packages.nix
+        ./shell.nix
+        # keep-sorted end
     ];
 }

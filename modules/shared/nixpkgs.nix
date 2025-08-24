@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ ... }:
+{
   nixpkgs.config = {
     # I want to install packages that are not FOSS sometimes
     allowUnfree = true;

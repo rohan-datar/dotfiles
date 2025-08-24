@@ -1,5 +1,6 @@
-{lib, pkgs, ...}: {
-  fonts.packages =
+{ inputs, pkgs, ... }:
+{
+  fonts.packages = [
     pkgs.corefonts
     pkgs.maple-mono.NF
     pkgs.nerd-fonts.fira-code

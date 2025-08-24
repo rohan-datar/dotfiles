@@ -1,5 +1,6 @@
 {
   nix = {
+    enable = true;
     # nix gc works slightly differently on darwin, so we need to adjust the
     # interval such that it works properly here.
     gc.interval = {

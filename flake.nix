@@ -1,8 +1,7 @@
 {
   description = "Nix config flake";
 
-  outputs = inputs:
-    inputs.flake-parts.mkFlake {inherit inputs;} {imports = [./modules/flake];};
+  outputs = inputs: inputs.flake-parts.mkFlake { inherit inputs; } { imports = [ ./modules/flake ]; };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -65,6 +64,11 @@
     tinted-schemes = {
       flake = false;
       url = "github:tinted-theming/schemes";
+    };
+
+    nixarr = {
+      url = "github:rasmus-kirk/nixarr";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
