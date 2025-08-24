@@ -12,7 +12,6 @@
     ./console.nix
     ./documentation.nix
     ./nix.nix
-    ./colors.nix
     ./emulation.nix
     ./localization.nix
     ./shell.nix

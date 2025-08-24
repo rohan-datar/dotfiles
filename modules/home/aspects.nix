@@ -10,5 +10,4 @@ in
       ;
   };
 
-  programs.git.enable = true;
 }

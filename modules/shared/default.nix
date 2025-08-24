@@ -5,5 +5,6 @@
     ./nixpkgs.nix
     ./fonts.nix
     ./documentation.nix
+    ./colors.nix
   ];
 }

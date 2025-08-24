@@ -1,5 +1,5 @@
+# NOTE: This will be replaced eventually
 {
-  lib,
   pkgs,
   ...
 }:
@@ -29,7 +29,7 @@
       nodePackages_latest.vscode-json-languageserver
       fzf
       lua-language-server
-      nixd
+      nil
       go
       gopls
       gofumpt
@@ -52,26 +52,6 @@
     ".config/nvim" = {
       source = ./nvim;
       recursive = true;
-    };
-  };
-  # Conditionally add xdg.desktopEntries for Linux
-  xdg.desktopEntries = lib.optionalAttrs pkgs.stdenv.isLinux {
-    neovim = {
-      name = "Neovim";
-      genericName = "editor";
-      exec = "nvim -f %F";
-      mimeType = [
-        "text/html"
-        "text/xml"
-        "text/plain"
-        "text/english"
-        "text/x-makefile"
-        "text/x-c++hdr"
-        "text/x-tex"
-        "application/x-shellscript"
-      ];
-      terminal = false;
-      type = "Application";
     };
   };
 }
