@@ -2,12 +2,10 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   cfg = config.olympus.services;
   inherit (lib) mkEnableOption mkIf;
-in
-{
+in {
   options.olympus.services.homepage = {
     enable = mkEnableOption "Enable homepage dashboard";
   };

@@ -1,8 +1,4 @@
-{
-
-  pkgs,
-}:
-{
+{pkgs}: {
   # Create /etc/zshrc that loads the nix-darwin environment.
   programs.zsh.enable = true; # default shell on macos
   programs.fish.enable = true;

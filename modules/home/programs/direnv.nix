@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{config, ...}: {
   programs.direnv = {
     inherit (config.olympus.aspects.graphical) enable;
     silent = true;

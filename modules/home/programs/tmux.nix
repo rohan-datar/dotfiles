@@ -1,8 +1,4 @@
-{
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: {
   programs.tmux = {
     # set the prefix
     prefix = "C-s";

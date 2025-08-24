@@ -3,18 +3,16 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   inherit (config.olympus.system) gpu;
   inherit (lib) mkIf mkDefault;
-in
-{
+in {
   config = mkIf (gpu == "nvidia") {
-    services.xserver.videoDrivers = [ "nvidia" ];
+    services.xserver.videoDrivers = ["nvidia"];
 
     # Enables the Nvidia's experimental framebuffer device
     # fix for the imaginary monitor that does not exist
-    boot.kernelParams = [ "nvidia_drm.fbdev=1" ];
+    boot.kernelParams = ["nvidia_drm.fbdev=1"];
 
     environment.sessionVariables = {
       LIBVA_DRIVER_NAME = "nvidia";
@@ -27,13 +25,13 @@ in
     olympus.packages = {
       inherit (pkgs.nvtopPackages) nvidia;
 
-      inherit (pkgs)
+      inherit
+        (pkgs)
         # vulkan
         vulkan-tools
         vulkan-loader
         vulkan-validation-layers
         vulkan-extension-layer
-
         # libva
         libva
         libva-utils
@@ -62,7 +60,7 @@ in
       };
 
       graphics = {
-        extraPackages = [ pkgs.nvidia-vaapi-driver ];
+        extraPackages = [pkgs.nvidia-vaapi-driver];
       };
     };
   };

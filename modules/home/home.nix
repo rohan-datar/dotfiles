@@ -1,8 +1,10 @@
-{ lib, osConfig, ... }:
-let
-  inherit (lib) mkDefault;
-in
 {
+  lib,
+  osConfig,
+  ...
+}: let
+  inherit (lib) mkDefault;
+in {
   home.stateVersion = "24.05"; # TODO: look into tying this to the os state version
 
   # reload system units when changing configs

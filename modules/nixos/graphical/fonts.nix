@@ -4,11 +4,9 @@
   inputs,
   config,
   ...
-}:
-let
+}: let
   cfg = config.olympus.aspects;
-in
-{
+in {
   config = lib.mkIf cfg.graphical.enable {
     stylix.fonts = {
       serif = {
@@ -32,8 +30,6 @@ in
       };
 
       sizes.popups = 14;
-
     };
   };
-
 }

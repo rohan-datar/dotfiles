@@ -2,15 +2,12 @@
   lib,
   osClass,
   ...
-}:
-let
+}: let
   inherit (lib) mkOption mapAttrs;
   inherit (lib.types) enum nullOr str;
 
-  mkDefault = name: args: mkOption ({ description = "default ${name} for the system"; } // args);
-
-in
-{
+  mkDefault = name: args: mkOption ({description = "default ${name} for the system";} // args);
+in {
   options.olympus.programs.defaults = mapAttrs mkDefault {
     shell = {
       type = enum [
@@ -18,7 +15,10 @@ in
         "zsh"
         "fish"
       ];
-      default = if (osClass == "nixos") then "bash" else "zsh";
+      default =
+        if (osClass == "nixos")
+        then "bash"
+        else "zsh";
     };
 
     terminal = {

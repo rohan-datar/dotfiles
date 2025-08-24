@@ -4,8 +4,7 @@
   pkgs,
   config,
   ...
-}:
-{
+}: {
   config = lib.mkIf config.services.openssh.enable {
     olympus.packages = [
       pkgs.ghostty.terminfo

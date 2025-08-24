@@ -1,19 +1,17 @@
 {
   pkgs,
   inputs,
-
-}:
-let
+}: let
   name = "Rohans-MacBook";
-in
-{
-  imports = [ ./user.nix ];
+in {
+  imports = [./user.nix];
 
   olympus = {
     aspects.graphical.enable = true;
 
     packages = {
-      inherit (pkgs)
+      inherit
+        (pkgs)
         mkalias
         iina
         swiftlint

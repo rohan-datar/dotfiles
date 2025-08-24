@@ -1,8 +1,4 @@
-{
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: {
   programs.fish.enable = true;
 
   # this overrides the default shell for interactive sessions to be fish

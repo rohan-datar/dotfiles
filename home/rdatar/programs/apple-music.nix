@@ -1,11 +1,6 @@
-{
-  pkgs,
-  ...
-}:
-let
+{pkgs, ...}: let
   pwaBrowser = pkgs.lib.getExe pkgs.google-chrome;
-in
-{
+in {
   # set up PWAs
   xdg.desktopEntries.appleMusic = {
     name = "Apple Music";

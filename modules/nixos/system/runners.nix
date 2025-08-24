@@ -3,32 +3,31 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   inherit (lib) mkIf genAttrs;
-in
-{
+in {
   config = mkIf config.olympus.aspects.graphical.enable {
-    garden.packages = { inherit (pkgs) appimage-run; };
+    garden.packages = {inherit (pkgs) appimage-run;};
 
     # run appimages with appimage-run
     boot.binfmt.registrations =
       genAttrs
-        [
-          "appimage"
-          "AppImage"
-        ]
-        (ext: {
-          recognitionType = "extension";
-          magicOrExtension = ext;
-          interpreter = "/run/current-system/sw/bin/appimage-run";
-        });
+      [
+        "appimage"
+        "AppImage"
+      ]
+      (ext: {
+        recognitionType = "extension";
+        magicOrExtension = ext;
+        interpreter = "/run/current-system/sw/bin/appimage-run";
+      });
 
     # run unpatched linux binaries with nix-ld
     programs.nix-ld = {
       enable = true;
       libraries = builtins.attrValues {
-        inherit (pkgs)
+        inherit
+          (pkgs)
           openssl
           curl
           glib

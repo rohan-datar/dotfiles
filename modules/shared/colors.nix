@@ -4,22 +4,18 @@
   config,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.olympus.aspects;
-in
-{
+in {
   config = lib.mkIf (cfg.graphical.enable && pkgs.stdenv.hostPlatform.isLinux) {
     stylix.enable = true;
     base16Scheme = "${inputs.tinted-schemes}/base16/catppuccin-mocha.yaml";
 
-    opacity =
-      let
-        default_opacity = 0.85;
-      in
-      {
-        desktop = default_opacity;
-        terminal = default_opacity;
-      };
+    opacity = let
+      default_opacity = 0.85;
+    in {
+      desktop = default_opacity;
+      terminal = default_opacity;
+    };
   };
 }

@@ -3,9 +3,9 @@
   pkgs,
   config,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkIf
     splitString
     genAttrs
@@ -16,7 +16,8 @@ let
     mkOption
     mkEnableOption
     ;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     listOf
     str
     ;
@@ -27,8 +28,7 @@ let
   ];
 
   cfg = config.olympus.system.emulation;
-in
-{
+in {
   options.olympus.system.emulation = {
     # should we enable emulation for additional architectures?
     # enabling this option will make it so that you can build for, e.g.

@@ -1,8 +1,6 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   inherit (lib) mkForce;
-in
-{
+in {
   boot = {
     # We enable Systemd in the initrd so we can use it to mount the root
     # filesystem this will remove Perl from the activation

@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
     ./user.nix
@@ -34,7 +33,6 @@
 
   programs.defaults = {
     shell = "fish";
-
   };
 
   packages = with pkgs; [

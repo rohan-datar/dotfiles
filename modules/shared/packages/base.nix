@@ -3,8 +3,7 @@
   pkgs,
   inputs,
   ...
-}:
-{
+}: {
   # shared with all systems
   olympus.packages = with pkgs; [
     uutils-coreutils-noprefix

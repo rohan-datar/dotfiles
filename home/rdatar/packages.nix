@@ -1,8 +1,4 @@
-{
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: {
   olympus.packages = with pkgs; [
     blueman
     hyprshot

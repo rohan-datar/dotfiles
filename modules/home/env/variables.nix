@@ -2,11 +2,9 @@
   config,
   osConfig,
   ...
-}:
-let
+}: let
   inherit (config.olympus.programs) defaults;
-in
-{
+in {
   home.sessionVariables = {
     EDITOR = defaults.editor;
     GIT_EDITOR = defaults.editor;

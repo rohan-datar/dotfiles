@@ -1,8 +1,6 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   inherit (lib) mkDefault;
-in
-{
+in {
   systemd = {
     # Systemd OOMd
     oomd = {

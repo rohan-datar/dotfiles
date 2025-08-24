@@ -3,11 +3,9 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   inherit (lib) mkIf mkOption types;
-in
-{
+in {
   options.olympus.aspects.graphical.windowManager = mkOption {
     type = types.nullOr (
       types.enum [

@@ -27,8 +27,7 @@ let
     system-home-desktop-ed25519
     system-home-desktop-rsa
   ];
-in
-{
+in {
   "smbcredentials.age".publicKeys = rdatar-desktop ++ home-desktop;
   "AirVPN-America-WG.conf.age".publicKeys = home-media-keys;
   "transmissioncreds.json.age".publicKeys = home-media-keys;

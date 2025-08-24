@@ -1,6 +1,5 @@
 # this file is used to enable or disable shell integrations based on the shell itself
-{ config, ... }:
-{
+{config, ...}: {
   home.shell = {
     # disable the global enable
     enableShellIntegration = false;

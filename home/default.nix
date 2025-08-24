@@ -6,11 +6,9 @@
   inputs,
   inputs',
   ...
-}:
-let
+}: let
   inherit (lib) genAttrs;
-in
-{
+in {
   home-manager = {
     verbose = true;
     useUserPackages = true;
@@ -18,7 +16,7 @@ in
     backupFileExtension = "bak";
 
     users = genAttrs config.users.users (name: {
-      imports = [ ./${name} ];
+      imports = [./${name}];
     });
 
     extraSpecialArgs = {
@@ -30,6 +28,6 @@ in
         ;
     };
 
-    sharedModules = [ (self + /modules/home/default.nix) ];
+    sharedModules = [(self + /modules/home/default.nix)];
   };
 }

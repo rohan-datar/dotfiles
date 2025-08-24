@@ -2,9 +2,7 @@
   inputs,
   pkgs,
   ...
-}:
-{
-
+}: {
   olympus.packages = with pkgs; [
     maple-mono.NF
     nerd-fonts.meslo-lg

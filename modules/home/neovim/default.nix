@@ -1,9 +1,5 @@
 # NOTE: This will be replaced eventually
-{
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: {
   programs.neovim = {
     viAlias = true;
     vimAlias = true;

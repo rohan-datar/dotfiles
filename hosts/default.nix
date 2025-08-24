@@ -2,8 +2,7 @@
   self,
   inputs,
   ...
-}:
-{
+}: {
   imports = [
     inputs.easy-hosts.flakeModule
   ];
@@ -15,8 +14,8 @@
       ];
 
       hosts = {
-        home-desktop = { };
-        home-media = { };
+        home-desktop = {};
+        home-media = {};
         macbook = {
           arch = "aarch64";
           class = "darwin";
