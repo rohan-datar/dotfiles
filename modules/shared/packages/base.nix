@@ -20,6 +20,6 @@
       any-nix-shell
       ;
     agenix = inputs.agenix.packages.${pkgs.system}.default;
-    inherit (self.packages.${pkgs.system}) nx;
+    # inherit (self.packages.${pkgs.system}) nx;
   };
 }
