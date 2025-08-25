@@ -1,11 +1,18 @@
 {
   lib,
   config,
+  inputs,
   ...
-}: let
+}:
+let
   cfg = config.olympus.services;
   inherit (lib) mkEnableOption mkIf;
-in {
+in
+{
+  imports = [
+    inputs.nixarr.nixosModules.default
+  ];
+
   options.olympus.services.arr = {
     enable = mkEnableOption "Enable media applications";
   };
@@ -20,7 +27,7 @@ in {
       vpn = {
         enable = true;
         wgConf = config.age.secrets.wgconf.path;
-        accessibleFrom = ["10.10.0.0/19"];
+        accessibleFrom = [ "10.10.0.0/19" ];
       };
 
       mediaDir = "/mnt/media";

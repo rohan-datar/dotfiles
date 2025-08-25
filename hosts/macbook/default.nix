@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
 }:
 let
   name = "Rohans-MacBook";
@@ -10,6 +9,8 @@ in
 
   olympus = {
     aspects.graphical.enable = true;
+
+    system.users = [ "rohandatar" ];
 
     packages = {
       inherit (pkgs)
@@ -25,34 +26,34 @@ in
       environment.flakePath = "/home/rdatar/nix";
 
     };
-
-    homebrew = {
-      enable = true;
-      brews = [
-        "openjdk@21"
-        "xcode-build-server"
-      ];
-
-      casks = [
-        "omnidisksweeper"
-        "beeper"
-      ];
-
-      masApps = {
-        "Xcode" = 497799835;
-      };
-    };
-
-    networking = {
-      hostName = name;
-      localHostName = name;
-      computerName = name;
-    };
-
-    # $ darwin-rebuild changelog
-    system.stateVersion = 5;
-
-    # The platform the configuration will be used on.
-    nixpkgs.hostPlatform = "aarch64-darwin";
   };
+
+  homebrew = {
+    enable = true;
+    brews = [
+      "openjdk@21"
+      "xcode-build-server"
+    ];
+
+    casks = [
+      "omnidisksweeper"
+      "beeper"
+    ];
+
+    masApps = {
+      "Xcode" = 497799835;
+    };
+  };
+
+  networking = {
+    hostName = name;
+    localHostName = name;
+    computerName = name;
+  };
+
+  # $ darwin-rebuild changelog
+  system.stateVersion = 5;
+
+  # The platform the configuration will be used on.
+  nixpkgs.hostPlatform = "aarch64-darwin";
 }

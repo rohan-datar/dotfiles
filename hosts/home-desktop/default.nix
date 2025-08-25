@@ -8,7 +8,6 @@
   olympus = {
     aspects.graphical = {
       enable = true;
-      windowManager = "hyprland";
     };
 
     system = {
@@ -30,34 +29,31 @@
     services.printing.enable = true;
 
     environment.flakePath = "/home/rdatar/nix";
-  };
 
-  programs.defaults = {
-    shell = "fish";
+    packages = {
+      inherit (pkgs)
+        kitty
+        cargo
+        clang
+        gcc
+        nodejs
+        lua
+        gnumake
+        cacert
+        wl-clipboard
+        ungoogled-chromium
+        libnotify
+        glib
+        swift
+        thunderbird
+        cifs-utils
+        nautilus
+        font-manager
+        beeper
+        ;
+      inherit (inputs.zen-browser.packages."${pkgs.system}") default;
+    };
   };
-
-  packages = with pkgs; [
-    kitty
-    cargo
-    clang
-    gcc
-    nodejs
-    lua
-    gnumake
-    cacert
-    wl-clipboard
-    ungoogled-chromium
-    obsidian
-    inputs.zen-browser.packages."${system}".default
-    libnotify
-    glib
-    swift
-    thunderbird
-    cifs-utils
-    nautilus
-    font-manager
-    beeper
-  ];
 
   services.openssh.enable = true;
 

@@ -1,8 +1,9 @@
 {
   imports = [
     # keep-sorted start
-    ./packages.nix
-    ./aspects.nix
+    ./rdatar.nix
+    ./mkuser.nix
+    ./options.nix
     # keep-sorted end
   ];
 }

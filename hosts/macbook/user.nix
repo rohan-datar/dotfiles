@@ -1,9 +1,4 @@
 {
-  users.users.rohandatar = {
-    name = "rohandatar";
-    home = "/Users/rohandatar";
-  };
-
   home.username = "rohandatar";
   home.homeDirectory = "/Users/rohandatar";
   home-manager.users.rohandatar = {
@@ -17,6 +12,10 @@
       tmux.enable = true;
       zsh.enable = true;
       neovim.enable = true;
+    };
+
+    olympus.programs.defaults = {
+      shell = "fish";
     };
   };
 }

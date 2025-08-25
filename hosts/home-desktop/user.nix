@@ -1,17 +1,10 @@
 {
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.rdatar = {
-    isNormalUser = true;
-    description = "Rohan Datar";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-  };
-
   # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "rdatar";
+
+  # this is kinda weird but I don't want to do a bunch of work to share options between home-manager and nixos
+  programs.hyprland.enable = true;
 
   home-manager.users.rdatar = {
     programs = {
@@ -24,6 +17,10 @@
       tmux.enable = true;
       zsh.enable = true;
       neovim.enable = true;
+    };
+
+    olympus.programs.defaults = {
+      shell = "fish";
     };
   };
 }

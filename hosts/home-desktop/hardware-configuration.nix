@@ -7,10 +7,21 @@
   pkgs,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
+
+  # Bootloader.
+  boot.loader.grub = {
+    enable = true;
+    devices = [ "nodev" ];
+    efiSupport = true;
+    useOSProber = true;
+    configurationLimit = 50;
+    efiInstallAsRemovable = true;
+  };
 
   boot.initrd.availableKernelModules = [
     "xhci_pci"
@@ -48,10 +59,12 @@
   fileSystems."/mnt/data-share" = {
     device = "//10.10.1.10/data-share";
     fsType = "cifs";
-    options = let
-      # this line prevents hanging on network split
-      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-    in ["${automount_opts},credentials=${config.age.secrets.smbcredentials.path},uid=1000,gid=3000"];
+    options =
+      let
+        # this line prevents hanging on network split
+        automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+      in
+      [ "${automount_opts},credentials=${config.age.secrets.smbcredentials.path},uid=1000,gid=3000" ];
   };
 
   swapDevices = [

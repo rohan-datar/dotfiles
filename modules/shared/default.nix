@@ -1,10 +1,15 @@
 {
   imports = [
+    # keep-sorted start prefix_order=../,../../,./
+    ../global
+    ../../home
     ./packages
+    ./user
     ./nix.nix
     ./nixpkgs.nix
     ./fonts.nix
     ./documentation.nix
-    ./colors.nix
+    ./variables.nix
+    # keep-sorted end
   ];
 }

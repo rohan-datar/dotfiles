@@ -1,22 +1,25 @@
 {
-  flake,
+  self,
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   # shared with all systems
-  olympus.packages = with pkgs; [
-    uutils-coreutils-noprefix
-    python3
-    fd
-    git
-    tmux
-    zoxide
-    btop
-    bat
-    comma
-    any-nix-shell
-    inputs.agenix.packages.${system}.default
-    flake.packages.${system}.nx
-  ];
+  olympus.packages = {
+    inherit (pkgs)
+      uutils-coreutils-noprefix
+      python3
+      fd
+      git
+      tmux
+      zoxide
+      btop
+      bat
+      comma
+      any-nix-shell
+      ;
+    agenix = inputs.agenix.packages.${pkgs.system}.default;
+    inherit (self.packages.${pkgs.system}) nx;
+  };
 }

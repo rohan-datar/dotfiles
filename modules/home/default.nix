@@ -6,7 +6,6 @@
     ./env
     ./aspects.nix
     ./home.nix
-    # ./nix-build.nix
     # keep-sorted end
   ];
 }
