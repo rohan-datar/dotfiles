@@ -1,14 +1,15 @@
 {
-  description = "Nix config flake";
+  description = "Rohan's nix config";
 
-  outputs = inputs: inputs.flake-parts.mkFlake {inherit inputs;} {imports = [./modules/flake];};
+  outputs =
+    inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } { imports = [ ./modules/flake ]; };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
     home-manager = {
@@ -21,7 +22,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    inputs.systems.url = "github:nix-systems/default";
+    systems.url = "github:nix-systems/default";
 
     easy-hosts.url = "github:tgirlcloud/easy-hosts";
 
@@ -38,6 +39,7 @@
         darwin.follows = "nix-darwin";
       };
     };
+    agenix-template.url = "github:jhillyerd/agenix-template/1.0.0";
 
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
@@ -66,77 +68,14 @@
       url = "github:tinted-theming/schemes";
     };
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixarr = {
       url = "github:rasmus-kirk/nixarr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
-  # outputs = {
-  #   self,
-  #   nixpkgs,
-  #   nix-darwin,
-  #   nix-homebrew,
-  #   home-manager,
-  #   stylix,
-  #   agenix,
-  #   ...
-  # } @ inputs: let
-  #   home-desktop = "home-desktop";
-  #   macbook = "Rohans-MacBook";
-  # in {
-  #   # config for desktop
-  #   nixosConfigurations.${home-desktop} = nixpkgs.lib.nixosSystem {
-  #     specialArgs = {inherit inputs;};
-  #     modules = [
-  #       ./hosts/${home-desktop}/configuration.nix
-  #       stylix.nixosModules.stylix
-  #       agenix.nixosModules.default
-  #     ];
-  #   };
-
-  #   # config for macbook
-  #   darwinConfigurations.${macbook} = nix-darwin.lib.darwinSystem {
-  #     specialArgs = {inherit inputs macbook;};
-  #     modules = [
-  #       ./hosts/macbook/configuration.nix
-  #       nix-homebrew.darwinModules.nix-homebrew
-  #       {
-  #         nix-homebrew = {
-  #           enable = true;
-  #           # Apple Silicon Only
-  #           enableRosetta = true;
-
-  #           user = "rohandatar";
-
-  #           autoMigrate = true;
-  #         };
-  #       }
-  #       agenix.darwinModules.default
-  #       stylix.darwinModules.stylix
-  #     ];
-  #   };
-
-  #   homeConfigurations = {
-  #     rdatar = home-manager.lib.homeManagerConfiguration {
-  #       pkgs = nixpkgs.legacyPackages."x86_64-linux";
-  #       extraSpecialArgs = {inherit inputs;};
-  #       modules = [
-  #         ./home-manager/platforms/linux/home.nix
-  #         stylix.homeModules.stylix
-  #         inputs.nix-index-database.homeModules.nix-index
-  #       ];
-  #     };
-
-  #     rohandatar = home-manager.lib.homeManagerConfiguration {
-  #       pkgs = nixpkgs.legacyPackages."aarch64-darwin";
-  #       extraSpecialArgs = {inherit inputs;};
-  #       modules = [
-  #         ./home-manager/platforms/macos/home.nix
-  #         stylix.homeModules.stylix
-  #         inputs.nix-index-database.homeModules.nix-index
-  #       ];
-  #     };
-  #   };
-  # };
 }

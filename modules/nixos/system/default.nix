@@ -12,7 +12,6 @@
     ./runners.nix
     ./serial.nix
     ./size.nix
-    ./systemd.nix
     ./terminfo.nix
     ./xserver.nix
     # keep-sorted end

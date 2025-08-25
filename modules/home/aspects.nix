@@ -1,13 +1,13 @@
 {
-  lib,
   osConfig,
   ...
-}: let
+}:
+let
   cfg = osConfig.olympus.aspects;
-in {
+in
+{
   olympus.aspects = {
-    inherit
-      (cfg)
+    inherit (cfg)
       graphical
       server
       ;

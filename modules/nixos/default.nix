@@ -1,9 +1,10 @@
 {
   _class = "nixos";
 
-  import = [
+  imports = [
     # keep-sorted start
     ../shared
+    ./extras.nix
     ./hardware
     ./system
     ./graphical

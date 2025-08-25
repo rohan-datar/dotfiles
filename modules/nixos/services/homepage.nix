@@ -2,27 +2,29 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.olympus.services;
   inherit (lib) mkEnableOption mkIf;
-in {
+in
+{
   options.olympus.services.homepage = {
     enable = mkEnableOption "Enable homepage dashboard";
   };
 
   config = mkIf cfg.homepage.enable {
     age.secrets = {
-      sonarrApiKey.file = ./secrets/sonarrApiKey.age;
-      radarrApiKey.file = ./secrets/radarrApiKey.age;
-      bazarrApiKey.file = ./secrets/bazarrApiKey.age;
-      prowlarrApiKey.file = ./secrets/prowlarrApiKey.age;
-      jellyfinApiKey.file = ./secrets/jellyfinApiKey.age;
-      jellyseerrApiKey.file = ./secrets/jellyseerrApiKey.age;
-      truenasApiKey.file = ./secrets/truenasApiKey.age;
-      adguardPass.file = ./secrets/adguardPass.age;
-      transmissionPwd.file = ./secrets/transmissionPwd.age;
-      opnsenseUser.file = ./secrets/opnsenseUser.age;
-      opnsensePass.file = ./secrets/opnsensePass.age;
+      sonarrApiKey.file = ../../../secrets/sonarrApiKey.age;
+      radarrApiKey.file = ../../../secrets/radarrApiKey.age;
+      bazarrApiKey.file = ../../../secrets/bazarrApiKey.age;
+      prowlarrApiKey.file = ../../../secrets/prowlarrApiKey.age;
+      jellyfinApiKey.file = ../../../secrets/jellyfinApiKey.age;
+      jellyseerrApiKey.file = ../../../secrets/jellyseerrApiKey.age;
+      truenasApiKey.file = ../../../secrets/truenasApiKey.age;
+      adguardPass.file = ../../../secrets/adguardPass.age;
+      transmissionPwd.file = ../../../secrets/transmissionPwd.age;
+      opnsenseUser.file = ../../../secrets/opnsenseUser.age;
+      opnsensePass.file = ../../../secrets/opnsensePass.age;
     };
     age-template.files."hompage-keys.env" = {
       vars = {

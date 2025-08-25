@@ -2,7 +2,7 @@
   imports = [
     ./cpu
     ./gpu
-    ./sound.nix
+    ./sound
     ./bluetooth.nix
     ./firmware.nix
   ];

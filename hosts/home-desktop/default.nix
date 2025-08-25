@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, inputs, ... }:
+{
   imports = [
     ./hardware-configuration.nix
     ./user.nix
@@ -26,7 +27,7 @@
       gpu = "nvidia";
     };
 
-    services.printing = true;
+    services.printing.enable = true;
 
     environment.flakePath = "/home/rdatar/nix";
   };
