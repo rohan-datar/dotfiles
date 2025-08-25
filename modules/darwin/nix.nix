@@ -12,5 +12,5 @@
       "aarch64-darwin"
       "x86-64-darwin"
     ];
-  }
+  };
 }

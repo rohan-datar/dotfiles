@@ -1,6 +1,4 @@
 {
-  home.username = "rohandatar";
-  home.homeDirectory = "/Users/rohandatar";
   home-manager.users.rohandatar = {
     programs = {
       bat.enable = true;

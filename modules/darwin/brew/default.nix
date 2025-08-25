@@ -1,7 +1,5 @@
 {
-  pkgs,
   inputs,
-  config,
   ...
 }:
 {
@@ -18,7 +16,6 @@
       user = "rohandatar"; # TODO: find a way to customize this per host
 
       enableRosetta = true;
-
 
       autoMigrate = true;
     };
@@ -46,4 +43,4 @@
       onActivation.upgrade = true;
     };
   };
-};
+}

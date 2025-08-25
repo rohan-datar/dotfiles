@@ -1,5 +1,6 @@
 {
   pkgs,
+  ...
 }:
 let
   name = "Rohans-MacBook";
@@ -22,10 +23,10 @@ in
         raycast
         appcleaner
         ;
-
-      environment.flakePath = "/home/rdatar/nix";
-
     };
+
+    environment.flakePath = "/home/rdatar/nix";
+
   };
 
   homebrew = {

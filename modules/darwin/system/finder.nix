@@ -12,9 +12,6 @@
       # Four-letter codes for the other view modes: `icnv`, `clmv`, `glyv`
       FXPreferredViewStyle = "Nlsv";
 
-      # Finder: show path bar
-      ShowPathBar = true;
-
       # Keep folders on top when sorting by name
       _FXSortFoldersFirst = true;
 

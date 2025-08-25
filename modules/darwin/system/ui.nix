@@ -10,12 +10,6 @@
       PMPrintingExpandedStateForPrint = true;
       PMPrintingExpandedStateForPrint2 = true;
 
-      # Set accent color to blue
-      AppleAccentColor = "1";
-
-      # Show battery percentage in menu bar
-      ShowBatteryPercentage = true;
-
       # Enable subpixel font rendering on non-Apple LCDs
       # Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
       AppleFontSmoothing = 1;

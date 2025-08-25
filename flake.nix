@@ -41,7 +41,7 @@
     };
     agenix-template.url = "github:jhillyerd/agenix-template/1.0.0";
 
-    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     # Zen browser
     zen-browser = {
