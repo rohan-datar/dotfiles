@@ -19,7 +19,7 @@
 
       # font
       font-family = pkgs.lib.mkForce "Maple Mono NF";
-      font-size = pkgs.lib.mkForce 14;
+      font-size = pkgs.lib.mkForce 16;
 
       # shell stuff
       shell-integration = "detect";

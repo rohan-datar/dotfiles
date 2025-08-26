@@ -1,5 +1,4 @@
 {
-  self,
   pkgs,
   inputs,
   ...
@@ -18,6 +17,7 @@
       bat
       comma
       any-nix-shell
+      starship
       ;
     agenix = inputs.agenix.packages.${pkgs.system}.default;
     # inherit (self.packages.${pkgs.system}) nx;
