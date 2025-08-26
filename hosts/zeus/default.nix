@@ -1,4 +1,9 @@
 { pkgs, inputs, ... }:
+let
+  name = "home-desktop";
+  # Extract the config name from the flake
+  configName = builtins.baseNameOf (builtins.toString ./.);
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -57,11 +62,13 @@
 
   services.openssh.enable = true;
 
-  networking.hostName = "home-desktop"; # Define your hostname.
+  networking.hostName = name; # Define your hostname.
   networking.nameservers = [
     "10.10.0.1"
     "1.1.1.1"
   ];
+
+  environment.variables.NIX_CONFIG_NAME = configName;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

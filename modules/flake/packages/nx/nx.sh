@@ -64,21 +64,6 @@ system_gen() {
   fi
 }
 
-home_gen() {
-  local hm="/nix/var/nix/profiles/per-user/$USER/home-manager"
-  if [[ -L $hm ]]; then
-    local link base gen
-    link="$(readlink "$hm")"
-    base="${link##*/}" # home-manager-97-link
-    gen="${base#home-manager-}"
-    gen="${gen%-link}"
-    printf "%s" "${gen}"
-  elif have home-manager; then
-    # Fallback: parse CLI output (best-effort)
-    home-manager generations 2>/dev/null | awk '/\(current\)/{print $2; exit}'
-  fi
-}
-
 do_switch() {
   local action="${1:-switch}"
   pushd "$FLAKE" >/dev/null
@@ -114,13 +99,12 @@ do_switch() {
     return 0
   fi
 
-  local sys hm stamp host msg
+  local sys stamp host msg
   sys="$(system_gen || true)"
-  hm="$(home_gen || true)"
   # Portable ISO8601 (UTC) for uutils/BSD/GNU
   stamp="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
   host="$(hostname)"
-  msg="nx ${action} (${host}/${os_label}): sys=${sys:-?} hm=${hm:-?} @ ${stamp}"
+  msg="nx ${action} (${host}/${os_label}): sys=${sys:-?} @ ${stamp}"
 
   git --no-pager diff --cached -U0 || true
   git commit -m "$msg" || true

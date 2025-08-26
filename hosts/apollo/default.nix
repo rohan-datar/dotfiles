@@ -54,7 +54,7 @@ in
     computerName = name;
   };
 
-  environment.variables.NIX_CONFIG_NAME = configName; # Now uses directory name ("macbook")
+  environment.variables.NIX_CONFIG_NAME = configName;
 
   # $ darwin-rebuild changelog
   system.stateVersion = 5;

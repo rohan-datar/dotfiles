@@ -16,10 +16,10 @@
     };
 
     hosts = {
-      home-desktop = {
+      zeus = {
         class = "nixos";
       };
-      macbook = {
+      apollo = {
         arch = "aarch64";
         class = "darwin";
       };
