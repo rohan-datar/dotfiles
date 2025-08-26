@@ -25,7 +25,7 @@ in
         ;
     };
 
-    environment.flakePath = "/home/rdatar/nix";
+    environment.flakePath = "/Users/rohandatar/nix";
 
   };
 
