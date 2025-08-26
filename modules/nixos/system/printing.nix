@@ -2,15 +2,16 @@
   lib,
   config,
   ...
-}: let
-  inherit
-    (lib)
+}:
+let
+  inherit (lib)
     mkIf
     mkEnableOption
     ;
 
   cfg = config.olympus.services.printing;
-in {
+in
+{
   options.olympus.services.printing = {
     enable = mkEnableOption "printing";
   };

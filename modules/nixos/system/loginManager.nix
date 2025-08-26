@@ -3,9 +3,11 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf;
-in {
+in
+{
   config = mkIf config.olympus.aspects.graphical.enable {
     services = {
       displayManager.sddm = {

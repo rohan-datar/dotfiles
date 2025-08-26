@@ -1,6 +1,8 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   inherit (lib) mkForce;
-in {
+in
+{
   programs = {
     info.enable = mkForce false;
     man.enable = mkForce false;

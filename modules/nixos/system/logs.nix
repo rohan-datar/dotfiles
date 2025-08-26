@@ -2,10 +2,12 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf;
-in {
-  config = mkIf (config.olympus.aspects.graphical.enable) {
+in
+{
+  config = mkIf config.olympus.aspects.graphical.enable {
     # limit systemd journal size
     # https://wiki.archlinux.org/title/Systemd/Journal#Persistent_journals
     services.journald.extraConfig = ''

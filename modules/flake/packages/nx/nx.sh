@@ -2,8 +2,11 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-die(){ echo "nx: $*" >&2; exit 1; }
-have(){ command -v "$1" >/dev/null 2>&1; }
+die() {
+  echo "nx: $*" >&2
+  exit 1
+}
+have() { command -v "$1" >/dev/null 2>&1; }
 
 # --- Flake root (env or git toplevel or cwd)
 NIX_FLAKE_LOCATION="${NIX_FLAKE_LOCATION:-$(
@@ -12,9 +15,9 @@ NIX_FLAKE_LOCATION="${NIX_FLAKE_LOCATION:-$(
 
 OS="$(uname -s)"
 case "$OS" in
-  Linux)  os_label="NixOS" ;;
-  Darwin) os_label="macOS" ;;
-  *)      die "Unsupported OS: $OS" ;;
+Linux) os_label="NixOS" ;;
+Darwin) os_label="macOS" ;;
+*) die "Unsupported OS: $OS" ;;
 esac
 
 # --- Formatting: prefer `nix fmt` (flake's formatter). Fallback: run nixfmt on each file.
@@ -28,7 +31,8 @@ format_repo() {
         mv "$tmp" "$f"
       else
         rm -f "$tmp"
-        echo "nx: nixfmt failed on $f"; exit 1
+        echo "nx: nixfmt failed on $f"
+        exit 1
       fi
     done < <(find "${NIX_FLAKE_LOCATION}" -type f -name '*.nix' -print0)
   fi
@@ -37,10 +41,10 @@ format_repo() {
 # --- Flake check: mode=warn (default) or require (exit on failure)
 flake_check() {
   local mode="${1:-warn}"
-  [[ "${NX_SKIP_CHECK:-0}" == "1" ]] && return 0
+  [[ ${NX_SKIP_CHECK:-0} == "1" ]] && return 0
   if ! nix flake check -L "${NIX_FLAKE_LOCATION}"; then
     echo "nx: flake check failed"
-    [[ "$mode" == "require" ]] && exit 1 || true
+    [[ $mode == "require" ]] && exit 1 || true
   fi
 }
 
@@ -48,20 +52,22 @@ flake_check() {
 system_gen() {
   local link base gen
   link="$(readlink /nix/var/nix/profiles/system 2>/dev/null || true)" || true
-  if [[ -n "${link:-}" ]]; then
-    base="${link##*/}"                 # system-123-link
-    gen="${base#system-}"; gen="${gen%-link}"
+  if [[ -n ${link:-} ]]; then
+    base="${link##*/}" # system-123-link
+    gen="${base#system-}"
+    gen="${gen%-link}"
     printf "%s" "${gen}"
   fi
 }
 
 home_gen() {
   local hm="/nix/var/nix/profiles/per-user/$USER/home-manager"
-  if [[ -L "$hm" ]]; then
+  if [[ -L $hm ]]; then
     local link base gen
     link="$(readlink "$hm")"
-    base="${link##*/}"                 # home-manager-97-link
-    gen="${base#home-manager-}"; gen="${gen%-link}"
+    base="${link##*/}" # home-manager-97-link
+    gen="${base#home-manager-}"
+    gen="${gen%-link}"
     printf "%s" "${gen}"
   elif have home-manager; then
     # Fallback: parse CLI output (best-effort)
@@ -76,13 +82,13 @@ do_switch() {
 
   format_repo
   # warn-only here (can be skipped with NX_SKIP_CHECK=1)
-  if [[ "${NX_SKIP_CHECK:-0}" != "1" ]]; then flake_check warn; fi
+  if [[ ${NX_SKIP_CHECK:-0} != "1" ]]; then flake_check warn; fi
 
   if have nh; then
-    if [[ "$OS" == "Linux" ]]; then nh os switch .; else nh darwin switch .; fi
+    if [[ $OS == "Linux" ]]; then nh os switch .; else nh darwin switch .; fi
     nh home switch .
   else
-    if [[ "$OS" == "Linux" ]]; then
+    if [[ $OS == "Linux" ]]; then
       sudo nixos-rebuild switch --flake .
     else
       darwin-rebuild switch --flake .
@@ -91,18 +97,20 @@ do_switch() {
   fi
 
   # Optional desktop ping on Linux
-  if [[ "$OS" == "Linux" ]] && have notify-send; then
+  if [[ $OS == "Linux" ]] && have notify-send; then
     notify-send -e "Rebuild OK" "System & Home-Manager applied"
   fi
 
   # Commit only if repo actually changed
   git add -A
   if git diff --cached --quiet; then
-    echo "nx: nothing to commit (repo unchanged)"; return 0
+    echo "nx: nothing to commit (repo unchanged)"
+    return 0
   fi
 
   local sys hm stamp host msg
-  sys="$(system_gen || true)"; hm="$(home_gen || true)"
+  sys="$(system_gen || true)"
+  hm="$(home_gen || true)"
   # Portable ISO8601 (UTC) for uutils/BSD/GNU
   stamp="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
   host="$(hostname)"
@@ -144,10 +152,14 @@ Env:
 USAGE
 }
 
-cmd="${1:-switch}"; shift || true
+cmd="${1:-switch}"
+shift || true
 case "$cmd" in
-  switch|s) do_switch "$@" ;;
-  update|u) do_update "$@" ;;
-  help|h|--help|-h) usage ;;
-  *) usage; exit 1 ;;
+switch | s) do_switch "$@" ;;
+update | u) do_update "$@" ;;
+help | h | --help | -h) usage ;;
+*)
+  usage
+  exit 1
+  ;;
 esac

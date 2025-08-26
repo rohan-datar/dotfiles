@@ -2,9 +2,12 @@
   config,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (config.olympus.programs) defaults;
-in {
+  inherit (osConfig.olympus.environment) flakePath;
+in
+{
   home.sessionVariables = {
     EDITOR = defaults.editor;
     GIT_EDITOR = defaults.editor;
@@ -13,8 +16,8 @@ in {
     SYSTEMD_PAGERSECURE = "true";
     PAGER = defaults.pager;
     MANPAGER = defaults.manpager;
-    FLAKE = osConfig.olympus.environment.flakePath;
-    NH_FLAKE = osConfig.olympus.environment.flakePath;
+    FLAKE = flakePath;
+    NH_FLAKE = flakePath;
     DO_NOT_TRACK = 1;
   };
 }

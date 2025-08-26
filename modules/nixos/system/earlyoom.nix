@@ -3,7 +3,8 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf mkForce concatStringsSep;
 
   avoid = concatStringsSep "|" [
@@ -40,7 +41,8 @@
     "node"
     "pipewire(.*)"
   ];
-in {
+in
+{
   config = mkIf config.olympus.aspects.graphical.enable {
     # https://dataswamp.org/~solene/2022-09-28-earlyoom.html
     # avoid the linux kernel from locking itself when we're putting too much strain on the memory

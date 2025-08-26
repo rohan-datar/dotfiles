@@ -2,11 +2,11 @@
   imports = [
     # keep-sorted start
     ../global
-    ./programs
-    ./env
     ./aspects.nix
-    ./neovim
+    ./env
     ./home.nix
+    ./neovim
+    ./programs
     # keep-sorted end
   ];
 }

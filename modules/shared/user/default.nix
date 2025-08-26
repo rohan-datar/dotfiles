@@ -1,9 +1,9 @@
 {
   imports = [
     # keep-sorted start
-    ./rdatar.nix
     ./mkuser.nix
     ./options.nix
+    ./rdatar.nix
     # keep-sorted end
   ];
 }

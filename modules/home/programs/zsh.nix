@@ -6,13 +6,13 @@
     zplug = {
       enable = true;
       plugins = [
-        {name = "zsh-users/zsh-syntax-highlighting";}
-        {name = "zsh-users/zsh-completions";}
-        {name = "zsh-users/zsh-autosuggestions";}
-        {name = "Aloxaf/fzf-tab";}
-        {name = "ael-code/zsh-colored-man-pages";}
-        {name = "davidde/git";}
-        {name = "jeffreytse/zsh-vi-mode";}
+        { name = "zsh-users/zsh-syntax-highlighting"; }
+        { name = "zsh-users/zsh-completions"; }
+        { name = "zsh-users/zsh-autosuggestions"; }
+        { name = "Aloxaf/fzf-tab"; }
+        { name = "ael-code/zsh-colored-man-pages"; }
+        { name = "davidde/git"; }
+        { name = "jeffreytse/zsh-vi-mode"; }
       ];
     };
 

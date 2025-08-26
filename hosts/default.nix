@@ -10,13 +10,15 @@
 
   config.easy-hosts = {
     perClass = class: {
-        modules = [
-          "${self}/modules/${class}/default.nix"
-        ];
-      };
+      modules = [
+        "${self}/modules/${class}/default.nix"
+      ];
+    };
 
     hosts = {
-      home-desktop = { class = "nixos"; };
+      home-desktop = {
+        class = "nixos";
+      };
       macbook = {
         arch = "aarch64";
         class = "darwin";

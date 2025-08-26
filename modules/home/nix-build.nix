@@ -3,7 +3,8 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   build_stage = ''
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         echo "NixOS Rebuilding.."
@@ -54,7 +55,8 @@ with lib; let
 
   rebuilder = pkgs.writeShellScriptBin "nxr" rebuild;
   updater = pkgs.writeShellScriptBin "nxu" update;
-in {
+in
+{
   home.packages = [
     rebuilder
     updater

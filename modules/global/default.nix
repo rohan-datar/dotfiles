@@ -1,8 +1,8 @@
 {
   imports = [
     # keep-sorted start
-    ./packages.nix
     ./aspects.nix
+    ./packages.nix
     # keep-sorted end
   ];
 }

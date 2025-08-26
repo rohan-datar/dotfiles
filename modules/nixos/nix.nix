@@ -6,7 +6,7 @@
     # automatically optimize /nix/store by removing hard links
     optimise = {
       automatic = true;
-      dates = ["04:00"];
+      dates = [ "04:00" ];
     };
 
     # Make builds run with a low priority, keeping the system fast

@@ -36,15 +36,15 @@ in
     plugins = [
       {
         name = "macos";
-        src = pkgs.fishPlugins.macos.src;
+        inherit (pkgs.fishPlugins.macos) src;
       }
       {
         name = "colored-man-pages";
-        src = pkgs.fishPlugins.colored-man-pages.src;
+        inherit (pkgs.fishPlugins.colored-man-pages) src;
       }
       {
         name = "fifc";
-        src = pkgs.fishPlugins.fifc.src;
+        inherit (pkgs.fishPlugins.fifc) src;
       }
     ];
 

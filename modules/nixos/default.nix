@@ -4,18 +4,18 @@
   imports = [
     # keep-sorted start
     ../shared
-    ./extras.nix
-    ./hardware
-    ./system
-    ./graphical
-    ./programs
-    ./services
     ./console.nix
     ./documentation.nix
-    ./nix.nix
     ./emulation.nix
+    ./extras.nix
+    ./graphical
+    ./hardware
     ./localization.nix
+    ./nix.nix
+    ./programs
+    ./services
     ./shell.nix
+    ./system
     # keep-sorted end
   ];
 }

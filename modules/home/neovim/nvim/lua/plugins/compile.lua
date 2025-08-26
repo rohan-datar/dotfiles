@@ -13,13 +13,13 @@ return {
 	},
 	event = "VeryLazy",
 	keys = {
-        { "m<space>", ":Make " },
-        { "m<cr>",    "<cmd>Make<cr>" },
+		{ "m<space>", ":Make " },
+		{ "m<cr>", "<cmd>Make<cr>" },
 	},
 	config = function()
 		---@type CompileModeOpts
 		vim.g.compile_mode = {
-		-- to add ANSI escape code support, add:
+			-- to add ANSI escape code support, add:
 			baleia_setup = true,
 			default_command = "",
 		}

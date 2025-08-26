@@ -1,10 +1,10 @@
 {
   imports = [
     #keep-sorted start
-    ./programs
-    ./ui
     ./fonts.nix
     ./packages.nix
+    ./programs
+    ./ui
     #keep-sorted end
   ];
 

@@ -1,5 +1,6 @@
 # NOTE: This will be replaced eventually
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.neovim = {
     enable = true;
     viAlias = true;

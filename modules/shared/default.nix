@@ -3,12 +3,12 @@
     # keep-sorted start prefix_order=../,../../,./
     ../global
     ../../home
-    ./packages
-    ./user
+    ./documentation.nix
+    ./fonts.nix
     ./nix.nix
     ./nixpkgs.nix
-    ./fonts.nix
-    ./documentation.nix
+    ./packages
+    ./user
     ./variables.nix
     # keep-sorted end
   ];

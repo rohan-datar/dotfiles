@@ -2,18 +2,18 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkEnableOption;
 
   cfg = config.olympus.system.bluetooth;
-in {
+in
+{
   options.olympus.system.bluetooth = {
-    enable =
-      mkEnableOption "Enable bluetooth related configurations"
-      // {
-        default = true;
-      };
+    enable = mkEnableOption "Enable bluetooth related configurations" // {
+      default = true;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -26,6 +26,6 @@ in {
       enable = true;
     };
 
-    boot.kernelModules = ["btusb"];
+    boot.kernelModules = [ "btusb" ];
   };
 }

@@ -2,7 +2,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   programs.kitty = {
     inherit (config.olympus.aspects.graphical) enable;
     font = {

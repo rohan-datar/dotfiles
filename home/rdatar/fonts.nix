@@ -7,14 +7,14 @@
   olympus.packages = with pkgs; {
     # Give each package a unique name
     maple-mono = maple-mono.NF;
-    meslo-lg = nerd-fonts.meslo-lg;
-    font-awesome = font-awesome;
-    sf-pro = inputs.apple-fonts.packages.${system}.sf-pro;
-    sf-pro-nerd = inputs.apple-fonts.packages.${system}.sf-pro-nerd;
-    sf-compact = inputs.apple-fonts.packages.${system}.sf-compact;
-    sf-compact-nerd = inputs.apple-fonts.packages.${system}.sf-compact-nerd;
-    ny = inputs.apple-fonts.packages.${system}.ny;
-    ny-nerd = inputs.apple-fonts.packages.${system}.ny-nerd;
+    inherit (nerd-fonts) meslo-lg;
+    inherit font-awesome;
+    inherit (inputs.apple-fonts.packages.${system}) sf-pro;
+    inherit (inputs.apple-fonts.packages.${system}) sf-pro-nerd;
+    inherit (inputs.apple-fonts.packages.${system}) sf-compact;
+    inherit (inputs.apple-fonts.packages.${system}) sf-compact-nerd;
+    inherit (inputs.apple-fonts.packages.${system}) ny;
+    inherit (inputs.apple-fonts.packages.${system}) ny-nerd;
   };
 
   fonts.fontconfig.enable = true;

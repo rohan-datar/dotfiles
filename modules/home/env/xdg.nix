@@ -4,7 +4,8 @@
   self,
   config,
   ...
-}: let
+}:
+let
   inherit (lib.modules) mkForce;
   inherit (lib.modules) mkIf;
   inherit (pkgs.stdenv) isLinux;
@@ -45,20 +46,21 @@
     "audio/*"
   ];
 
-  images = ["image/*"];
+  images = [ "image/*" ];
 
   associations =
-    (lib.genAttrs code (_: ["nvim.desktop"]))
+    (lib.genAttrs code (_: [ "nvim.desktop" ]))
     // (lib.genAttrs browser (_: [
       "${defaults.browser}.desktop"
     ]))
     // {
-      "x-scheme-handler/discord" = ["Discord.desktop"];
+      "x-scheme-handler/discord" = [ "Discord.desktop" ];
       "inode/directory" = [
         "${defaults.fileManager}.desktop"
       ];
     };
-in {
+in
+{
   xdg = {
     enable = true;
 

@@ -3,9 +3,11 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf mkEnableOption;
-in {
+in
+{
   options.olympus.system.sound.enable = mkEnableOption "Enable pipewire";
 
   config = mkIf config.olympus.system.sound.enable {
@@ -19,8 +21,8 @@ in {
     };
 
     systemd.user.services = {
-      pipewire.wantedBy = ["default.target"];
-      pipewire-pulse.wantedBy = ["default.target"];
+      pipewire.wantedBy = [ "default.target" ];
+      pipewire-pulse.wantedBy = [ "default.target" ];
     };
   };
 }

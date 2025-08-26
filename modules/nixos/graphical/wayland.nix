@@ -2,9 +2,11 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.olympus.aspects;
-in {
+in
+{
   config = lib.mkIf cfg.graphical.enable {
     # some settings for wayland
     environment.sessionVariables = {

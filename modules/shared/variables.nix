@@ -3,10 +3,12 @@
   _class,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkOption;
   inherit (lib.types) str;
-in {
+in
+{
   options.olympus.environment.flakePath = mkOption {
     type = str;
     default = "";
