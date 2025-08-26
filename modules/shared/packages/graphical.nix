@@ -15,7 +15,7 @@ in
       inherit (pkgs)
         firefox
         # ghostty # currently marked as broken on darwin
-        neofetch
+        fastfetch
         lazygit
         obsidian
         discord

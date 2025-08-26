@@ -9,7 +9,7 @@ die() {
 have() { command -v "$1" >/dev/null 2>&1; }
 
 # --- Flake root (env or git toplevel or cwd)
-NIX_FLAKE_LOCATION="${NIX_FLAKE_LOCATION:-$(
+FLAKE="${FLAKE:-$(
   git rev-parse --show-toplevel 2>/dev/null || pwd
 )}"
 
@@ -22,7 +22,7 @@ esac
 
 # --- Formatting: prefer `nix fmt` (flake's formatter). Fallback: run nixfmt on each file.
 format_repo() {
-  if ! nix fmt "${NIX_FLAKE_LOCATION}" >/dev/null 2>&1; then
+  if ! nix fmt "${FLAKE}" >/dev/null 2>&1; then
     echo "nx: nix fmt unavailable or failed; falling back to nixfmt"
     # Pure-POSIX fallback: format each .nix file in-place without relying on nixfmt flags
     while IFS= read -r -d '' f; do
@@ -34,7 +34,7 @@ format_repo() {
         echo "nx: nixfmt failed on $f"
         exit 1
       fi
-    done < <(find "${NIX_FLAKE_LOCATION}" -type f -name '*.nix' -print0)
+    done < <(find "${FLAKE}" -type f -name '*.nix' -print0)
   fi
 }
 
@@ -42,9 +42,13 @@ format_repo() {
 flake_check() {
   local mode="${1:-warn}"
   [[ ${NX_SKIP_CHECK:-0} == "1" ]] && return 0
-  if ! nix flake check -L "${NIX_FLAKE_LOCATION}"; then
+  if ! nix flake check -L "${FLAKE}"; then
     echo "nx: flake check failed"
-    [[ $mode == "require" ]] && exit 1 || true
+    if [[ $mode == "require" ]]; then
+      exit 1
+    else
+      true
+    fi
   fi
 }
 
@@ -77,7 +81,7 @@ home_gen() {
 
 do_switch() {
   local action="${1:-switch}"
-  pushd "$NIX_FLAKE_LOCATION" >/dev/null
+  pushd "$FLAKE" >/dev/null
   trap 'popd >/dev/null' RETURN
 
   format_repo
@@ -85,15 +89,17 @@ do_switch() {
   if [[ ${NX_SKIP_CHECK:-0} != "1" ]]; then flake_check warn; fi
 
   if have nh; then
-    if [[ $OS == "Linux" ]]; then nh os switch .; else nh darwin switch .; fi
-    nh home switch .
+    if [[ $OS == "Linux" ]]; then
+      nh os switch . -H "${NIX_CONFIG_NAME}"
+    else
+      nh darwin switch . -H "${NIX_CONFIG_NAME}"
+    fi
   else
     if [[ $OS == "Linux" ]]; then
-      sudo nixos-rebuild switch --flake .
+      sudo nixos-rebuild switch --flake .#"${NIX_CONFIG_NAME}"
     else
-      darwin-rebuild switch --flake .
+      darwin-rebuild switch --flake .#"${NIX_CONFIG_NAME}"
     fi
-    home-manager switch --flake .
   fi
 
   # Optional desktop ping on Linux
@@ -121,7 +127,7 @@ do_switch() {
 }
 
 do_update() {
-  pushd "$NIX_FLAKE_LOCATION" >/dev/null
+  pushd "$FLAKE" >/dev/null
   trap 'popd >/dev/null' RETURN
 
   # Pre-update sanity (warn-only)
@@ -147,7 +153,7 @@ Commands (aliases):
   help, h       Show this help
 
 Env:
-  NIX_FLAKE_LOCATION   Path to your flake (default: git toplevel or cwd)
+  FLAKE   Path to your flake (default: git toplevel or cwd)
   NX_SKIP_CHECK=1      Skip 'nix flake check' entirely
 USAGE
 }

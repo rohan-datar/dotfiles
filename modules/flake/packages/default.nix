@@ -1,7 +1,7 @@
 {
   imports = [
     #keep-sorted start
-    # ./nx
+    ./nx
     #keep-sorted end
   ];
 }

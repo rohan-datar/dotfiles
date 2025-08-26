@@ -4,6 +4,8 @@
 }:
 let
   name = "Rohans-MacBook";
+  # Extract the config name from the flake
+  configName = builtins.baseNameOf (builtins.toString ./.);
 in
 {
   imports = [ ./user.nix ];
@@ -51,6 +53,8 @@ in
     localHostName = name;
     computerName = name;
   };
+
+  environment.variables.NIX_CONFIG_NAME = configName; # Now uses directory name ("macbook")
 
   # $ darwin-rebuild changelog
   system.stateVersion = 5;

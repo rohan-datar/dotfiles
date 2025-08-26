@@ -23,6 +23,9 @@
       };
 
       # 2) App (lets you 'nix run .#nx -- <subcommand>')
-      apps.nx.program = "${config.packages.nx}/bin/nx";
+      apps.nx = {
+        program = "${config.packages.nx}/bin/nx";
+        meta.description = "My helper script for rebuilding and updating my config";
+      };
     };
 }
