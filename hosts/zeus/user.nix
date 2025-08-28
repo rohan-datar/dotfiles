@@ -15,12 +15,12 @@
       fzf.enable = true;
       starship.enable = true;
       tmux.enable = true;
-      zsh.enable = true;
+      # zsh.enable = true;
       neovim.enable = true;
     };
 
-    olympus.programs.defaults = {
-      shell = "fish";
-    };
+    # olympus.programs.defaults = {
+    #   shell = "fish";
+    # };
   };
 }

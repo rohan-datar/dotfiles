@@ -57,7 +57,7 @@ in
         # adds nvidia-settings to pkgs, so useless on nixos
         nvidiaSettings = false;
 
-        nvidiaPersistenced = true;
+        nvidiaPersistenced = config.olympus.aspects.server.enable;
       };
 
       graphics = {

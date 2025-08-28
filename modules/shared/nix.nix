@@ -48,6 +48,7 @@ in
       experimental-features = [
         "nix-command"
         "flakes"
+        "cgroups"
       ];
 
       # maximum number of parallel TCP connections used to fetch imports and binary caches, 0 means no limit

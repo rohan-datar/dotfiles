@@ -1,7 +1,7 @@
 {
   imports = [
     # keep-sorted start
-    ./mkuser.nix
+    ./mkUser.nix
     ./options.nix
     ./rdatar.nix
     # keep-sorted end
