@@ -12,7 +12,7 @@ in
   config = lib.mkIf cfg.graphical.enable {
     stylix = {
       enable = true;
-      base16Scheme = "${inputs.tinted-schemes}/base16/catppuccin-mocha.yaml";
+      base16Scheme = "${inputs.tinted-schemes}/base24/catppuccin-mocha.yaml";
 
       opacity =
         let

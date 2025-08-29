@@ -26,7 +26,7 @@ in
       lsa = "ls -lah";
       l = "ls -lah";
       ll = "ls -lh";
-      la = "ls -lAH";
+      la = "ls -lAh";
     };
 
     shellAliases = {
