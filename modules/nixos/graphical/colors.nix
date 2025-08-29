@@ -13,6 +13,7 @@ in
     stylix = {
       enable = true;
       base16Scheme = "${inputs.tinted-schemes}/base24/catppuccin-mocha.yaml";
+      polarity = "dark";
 
       opacity =
         let
