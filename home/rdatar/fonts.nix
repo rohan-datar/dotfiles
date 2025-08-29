@@ -4,6 +4,7 @@
   ...
 }:
 {
+
   olympus.packages = with pkgs; {
     # Give each package a unique name
     maple-mono = maple-mono.NF;

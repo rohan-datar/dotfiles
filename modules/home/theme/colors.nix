@@ -1,18 +1,8 @@
+{ inputs, ... }:
 {
-  inputs,
-  config,
-  lib,
-  ...
-}:
-let
-  cfg = config.olympus.aspects;
-in
-{
-  imports = [
-    inputs.stylix.nixosModules.stylix
-  ];
+  imports = [ inputs.stylix.homeModules.stylix ];
 
-  config = lib.mkIf cfg.graphical.enable {
+  config = {
     stylix = {
       enable = true;
       base16Scheme = "${inputs.tinted-schemes}/base24/catppuccin-mocha.yaml";
