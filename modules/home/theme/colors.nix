@@ -1,21 +1,30 @@
-{ inputs, ... }:
 {
-  imports = [ inputs.stylix.homeModules.stylix ];
+  config,
+  inputs,
+  options,
+  osClass,
+  ...
+}:
+let
+  isGui = osClass == "nixos" && config.olympus.aspects.graphical.enable;
+in
+{
+  imports = [ inputs.catppuccin.homeModules.catppuccin ];
 
   config = {
-    stylix = {
+    catppuccin = {
       enable = true;
-      base16Scheme = "${inputs.tinted-schemes}/base24/catppuccin-mocha.yaml";
-      polarity = "dark";
+      sources = options.catppuccin.sources.default;
 
-      opacity =
-        let
-          default_opacity = 0.85;
-        in
-        {
-          desktop = default_opacity;
-          terminal = default_opacity;
-        };
+      flavor = "mocha";
+      accent = "blue";
+
+      cursors = {
+        enable = isGui;
+        accent = "dark";
+      };
+
+      gtk.icon.enable = isGui;
     };
   };
 }

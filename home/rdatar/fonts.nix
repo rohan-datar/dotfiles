@@ -18,14 +18,25 @@
     inherit (inputs.apple-fonts.packages.${system}) ny-nerd;
   };
 
-  fonts.fontconfig.enable = true;
-
-  stylix.targets.font-packages.enable = true;
-  stylix.targets.fontconfig.enable = true;
-  stylix.iconTheme = {
-    enable = true;
-    package = pkgs.adwaita-icon-theme;
-    light = "Adwaita";
-    dark = "Adwaita";
+  fonts.fontconfig = {
+    defaultFonts = {
+      monospace = [
+        "Maple Mono NF"
+        "SFMono Nerd Font"
+      ];
+      sansSerif = [
+        "SFProDisplay Nerd Font"
+        "MesloLGS Nerd Font Propo"
+      ];
+      serif = [
+        "NewYork Nerd Font"
+        "Liberation Serif"
+      ];
+      emoji = [
+        "Noto Color Emoji"
+        "Symbols Nerd Font"
+      ];
+    };
   };
+
 }

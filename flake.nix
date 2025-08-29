@@ -53,20 +53,14 @@
     };
 
     # NixOS view configuration
-    stylix = {
-      url = "github:danth/stylix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        tinted-schemes.follows = "tinted-schemes";
-      };
+    catppuccin = {
+      type = "github";
+      owner = "catppuccin";
+      repo = "nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
-
-    tinted-schemes = {
-      flake = false;
-      url = "github:tinted-theming/schemes";
-    };
 
     disko = {
       url = "github:nix-community/disko";

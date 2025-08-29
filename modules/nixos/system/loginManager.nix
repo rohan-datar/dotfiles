@@ -15,7 +15,6 @@ in
         package = pkgs.kdePackages.sddm;
         autoNumlock = true;
         wayland.enable = true;
-        theme = "catppuccin-mocha";
       };
     };
   };

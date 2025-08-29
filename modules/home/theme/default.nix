@@ -1,8 +1,7 @@
-{ config, ... }:
 {
-  imports = [ ./cursor.nix ];
-
-  stylix = {
-    inherit (config.olympus.aspects.graphical) enable;
-  };
+  imports = [
+    #keep-sorted start
+    ./colors.nix
+    #keep-sorted end
+  ];
 }
