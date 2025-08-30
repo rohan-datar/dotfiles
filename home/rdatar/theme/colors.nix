@@ -25,6 +25,7 @@ in
       };
 
       gtk.icon.enable = isGui;
+
     };
   };
 }

@@ -11,11 +11,4 @@
     #keep-sorted end
   ];
 
-  # home.pointerCursor = {
-  #   x11.enable = lib.mkForce true;
-  #   hyprcursor = {
-  #     enable = true;
-  #     size = 24;
-  #   };
-  # };
 }
