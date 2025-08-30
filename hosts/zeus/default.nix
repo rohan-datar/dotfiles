@@ -68,6 +68,8 @@ in
     "1.1.1.1"
   ];
 
+  time.timeZone = "America/Chicago";
+
   environment.variables.NIX_CONFIG_NAME = configName;
 
   # This value determines the NixOS release from which the default
