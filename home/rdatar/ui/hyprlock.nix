@@ -11,8 +11,7 @@ _: {
 
       # BACKGROUND
       background = {
-        path = "~/.local/share/backgrounds/nixos-wallpaper-catppuccin-mocha.png";
-        # path = "~/.local/share/backgrounds/Cloudsnight.jpg";
+        path = "~/.local/share/backgrounds/Hero_NixOS.png";
         blur_passes = 2;
       };
 
