@@ -13,6 +13,7 @@
       enable = lib.mkDefault config.olympus.aspects.graphical.enable;
       sources = options.catppuccin.sources.default;
       flavor = "mocha";
+      accent = "blue";
 
       # IFD, easy to vendor
       tty.enable = false;
