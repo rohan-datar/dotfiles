@@ -1,0 +1,34 @@
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+let
+  inherit (lib) mkIf;
+in
+{
+  config = mkIf (config.olympus.aspects.graphical.enable && pkgs.stdenv.hostPlatform.isLinux) {
+    gtk = {
+      enable = true;
+
+      theme = {
+        package = pkgs.magnetic-catppuccin-gtk;
+        name = "Catppuccin-GTK-Dark";
+      };
+
+      gtk3.extraConfig = {
+        Settings = ''
+          gtk-application-prefer-dark-theme=1
+        '';
+      };
+
+      gtk4.extraConfig = {
+        Settings = ''
+          gtk-application-prefer-dark-theme=1
+        '';
+      };
+    };
+    home.sessionVariables.GTK_THEME = "Catppuccin-GTK";
+  };
+}
