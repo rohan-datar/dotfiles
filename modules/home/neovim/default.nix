@@ -24,6 +24,7 @@
       tree-sitter-grammars.tree-sitter-sql
 
       nodePackages_latest.vscode-json-languageserver
+      codespell
       fzf
       lua-language-server
       nil
