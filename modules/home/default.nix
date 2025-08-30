@@ -7,7 +7,6 @@
     ./home.nix
     ./neovim
     ./programs
-    ./theme
     # keep-sorted end
   ];
 }

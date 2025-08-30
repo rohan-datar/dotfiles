@@ -4,6 +4,7 @@
     ./fonts.nix
     ./packages.nix
     ./programs
+    ./theme
     ./ui
     #keep-sorted end
   ];
