@@ -12,7 +12,7 @@
       HOMEBREW_NO_EMOJI = "1";
 
       # I don't need any hints because nix handles homebrew for me
-      HOMEBREW_NO_ENV_HINTS = "0";
+      HOMEBREW_NO_ENV_HINTS = "";
     };
 
     # we add howbrew to the PATH so we can execute all the apps it installs
