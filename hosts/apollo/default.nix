@@ -41,6 +41,7 @@ in
     casks = [
       "omnidisksweeper"
       "beeper"
+      "docker"
     ];
 
     masApps = {
