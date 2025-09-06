@@ -24,6 +24,7 @@ in
         xcbeautify
         raycast
         appcleaner
+        openldap
         ;
     };
 

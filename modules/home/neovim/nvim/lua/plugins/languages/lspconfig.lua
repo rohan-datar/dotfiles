@@ -66,6 +66,7 @@ return {
 				},
 			})
 
+			lspconfig.clangd.setup({ capabilities = capabilities })
 			lspconfig.jedi_language_server.setup({ capabilities = capabilities })
 			lspconfig.templ.setup({ capabilities = capabilities })
 			lspconfig.superhtml.setup({ capabilities = capabilities })
