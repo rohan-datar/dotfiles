@@ -66,7 +66,7 @@ in
 
     manpager = {
       type = str;
-      default = "nvim +Man!";
+      default = "nvim --clean +Man!";
     };
 
     launcher = {
