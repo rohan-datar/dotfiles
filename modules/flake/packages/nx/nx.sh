@@ -43,7 +43,7 @@ flake_check() {
   local mode="${1:-warn}"
   [[ ${NX_SKIP_CHECK:-0} == "1" ]] && return 0
 
-  local check_args="-L"
+  local check_args="-L ${FLAKE}"
 
   # Only check relevant configurations for the current platform
   if [[ $OS == "Darwin" ]]; then
@@ -52,7 +52,7 @@ flake_check() {
     check_args+=" --no-build --keep-going .#nixosConfigurations.*"
   fi
 
-  if ! nix flake check "${check_args}" "${FLAKE}"; then
+  if ! nix flake check "${check_args}"; then
     echo "nx: flake check failed"
     if [[ $mode == "require" ]]; then
       exit 1
