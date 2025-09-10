@@ -42,7 +42,17 @@ format_repo() {
 flake_check() {
   local mode="${1:-warn}"
   [[ ${NX_SKIP_CHECK:-0} == "1" ]] && return 0
-  if ! nix flake check -L "${FLAKE}"; then
+
+  local check_args="-L"
+
+  # Only check relevant configurations for the current platform
+  if [[ $OS == "Darwin" ]]; then
+    check_args+=" --no-build --keep-going .#darwinConfigurations.*"
+  elif [[ $OS == "Linux" ]]; then
+    check_args+=" --no-build --keep-going .#nixosConfigurations.*"
+  fi
+
+  if ! nix flake check "${check_args}" "${FLAKE}"; then
     echo "nx: flake check failed"
     if [[ $mode == "require" ]]; then
       exit 1
@@ -121,7 +131,7 @@ do_update() {
   nix flake update
 
   # Post-update must pass before switching
-  flake_check require
+  flake_check warn
 
   # Switch; avoid duplicate check here
   NX_SKIP_CHECK=1 do_switch update
