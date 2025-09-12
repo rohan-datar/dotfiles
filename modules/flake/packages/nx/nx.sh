@@ -43,7 +43,7 @@ flake_check() {
   local mode="${1:-warn}"
   [[ ${NX_SKIP_CHECK:-0} == "1" ]] && return 0
 
-  local check_args="-L ${FLAKE}"
+  local check_args=""
 
   # Only check relevant configurations for the current platform
   if [[ $OS == "Darwin" ]]; then

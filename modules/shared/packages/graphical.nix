@@ -23,7 +23,7 @@ in
         direnv
         pandoc
         wireshark
-        # floorp
+        floorp-bin
         vscode
         wireguard-ui
         bitwarden-desktop
