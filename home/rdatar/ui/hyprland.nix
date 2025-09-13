@@ -88,11 +88,6 @@
         preserve_split = "yes"; # you probably want this
       };
 
-      gestures = {
-        # See https://wiki.hyprland.org/Configuring/Variables/ for more
-        workspace_swipe = "off";
-      };
-
       misc = {
         # See https://wiki.hyprland.org/Configuring/Variables/ for more
         force_default_wallpaper = "0"; # Set to 0 or 1 to disable the anime mascot wallpapers
