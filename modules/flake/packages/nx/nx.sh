@@ -23,18 +23,7 @@ esac
 # --- Formatting: prefer `nix fmt` (flake's formatter). Fallback: run nixfmt on each file.
 format_repo() {
   if ! nix fmt "${FLAKE}" >/dev/null 2>&1; then
-    echo "nx: nix fmt unavailable or failed; falling back to nixfmt"
-    # Pure-POSIX fallback: format each .nix file in-place without relying on nixfmt flags
-    while IFS= read -r -d '' f; do
-      tmp="$(mktemp)"
-      if nixfmt "$f" >"$tmp"; then
-        mv "$tmp" "$f"
-      else
-        rm -f "$tmp"
-        echo "nx: nixfmt failed on $f"
-        exit 1
-      fi
-    done < <(find "${FLAKE}" -type f -name '*.nix' -print0)
+    echo "nx: nix fmt unavailable or failed"
   fi
 }
 
@@ -42,17 +31,7 @@ format_repo() {
 flake_check() {
   local mode="${1:-warn}"
   [[ ${NX_SKIP_CHECK:-0} == "1" ]] && return 0
-
-  local check_args=""
-
-  # Only check relevant configurations for the current platform
-  if [[ $OS == "Darwin" ]]; then
-    check_args+=" --no-build --keep-going .#darwinConfigurations.*"
-  elif [[ $OS == "Linux" ]]; then
-    check_args+=" --no-build --keep-going .#nixosConfigurations.*"
-  fi
-
-  if ! nix flake check "${check_args}"; then
+  if ! nix flake check -L "${FLAKE}" --no-build --keep-going; then
     echo "nx: flake check failed"
     if [[ $mode == "require" ]]; then
       exit 1
