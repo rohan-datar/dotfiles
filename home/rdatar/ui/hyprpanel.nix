@@ -5,6 +5,8 @@
 
     systemd.enable = true;
 
+    dontAssertNotificationDaemons = true;
+
     settings = {
       bar = {
         layouts = {

@@ -16,7 +16,7 @@
           uutils-coreutils-noprefix # date, hostname, readlink, etc.
           findutils # 'find' used by fallback formatter
           gawk # for the HM generations fallback
-          gnugrep # not strictly required, but handy if you extend
+          gnugrep
           nh
           libnotify
         ];
