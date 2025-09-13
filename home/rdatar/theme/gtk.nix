@@ -32,6 +32,9 @@ in
     home.sessionVariables.GTK_THEME = "Catppuccin-GTK";
     dconf.settings = {
       "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+      "org/gnome/shell/extensions/user-theme" = {
+        name = "Catppuccin-GTK-Dark";
+      };
     };
   };
 }
