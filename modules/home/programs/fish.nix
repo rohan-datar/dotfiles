@@ -32,10 +32,6 @@
         name = "colored-man-pages";
         inherit (pkgs.fishPlugins.colored-man-pages) src;
       }
-      {
-        name = "fifc";
-        inherit (pkgs.fishPlugins.fifc) src;
-      }
     ];
 
     functions = {
