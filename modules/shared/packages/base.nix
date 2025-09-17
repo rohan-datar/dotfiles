@@ -19,6 +19,7 @@
       comma
       any-nix-shell
       starship
+      ripgrep
       ;
     agenix = inputs.agenix.packages.${pkgs.system}.default;
     inherit (self.packages.${pkgs.system}) nx;
