@@ -61,6 +61,7 @@ in
   };
 
   services.openssh.enable = true;
+  virtualisation.docker.enable = true;
 
   networking.hostName = name; # Define your hostname.
   networking.nameservers = [
