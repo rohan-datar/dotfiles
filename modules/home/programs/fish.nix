@@ -56,6 +56,7 @@
     };
 
     shellInitLast = ''
+      set -Ux fifc_editor nvim
       any-nix-shell fish --info-right | source
       zoxide init --cmd cd fish | source
       starship init fish | source
