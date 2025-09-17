@@ -61,7 +61,13 @@ in
   };
 
   services.openssh.enable = true;
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
 
   networking.hostName = name; # Define your hostname.
   networking.nameservers = [
