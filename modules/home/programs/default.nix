@@ -1,6 +1,8 @@
 {
   imports = [
     # keep-sorted start
+    ./bat.nix
+    ./carapace.nix
     ./defaults.nix
     ./direnv.nix
     ./fish.nix

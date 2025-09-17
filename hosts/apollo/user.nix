@@ -2,6 +2,7 @@
   home-manager.users.rohandatar = {
     programs = {
       bat.enable = true;
+      carapace.enable = true;
       ghostty.enable = true;
       ssh.enable = true;
       fish.enable = true;
