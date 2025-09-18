@@ -14,6 +14,7 @@ return {
 				lineFoldingOnly = true,
 			}
 
+			vim.lsp.enable("gopls")
 			vim.lsp.config.gopls = {
 				capabilities = capabilities,
 				settings = {
@@ -24,6 +25,7 @@ return {
 				},
 			}
 
+			vim.lsp.enable("lua_ls")
 			vim.lsp.config.lua_ls = {
 				capabilities = capabilities,
 				on_init = function(client)
@@ -65,14 +67,36 @@ return {
 				},
 			}
 
+			vim.lsp.enable("clangd")
 			vim.lsp.config.clangd = { capabilities = capabilities }
+			vim.lsp.enable("jedi_language_server")
 			vim.lsp.config.jedi_language_server = { capabilities = capabilities }
+			-- vim.lsp.enable("templ")
 			vim.lsp.config.templ = { capabilities = capabilities }
+			-- vim.lsp.enable("superhtml")
 			vim.lsp.config.superhtml = { capabilities = capabilities }
+			vim.lsp.enable("yamlls")
 			vim.lsp.config.yamlls = { capabilities = capabilities }
+			vim.lsp.enable("jdtls")
 			vim.lsp.config.jdtls = { capabilities = capabilities }
+			vim.lsp.enable("nil_ls")
 			vim.lsp.config.nil_ls = { capabilities = capabilities }
 
+			-- vim.lsp.enable("zls")
+			vim.lsp.config.zls = {}
+
+			vim.lsp.enable("sourcekit")
+			vim.lsp.config.sourcekit = {
+				capabilities = {
+					workspace = {
+						didChangeWatchedFiles = {
+							dynamicRegistration = true,
+						},
+					},
+				},
+			}
+
+			vim.lsp.enable("markdown_oxide")
 			vim.lsp.config.markdown_oxide = {
 				capabilities = {
 					workspace = {
@@ -111,22 +135,10 @@ return {
 						vim.api.nvim_create_user_command("Daily", function(args)
 							local input = args.args
 
-							vim.lsp.buf.execute_command({ command = "jump", arguments = { input } })
+							client.exec_cmd({ command = "jump", arguments = { input } })
 						end, { desc = "Open daily note", nargs = "*" })
 					end
 				end,
-			}
-
-			vim.lsp.config.zls = {}
-
-			vim.lsp.config.sourcekit = {
-				capabilities = {
-					workspace = {
-						didChangeWatchedFiles = {
-							dynamicRegistration = true,
-						},
-					},
-				},
 			}
 		end,
 	},
