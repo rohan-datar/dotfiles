@@ -9,7 +9,7 @@ return { -- Autoformat
 		},
 		formatters = {
 			["clang-format"] = {
-				append_args = { "--style=GNU" },
+				append_args = { "--style=Microsoft" },
 			},
 		},
 		formatters_by_ft = {

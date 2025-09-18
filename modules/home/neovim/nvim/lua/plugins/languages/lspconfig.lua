@@ -6,7 +6,6 @@ return {
 			-- "nvim-java/nvim-java",
 		},
 		config = function()
-			local lspconfig = require("lspconfig")
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities =
 				vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities(capabilities))
@@ -15,7 +14,7 @@ return {
 				lineFoldingOnly = true,
 			}
 
-			lspconfig.gopls.setup({
+			vim.lsp.config.gopls.setup({
 				capabilities = capabilities,
 				settings = {
 					gopls = {
@@ -25,7 +24,7 @@ return {
 				},
 			})
 
-			lspconfig.lua_ls.setup({
+			vim.lsp.config.lua_ls.setup({
 				capabilities = capabilities,
 				on_init = function(client)
 					if client.workspace_folders then
@@ -66,15 +65,15 @@ return {
 				},
 			})
 
-			lspconfig.clangd.setup({ capabilities = capabilities })
-			lspconfig.jedi_language_server.setup({ capabilities = capabilities })
-			lspconfig.templ.setup({ capabilities = capabilities })
-			lspconfig.superhtml.setup({ capabilities = capabilities })
-			lspconfig.yamlls.setup({ capabilities = capabilities })
-			lspconfig.jdtls.setup({ capabilities = capabilities })
-			lspconfig.nil_ls.setup({ capabilities = capabilities })
+			vim.lsp.config.clangd.setup({ capabilities = capabilities })
+			vim.lsp.config.jedi_language_server.setup({ capabilities = capabilities })
+			vim.lsp.config.templ.setup({ capabilities = capabilities })
+			vim.lsp.config.superhtml.setup({ capabilities = capabilities })
+			vim.lsp.config.yamlls.setup({ capabilities = capabilities })
+			vim.lsp.config.jdtls.setup({ capabilities = capabilities })
+			vim.lsp.config.nil_ls.setup({ capabilities = capabilities })
 
-			lspconfig.markdown_oxide.setup({
+			vim.lsp.config.markdown_oxide.setup({
 				capabilities = {
 					workspace = {
 						didChangeWatchedFiles = {
@@ -118,9 +117,9 @@ return {
 				end,
 			})
 
-			lspconfig.zls.setup({})
+			vim.lsp.config.zls.setup({})
 
-			lspconfig.sourcekit.setup({
+			vim.lsp.config.sourcekit.setup({
 				capabilities = {
 					workspace = {
 						didChangeWatchedFiles = {
