@@ -9,7 +9,7 @@ return { -- Autoformat
 		},
 		formatters = {
 			["clang-format"] = {
-				append_args = { "--style=Microsoft" },
+				append_args = { '--style="{BasedOnStyle: Microsoft, IndentWidth: 2"' },
 			},
 		},
 		formatters_by_ft = {
