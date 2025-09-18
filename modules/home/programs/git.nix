@@ -1,4 +1,12 @@
-_: {
+{
+  pkgs,
+  lib,
+  ...
+}:
+let
+  inherit (lib) mkIf mkMerge;
+in
+{
   programs.git = {
     enable = true;
     userEmail = "me@rohandatar.com";
@@ -13,14 +21,22 @@ _: {
       blame = "blame -C -C -C";
     };
 
-    extraConfig = {
-      merge = {
-        conflictstyle = "diff3";
-      };
+    extraConfig = mkMerge [
+      {
+        merge.conflictstyle = "diff3";
+        rerere.enabled = "true";
+      }
 
-      rerere = {
-        enabled = "true";
-      };
-    };
+      (mkIf pkgs.stdenv.hostPlatform.isLinux {
+        credential.helper = "store";
+      })
+
+      (mkIf pkgs.stdenv.hostPlatform.isDarwin {
+        credential.helper = [
+          ""
+          "osxkeychain"
+        ];
+      })
+    ];
   };
 }
