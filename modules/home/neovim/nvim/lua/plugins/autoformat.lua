@@ -7,6 +7,11 @@ return { -- Autoformat
 			timeout = 500,
 			lsp_format = "fallback",
 		},
+		formatters = {
+			["clang-format"] = {
+				append_args = { "--style=GNU" },
+			},
+		},
 		formatters_by_ft = {
 			c = { "clang-format" },
 			lua = { "stylua" },
@@ -26,11 +31,4 @@ return { -- Autoformat
 			["*"] = { "trim_newlines", "trim_whitespace" },
 		},
 	},
-	config = function(_, opts)
-		local conform = require("conform")
-		conform.setup(opts)
-		conform.formatters.clang-format = {
-			append_args = { "--style=GNU" },
-		}
-	end
 }
