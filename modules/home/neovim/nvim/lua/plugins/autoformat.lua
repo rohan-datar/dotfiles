@@ -26,4 +26,11 @@ return { -- Autoformat
 			["*"] = { "trim_newlines", "trim_whitespace" },
 		},
 	},
+	config = function(_, opts)
+		local conform = require("conform")
+		conform.setup(opts)
+		conform.formatters.clang-format = {
+			append_args = { "--style=GNU" },
+		}
+	end
 }
