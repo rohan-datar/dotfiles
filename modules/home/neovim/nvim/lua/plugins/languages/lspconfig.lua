@@ -14,7 +14,7 @@ return {
 				lineFoldingOnly = true,
 			}
 
-			vim.lsp.config.gopls.setup({
+			vim.lsp.config.gopls = {
 				capabilities = capabilities,
 				settings = {
 					gopls = {
@@ -22,9 +22,9 @@ return {
 						linksInHover = "gopls",
 					},
 				},
-			})
+			}
 
-			vim.lsp.config.lua_ls.setup({
+			vim.lsp.config.lua_ls = {
 				capabilities = capabilities,
 				on_init = function(client)
 					if client.workspace_folders then
@@ -63,17 +63,17 @@ return {
 						},
 					},
 				},
-			})
+			}
 
-			vim.lsp.config.clangd.setup({ capabilities = capabilities })
-			vim.lsp.config.jedi_language_server.setup({ capabilities = capabilities })
-			vim.lsp.config.templ.setup({ capabilities = capabilities })
-			vim.lsp.config.superhtml.setup({ capabilities = capabilities })
-			vim.lsp.config.yamlls.setup({ capabilities = capabilities })
-			vim.lsp.config.jdtls.setup({ capabilities = capabilities })
-			vim.lsp.config.nil_ls.setup({ capabilities = capabilities })
+			vim.lsp.config.clangd = { capabilities = capabilities }
+			vim.lsp.config.jedi_language_server = { capabilities = capabilities }
+			vim.lsp.config.templ = { capabilities = capabilities }
+			vim.lsp.config.superhtml = { capabilities = capabilities }
+			vim.lsp.config.yamlls = { capabilities = capabilities }
+			vim.lsp.config.jdtls = { capabilities = capabilities }
+			vim.lsp.config.nil_ls = { capabilities = capabilities }
 
-			vim.lsp.config.markdown_oxide.setup({
+			vim.lsp.config.markdown_oxide = {
 				capabilities = {
 					workspace = {
 						didChangeWatchedFiles = {
@@ -115,11 +115,11 @@ return {
 						end, { desc = "Open daily note", nargs = "*" })
 					end
 				end,
-			})
+			}
 
-			vim.lsp.config.zls.setup({})
+			vim.lsp.config.zls = {}
 
-			vim.lsp.config.sourcekit.setup({
+			vim.lsp.config.sourcekit = {
 				capabilities = {
 					workspace = {
 						didChangeWatchedFiles = {
@@ -127,7 +127,7 @@ return {
 						},
 					},
 				},
-			})
+			}
 		end,
 	},
 }
