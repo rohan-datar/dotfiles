@@ -4,7 +4,7 @@ let
 in
 {
   documentation = {
-    enable = mkForce false;
+    enable = mkForce true;
     dev.enable = mkForce true;
     doc.enable = mkForce false;
     info.enable = mkForce false;
@@ -13,7 +13,7 @@ in
     man = {
       enable = mkForce true;
       generateCaches = mkForce false;
-      man-db.enable = mkForce false;
+      man-db.enable = mkForce true;
       mandoc.enable = mkForce false;
     };
   };
