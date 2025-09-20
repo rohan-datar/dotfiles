@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 let
   inherit (lib) mkForce;
 in
@@ -16,5 +16,12 @@ in
       man-db.enable = mkForce false;
       mandoc.enable = mkForce false;
     };
+  };
+
+  olympus.packages = {
+    inherit (pkgs)
+      man-pages
+      man-pages-posix
+      ;
   };
 }
