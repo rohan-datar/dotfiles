@@ -9,7 +9,7 @@
     package = if pkgs.stdenv.hostPlatform.isLinux then pkgs.ghostty else null;
 
     settings = {
-      theme = "catppuccin-mocha";
+      theme = "Catppuccin Mocha";
       background-opacity = 0.85;
 
       background-blur-radius = 16;
