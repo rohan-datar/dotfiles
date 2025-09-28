@@ -19,7 +19,7 @@ in
 
   config = mkIf cfg.arr.enable {
     # TODO: maybe make this host-specific?
-    age.secrets.wgconf.file = ./secrets/AirVPN-America-WG.conf.age;
+    age.secrets.wgconf.file = ../../../secrets/AirVPN-America-WG.conf.age;
 
     nixarr = {
       enable = true;

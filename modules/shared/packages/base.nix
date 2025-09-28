@@ -13,6 +13,7 @@
       fd
       git
       tmux
+      fzf
       zoxide
       btop
       bat

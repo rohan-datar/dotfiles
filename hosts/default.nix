@@ -23,6 +23,9 @@
         arch = "aarch64";
         class = "darwin";
       };
+      dionysus = {
+        class = "nixos";
+      };
     };
   };
 }
