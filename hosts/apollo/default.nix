@@ -25,6 +25,7 @@ in
         raycast
         appcleaner
         openldap
+        emacs
         ;
     };
 
