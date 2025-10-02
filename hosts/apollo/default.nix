@@ -37,13 +37,13 @@ in
     brews = [
       "openjdk@21"
       "xcode-build-server"
-      "emacs"
     ];
 
     casks = [
       "omnidisksweeper"
       "beeper"
       "docker"
+      "emacs-app"
     ];
 
     masApps = {
