@@ -25,7 +25,6 @@ in
         raycast
         appcleaner
         openldap
-        emacs
         ;
     };
 
@@ -38,6 +37,7 @@ in
     brews = [
       "openjdk@21"
       "xcode-build-server"
+      "emacs"
     ];
 
     casks = [
