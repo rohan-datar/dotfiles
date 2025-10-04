@@ -37,7 +37,6 @@ in
 
     packages = {
       inherit (pkgs)
-        kitty
         cargo
         clang
         gcc
