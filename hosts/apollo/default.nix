@@ -43,7 +43,6 @@ in
       "omnidisksweeper"
       "beeper"
       "docker"
-      "emacs-app"
     ];
 
     masApps = {

@@ -16,7 +16,7 @@
           allowUnfree = true;
           allowUnsupportedSystem = true;
         };
-        overlays = [ ];
+        overlays = [ inputs.emacs-overlay.overlays.default ];
       };
     };
 }

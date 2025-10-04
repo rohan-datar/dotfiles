@@ -27,7 +27,10 @@ in
         vscode
         wireguard-ui
         bitwarden-desktop
+        emacs
         ;
     };
+
+    services.emacs.enable = true;
   };
 }
