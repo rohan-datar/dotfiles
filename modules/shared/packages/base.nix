@@ -21,6 +21,7 @@
       any-nix-shell
       starship
       ripgrep
+      dysk
       ;
     agenix = inputs.agenix.packages.${pkgs.system}.default;
     inherit (self.packages.${pkgs.system}) nx;
