@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 let
@@ -26,45 +27,19 @@ in
       opnsenseUser.file = ../../../secrets/opnsenseUser.age;
       opnsensePass.file = ../../../secrets/opnsensePass.age;
     };
-    age-template.files."hompage-keys.env" = {
-      vars = {
-        sonarrKey = config.age.secrets.sonarrApiKey.path;
-        radarrKey = config.age.secrets.radarrApiKey.path;
-        bazarrKey = config.age.secrets.bazarrApiKey.path;
-        prowlarrKey = config.age.secrets.prowlarrApiKey.path;
-        jellyfinKey = config.age.secrets.jellyfinApiKey.path;
-        jellyseerrKey = config.age.secrets.jellyseerrApiKey.path;
-        truenasKey = config.age.secrets.truenasApiKey.path;
-        adguardPass = config.age.secrets.adguardPass.path;
-        opnsenseUser = config.age.secrets.opnsenseUser.path;
-        opnsensePass = config.age.secrets.opnsensePass.path;
-        transmissionPwd = config.age.secrets.transmissionPwd.path;
-      };
 
-      content = ''
-        HOMEPAGE_VAR_SONARR_KEY="$sonarrKey"
-        HOMEPAGE_VAR_RADARR_KEY="$radarrKey"
-        HOMEPAGE_VAR_PROWLARR_KEY="$prowlarrKey"
-        HOMEPAGE_VAR_BAZARR_KEY="$bazarrKey"
-        HOMEPAGE_VAR_JELLYFIN_KEY="$jellyfinKey"
-        HOMEPAGE_VAR_JELLYSEERR_KEY="$jellyseerrKey"
-        HOMEPAGE_VAR_TRUENAS_KEY="$truenasKey"
-        HOMEPAGE_VAR_ADGUARD_PWD="$adguardPass"
-        HOMEPAGE_VAR_OPNSENSE_USER="$opnsenseUser"
-        HOMEPAGE_VAR_OPNSENSE_PWD="$opnsensePass"
-        HOMEPAGE_VAR_TRANSMISSION_PWD="$transmissionPwd"
-      '';
-    };
     services.homepage-dashboard = {
       enable = true;
       openFirewall = true;
-      environmentFile = config.age-template.files."hompage-keys.env".path;
       allowedHosts = "10.10.1.11:8082,home.rdatar.com";
+      environmentFile = "/run/homepage-dashboard/env";
+
       settings = {
         title = "Homelab";
         headerStyle = "boxed";
         color = "slate";
       };
+
       widgets = [
         {
           datetime = {
@@ -92,19 +67,19 @@ in
           };
         }
       ];
+
       services = [
         {
           "Arrs" = [
             {
               "Sonarr" = {
                 icon = "sonarr.png";
-
                 href = "https://tv.rdatar.com/";
                 widgets = [
                   {
                     type = "sonarr";
                     url = "http://localhost:8989/";
-                    key = "{{HOMEPAGE_VAR_SONARR_KEY}}";
+                    key = "{{HOMEPAGE_FILE_SONARR_KEY}}";
                   }
                 ];
               };
@@ -112,13 +87,12 @@ in
             {
               "Radarr" = {
                 icon = "radarr.png";
-
                 href = "https://movie.rdatar.com/";
                 widgets = [
                   {
                     type = "radarr";
                     url = "http://localhost:7878/";
-                    key = "{{HOMEPAGE_VAR_RADARR_KEY}}";
+                    key = "{{HOMEPAGE_FILE_RADARR_KEY}}";
                   }
                 ];
               };
@@ -132,7 +106,7 @@ in
                     type = "transmission";
                     url = "http://localhost:9091/transmission/rpc";
                     username = "";
-                    password = "{{HOMEPAGE_VAR_TRANSMISSION_PWD}}";
+                    password = "{{HOMEPAGE_FILE_TRANSMISSION_PWD}}";
                   }
                 ];
               };
@@ -145,7 +119,7 @@ in
                   {
                     type = "prowlarr";
                     url = "http://localhost:9696/";
-                    key = "{{HOMEPAGE_VAR_PROWLARR_KEY}}";
+                    key = "{{HOMEPAGE_FILE_PROWLARR_KEY}}";
                   }
                 ];
               };
@@ -158,7 +132,7 @@ in
                   {
                     type = "bazarr";
                     url = "http://localhost:6767/";
-                    key = "{{HOMEPAGE_VAR_BAZARR_KEY}}";
+                    key = "{{HOMEPAGE_FILE_BAZARR_KEY}}";
                   }
                 ];
               };
@@ -175,7 +149,7 @@ in
                   {
                     type = "jellyfin";
                     url = "http://localhost:8096/";
-                    key = "{{HOMEPAGE_VAR_JELLYFIN_KEY}}";
+                    key = "{{HOMEPAGE_FILE_JELLYFIN_KEY}}";
                   }
                 ];
               };
@@ -188,7 +162,7 @@ in
                   {
                     type = "jellyseerr";
                     url = "http://localhost:5055/";
-                    key = "{{HOMEPAGE_VAR_JELLYSEERR_KEY}}";
+                    key = "{{HOMEPAGE_FILE_JELLYSEERR_KEY}}";
                   }
                 ];
               };
@@ -205,7 +179,7 @@ in
                   {
                     type = "truenas";
                     url = "http://10.10.1.10/";
-                    key = "{{HOMEPAGE_VAR_TRUENAS_KEY}}";
+                    key = "{{HOMEPAGE_FILE_TRUENAS_KEY}}";
                   }
                 ];
               };
@@ -219,7 +193,7 @@ in
                     type = "adguard";
                     url = "http://10.10.0.1:8080/";
                     username = "rdatar";
-                    password = "{{HOMEPAGE_VAR_ADGUARD_PWD}}";
+                    password = "{{HOMEPAGE_FILE_ADGUARD_PWD}}";
                   }
                 ];
               };
@@ -232,8 +206,8 @@ in
                   {
                     type = "opnsense";
                     url = "https://10.10.0.1:8443/";
-                    username = "{{HOMEPAGE_VAR_OPNSENSE_USER}}";
-                    password = "{{HOMEPAGE_VAR_OPNSENSE_PWD}}";
+                    username = "{{HOMEPAGE_FILE_OPNSENSE_USER}}";
+                    password = "{{HOMEPAGE_FILE_OPNSENSE_PWD}}";
                   }
                 ];
               };
@@ -248,5 +222,25 @@ in
         }
       ];
     };
+
+    # Create the environment file from agenix secrets before starting homepage
+    systemd.services.homepage-dashboard.serviceConfig.ExecStartPre =
+      pkgs.writeShellScript "homepage-env-setup" ''
+        mkdir -p /run/homepage-dashboard
+        cat > /run/homepage-dashboard/env << EOF
+        HOMEPAGE_FILE_SONARR_KEY=${config.age.secrets.sonarrApiKey.path}
+        HOMEPAGE_FILE_RADARR_KEY=${config.age.secrets.radarrApiKey.path}
+        HOMEPAGE_FILE_PROWLARR_KEY=${config.age.secrets.prowlarrApiKey.path}
+        HOMEPAGE_FILE_BAZARR_KEY=${config.age.secrets.bazarrApiKey.path}
+        HOMEPAGE_FILE_JELLYFIN_KEY=${config.age.secrets.jellyfinApiKey.path}
+        HOMEPAGE_FILE_JELLYSEERR_KEY=${config.age.secrets.jellyseerrApiKey.path}
+        HOMEPAGE_FILE_TRUENAS_KEY=${config.age.secrets.truenasApiKey.path}
+        HOMEPAGE_FILE_ADGUARD_PWD=${config.age.secrets.adguardPass.path}
+        HOMEPAGE_FILE_OPNSENSE_USER=${config.age.secrets.opnsenseUser.path}
+        HOMEPAGE_FILE_OPNSENSE_PWD=${config.age.secrets.opnsensePass.path}
+        HOMEPAGE_FILE_TRANSMISSION_PWD=${config.age.secrets.transmissionPwd.path}
+        EOF
+        chmod 600 /run/homepage-dashboard/env
+      '';
   };
 }

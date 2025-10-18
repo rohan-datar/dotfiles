@@ -66,6 +66,9 @@ in
       # };
     };
 
-    systemd.services.jellyfin.environment.LIBVA_DRIVER_NAME = "iHD"; # Or "i965" if using older driver
+    systemd.services.jellyfin.environment = {
+      VDPAU_DRIVER = "va_gl";
+      LIBVA_DRIVER_NAME = "iHD";
+    };
   };
 }

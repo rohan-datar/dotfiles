@@ -39,7 +39,6 @@
         darwin.follows = "nix-darwin";
       };
     };
-    agenix-template.url = "github:jhillyerd/agenix-template/1.0.0";
 
     homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 

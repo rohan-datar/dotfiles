@@ -8,6 +8,7 @@ in
     ./hardware-configuration.nix
     ./user.nix
     ./disks.nix
+    ./home-assistant.nix
   ];
 
   olympus = {
@@ -32,8 +33,6 @@ in
       inherit (pkgs)
         gcc
         curl
-        tmux
-        ripgrep
         cifs-utils
         nh
         ;

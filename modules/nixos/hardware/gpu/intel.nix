@@ -31,11 +31,11 @@ in
       };
     };
 
-    olympus.packages = [ pkgs.intel-gpu-tools ];
+    olympus.packages = { inherit (pkgs) intel-gpu-tools; };
 
     environment.variables = mkIf config.hardware.graphics.enable {
       VDPAU_DRIVER = "va_gl";
-      LIBVA_DRIVWER_NAME = "iHD";
+      LIBVA_DRIVER_NAME = "iHD";
     };
   };
 }
