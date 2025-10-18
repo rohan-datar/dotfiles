@@ -1,11 +1,10 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }:
 let
-  inherit (lib) mkIf mkOption types;
+  inherit (lib) mkIf;
 in
 {
   config = mkIf config.olympus.aspects.graphical.enable {
