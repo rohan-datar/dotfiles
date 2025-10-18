@@ -19,7 +19,7 @@
     devices = [ "nodev" ];
     efiSupport = true;
     useOSProber = true;
-    configurationLimit = 50;
+    configurationLimit = 20;
     efiInstallAsRemovable = true;
   };
 

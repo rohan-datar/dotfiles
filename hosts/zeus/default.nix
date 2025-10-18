@@ -73,6 +73,7 @@ in
     "10.10.0.1"
     "1.1.1.1"
   ];
+  networking.enableIPv6 = false;
 
   time.timeZone = "America/Chicago";
 

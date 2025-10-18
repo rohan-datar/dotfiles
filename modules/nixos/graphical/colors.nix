@@ -14,6 +14,7 @@
       sources = options.catppuccin.sources.default;
       flavor = "mocha";
       accent = "blue";
+      cache.enable = true;
 
       # IFD, easy to vendor
       tty.enable = false;
