@@ -25,7 +25,8 @@ in
       };
 
       gtk.icon.enable = isGui;
-
+      firefox.enable = isGui;
+      kvantum.enable = isGui;
     };
   };
 }
