@@ -22,6 +22,7 @@
       starship
       ripgrep
       dysk
+      lazygit
       ;
     agenix = inputs.agenix.packages.${pkgs.system}.default;
     inherit (self.packages.${pkgs.system}) nx;

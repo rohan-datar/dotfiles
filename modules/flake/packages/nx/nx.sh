@@ -78,7 +78,7 @@ do_switch() {
 
   # Optional desktop ping on Linux
   if [[ $OS == "Linux" ]] && have notify-send; then
-    notify-send -e "Rebuild OK" "System & Home-Manager applied"
+    notify-send -e "Rebuild OK" "System & Home-Manager applied" || true
   fi
 
   # Commit only if repo actually changed

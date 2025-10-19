@@ -32,7 +32,6 @@ in
       enable = true;
       openFirewall = true;
       allowedHosts = "10.10.1.11:8082,home.rdatar.com";
-      environmentFile = "/run/homepage-dashboard/env";
 
       settings = {
         title = "Homelab";
@@ -224,23 +223,18 @@ in
     };
 
     # Create the environment file from agenix secrets before starting homepage
-    systemd.services.homepage-dashboard.serviceConfig.ExecStartPre =
-      pkgs.writeShellScript "homepage-env-setup" ''
-        mkdir -p /run/homepage-dashboard
-        cat > /run/homepage-dashboard/env << EOF
-        HOMEPAGE_FILE_SONARR_KEY=${config.age.secrets.sonarrApiKey.path}
-        HOMEPAGE_FILE_RADARR_KEY=${config.age.secrets.radarrApiKey.path}
-        HOMEPAGE_FILE_PROWLARR_KEY=${config.age.secrets.prowlarrApiKey.path}
-        HOMEPAGE_FILE_BAZARR_KEY=${config.age.secrets.bazarrApiKey.path}
-        HOMEPAGE_FILE_JELLYFIN_KEY=${config.age.secrets.jellyfinApiKey.path}
-        HOMEPAGE_FILE_JELLYSEERR_KEY=${config.age.secrets.jellyseerrApiKey.path}
-        HOMEPAGE_FILE_TRUENAS_KEY=${config.age.secrets.truenasApiKey.path}
-        HOMEPAGE_FILE_ADGUARD_PWD=${config.age.secrets.adguardPass.path}
-        HOMEPAGE_FILE_OPNSENSE_USER=${config.age.secrets.opnsenseUser.path}
-        HOMEPAGE_FILE_OPNSENSE_PWD=${config.age.secrets.opnsensePass.path}
-        HOMEPAGE_FILE_TRANSMISSION_PWD=${config.age.secrets.transmissionPwd.path}
-        EOF
-        chmod 600 /run/homepage-dashboard/env
-      '';
+    systemd.services.homepage-dashboard.environment = {
+      HOMEPAGE_FILE_SONARR_KEY = "${config.age.secrets.sonarrApiKey.path}";
+      HOMEPAGE_FILE_RADARR_KEY = "${config.age.secrets.radarrApiKey.path}";
+      HOMEPAGE_FILE_PROWLARR_KEY = "${config.age.secrets.prowlarrApiKey.path}";
+      HOMEPAGE_FILE_BAZARR_KEY = "${config.age.secrets.bazarrApiKey.path}";
+      HOMEPAGE_FILE_JELLYFIN_KEY = "${config.age.secrets.jellyfinApiKey.path}";
+      HOMEPAGE_FILE_JELLYSEERR_KEY = "${config.age.secrets.jellyseerrApiKey.path}";
+      HOMEPAGE_FILE_TRUENAS_KEY = "${config.age.secrets.truenasApiKey.path}";
+      HOMEPAGE_FILE_ADGUARD_PWD = "${config.age.secrets.adguardPass.path}";
+      HOMEPAGE_FILE_OPNSENSE_USER = "${config.age.secrets.opnsenseUser.path}";
+      HOMEPAGE_FILE_OPNSENSE_PWD = "${config.age.secrets.opnsensePass.path}";
+      HOMEPAGE_FILE_TRANSMISSION_PWD = "${config.age.secrets.transmissionPwd.path}";
+    };
   };
 }

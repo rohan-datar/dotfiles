@@ -16,7 +16,6 @@ in
         firefox
         # ghostty # currently marked as broken on darwin
         fastfetch
-        lazygit
         obsidian
         discord
         aoc-cli
