@@ -27,6 +27,8 @@ in
       openFirewall = true;
       allowedHosts = "10.10.1.11:8082,home.rdatar.com";
 
+      environmentFile = config.age.secrets.homepage-env.path;
+
       settings = {
         title = "Homelab";
         headerStyle = "boxed";
