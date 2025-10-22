@@ -9,20 +9,21 @@ in
 {
   programs.git = {
     enable = true;
-    userEmail = "me@rohandatar.com";
-    userName = "Rohan Datar";
 
     attributes = [
       "* text=auto"
     ];
 
-    aliases = {
-      diff = "diff --word-diff";
-      blame = "blame -C -C -C";
-    };
-
-    extraConfig = mkMerge [
+    settings = mkMerge [
       {
+        user = {
+          email = "me@rohandatar.com";
+          name = "Rohan Datar";
+        };
+        aliases = {
+          diff = "diff --word-diff";
+          blame = "blame -C -C -C";
+        };
         merge.conflictstyle = "diff3";
         rerere.enabled = "true";
       }

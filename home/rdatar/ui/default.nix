@@ -5,7 +5,7 @@
     ./hyprland.nix
     ./hyprlock.nix
     ./hyprpanel.nix
-    ./notifications.nix
+    # ./notifications.nix
     ./search.nix
     ./wallpaper.nix
     #keep-sorted end
