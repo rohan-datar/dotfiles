@@ -14,7 +14,7 @@ in
 
       systemd.enable = true;
 
-      dontAssertNotificationDaemons = true;
+      # dontAssertNotificationDaemons = true;
 
       settings = {
         bar = {

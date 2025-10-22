@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 let
@@ -15,17 +14,12 @@ in
 
   config = mkIf cfg.homepage.enable {
     age.secrets = {
-      sonarrApiKey.file = ../../../secrets/sonarrApiKey.age;
-      radarrApiKey.file = ../../../secrets/radarrApiKey.age;
-      bazarrApiKey.file = ../../../secrets/bazarrApiKey.age;
-      prowlarrApiKey.file = ../../../secrets/prowlarrApiKey.age;
-      jellyfinApiKey.file = ../../../secrets/jellyfinApiKey.age;
-      jellyseerrApiKey.file = ../../../secrets/jellyseerrApiKey.age;
-      truenasApiKey.file = ../../../secrets/truenasApiKey.age;
-      adguardPass.file = ../../../secrets/adguardPass.age;
-      transmissionPwd.file = ../../../secrets/transmissionPwd.age;
-      opnsenseUser.file = ../../../secrets/opnsenseUser.age;
-      opnsensePass.file = ../../../secrets/opnsensePass.age;
+      homepage-env = {
+        file = ../../../secrets/homepage-env.age;
+        owner = "root";
+        group = "users";
+        mode = "400";
+      };
     };
 
     services.homepage-dashboard = {
@@ -78,7 +72,7 @@ in
                   {
                     type = "sonarr";
                     url = "http://localhost:8989/";
-                    key = "{{HOMEPAGE_FILE_SONARR_KEY}}";
+                    key = "{{HOMEPAGE_VAR_SONARR_KEY}}";
                   }
                 ];
               };
@@ -91,7 +85,7 @@ in
                   {
                     type = "radarr";
                     url = "http://localhost:7878/";
-                    key = "{{HOMEPAGE_FILE_RADARR_KEY}}";
+                    key = "{{HOMEPAGE_VAR_RADARR_KEY}}";
                   }
                 ];
               };
@@ -105,7 +99,7 @@ in
                     type = "transmission";
                     url = "http://localhost:9091/transmission/rpc";
                     username = "";
-                    password = "{{HOMEPAGE_FILE_TRANSMISSION_PWD}}";
+                    password = "{{HOMEPAGE_VAR_TRANSMISSION_PWD}}";
                   }
                 ];
               };
@@ -118,7 +112,7 @@ in
                   {
                     type = "prowlarr";
                     url = "http://localhost:9696/";
-                    key = "{{HOMEPAGE_FILE_PROWLARR_KEY}}";
+                    key = "{{HOMEPAGE_VAR_PROWLARR_KEY}}";
                   }
                 ];
               };
@@ -131,7 +125,7 @@ in
                   {
                     type = "bazarr";
                     url = "http://localhost:6767/";
-                    key = "{{HOMEPAGE_FILE_BAZARR_KEY}}";
+                    key = "{{HOMEPAGE_VAR_BAZARR_KEY}}";
                   }
                 ];
               };
@@ -148,7 +142,7 @@ in
                   {
                     type = "jellyfin";
                     url = "http://localhost:8096/";
-                    key = "{{HOMEPAGE_FILE_JELLYFIN_KEY}}";
+                    key = "{{HOMEPAGE_VAR_JELLYFIN_KEY}}";
                   }
                 ];
               };
@@ -161,7 +155,7 @@ in
                   {
                     type = "jellyseerr";
                     url = "http://localhost:5055/";
-                    key = "{{HOMEPAGE_FILE_JELLYSEERR_KEY}}";
+                    key = "{{HOMEPAGE_VAR_JELLYSEERR_KEY}}";
                   }
                 ];
               };
@@ -178,7 +172,7 @@ in
                   {
                     type = "truenas";
                     url = "http://10.10.1.10/";
-                    key = "{{HOMEPAGE_FILE_TRUENAS_KEY}}";
+                    key = "{{HOMEPAGE_VAR_TRUENAS_KEY}}";
                   }
                 ];
               };
@@ -192,7 +186,7 @@ in
                     type = "adguard";
                     url = "http://10.10.0.1:8080/";
                     username = "rdatar";
-                    password = "{{HOMEPAGE_FILE_ADGUARD_PWD}}";
+                    password = "{{HOMEPAGE_VAR_ADGUARD_PWD}}";
                   }
                 ];
               };
@@ -205,8 +199,8 @@ in
                   {
                     type = "opnsense";
                     url = "https://10.10.0.1:8443/";
-                    username = "{{HOMEPAGE_FILE_OPNSENSE_USER}}";
-                    password = "{{HOMEPAGE_FILE_OPNSENSE_PWD}}";
+                    username = "{{HOMEPAGE_VAR_OPNSENSE_USER}}";
+                    password = "{{HOMEPAGE_VAR_OPNSENSE_PWD}}";
                   }
                 ];
               };
@@ -223,18 +217,18 @@ in
     };
 
     # Create the environment file from agenix secrets before starting homepage
-    systemd.services.homepage-dashboard.environment = {
-      HOMEPAGE_FILE_SONARR_KEY = "${config.age.secrets.sonarrApiKey.path}";
-      HOMEPAGE_FILE_RADARR_KEY = "${config.age.secrets.radarrApiKey.path}";
-      HOMEPAGE_FILE_PROWLARR_KEY = "${config.age.secrets.prowlarrApiKey.path}";
-      HOMEPAGE_FILE_BAZARR_KEY = "${config.age.secrets.bazarrApiKey.path}";
-      HOMEPAGE_FILE_JELLYFIN_KEY = "${config.age.secrets.jellyfinApiKey.path}";
-      HOMEPAGE_FILE_JELLYSEERR_KEY = "${config.age.secrets.jellyseerrApiKey.path}";
-      HOMEPAGE_FILE_TRUENAS_KEY = "${config.age.secrets.truenasApiKey.path}";
-      HOMEPAGE_FILE_ADGUARD_PWD = "${config.age.secrets.adguardPass.path}";
-      HOMEPAGE_FILE_OPNSENSE_USER = "${config.age.secrets.opnsenseUser.path}";
-      HOMEPAGE_FILE_OPNSENSE_PWD = "${config.age.secrets.opnsensePass.path}";
-      HOMEPAGE_FILE_TRANSMISSION_PWD = "${config.age.secrets.transmissionPwd.path}";
-    };
+    # systemd.services.homepage-dashboard.environment = {
+    #   HOMEPAGE_VAR_SONARR_KEY = "${config.age.secrets.sonarrApiKey.path}";
+    #   HOMEPAGE_VAR_RADARR_KEY = "${config.age.secrets.radarrApiKey.path}";
+    #   HOMEPAGE_VAR_PROWLARR_KEY = "${config.age.secrets.prowlarrApiKey.path}";
+    #   HOMEPAGE_VAR_BAZARR_KEY = "${config.age.secrets.bazarrApiKey.path}";
+    #   HOMEPAGE_VAR_JELLYFIN_KEY = "${config.age.secrets.jellyfinApiKey.path}";
+    #   HOMEPAGE_VAR_JELLYSEERR_KEY = "${config.age.secrets.jellyseerrApiKey.path}";
+    #   HOMEPAGE_VAR_TRUENAS_KEY = "${config.age.secrets.truenasApiKey.path}";
+    #   HOMEPAGE_VAR_ADGUARD_PWD = "${config.age.secrets.adguardPass.path}";
+    #   HOMEPAGE_VAR_OPNSENSE_USER = "${config.age.secrets.opnsenseUser.path}";
+    #   HOMEPAGE_VAR_OPNSENSE_PWD = "${config.age.secrets.opnsensePass.path}";
+    #   HOMEPAGE_VAR_TRANSMISSION_PWD = "${config.age.secrets.transmissionPwd.path}";
+    # };
   };
 }

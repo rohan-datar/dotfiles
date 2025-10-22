@@ -31,6 +31,7 @@ in
 {
   "smbcredentials.age".publicKeys = rdatar-desktop ++ home-desktop;
   "AirVPN-America-WG.conf.age".publicKeys = home-media-keys;
+  "homepage-env.age".publicKeys = home-media-keys;
   "adguardPass.age".publicKeys = home-media-keys;
   "transmissioncreds.json.age".publicKeys = home-media-keys;
   "transmissionPwd.age".publicKeys = home-media-keys;
