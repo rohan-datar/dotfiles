@@ -215,20 +215,5 @@ in
         }
       ];
     };
-
-    # Create the environment file from agenix secrets before starting homepage
-    # systemd.services.homepage-dashboard.environment = {
-    #   HOMEPAGE_VAR_SONARR_KEY = "${config.age.secrets.sonarrApiKey.path}";
-    #   HOMEPAGE_VAR_RADARR_KEY = "${config.age.secrets.radarrApiKey.path}";
-    #   HOMEPAGE_VAR_PROWLARR_KEY = "${config.age.secrets.prowlarrApiKey.path}";
-    #   HOMEPAGE_VAR_BAZARR_KEY = "${config.age.secrets.bazarrApiKey.path}";
-    #   HOMEPAGE_VAR_JELLYFIN_KEY = "${config.age.secrets.jellyfinApiKey.path}";
-    #   HOMEPAGE_VAR_JELLYSEERR_KEY = "${config.age.secrets.jellyseerrApiKey.path}";
-    #   HOMEPAGE_VAR_TRUENAS_KEY = "${config.age.secrets.truenasApiKey.path}";
-    #   HOMEPAGE_VAR_ADGUARD_PWD = "${config.age.secrets.adguardPass.path}";
-    #   HOMEPAGE_VAR_OPNSENSE_USER = "${config.age.secrets.opnsenseUser.path}";
-    #   HOMEPAGE_VAR_OPNSENSE_PWD = "${config.age.secrets.opnsensePass.path}";
-    #   HOMEPAGE_VAR_TRANSMISSION_PWD = "${config.age.secrets.transmissionPwd.path}";
-    # };
   };
 }
