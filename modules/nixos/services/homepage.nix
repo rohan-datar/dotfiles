@@ -215,8 +215,8 @@ in
             }
             {
               "HomeAssistant" = {
-                icon = "homeassistant.png";
-                href = "ha.rdatar.com";
+                icon = "home-assistant.png";
+                href = "https://ha.rdatar.com";
               };
             }
           ];
