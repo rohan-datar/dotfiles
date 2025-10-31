@@ -213,6 +213,12 @@ in
                 href = "https://10.10.0.2/";
               };
             }
+            {
+              "HomeAssistant" = {
+                icon = "homeassistant.png";
+                href = "ha.rdatar.com";
+              };
+            }
           ];
         }
       ];

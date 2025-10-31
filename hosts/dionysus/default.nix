@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 let
   name = "home-media";
   configName = builtins.baseNameOf (builtins.toString ./.);
@@ -8,7 +8,6 @@ in
     ./hardware-configuration.nix
     ./user.nix
     ./disks.nix
-    ./home-assistant.nix
   ];
 
   olympus = {
