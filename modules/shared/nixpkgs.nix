@@ -1,4 +1,8 @@
-_: {
+{ config, mkIf, ... }:
+let
+  inherit (config.olympus.system) gpu;
+in
+{
   nixpkgs.config = {
     # I want to install packages that are not FOSS sometimes
     allowUnfree = true;
@@ -20,5 +24,7 @@ _: {
 
     # I allow packages that are not supported by my system
     allowUnsupportedSystem = true;
+
+    cudaSupport = if (gpu == "nvidia") then true else false;
   };
 }
