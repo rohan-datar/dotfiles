@@ -25,6 +25,6 @@ in
     # I allow packages that are not supported by my system
     allowUnsupportedSystem = true;
 
-    cudaSupport = if (gpu == "nvidia") then true else false;
+    # cudaSupport = if (gpu == "nvidia") then true else false;
   };
 }
