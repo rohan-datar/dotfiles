@@ -21,7 +21,7 @@ in
         aoc-cli
         direnv
         pandoc
-        # wireshark
+        wireshark
         vscode
         wireguard-ui
         bitwarden-desktop
