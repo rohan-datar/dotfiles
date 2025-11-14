@@ -244,9 +244,9 @@
       setupCompleted = true;
       ui = {
         fontDefault = "SFProDisplay Nerd Font";
-        fontDefaultScale = 1;
+        fontDefaultScale = 1.5;
         fontFixed = "MesloLGS Nerd Font";
-        fontFixedScale = 1;
+        fontFixedScale = 1.5;
         panelBackgroundOpacity = 1;
         panelsAttachedToBar = true;
         settingsPanelAttachToBar = false;
