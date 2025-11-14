@@ -9,7 +9,7 @@ in
 {
   config = mkIf config.olympus.aspects.graphical.enable {
     services.wpaperd = {
-      enable = true;
+      enable = false;
       settings = {
         default = {
           path = "~/.local/share/backgrounds/";
