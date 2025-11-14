@@ -7,6 +7,7 @@
 }:
 let
   inherit (lib) mkIf;
+  inherit (pkgs.stdenv.hostPlatform) system;
 in
 {
   config = mkIf config.olympus.aspects.graphical.enable {
@@ -20,7 +21,7 @@ in
         brightnessctl
         fuzzel
         ;
-      noctalia = inputs.noctalia.packages.${pkgs.system}.default;
+      noctalia = inputs.noctalia.packages.${system}.default;
     };
   };
 

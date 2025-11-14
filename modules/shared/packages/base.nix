@@ -4,6 +4,9 @@
   self,
   ...
 }:
+let
+  inherit (pkgs.stdenv.hostPlatform) system;
+in
 {
   # shared with all systems
   olympus.packages = {
@@ -24,7 +27,7 @@
       dysk
       lazygit
       ;
-    agenix = inputs.agenix.packages.${pkgs.system}.default;
-    inherit (self.packages.${pkgs.system}) nx;
+    agenix = inputs.agenix.packages.${system}.default;
+    inherit (self.packages.${system}) nx;
   };
 }

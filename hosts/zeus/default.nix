@@ -3,6 +3,7 @@ let
   name = "home-desktop";
   # Extract the config name from the flake
   configName = builtins.baseNameOf (builtins.toString ./.);
+  inherit (pkgs.stdenv.hostPlatform) system;
 in
 {
   imports = [
@@ -55,7 +56,7 @@ in
         font-manager
         beeper
         ;
-      inherit (inputs.zen-browser.packages."${pkgs.system}") default;
+      inherit (inputs.zen-browser.packages."${system}") default;
     };
   };
 
