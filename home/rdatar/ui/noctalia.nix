@@ -35,6 +35,12 @@
               useDistroLogo = true;
             }
             {
+              characterCount = 2;
+              hideUnoccupied = false;
+              id = "Workspace";
+              labelMode = "index";
+            }
+            {
               colorizeIcons = false;
               hideMode = "hidden";
               id = "ActiveWindow";
@@ -53,12 +59,6 @@
               showVisualizer = true;
               useFixedWidth = false;
               visualizerType = "linear";
-            }
-            {
-              characterCount = 2;
-              hideUnoccupied = false;
-              id = "Workspace";
-              labelMode = "index";
             }
           ];
           right = [

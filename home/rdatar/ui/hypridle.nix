@@ -12,8 +12,8 @@ in
       enable = true;
       settings = {
         general = {
-          lock_cmd = "pidof hyprlock || hyprlock";
-          before_sleep_cmd = "hyprlock";
+          lock_cmd = "qs -c noctalia-shell ipc call lockScreen lock";
+          before_sleep_cmd = "qs -c noctalia-shell ipc call lockScreen lock";
           after_sleep_cmd = "hyprctl dispatch dpms on";
         };
 
@@ -26,7 +26,7 @@ in
 
           {
             timeout = "330";
-            on-timeout = "hyprlock";
+            on-timeout = "qs -c noctalia-shell ipc call lockScreen lock";
           }
 
           {

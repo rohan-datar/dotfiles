@@ -72,9 +72,10 @@ in
     launcher = {
       type = nullOr (enum [
         "wofi"
-        "fuzzel"
+        "quickshell"
+        "noctalia"
       ]);
-      default = "fuzzel";
+      default = "quickshell";
     };
 
     bar = {
@@ -83,7 +84,7 @@ in
         "quickshell"
         "hyprpanel"
       ]);
-      default = "hyprpanel";
+      default = "quickshell";
     };
 
     screenLocker = {
@@ -91,8 +92,9 @@ in
         "swaylock"
         "gtklock"
         "hyprlock"
+        "noctalia"
       ]);
-      default = "hyprlock";
+      default = "noctalia";
       description = ''
         The lockscreen module to be loaded by home-manager.
       '';
