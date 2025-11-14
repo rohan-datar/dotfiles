@@ -253,6 +253,7 @@
         tooltipsEnabled = true;
       };
       wallpaper = {
+        defaultWallpaper = "~/.local/share/backgrounds/Hero_NixOS.png";
         directory = "~/.local/share/backgrounds/";
         enableMultiMonitorDirectories = false;
         enabled = true;
@@ -267,7 +268,7 @@
         setWallpaperOnAllMonitors = true;
         transitionDuration = 1500;
         transitionEdgeSmoothness = 0.05;
-        transitionType = "random";
+        transitionType = "fade";
       };
     };
   };
