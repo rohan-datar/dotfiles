@@ -10,7 +10,7 @@ in
 {
   config = mkIf config.olympus.aspects.graphical.enable {
     programs.hyprpanel = {
-      enable = true;
+      enable = false;
 
       systemd.enable = true;
 

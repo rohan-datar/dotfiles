@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }:
 let
@@ -19,6 +20,7 @@ in
         brightnessctl
         fuzzel
         ;
+      noctalia = inputs.noctalia.packages.${pkgs.system}.default;
     };
   };
 
