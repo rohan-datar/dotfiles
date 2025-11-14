@@ -2,6 +2,7 @@
 let
   name = "home-media";
   configName = builtins.baseNameOf (builtins.toString ./.);
+  inherit (pkgs.stdenv.hostPlatform) system;
 in
 {
   imports = [
