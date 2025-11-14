@@ -166,7 +166,7 @@
       general = {
         avatarImage = ../assets/HAL-9000-icon.png;
         radiusRatio = 1;
-        scaleRatio = 1.1;
+        scaleRatio = 1.5;
       };
       hooks = {
         darkModeChange = "";
@@ -244,9 +244,9 @@
       setupCompleted = true;
       ui = {
         fontDefault = "SFProDisplay Nerd Font";
-        fontDefaultScale = 1.11;
+        fontDefaultScale = 2;
         fontFixed = "MesloLGS Nerd Font";
-        fontFixedScale = 1.11;
+        fontFixedScale = 2;
         panelBackgroundOpacity = 1;
         panelsAttachedToBar = true;
         settingsPanelAttachToBar = false;
