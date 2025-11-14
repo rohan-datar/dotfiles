@@ -19,7 +19,7 @@
           center = [
             {
               customFont = "";
-              formatHorizontal = "HH:mm ddd, MMM dd";
+              formatHorizontal = "h:mm AP  ddd, MMM dd";
               formatVertical = "HH mm - dd MM";
               id = "Clock";
               useCustomFont = false;
@@ -266,8 +266,7 @@
         recursiveSearch = false;
         setWallpaperOnAllMonitors = true;
         transitionDuration = 1500;
-        transitionEdgeSmoothness = {
-        };
+        transitionEdgeSmoothness = 0.05;
         transitionType = "random";
       };
     };
