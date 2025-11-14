@@ -253,8 +253,8 @@
         tooltipsEnabled = true;
       };
       wallpaper = {
-        defaultWallpaper = "~/.local/share/backgrounds/Hero_NixOS.png";
-        directory = "~/.local/share/backgrounds/";
+        defaultWallpaper = "/home/rdatar/.local/share/backgrounds/Hero_NixOS.png";
+        directory = "/home/rdatar/.local/share/backgrounds/";
         enableMultiMonitorDirectories = false;
         enabled = true;
         fillColor = "#000000";
