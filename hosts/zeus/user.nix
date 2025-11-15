@@ -5,6 +5,7 @@
 
   # this is kinda weird but I don't want to do a bunch of work to share options between home-manager and nixos
   programs.hyprland.enable = true;
+  programs.niri.enable = true;
 
   home-manager.users.rdatar = {
     programs = {
