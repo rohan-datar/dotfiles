@@ -42,7 +42,7 @@
       jq
       yq
       jdt-language-server
-      sourcekit-lsp
+      # sourcekit-lsp
       superhtml
     ];
   };

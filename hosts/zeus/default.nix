@@ -49,7 +49,7 @@ in
         ungoogled-chromium
         libnotify
         glib
-        swift
+        # swift
         thunderbird
         cifs-utils
         nautilus
