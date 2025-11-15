@@ -1,6 +1,6 @@
 {
   # Enable automatic login for the user.
-  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.enable = false;
   services.displayManager.autoLogin.user = "rdatar";
 
   # this is kinda weird but I don't want to do a bunch of work to share options between home-manager and nixos
