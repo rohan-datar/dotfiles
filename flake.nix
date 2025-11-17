@@ -24,6 +24,15 @@
 
     systems.url = "github:nix-systems/default";
 
+    editorconfig = {
+      url = "github:rohan-datar/editorconfig";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        systems.follows = "systems";
+      };
+    };
+
     easy-hosts.url = "github:tgirlcloud/easy-hosts";
 
     niri = {

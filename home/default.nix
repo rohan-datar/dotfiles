@@ -5,6 +5,7 @@
   config,
   inputs,
   inputs',
+  neovimPkg,
   ...
 }:
 let
@@ -27,6 +28,7 @@ in
         self'
         inputs
         inputs'
+        neovimPkg
         ;
     };
 

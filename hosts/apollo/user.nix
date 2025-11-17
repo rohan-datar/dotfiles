@@ -1,3 +1,4 @@
+{ inputs', ... }:
 {
   home-manager.users.rohandatar = {
     programs = {
@@ -10,7 +11,6 @@
       starship.enable = true;
       tmux.enable = true;
       zsh.enable = true;
-      neovim.enable = true;
     };
 
     olympus.programs.defaults = {

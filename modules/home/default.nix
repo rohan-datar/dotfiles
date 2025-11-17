@@ -5,7 +5,7 @@
     ./aspects.nix
     ./env
     ./home.nix
-    ./neovim
+    ./neovim.nix
     ./programs
     # keep-sorted end
   ];

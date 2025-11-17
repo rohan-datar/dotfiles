@@ -3,7 +3,6 @@
 
   imports = [
     # keep-sorted start
-    ../shared
     ./console.nix
     ./documentation.nix
     ./emulation.nix

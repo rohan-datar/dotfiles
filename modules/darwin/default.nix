@@ -3,7 +3,6 @@
 
   imports = [
     # keep-sorted start
-    ../shared
     ./brew
     ./documentation.nix
     ./extras.nix
