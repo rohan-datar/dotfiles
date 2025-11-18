@@ -7,7 +7,7 @@
   imports = [ inputs.editorconfig.homeModules.nixCats ];
 
   nixCats.enable = true;
-  nixCats.packageNames = [ neovimPkg ]; # "full" or "minimal"
+  nixCats.packageNames = [ neovimPkg ];
 
   home.sessionVariables.EDITOR = "nvim";
   home.shellAliases = {

@@ -19,7 +19,6 @@
       starship.enable = true;
       tmux.enable = true;
       zsh.enable = true;
-      neovim.enable = true;
       firefox.enable = true;
       fuzzel.enable = true;
     };

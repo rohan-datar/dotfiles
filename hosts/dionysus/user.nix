@@ -31,7 +31,6 @@ in
       fzf.enable = true;
       starship.enable = true;
       tmux.enable = true;
-      neovim.enable = true;
     };
   };
 }
