@@ -18,6 +18,9 @@
 
       # IFD, easy to vendor
       tty.enable = false;
+
+      # doesn't build on macos
+      starship.enable = false;
     };
 
     console.colors = lib.mkIf config.catppuccin.enable [
