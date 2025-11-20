@@ -11,4 +11,5 @@
         exec fish -l
     fi
   '';
+  programs.bash.enable = false;
 }
