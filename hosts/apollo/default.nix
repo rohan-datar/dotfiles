@@ -56,7 +56,10 @@ in
     computerName = name;
   };
 
-  environment.variables.NIX_CONFIG_NAME = configName;
+  environment.variables = {
+    NIX_CONFIG_NAME = configName;
+    LC_ALL = "glibc-locales";
+  };
 
   # $ darwin-rebuild changelog
   system.stateVersion = 5;
