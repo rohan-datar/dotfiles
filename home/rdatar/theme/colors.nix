@@ -27,6 +27,8 @@ in
       gtk.icon.enable = isGui;
       firefox.enable = isGui;
       kvantum.enable = isGui;
+      # doesn't build on macos
+      starship.enable = false;
     };
   };
 }
