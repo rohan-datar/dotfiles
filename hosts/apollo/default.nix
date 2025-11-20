@@ -58,7 +58,7 @@ in
 
   environment.variables = {
     NIX_CONFIG_NAME = configName;
-    LC_ALL = "glibc-locales";
+    LC_ALL = "en_US.UTF-8";
   };
 
   # $ darwin-rebuild changelog
