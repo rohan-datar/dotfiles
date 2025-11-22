@@ -6,10 +6,11 @@
   ...
 }:
 let
-  isGui = osClass == "nixos" && config.olympus.aspects.graphical.enable;
+  isNixos = osClass == "nixos";
+  isGui = isNixos && config.olympus.aspects.graphical.enable;
 in
 {
-  imports = [ inputs.catppuccin.homeModules.catppuccin ];
+  imports = if isNixos then [ inputs.catppuccin.homeModules.catppuccin ] else [ ];
 
   config = {
     catppuccin = {
