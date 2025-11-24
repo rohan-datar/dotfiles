@@ -72,10 +72,6 @@ in
   networking = {
     hostName = name; # Define your hostname.
     networkmanager.enable = true;
-    # nameservers = [
-    #   "10.10.0.1"
-    #   "1.1.1.1"
-    # ];
     enableIPv6 = false;
   };
 
