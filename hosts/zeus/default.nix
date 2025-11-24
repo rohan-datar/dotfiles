@@ -69,12 +69,15 @@ in
     };
   };
 
-  networking.hostName = name; # Define your hostname.
-  networking.nameservers = [
-    "10.10.0.1"
-    "1.1.1.1"
-  ];
-  networking.enableIPv6 = false;
+  networking = {
+    hostName = name; # Define your hostname.
+    networkmanager.enable = true;
+    # nameservers = [
+    #   "10.10.0.1"
+    #   "1.1.1.1"
+    # ];
+    enableIPv6 = false;
+  };
 
   time.timeZone = "America/Chicago";
 
