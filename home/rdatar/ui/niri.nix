@@ -17,7 +17,7 @@ in
 
         layout = {
           border.width = 1;
-          gaps = 0;
+          gaps = 8;
           empty-workspace-above-first = true;
         };
 
