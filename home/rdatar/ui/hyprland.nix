@@ -23,7 +23,7 @@ in
         # Set programs that you use
         "$terminal" = "ghostty";
         "$fileManager" = "nautilus";
-        "$menu" = "qs -c noctalia-shell ipc call launcher toggle";
+        "$menu" = "noctalia-shell ipc call launcher toggle";
         "$browser" = "zen";
 
         exec-once = [

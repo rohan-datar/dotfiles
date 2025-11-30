@@ -12,8 +12,6 @@ in
       settings = {
         binds = {
           "Mod+Space".action.spawn = [
-            "qs"
-            "-c"
             "noctalia-shell"
             "ipc"
             "call"
@@ -25,8 +23,6 @@ in
           "Mod+B".action.spawn = "zen";
 
           "XF86AudioRaiseVolume".action.spawn = [
-            "qs"
-            "-c"
             "noctalia-shell"
             "ipc"
             "call"
@@ -34,8 +30,6 @@ in
             "increase"
           ];
           "XF86AudioLowerVolume".action.spawn = [
-            "qs"
-            "-c"
             "noctalia-shell"
             "ipc"
             "call"
@@ -43,8 +37,6 @@ in
             "decrease"
           ];
           "XF86AudioMute".action.spawn = [
-            "qs"
-            "-c"
             "noctalia-shell"
             "ipc"
             "call"
@@ -53,8 +45,6 @@ in
           ];
 
           "XF86MonBrightnessUp".action.spawn = [
-            "qs"
-            "-c"
             "noctalia-shell"
             "ipc"
             "call"
@@ -63,8 +53,6 @@ in
           ];
 
           "XF86MonBrightnessDown".action.spawn = [
-            "qs"
-            "-c"
             "noctalia-shell"
             "ipc"
             "call"
