@@ -12,7 +12,6 @@
       theme = "Catppuccin Mocha";
       background-opacity = 0.85;
 
-      background-blur = 40;
       background-blur-radius = 16;
       window-decoration = false;
 

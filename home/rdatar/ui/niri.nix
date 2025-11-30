@@ -11,6 +11,21 @@ in
   config = mkIf config.olympus.aspects.graphical.enable {
     programs.niri = {
       settings = {
+        window-rules = [
+          { draw-border-with-background = false; }
+        ];
+
+        layout = {
+          border.width = 1;
+          gaps = 0;
+          empty-workspace-above-first = true;
+        };
+
+        environment = {
+          QT_QPA_PLATFORM = "wayland";
+          XDG_SESSION_TYPE = "wayland";
+        };
+
         binds = with config.lib.niri.actions; {
           # basic controls
           "${mod}+K".action = focus-window-or-workspace-up;
@@ -25,6 +40,9 @@ in
           "${mod}+Q".action = close-window;
           "${mod}+F".action = maximize-column;
           "${mod}+Shift+F".action = fullscreen-window;
+          "${mod}+W".action = toggle-column-tabbed-display;
+          "${mod}+Comma".action = consume-or-expel-window-left;
+          "${mod}+Period".action = consume-or-expel-window-right;
 
           # resize things
           "${mod}+Equal".action = set-column-width "+10%";
