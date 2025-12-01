@@ -13,7 +13,7 @@ in
     # shared with all systems
     olympus.packages = {
       inherit (pkgs)
-        firefox
+        # firefox
         # ghostty # currently marked as broken on darwin
         fastfetch
         obsidian

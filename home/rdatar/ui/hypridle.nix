@@ -9,11 +9,11 @@ in
 {
   config = mkIf config.olympus.aspects.graphical.enable {
     services.hypridle = {
-      enable = true;
+      enable = false;
       settings = {
         general = {
-          lock_cmd = "qs -c noctalia-shell ipc call lockScreen lock";
-          before_sleep_cmd = "qs -c noctalia-shell ipc call lockScreen lock";
+          lock_cmd = "noctalia-shell ipc call lockScreen lock";
+          before_sleep_cmd = "noctalia-shell ipc call lockScreen lock";
           after_sleep_cmd = "hyprctl dispatch dpms on";
         };
 
@@ -26,7 +26,7 @@ in
 
           {
             timeout = "330";
-            on-timeout = "qs -c noctalia-shell ipc call lockScreen lock";
+            on-timeout = "noctalia-shell ipc call lockScreen lock";
           }
 
           {

@@ -23,8 +23,10 @@ in
     ];
 
     # I allow packages that are not supported by my system
-    allowUnsupportedSystem = true;
+    # disabled for cuda
+    # see: https://github.com/NixOS/nixpkgs/issues/458799#issuecomment-3508943139
+    # allowUnsupportedSystem = true;
 
-    # cudaSupport = if (gpu == "nvidia") then true else false;
+    cudaSupport = if (gpu == "nvidia") then true else false;
   };
 }

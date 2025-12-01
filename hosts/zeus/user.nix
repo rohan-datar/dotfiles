@@ -19,7 +19,7 @@
       starship.enable = true;
       tmux.enable = true;
       zsh.enable = true;
-      firefox.enable = true;
+      # firefox.enable = true;
       fuzzel.enable = true;
     };
 

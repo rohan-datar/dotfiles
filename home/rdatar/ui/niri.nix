@@ -5,17 +5,36 @@
 }:
 let
   mod = "Super";
-  inherit (lib) mkIf;
+  inherit (lib) mkIf splitString;
 in
 {
   config = mkIf config.olympus.aspects.graphical.enable {
     programs.niri = {
       settings = {
         window-rules = [
+          {
+            default-column-width = {
+              proportion = 0.5;
+            };
+          }
           { draw-border-with-background = false; }
+          {
+            geometry-corner-radius =
+              let
+                r = 0.0;
+              in
+              {
+                top-left = r;
+                top-right = r;
+                bottom-left = r;
+                bottom-right = r;
+              };
+            clip-to-geometry = true;
+          }
         ];
 
         layout = {
+          always-center-single-column = true;
           border.width = 1;
           gaps = 8;
           empty-workspace-above-first = true;
@@ -26,80 +45,63 @@ in
           XDG_SESSION_TYPE = "wayland";
         };
 
-        binds = with config.lib.niri.actions; {
-          # basic controls
-          "${mod}+K".action = focus-window-or-workspace-up;
-          "${mod}+J".action = focus-window-or-workspace-down;
-          "${mod}+H".action = focus-column-or-monitor-left;
-          "${mod}+L".action = focus-column-or-monitor-right;
-          "${mod}+Shift+K".action = move-window-up-or-to-workspace-up;
-          "${mod}+Shift+J".action = move-window-down-or-to-workspace-down;
-          "${mod}+Shift+H".action = move-column-left-or-to-monitor-left;
-          "${mod}+Shift+L".action = move-column-right-or-to-monitor-right;
+        binds =
+          with config.lib.niri.actions;
+          let
+            noctalia =
+              cmd:
+              [
+                "noctalia-shell"
+                "ipc"
+                "call"
+              ]
+              ++ (splitString " " cmd);
+          in
+          {
+            # basic controls
+            "${mod}+K".action = focus-window-or-workspace-up;
+            "${mod}+J".action = focus-window-or-workspace-down;
+            "${mod}+H".action = focus-column-or-monitor-left;
+            "${mod}+L".action = focus-column-or-monitor-right;
+            "${mod}+Up".action = focus-window-or-workspace-up;
+            "${mod}+Down".action = focus-window-or-workspace-down;
+            "${mod}+Left".action = focus-column-or-monitor-left;
+            "${mod}+Right".action = focus-column-or-monitor-right;
+            "${mod}+Shift+K".action = move-window-up-or-to-workspace-up;
+            "${mod}+Shift+J".action = move-window-down-or-to-workspace-down;
+            "${mod}+Shift+H".action = move-column-left-or-to-monitor-left;
+            "${mod}+Shift+L".action = move-column-right-or-to-monitor-right;
 
-          "${mod}+Q".action = close-window;
-          "${mod}+F".action = maximize-column;
-          "${mod}+Shift+F".action = fullscreen-window;
-          "${mod}+W".action = toggle-column-tabbed-display;
-          "${mod}+Comma".action = consume-or-expel-window-left;
-          "${mod}+Period".action = consume-or-expel-window-right;
+            "${mod}+Q".action = close-window;
+            "${mod}+F".action = maximize-column;
+            "${mod}+Shift+F".action = fullscreen-window;
+            "${mod}+W".action = toggle-column-tabbed-display;
+            "${mod}+Comma".action = consume-or-expel-window-left;
+            "${mod}+Period".action = consume-or-expel-window-right;
 
-          # resize things
-          "${mod}+Equal".action = set-column-width "+10%";
-          "${mod}+Minus".action = set-column-width "-10%";
-          "${mod}+Shift+1".action = set-column-width "50%";
-          "${mod}+Shift+Equal".action = set-window-height "+10%";
-          "${mod}+Shift+Minus".action = set-window-height "-10%";
+            # resize things
+            "${mod}+Equal".action = set-column-width "+10%";
+            "${mod}+Minus".action = set-column-width "-10%";
+            "${mod}+Shift+1".action = set-column-width "50%";
+            "${mod}+Shift+Equal".action = set-window-height "+10%";
+            "${mod}+Shift+Minus".action = set-window-height "-10%";
 
-          "${mod}+Space".action.spawn = [
-            "noctalia-shell"
-            "ipc"
-            "call"
-            "launcher"
-            "toggle"
-          ];
+            "${mod}+Return".action.spawn = "ghostty";
+            "${mod}+B".action.spawn = "zen";
 
-          "${mod}+Return".action.spawn = "ghostty";
-          "${mod}+B".action.spawn = "zen";
+            "${mod}+Shift+S".action.screenshot = { };
+            "${mod}+Shift+Slash".action = show-hotkey-overlay;
+            "${mod}+Tab".action = toggle-overview;
 
-          "XF86AudioRaiseVolume".action.spawn = [
-            "noctalia-shell"
-            "ipc"
-            "call"
-            "volume"
-            "increase"
-          ];
-          "XF86AudioLowerVolume".action.spawn = [
-            "noctalia-shell"
-            "ipc"
-            "call"
-            "volume"
-            "decrease"
-          ];
-          "XF86AudioMute".action.spawn = [
-            "noctalia-shell"
-            "ipc"
-            "call"
-            "volume"
-            "muteOutput"
-          ];
+            "${mod}+Space".action.spawn = noctalia "launcher toggle";
+            "XF86AudioRaiseVolume".action.spawn = noctalia "volume increase";
+            "XF86AudioLowerVolume".action.spawn = noctalia "volume decrease";
+            "XF86AudioMute".action.spawn = noctalia "volume muteOutput";
 
-          "XF86MonBrightnessUp".action.spawn = [
-            "noctalia-shell"
-            "ipc"
-            "call"
-            "brightness"
-            "increase"
-          ];
+            "XF86MonBrightnessUp".action.spawn = noctalia "brightness increase";
 
-          "XF86MonBrightnessDown".action.spawn = [
-            "noctalia-shell"
-            "ipc"
-            "call"
-            "brightness"
-            "decrease"
-          ];
-        };
+            "XF86MonBrightnessDown".action.spawn = noctalia "brightness decrease";
+          };
 
         input.focus-follows-mouse.enable = true;
       };

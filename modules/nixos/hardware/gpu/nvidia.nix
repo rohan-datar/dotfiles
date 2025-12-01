@@ -25,15 +25,13 @@ in
     };
 
     olympus.packages = {
-      # inherit (pkgs.nvtopPackages) nvidia;
+      inherit (pkgs.nvtopPackages) nvidia;
 
       inherit (pkgs)
-        # vulkan
         vulkan-tools
         vulkan-loader
         vulkan-validation-layers
         vulkan-extension-layer
-        # libva
         libva
         libva-utils
         ;
