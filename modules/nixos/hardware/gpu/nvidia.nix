@@ -25,7 +25,7 @@ in
     };
 
     olympus.packages = {
-      inherit (pkgs.nvtopPackages) nvidia;
+      # inherit (pkgs.nvtopPackages) nvidia;
 
       inherit (pkgs)
         vulkan-tools

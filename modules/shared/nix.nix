@@ -20,6 +20,14 @@ in
     settings = {
       # https://github.com/NixOS/nix/issues/7273
       # auto-optimise-store = true;
+      substituters = [
+        "https://cache.nixos.org/"
+        "https://cache.nixos-cuda.org"
+      ];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+      ];
 
       # users or groups which are allowed to do anything with the Nix daemon
       allowed-users = [ sudoers ];
