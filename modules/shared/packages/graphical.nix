@@ -22,7 +22,8 @@ in
         direnv
         pandoc
         wireshark
-        vscode
+        # vscode
+        zed-editor
         wireguard-ui
         bitwarden-desktop
         emacs
