@@ -30,6 +30,9 @@ in
       kvantum.enable = isGui;
       # doesn't build on macos
       starship.enable = false;
+      waybar.enable = false;
+      eza.enable = false;
+      fzf.enable = false;
     };
   };
 }
