@@ -15,6 +15,11 @@ in
 
         screenshot-path = "~/Pictures/screenshots/%Y-%m-%d %H-%M-%S.png";
 
+        hotkey-overlay = {
+          hide-not-bound = true;
+          skip-at-startup = true;
+        };
+
         window-rules = [
           {
             default-column-width = {
@@ -25,7 +30,7 @@ in
           {
             geometry-corner-radius =
               let
-                r = 0.0;
+                r = 12.0;
               in
               {
                 top-left = r;
