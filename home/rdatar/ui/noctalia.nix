@@ -36,7 +36,7 @@
             }
             {
               characterCount = 2;
-              hideUnoccupied = false;
+              hideUnoccupied = true;
               id = "Workspace";
               labelMode = "index";
             }
