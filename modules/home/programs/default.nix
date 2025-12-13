@@ -10,11 +10,13 @@
     ./ghostty.nix
     ./git.nix
     ./kitty.nix
+    ./neovim.nix
     ./nh.nix
     ./nix-index.nix
     ./ssh.nix
     ./starship.nix
     ./tmux.nix
+    ./zed.nix
     ./zsh.nix
     # keep-sorted end
   ];

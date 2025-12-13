@@ -26,6 +26,7 @@ in
       };
 
       gtk.icon.enable = isGui;
+      zed.icons.enable = isGui;
       firefox.enable = isGui;
       kvantum.enable = isGui;
       # doesn't build on macos
