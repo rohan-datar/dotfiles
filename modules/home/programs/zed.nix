@@ -18,6 +18,7 @@
       base_keymap = "Emacs";
       vim_mode = true;
       ui_font_size = 15;
+      buffer_font_family = "Maple Mono NF";
       buffer_font_size = 15;
       load_direnv = "shell_hook";
       show_whitespaces = "all";
