@@ -11,6 +11,7 @@ in
   config = mkIf config.olympus.aspects.graphical.enable {
     programs.niri = {
       settings = {
+        xwayland-satellite.enable = true;
         prefer-no-csd = true;
 
         screenshot-path = "~/Pictures/screenshots/%Y-%m-%d %H-%M-%S.png";
