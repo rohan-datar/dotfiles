@@ -61,7 +61,11 @@ in
   };
 
   services.openssh.enable = true;
-  services.emacs.enable = true;
+  services.emacs = {
+    enable = true;
+    package = pkgs.emacs-pgtk;
+    startWithGraphical = true; # Wait for graphical-session.target
+  };
   # virtualisation.docker = {
   #   enable = true;
   #   rootless = {
