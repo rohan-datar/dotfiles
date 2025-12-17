@@ -61,13 +61,14 @@ in
   };
 
   services.openssh.enable = true;
-  virtualisation.docker = {
-    enable = true;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
-  };
+  services.emacs.enable = true;
+  # virtualisation.docker = {
+  #   enable = true;
+  #   rootless = {
+  #     enable = true;
+  #     setSocketVariable = true;
+  #   };
+  # };
 
   networking = {
     hostName = name; # Define your hostname.

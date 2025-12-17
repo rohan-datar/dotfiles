@@ -25,6 +25,7 @@ in
         raycast
         appcleaner
         openldap
+        emacs
         ;
     };
 
@@ -42,7 +43,7 @@ in
     casks = [
       "omnidisksweeper"
       "beeper"
-      "docker-desktop"
+      # "docker-desktop"
     ];
 
     masApps = {
