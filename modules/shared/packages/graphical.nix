@@ -26,6 +26,8 @@ in
         zed-editor
         wireguard-ui
         bitwarden-desktop
+        mpv
+        feh
         ;
     };
 
