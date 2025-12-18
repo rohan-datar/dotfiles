@@ -27,7 +27,6 @@ in
         wireguard-ui
         bitwarden-desktop
         mpv
-        feh
         ;
     };
 
