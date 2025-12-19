@@ -1,11 +1,13 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 let
   name = "Rohans-MacBook";
   # Extract the config name from the flake
   configName = builtins.baseNameOf (builtins.toString ./.);
+  inherit (pkgs.stdenv.hostPlatform) system;
 in
 {
   imports = [ ./user.nix ];
@@ -25,8 +27,8 @@ in
         raycast
         appcleaner
         openldap
-        emacs
         ;
+      inherit (inputs.editorconfig.packages."${system}") rdmacs;
     };
 
     environment.flakePath = "/Users/rohandatar/nix";
