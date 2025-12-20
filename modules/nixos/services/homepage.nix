@@ -196,7 +196,7 @@ in
             {
               "Opnsense" = {
                 icon = "opnsense.png";
-                href = "https://opnsense.localdomain:8443/";
+                href = "https://net.rdatar.com/";
                 widgets = [
                   {
                     type = "opnsense";
