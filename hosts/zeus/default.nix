@@ -63,7 +63,7 @@ in
   services.openssh.enable = true;
   services.emacs = {
     enable = true;
-    package = inputs.editorconfig.packages."${system}".rdmacs;
+    # package = inputs.editorconfig.packages."${system}".rdmacs;
     startWithGraphical = true; # Wait for graphical-session.target
   };
   # virtualisation.docker = {
