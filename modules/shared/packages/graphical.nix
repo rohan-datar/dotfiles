@@ -22,11 +22,11 @@ in
         direnv
         pandoc
         wireshark
-        # vscode
         zed-editor
         wireguard-ui
         bitwarden-desktop
         mpv
+        claude-code
         ;
     };
 
