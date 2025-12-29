@@ -1,6 +1,7 @@
 { config, ... }:
 {
   programs.zsh = {
+    dotDir = "${config.xdg.configHome}/zsh";
     # we're only using this config in graphical environments
     inherit (config.olympus.aspects.graphical) enable;
     zplug = {
