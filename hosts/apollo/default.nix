@@ -28,7 +28,7 @@ in
         appcleaner
         openldap
         ;
-      # inherit (inputs.editorconfig.packages."${system}") rdmacs;
+      inherit (inputs.editorconfig.packages."${system}") rdmacs;
     };
 
     environment.flakePath = "/Users/rohandatar/nix";
