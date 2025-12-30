@@ -6,6 +6,7 @@
   inputs,
   inputs',
   neovimPkg,
+  enableRdmacs,
   ...
 }:
 let
@@ -29,6 +30,7 @@ in
         inputs
         inputs'
         neovimPkg
+        enableRdmacs
         ;
     };
 

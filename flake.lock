@@ -149,11 +149,11 @@
         "twist": "twist"
       },
       "locked": {
-        "lastModified": 1767102386,
-        "narHash": "sha256-HB3hzPy3/lQwf9ydkbDQs6RfAw0bbB0f8N09Ry5FWcE=",
+        "lastModified": 1767104686,
+        "narHash": "sha256-IBRxddgFnRkZBiJrorcH7nTgg9pYM3JUsTDhmqnx/t4=",
         "owner": "rohan-datar",
         "repo": "editorconfig",
-        "rev": "f044a09e5433fb85ffed022b28d11cfb52695330",
+        "rev": "14aae31aea8bf1d1edd3d05edf2adc56f170f9f9",
         "type": "github"
       },
       "original": {
@@ -260,11 +260,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767048910,
-        "narHash": "sha256-KLFTeA/xquN+F3XHLAXcserk0L0nijbhzuldxNDF1eE=",
+        "lastModified": 1767104570,
+        "narHash": "sha256-GKgwu5//R+cLdKysZjGqvUEEOGXXLdt93sNXeb2M/Lk=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "d99b4ca5debaa082c7d76015aa2b7f3fc7e8b5f7",
+        "rev": "e4e78a2cbeaddd07ab7238971b16468cc1d14daf",
         "type": "github"
       },
       "original": {
