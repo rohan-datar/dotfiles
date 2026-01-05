@@ -26,12 +26,10 @@
       if tag == "full" then
         {
           specialArgs.neovimPkg = "full";
-          specialArgs.enableRdmacs = true;
         }
       else if tag == "minimal" then
         {
           specialArgs.neovimPkg = "minimal";
-          specialArgs.enableRdmacs = false;
         }
       else
         { };
