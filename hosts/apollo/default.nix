@@ -28,6 +28,7 @@ in
         appcleaner
         openldap
         ;
+      emacs = inputs.editorconfig.packages.${system}.rdmacs-wrapped;
     };
 
     environment.flakePath = "/Users/rohandatar/nix";

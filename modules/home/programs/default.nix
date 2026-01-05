@@ -5,7 +5,6 @@
     ./carapace.nix
     ./defaults.nix
     ./direnv.nix
-    ./emacs.nix
     ./fish.nix
     ./fzf.nix
     ./ghostty.nix
