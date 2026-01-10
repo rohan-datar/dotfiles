@@ -76,6 +76,8 @@ in
     package = inputs.editorconfig.packages."${system}".rdmacs-service;
     startWithGraphical = true; # Wait for graphical-session.target
   };
+
+  services.lorri.enable = true;
   # virtualisation.docker = {
   #   enable = true;
   #   rootless = {

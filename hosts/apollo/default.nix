@@ -64,6 +64,12 @@ in
     LC_ALL = "en_US.UTF-8";
   };
 
+  services.lorri.enable = true;
+  services.emacs = {
+    enable = true;
+    package = inputs.editorconfig.packages."${system}".rdmacs-service;
+  };
+
   # $ darwin-rebuild changelog
   system.stateVersion = 5;
 
