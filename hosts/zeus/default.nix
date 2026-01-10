@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 let
   name = "home-desktop";
   # Extract the config name from the flake
@@ -61,6 +66,11 @@ in
   };
 
   services.openssh.enable = true;
+  # see https://www.openwall.com/lists/oss-security/2025/12/28/4
+  systemd.generators.systemd-ssh-generator = "/dev/null";
+  systemd.sockets.sshd-unix-local.enable = lib.mkForce false;
+  systemd.sockets.sshd-vsock.enable = lib.mkForce false;
+
   services.emacs = {
     enable = true;
     package = inputs.editorconfig.packages."${system}".rdmacs-service;

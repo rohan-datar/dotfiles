@@ -13,6 +13,7 @@
     ./serial.nix
     ./size.nix
     ./terminfo.nix
+    ./time.nix
     ./xserver.nix
     # keep-sorted end
   ];

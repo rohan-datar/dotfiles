@@ -22,7 +22,6 @@ in
         direnv
         pandoc
         wireshark
-        zed-editor
         wireguard-ui
         bitwarden-desktop
         mpv

@@ -1,8 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   name = "home-media";
   configName = builtins.baseNameOf (builtins.toString ./.);
-  inherit (pkgs.stdenv.hostPlatform) system;
 in
 {
   imports = [
@@ -43,6 +42,10 @@ in
   boot.kernelModules = [ "btusb" ];
 
   services.openssh.enable = true;
+  # see https://www.openwall.com/lists/oss-security/2025/12/28/4
+  systemd.generators.systemd-ssh-generator = "/dev/null";
+  systemd.sockets.sshd-unix-local.enable = lib.mkForce false;
+  systemd.sockets.sshd-vsock.enable = lib.mkForce false;
 
   networking = {
     hostName = name;
