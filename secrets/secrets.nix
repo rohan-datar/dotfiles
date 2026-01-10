@@ -19,7 +19,7 @@ let
 
   rdatar-desktop = [
     user-home-desktop-ed25519
-    user-home-desktop-ed25519
+    user-home-desktop-rsa
   ];
   system-home-desktop-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM5/7vjy8In4IdpDP4gbjIyGxxuSPvoSq5QIK+tVhWcA";
   system-home-desktop-rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCSoceydlCm1iwDOc8xkrSUxYjAn6twMr4svXim3pjWtW1+oid5pl2i/DGvdMvfqK8WVqpqJQcV5LDd77U0PyAmHsy0/XXS2ndK6izGr6s99UpTF+MVQ7uQLkaJiH+n9hvH17tWv24wP4qXdLsbcwkQD9S4ex65XmJBXPPfeM9h69USIT7PwffAeCqgdB4UB7qp1cLcavboBZCJazL6B7jvvINUiA6sLuO7L9/zJpetpEJKG0wiVtrWZ1O4bNF34SprhNsmAxn5f9hWX+Q81EsT3yFFCucstST3mGJ+5gBOmpJBqQzEYt5gMZzqazsgjODPQvfiuWK7kEVCT1wE/aX820Dgfpvc/MhNee2PdSvR/YxoG0tzxac4IXLPbKl/4dp7sKlhF/849ojFAWwnS+VjFfnOfet+GIg2en8wc7n5c+ZE3Y3cePYkaEsG+S/+543BCutN1XdOBd1jYWL+y5LzNW/5VOowjLDy0C9MiZn7ykhyLahYAsP8MTKKLmD4O7Vdxzas6cOzxZD7BwZxJVCtmWKCslhpDJSouvuBczzxP5m5w67ThSlqB0gJPJHPXfiJt5wL5wWYLEjWM2OYwJjUvV6GZkJB4v18LTb4H/EAwWRusluIDnqovBAmY4HaIRnrok9NDImFq2QcaW7scfCU+Ym6G0cGTWorz1FcMJYIUQ==";
@@ -27,9 +27,22 @@ let
     system-home-desktop-ed25519
     system-home-desktop-rsa
   ];
+
+  rdatar-macbook-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFYDkyHobLUDOAkNqHxcOkVScdCclKG6m6Az7OT/NAd3";
+
+  rdatar-macbook-rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDD5ZECdU1ZRd1dRj0QOD5SYO+Ocgr8ONQ5PyV1R7ZazAh0e4VYAsyJKLZbnuyO7H3eBy6fTc/ykyW1+FvfX8eCvMR4Z1qNBv2sY9xVF89Yow1jBGzCu5xMqnEbidhxcpfkwN7G0PRBO+fir4U83AmQ9TVQ1E52mvi3XgRR22fEXGYgPTfM36C2s2J2D+/VCM/P5emi6lRfLu+e8kfWy+fM9tQEnKHQitJpS037yhsRny3QPdxPMFbVWxNHfHzebj14E/n8jvVW372tET9B6T28W6u2BjE+g+7jLtpYT9eduPtjDyI6HJapmbZlnLXPpbpNbTdWQSqMnX2rGeZHb/QPMO4dPCWEWUnmsBW4VeDNV0M97+RNMrvoBpGeuM955T6B+L5ulGLjkSvhtr9IA/kXuCoCWdsEPPAz/26DB7nRWPKrKwbHnZ5Uu0D7cJXwVeQuU4UHBX6qPJ2p5n8GUGHLGSTrQOdFejIYw9IWmU16dz2SdhDMU9OJaDme7LKWUQ8=";
+
+  rdatar-macbook = [
+    rdatar-macbook-ed25519
+    rdatar-macbook-rsa
+  ];
+
+  allKeys = rdatar-desktop ++ home-desktop ++ rdatar-macbook ++ home-media-keys;
+
 in
 {
   "smbcredentials.age".publicKeys = rdatar-desktop ++ home-desktop;
   "AirVPN-America-WG.conf.age".publicKeys = home-media-keys;
   "homepage-env.age".publicKeys = home-media-keys;
+  "nix-access-tokens.conf.age".publicKeys = allKeys;
 }

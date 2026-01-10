@@ -1,12 +1,20 @@
 {
   pkgs,
   _class,
+  config,
   ...
 }:
 let
   sudoers = if (_class == "nixos") then "@wheel" else "@admin";
 in
 {
+  age.secrets.nix-access-tokens = {
+    file = ../../secrets/nix-access-tokens.conf.age;
+    owner = "root";
+    group = "root";
+    mode = "0400";
+  };
+
   nix = {
     # set up garbage collection to run <on the time frame specified per system>, and removing packages after 10 days
     gc = {
@@ -62,5 +70,10 @@ in
       # maximum number of parallel TCP connections used to fetch imports and binary caches, 0 means no limit
       http-connections = 50;
     };
+
+    # set the access token to get around github api limit
+    extraOptions = ''
+      !include "${config.age.secrets.nix-access-tokens.path}"
+    '';
   };
 }
