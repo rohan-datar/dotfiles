@@ -70,7 +70,7 @@ in
 
     # set the access token to get around github api limit
     extraOptions = ''
-      !include "${config.age.secrets.nix-access-tokens.path}"
+      !include ${config.age.secrets.nix-access-tokens.path}
     '';
   };
 }

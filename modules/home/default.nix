@@ -5,6 +5,7 @@
     ./aspects.nix
     ./env
     ./home.nix
+    ./nix.nix
     ./programs
     # keep-sorted end
   ];
