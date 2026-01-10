@@ -28,6 +28,7 @@ in
         appcleaner
         openldap
         ;
+      emacsclient = inputs.editorconfig.packages.${system}.rdmacs-client;
       emacs = inputs.editorconfig.packages.${system}.rdmacs-darwin;
     };
 
