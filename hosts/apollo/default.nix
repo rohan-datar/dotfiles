@@ -28,7 +28,7 @@ in
         appcleaner
         openldap
         ;
-      emacs = inputs.editorconfig.packages.${system}.rdmacs-darwin;
+      emacs = inputs.editorconfig.packages.${system}.rdmacs;
     };
 
     environment.flakePath = "/Users/rohandatar/nix";
@@ -67,7 +67,7 @@ in
   services.lorri.enable = true;
   services.emacs = {
     enable = true;
-    package = inputs.editorconfig.packages."${system}".rdmacs-service;
+    package = inputs.editorconfig.packages.${system}.rdmacs;
   };
 
   # $ darwin-rebuild changelog
