@@ -10,9 +10,6 @@ in
 {
   age.secrets.nix-access-tokens = {
     file = ../../secrets/nix-access-tokens.conf.age;
-    owner = "root";
-    group = "root";
-    mode = "0400";
   };
 
   nix = {
