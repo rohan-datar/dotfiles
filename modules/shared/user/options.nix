@@ -8,7 +8,7 @@ in
     users = mkOption {
       type = listOf str;
       default = [ "rdatar" ];
-      description = ''A list of users that you wish to declare as your non-system users.       '';
+      description = "A list of users that you wish to declare as your non-system users.       ";
     };
   };
 
