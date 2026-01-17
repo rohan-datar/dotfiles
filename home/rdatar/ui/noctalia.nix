@@ -76,6 +76,9 @@
           ];
           right = [
             {
+              id = "plugin:screenshot";
+            }
+            {
               id = "SystemMonitor";
               showCpuTemp = true;
               showCpuUsage = true;
