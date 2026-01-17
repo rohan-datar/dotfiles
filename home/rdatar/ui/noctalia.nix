@@ -6,14 +6,27 @@
     systemd.enable = true;
     settings = {
       appLauncher = {
+        autoPasteClipboard = false;
+        clipboardWrapText = true;
+        customLaunchPrefix = "";
+        customLaunchPrefixEnabled = false;
+        enableClipPreview = true;
+        enableClipboardHistory = true;
         terminalCommand = "ghostty -e";
+        useApp2Unit = false;
+        viewMode = "list";
       };
       audio = {
+        cavaFrameRate = 30;
+        mprisBlacklist = [ ];
         preferredPlayer = "Apple Music";
-        visualizerQuality = "low";
+        visualizerType = "linear";
+        volumeOverdrive = false;
+        volumeStep = 5;
       };
       bar = {
         backgroundOpacity = 0;
+        useSeparateOpacity = true;
         density = "comfortable";
         widgets = {
           center = [
@@ -77,7 +90,7 @@
             }
             {
               displayMode = "onhover";
-              id = "WiFi";
+              id = "Network";
             }
             {
               displayMode = "onhover";
@@ -88,7 +101,7 @@
               id = "Volume";
             }
             {
-              hideWhenZero = true;
+              hideWhenZeroUnread = false;
               id = "NotificationHistory";
               showUnreadBadge = true;
             }
@@ -249,7 +262,7 @@
         fontFixedScale = 1;
         panelBackgroundOpacity = 1;
         panelsAttachedToBar = true;
-        settingsPanelAttachToBar = false;
+        settingsPanelMode = "centered";
         tooltipsEnabled = true;
       };
       wallpaper = {
@@ -270,6 +283,23 @@
         transitionEdgeSmoothness = 0.05;
         transitionType = "fade";
       };
+    };
+    # configure options
+    plugins = {
+      sources = [
+        {
+          enabled = true;
+          name = "Official Noctalia Plugins";
+          url = "https://github.com/noctalia-dev/noctalia-plugins";
+        }
+      ];
+      states = {
+        screenshot = {
+          enabled = true;
+          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        };
+      };
+      version = 1;
     };
   };
 }
