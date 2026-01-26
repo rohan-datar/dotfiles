@@ -219,6 +219,20 @@ in
                 href = "https://ha.rdatar.com";
               };
             }
+            {
+              "Speedtest Tracker" = {
+                icon = "speedtest-tracker.png";
+                href = "https://10.10.1.10:30221";
+                widgets = [
+                  {
+                    type = "speedtest";
+                    url = "http://10.10.1.10:30220";
+                    version = 2;
+                    key = "{{HOMEPAGE_VAR_SPEEDTEST_TRACKER_KEY}}";
+                  }
+                ];
+              };
+            }
           ];
         }
       ];
