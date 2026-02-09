@@ -115,7 +115,10 @@ in
 
             "${mod}+Space" = {
               repeat = false;
-              action.spawn = "vicinae toggle";
+              action.spawn = [
+                "vicinae"
+                "toggle"
+              ];
             };
             "XF86AudioRaiseVolume".action.spawn = noctalia "volume increase";
             "XF86AudioLowerVolume".action.spawn = noctalia "volume decrease";
