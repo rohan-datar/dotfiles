@@ -36,6 +36,7 @@ in
       (self + /modules/home/default.nix)
       inputs.nix-index-database.homeModules.nix-index
       inputs.agenix.homeManagerModules.default
+      inputs.vicinae.homeManagerModules.default
     ];
   };
 }

@@ -82,8 +82,8 @@ in
       publicShare = "${config.home.homeDirectory}/Public/share";
 
       extraConfig = {
-        XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/screenshots";
-        XDG_DEV_DIR = "${config.home.homeDirectory}/dev";
+        SCREENSHOTS = "${config.xdg.userDirs.pictures}/screenshots";
+        DEV = "${config.home.homeDirectory}/Documents/dev";
       };
     };
 

@@ -26,9 +26,7 @@ in
         bitwarden-desktop
         mpv
         claude-code
-        codex
         ;
     };
-
   };
 }

@@ -113,7 +113,10 @@ in
             "${mod}+Tab".action = toggle-overview;
             "Ctrl+Alt+Delete".action = quit;
 
-            "${mod}+Space".action.spawn = noctalia "launcher toggle";
+            "${mod}+Space" = {
+              repeat = false;
+              action.spawn = "vicinae toggle";
+            };
             "XF86AudioRaiseVolume".action.spawn = noctalia "volume increase";
             "XF86AudioLowerVolume".action.spawn = noctalia "volume decrease";
             "XF86AudioMute".action.spawn = noctalia "volume muteOutput";
