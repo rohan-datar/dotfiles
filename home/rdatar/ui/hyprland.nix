@@ -114,7 +114,7 @@ in
           "suppressevent maximize, class:.*" # You'll probably like this.
           "float, title:Volume Control"
         ];
-        layerrule = "noanim, wofi";
+        # layerrule = "noanim, wofi";
 
         # # Sound through pactl
         #       bind = , XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +10%
