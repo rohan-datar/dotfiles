@@ -149,11 +149,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770928153,
-        "narHash": "sha256-oAC4ApoIr6srjt2G4JGMMzbYc/kGk9Z2Ay9uTpqaMrA=",
+        "lastModified": 1771099298,
+        "narHash": "sha256-zSH3gMecYiYdU766SKpBcq8TTGhpAcuYlHoFMHC9Z1A=",
         "owner": "rohan-datar",
         "repo": "editorconfig",
-        "rev": "7fb6718dc0bad597eaa69308563ddfcf477f1bec",
+        "rev": "d6cb65985fc8831d7ddc840c862d44fc45cea31d",
         "type": "github"
       },
       "original": {
@@ -165,11 +165,11 @@
     "emacs-agent-shell": {
       "flake": false,
       "locked": {
-        "lastModified": 1770902916,
-        "narHash": "sha256-pjAID4Sllf6LinLbTBjcFko9wjKw7TNxtCJ3Qbm2lg8=",
+        "lastModified": 1771095861,
+        "narHash": "sha256-F9u1HWeJClLQHenjgNGizp738t75vU8wbpYLVz6OtC0=",
         "owner": "xenodium",
         "repo": "agent-shell",
-        "rev": "9399bf2340bf0a4671ac34a4a11e94f4efe0bc66",
+        "rev": "c9bcfef5643b2f5f62ffb82767b7f6450df3939c",
         "type": "github"
       },
       "original": {
@@ -511,11 +511,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771087787,
-        "narHash": "sha256-2AMnOoeXyoaIYp3/pFfDt5FOk9xnWL6lUWUFrRPzCJE=",
+        "lastModified": 1771099295,
+        "narHash": "sha256-R0/Fu9m7bf3ZbJKUjexNCsh7926MJgDZN6BNP+f8ZAE=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "a1329203910dcd8ef97fb5e4049c8f59b34f6c59",
+        "rev": "a39c94bd77690d263ed47961e80f0843ed34ffd6",
         "type": "github"
       },
       "original": {
