@@ -1,18 +1,17 @@
 # Enabling Secure Boot on Zeus (MSI Motherboard)
 
 This guide walks through enabling UEFI Secure Boot on Zeus using
-**lanzaboote** — the standard Secure Boot tool for NixOS. Lanzaboote works
-with **systemd-boot**, so we'll switch from GRUB as part of the process.
+**Limine's built-in Secure Boot support**. Limine uses `sbctl` to sign
+its EFI binary and manages the chain of trust natively.
+
+No external flake inputs are needed — everything is in nixpkgs.
 
 **Keep a NixOS live USB handy throughout.** If anything goes wrong, you can
 boot from the USB and revert.
 
 ---
 
-## Phase 1: Switch from GRUB to systemd-boot
-
-Lanzaboote requires systemd-boot. We switch to it first and verify it works
-before adding Secure Boot.
+## Phase 1: Switch from GRUB to Limine
 
 ### 1.1 Update the bootloader config
 
@@ -32,22 +31,44 @@ boot.loader.grub = {
 
 ```nix
 # Replace with:
-boot.loader.systemd-boot = {
+boot.loader.limine = {
   enable = true;
-  configurationLimit = 20;
+  efiSupport = true;
+  maxGenerations = 20;
+  extraEntries = ''
+    /Windows
+      protocol: chainload
+      path: boot():///EFI/Microsoft/Boot/bootmgfw.efi
+  '';
 };
-boot.loader.efi.canTouchEfiVariables = true;
 ```
 
 Notes:
-- `useOSProber` is not needed — systemd-boot auto-detects Windows EFI
-  entries on the ESP.
-- `efiInstallAsRemovable` is dropped. With `canTouchEfiVariables = true`,
-  systemd-boot creates a proper EFI boot entry. If the system can't find the
-  entry after switching, add `boot.loader.efi.efiSysMountPoint = "/boot";`
-  or set `efiInstallAsRemovable = true` on systemd-boot's grub-compat option.
+- `useOSProber` is replaced by an explicit `extraEntries` chainload entry
+  for Windows. The `extraEntries` option is a raw string in Limine config
+  format (not a Nix attrset).
+- `efiInstallAsRemovable` is dropped. It defaults based on
+  `!boot.loader.efi.canTouchEfiVariables`. If the system can't find the
+  boot entry after switching, set `boot.loader.limine.efiInstallAsRemovable = true`.
+- `configurationLimit` maps to `maxGenerations`.
 
-### 1.2 Rebuild and reboot
+### 1.2 Clean up the ESP
+
+Your ESP (`/boot`) is currently full at 511MB. Before switching, free up
+space:
+
+```bash
+# Check what's using space
+sudo du -h --max-depth=2 /boot/ | sort -hr | head -20
+
+# Remove old GRUB files (no longer needed after switching)
+sudo rm -rf /boot/grub
+
+# Verify free space
+df -h /boot
+```
+
+### 1.3 Rebuild and reboot
 
 ```bash
 sudo nixos-rebuild switch
@@ -55,75 +76,29 @@ reboot
 ```
 
 Verify:
-- systemd-boot menu appears
+- Limine boot menu appears
 - NixOS boots successfully
-- Windows appears in the boot menu (if dual-booting)
-
-Run `bootctl status` to confirm systemd-boot is active.
+- Windows appears in the boot menu
 
 ---
 
-## Phase 2: Add lanzaboote
+## Phase 2: Set up Secure Boot keys
 
-### 2.1 Add the flake input
+### 2.1 Add sbctl to system packages
 
-In `flake.nix`, add to the `inputs` block:
-
-```nix
-lanzaboote = {
-  url = "github:nix-community/lanzaboote/v1.0.0";
-  inputs.nixpkgs.follows = "nixpkgs";
-};
-```
-
-Then update the lock file:
-
-```bash
-nix flake update lanzaboote
-```
-
-### 2.2 Import the lanzaboote NixOS module
-
-In `modules/nixos/extras.nix`, add the lanzaboote module import:
-
-```nix
-{ inputs, ... }:
-{
-  imports = [
-    inputs.home-manager.nixosModules.home-manager
-    inputs.agenix.nixosModules.default
-    inputs.disko.nixosModules.disko
-    inputs.niri.nixosModules.niri
-    inputs.lanzaboote.nixosModules.lanzaboote  # <-- add this
-  ];
-}
-```
-
-### 2.3 Configure lanzaboote on Zeus
-
-In `hosts/zeus/hardware-configuration.nix`, update the bootloader section
-to disable systemd-boot's installer (lanzaboote replaces it) and enable
-lanzaboote:
-
-```nix
-# Bootloader.
-boot.loader.systemd-boot.enable = lib.mkForce false;
-boot.loader.efi.canTouchEfiVariables = true;
-
-boot.lanzaboote = {
-  enable = true;
-  pkiBundle = "/var/lib/sbctl";
-};
-```
-
-Also add `sbctl` to system packages. This can go in `hosts/zeus/default.nix`
-or in `hardware-configuration.nix`:
+In `hosts/zeus/default.nix`, add:
 
 ```nix
 environment.systemPackages = [ pkgs.sbctl ];
 ```
 
-### 2.4 Create Secure Boot signing keys
+Rebuild so `sbctl` is available:
+
+```bash
+sudo nixos-rebuild switch
+```
+
+### 2.2 Create Secure Boot signing keys
 
 ```bash
 sudo sbctl create-keys
@@ -131,76 +106,78 @@ sudo sbctl create-keys
 
 This creates keys in `/var/lib/sbctl/` with root-only permissions.
 
-### 2.5 Rebuild
+### 2.3 Put MSI BIOS into Setup Mode
 
-```bash
-sudo nixos-rebuild switch
-```
-
-### 2.6 Verify signatures
-
-```bash
-sudo sbctl verify
-```
-
-Expected output — most files show "is signed":
-
-```
-Verifying file database and EFI images in /boot...
-  /boot/EFI/BOOT/BOOTX64.EFI is signed
-  /boot/EFI/Linux/nixos-generation-XXX.efi is signed
-  /boot/EFI/systemd/systemd-bootx64.efi is signed
-  /boot/EFI/nixos/XXXX-linux-X.X.X-bzImage.efi is not signed
-```
-
-The unsigned `bzImage.efi` files are **normal** — lanzaboote verifies these
-at boot time via embedded cryptographic hashes, not UEFI signatures.
-
----
-
-## Phase 3: Configure MSI BIOS for Secure Boot
-
-### 3.1 Enter BIOS
-
-Reboot and press **Delete** during POST to enter MSI BIOS (Click BIOS).
-
-### 3.2 Put firmware in Setup Mode
-
-1. Navigate to **Settings > Security > Secure Boot**
-2. Set **Secure Boot Mode** to **Custom** (this enables key management)
-3. Enter **Key Management**
-4. Select **Delete All Secure Boot Keys** or **Reset to Setup Mode**
+1. Reboot and press **Delete** during POST to enter MSI BIOS (Click BIOS)
+2. Navigate to **Settings > Security > Secure Boot**
+3. Set **Secure Boot Mode** to **Custom** (this enables key management)
+4. Enter **Key Management**
+5. Select **Delete All Secure Boot Keys** or **Reset to Setup Mode**
    (exact wording varies by BIOS version)
 
 > **Warning**: If you see separate options for "Reset to Setup Mode" vs
 > "Clear All Keys", prefer "Reset to Setup Mode". Clearing all keys also
 > removes the dbx (revocation database), which is a security concern.
 
-5. Press **F10** to save and exit
+6. Press **F10** to save and exit
 
-### 3.3 Enroll your keys
+### 2.4 Enroll your keys
 
 Boot back into NixOS and run:
 
 ```bash
-sudo sbctl enroll-keys --microsoft
+sudo sbctl enroll-keys --microsoft --firmware-builtin
 ```
 
-The `--microsoft` flag is **essential** — it includes Microsoft's OEM
-certificates needed for hardware OptionROMs (GPU, network card, etc.).
-Without it, you may lose display output on boot.
+Flags:
+- `--microsoft` is **essential** — it includes Microsoft's OEM certificates
+  needed for hardware OptionROMs (GPU, network card, etc.). Without it, you
+  may lose display output on boot. Also required for Windows dual-boot.
+- `--firmware-builtin` preserves any OEM certificates from your MSI firmware.
 
-If dual-booting Windows, the `--microsoft` flag also ensures Windows can
-still boot.
+---
 
-### 3.4 Enable Secure Boot
+## Phase 3: Enable Limine Secure Boot
+
+### 3.1 Enable Secure Boot in Limine config
+
+In `hosts/zeus/hardware-configuration.nix`, add to the Limine block:
+
+```nix
+boot.loader.limine = {
+  enable = true;
+  efiSupport = true;
+  maxGenerations = 20;
+  secureBoot.enable = true;    # <-- add this
+  extraEntries = ''
+    /Windows
+      protocol: chainload
+      path: boot():///EFI/Microsoft/Boot/bootmgfw.efi
+  '';
+};
+```
+
+When `secureBoot.enable = true`, Limine automatically enforces:
+- `enrollConfig = true` (config is enrolled into the trust chain)
+- `validateChecksums = true` (file checksums validated before boot)
+- `panicOnChecksumMismatch = true` (checksum failure is fatal)
+
+### 3.2 Rebuild
+
+```bash
+sudo nixos-rebuild switch
+```
+
+This signs the Limine EFI binary with your `sbctl` keys.
+
+### 3.3 Enable Secure Boot in BIOS
 
 1. Reboot into BIOS (press **Delete**)
 2. Go to **Settings > Security > Secure Boot**
 3. **Enable** Secure Boot
 4. Press **F10** to save and exit
 
-### 3.5 Verify
+### 3.4 Verify
 
 Boot into NixOS and run:
 
@@ -228,20 +205,11 @@ in the firmware settings. In MSI BIOS:
 
 ## Rollback
 
-If something goes wrong at any phase:
-
-### Can't boot after switching to systemd-boot (Phase 1)
+### Can't boot after switching to Limine (Phase 1)
 1. Boot from NixOS live USB
 2. Mount your partitions (`mount /dev/... /mnt && mount /dev/... /mnt/boot`)
 3. Revert `hardware-configuration.nix` back to GRUB
 4. Run `nixos-rebuild switch --install-bootloader --flake /mnt/path/to/flake#zeus`
-
-### Can't boot after enabling lanzaboote (Phase 2)
-1. Boot from NixOS live USB
-2. Mount partitions
-3. Revert to plain systemd-boot (remove `boot.lanzaboote` block, set
-   `boot.loader.systemd-boot.enable = true`)
-4. Rebuild with `--install-bootloader`
 
 ### Can't boot after enabling Secure Boot (Phase 3)
 1. Enter BIOS (press **Delete**)
@@ -252,27 +220,18 @@ If something goes wrong at any phase:
 
 ## Summary of all file changes
 
-### `flake.nix` — add input
-```nix
-lanzaboote = {
-  url = "github:nix-community/lanzaboote/v1.0.0";
-  inputs.nixpkgs.follows = "nixpkgs";
-};
-```
-
-### `modules/nixos/extras.nix` — import module
-```nix
-inputs.lanzaboote.nixosModules.lanzaboote
-```
-
 ### `hosts/zeus/hardware-configuration.nix` — bootloader config
 ```nix
-boot.loader.systemd-boot.enable = lib.mkForce false;
-boot.loader.efi.canTouchEfiVariables = true;
-
-boot.lanzaboote = {
+boot.loader.limine = {
   enable = true;
-  pkiBundle = "/var/lib/sbctl";
+  efiSupport = true;
+  maxGenerations = 20;
+  secureBoot.enable = true;
+  extraEntries = ''
+    /Windows
+      protocol: chainload
+      path: boot():///EFI/Microsoft/Boot/bootmgfw.efi
+  '';
 };
 ```
 

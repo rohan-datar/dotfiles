@@ -14,11 +14,16 @@
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot = {
+  boot.loader.limine = {
     enable = true;
-    configurationLimit = 20;
+    efiSupport = true;
+    maxGenerations = 20;
+    extraEntries = ''
+      /Windows
+        protocol: chainload
+        path: boot():///EFI/Microsoft/Boot/bootmgfw.efi
+    '';
   };
-  boot.loader.efi.canTouchEfiVariables = true;
 
   boot.initrd.availableKernelModules = [
     "xhci_pci"
