@@ -1,2 +1,4 @@
 nixos-switch.log
 .DS_Store
+.claude
+.agent-shell

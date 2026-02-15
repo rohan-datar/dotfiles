@@ -90,10 +90,14 @@ in
   networking = {
     hostName = name; # Define your hostname.
     networkmanager.enable = true;
+    nameservers = [ "10.10.0.1" ];
     enableIPv6 = false;
   };
 
-  time.timeZone = "America/Chicago";
+  time = {
+    timeZone = "America/Chicago";
+    hardwareClockInLocalTime = true;
+  };
 
   environment.variables.NIX_CONFIG_NAME = configName;
 

@@ -94,9 +94,17 @@
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.quickshell.follows = "quickshell"; # Use same quickshell version
     };
 
-    vicinae.url = "github:vicinaehq/vicinae";
+    vicinae = {
+      url = "github:vicinaehq/vicinae";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+    };
+    vicinae-extensions = {
+      url = "github:vicinaehq/extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+    };
   };
 }

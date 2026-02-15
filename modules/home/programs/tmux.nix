@@ -17,7 +17,19 @@
     shell = "${pkgs.fish}/bin/fish";
 
     plugins = with pkgs; [
-      tmuxPlugins.vim-tmux-navigator
+      {
+
+        plugin = tmuxPlugins.vim-tmux-navigator;
+        extraConfig = ''
+          set -g @vim_navigator_no_mappings 1
+          is_vim="ps -o state = -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+          bind-key -n C-w if-shell "$is_vim" "send-keys C-w" "switch-client -T vimtable"
+          bind-key -T vimtable h select-pane -L \; switch-client -T root
+          bind-key -T vimtable j select-pane -D \; switch-client -T root
+          bind-key -T vimtable k select-pane -U \; switch-client -T root
+          bind-key -T vimtable l select-pane -R \; switch-client -T root
+        '';
+      }
 
       {
         plugin = tmuxPlugins.tmux-fzf;

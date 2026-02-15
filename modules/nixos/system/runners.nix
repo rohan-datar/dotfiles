@@ -39,17 +39,15 @@ in
           libuuid
           zlib
           libsecret
-          # graphical
           freetype
           libglvnd
           libnotify
           sdl3
           vulkan-loader
           gdk-pixbuf
+          libX11
           ;
-
         inherit (pkgs.stdenv.cc) cc;
-        inherit (pkgs.xorg) libX11;
       };
     };
   };

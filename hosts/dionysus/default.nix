@@ -80,6 +80,8 @@ in
 
   };
 
+  time.timeZone = "America/Chicago";
+
   environment.variables.NIX_CONFIG_NAME = configName;
   system.stateVersion = "25.11";
 }
