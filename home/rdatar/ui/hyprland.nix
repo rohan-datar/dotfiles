@@ -110,7 +110,7 @@ in
         # };
 
         # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
-        windowrulev2 = [
+        windowrule = [
           "suppressevent maximize, class:.*" # You'll probably like this.
           "float, title:Volume Control"
         ];

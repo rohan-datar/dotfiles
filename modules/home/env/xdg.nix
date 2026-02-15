@@ -12,6 +12,16 @@ let
 
   inherit (config.olympus.programs) defaults;
 
+  # Map browser names to their .desktop file names
+  browserDesktopFile =
+    {
+      firefox = "firefox.desktop";
+      chromium = "chromium-browser.desktop";
+      floorp = "floorp.desktop";
+      zen = "zen-beta.desktop";
+    }
+    .${defaults.browser} or "${defaults.browser}.desktop";
+
   browser = [
     "text/html"
     "application/pdf"
@@ -51,7 +61,7 @@ let
   associations =
     (lib.genAttrs code (_: [ "nvim.desktop" ]))
     // (lib.genAttrs browser (_: [
-      "${defaults.browser}.desktop"
+      browserDesktopFile
     ]))
     // {
       "x-scheme-handler/discord" = [ "Discord.desktop" ];

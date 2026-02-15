@@ -12,6 +12,7 @@ in
   olympus.packages = {
     inherit (pkgs)
       uutils-coreutils-noprefix
+      pciutils
       python3
       fd
       git
