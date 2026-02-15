@@ -29,16 +29,6 @@
         useSeparateOpacity = true;
         density = "comfortable";
         widgets = {
-          center = [
-            {
-              customFont = "";
-              formatHorizontal = "h:mm AP  ddd, MMM dd";
-              formatVertical = "HH mm - dd MM";
-              id = "Clock";
-              useCustomFont = false;
-              usePrimaryColor = true;
-            }
-          ];
           left = [
             {
               colorizeDistroLogo = true;
@@ -75,6 +65,14 @@
             }
           ];
           right = [
+            {
+              customFont = "";
+              formatHorizontal = "h:mm AP  ddd, MMM dd";
+              formatVertical = "HH mm - dd MM";
+              id = "Clock";
+              useCustomFont = false;
+              usePrimaryColor = true;
+            }
             {
               id = "plugin:screenshot";
             }
