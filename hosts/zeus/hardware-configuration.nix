@@ -14,14 +14,11 @@
   ];
 
   # Bootloader.
-  boot.loader.grub = {
+  boot.loader.systemd-boot = {
     enable = true;
-    devices = [ "nodev" ];
-    efiSupport = true;
-    useOSProber = true;
     configurationLimit = 20;
-    efiInstallAsRemovable = true;
   };
+  boot.loader.efi.canTouchEfiVariables = true;
 
   boot.initrd.availableKernelModules = [
     "xhci_pci"
