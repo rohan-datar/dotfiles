@@ -64,6 +64,7 @@
               visualizerType = "linear";
             }
           ];
+          center = [ ];
           right = [
             {
               customFont = "";
