@@ -23,7 +23,7 @@ in
         # Set programs that you use
         "$terminal" = "ghostty";
         "$fileManager" = "nautilus";
-        "$menu" = "noctalia-shell ipc call launcher toggle";
+        "$menu" = "vicinae toggle";
         "$browser" = "zen";
 
         exec-once = [
@@ -110,10 +110,10 @@ in
         # };
 
         # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
-        windowrule = [
-          "suppressevent maximize, class:.*" # You'll probably like this.
-          "float, title:Volume Control"
-        ];
+        # windowrule = [
+        #   "suppressevent maximize, class:.*" # You'll probably like this.
+        #   "float, title:Volume Control"
+        # ];
         # layerrule = "noanim, wofi";
 
         # # Sound through pactl
