@@ -21,7 +21,7 @@
     extraEntries = ''
       /Windows
         protocol: efi_chainload
-        path: uuid://821E-73D4/EFI/Microsoft/Boot/bootmgfw.efi
+        path: uuid(821E-73D4):/EFI/Microsoft/Boot/bootmgfw.efi
     '';
   };
 
