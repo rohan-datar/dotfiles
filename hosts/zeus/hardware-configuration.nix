@@ -20,8 +20,8 @@
     maxGenerations = 20;
     extraEntries = ''
       /Windows
-        protocol: chainload
-        path: boot():///EFI/Microsoft/Boot/bootmgfw.efi
+        protocol: efi_chainload
+        path: uuid://821E-73D4/EFI/Microsoft/Boot/bootmgfw.efi
     '';
   };
 
