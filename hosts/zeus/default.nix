@@ -43,6 +43,7 @@ in
 
     packages = {
       inherit (pkgs)
+        sbctl # NEEDED FOR SECURE BOOT
         cargo
         clang
         gcc
