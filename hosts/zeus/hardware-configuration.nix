@@ -18,6 +18,7 @@
     enable = true;
     efiSupport = true;
     maxGenerations = 20;
+    secureBoot.enable = true;
     extraEntries = ''
       /Windows
         protocol: efi_chainload
