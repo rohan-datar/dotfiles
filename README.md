@@ -31,3 +31,5 @@ The configuration is organized into several key directories:
   - `nixos/`: NixOS-specific modules
   - `shared/`: Modules shared across all systems
 - `secrets/`: Encrypted secrets using Agenix
+
+This takes heavy inspiration from [isabelroses' dotfiles](https://github.com/isabelroses/dotfiles)

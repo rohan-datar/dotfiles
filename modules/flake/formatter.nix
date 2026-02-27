@@ -33,6 +33,7 @@
 
           excludes = [
             "secrets/*"
+            "*.md"
           ];
 
           formatter = {

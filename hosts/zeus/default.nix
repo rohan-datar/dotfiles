@@ -61,6 +61,7 @@ in
         nautilus
         font-manager
         beeper
+        mpv
         ;
       emacs = inputs.editorconfig.packages.${system}.rdmacs;
       inherit (inputs.zen-browser.packages."${system}") default;

@@ -24,7 +24,6 @@ in
         wireshark
         wireguard-ui
         bitwarden-desktop
-        mpv
         claude-code
         ;
     };
