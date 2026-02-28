@@ -12,7 +12,7 @@ in
 
     man = {
       enable = mkForce true;
-      generateCaches = mkForce false;
+      cache.enable = mkForce false;
       man-db.enable = mkForce true;
       mandoc.enable = mkForce false;
     };
