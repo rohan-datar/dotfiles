@@ -10,9 +10,6 @@ let
   greeterNiriConfig = pkgs.writeText "greeter-niri-config.kdl" ''
     spawn-at-startup "${getExe config.programs.regreet.package}"
 
-    // Quit niri after regreet exits (user logged in or greeter closed)
-    spawn-at-startup "sh" "-c" "sleep 1 && ${getExe pkgs.niri} msg action quit --skip-confirmation"
-
     input {
       keyboard {
         numlock
