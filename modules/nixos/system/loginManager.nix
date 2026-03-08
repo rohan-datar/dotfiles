@@ -20,8 +20,8 @@ let
     }
 
     cursor {
-      theme "catppuccin-mocha-dark-cursors"
-      size 24
+      xcursor-theme "catppuccin-mocha-dark-cursors"
+      xcursor-size 24
     }
 
     hotkey-overlay {
