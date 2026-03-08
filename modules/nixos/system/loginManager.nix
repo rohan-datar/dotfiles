@@ -10,6 +10,13 @@ let
   greeterNiriConfig = pkgs.writeText "greeter-niri-config.kdl" ''
     spawn-at-startup "${getExe config.programs.regreet.package}"
 
+    environment {
+      // Prevent xdg-desktop-portal-gtk from activating in the greeter session,
+      // which otherwise causes a 50s timeout waiting for a display it can't open.
+      GTK_USE_PORTAL "0"
+      XDG_CURRENT_DESKTOP "niri"
+    }
+
     input {
       keyboard {
         numlock
