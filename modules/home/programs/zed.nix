@@ -4,9 +4,7 @@
 }:
 {
   programs.zed-editor = {
-    # inherit (config.olympus.aspects.graphical) enable;
-    # https://github.com/NixOS/nixpkgs/issues/478546
-    enable = true;
+    inherit (config.olympus.aspects.graphical) enable;
     extensions = [
       "nix"
       "rust"

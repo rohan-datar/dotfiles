@@ -15,7 +15,6 @@
       AppleFontSmoothing = 1;
     };
 
-    # NSGlobalDomain._HIHideMenuBar = true;
     dock.autohide = true;
   };
 }
