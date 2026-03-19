@@ -88,12 +88,12 @@
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
     # You can uncomment the following lines to open up terminal with alt + enter shortcut (like in i3)
-    # alt-enter = '''exec-and-forget osascript -e '
-    # tell application "Terminal"
-    #     do script
-    #     activate
-    # end tell'
-    # '''
+    alt-enter = '''exec-and-forget osascript -e '
+    tell application "Ghostty"
+        do script
+        activate
+    end tell'
+    '''
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout
     cmd-slash = 'layout tiles horizontal vertical'
@@ -162,30 +162,5 @@
     cmd-shift-j = ['join-with down', 'mode main']
     cmd-shift-k = ['join-with up', 'mode main']
     cmd-shift-l = ['join-with right', 'mode main']
-
-    # move windows to certain spaces by default
-    # [[on-window-detected]]
-    # if.app-id = 'org.mozilla.com.zen.browser'
-    # run = "move-node-to-workspace B"
-
-    # [[on-window-detected]]
-    # if.app-id = 'com.apple.MobileSMS'
-    # run = "move-node-to-workspace M"
-
-    # [[on-window-detected]]
-    # if.app-id = 'im.beeper'
-    # run = "move-node-to-workspace M"
-
-    # [[on-window-detected]]
-    # if.app-id = 'com.apple.Music'
-    # run = "move-node-to-workspace M"
-
-    # [[on-window-detected]]
-    # if.app-id = 'com.apple.mail'
-    # run = "move-node-to-workspace M"
-
-    # [[on-window-detected]]
-    # if.app-id = 'md.obsidian'
-    # run = "move-node-to-workspace N"
   '';
 }
