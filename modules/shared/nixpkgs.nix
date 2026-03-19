@@ -1,6 +1,6 @@
 { config, mkIf, ... }:
 let
-  inherit (config.olympus.system) gpu;
+  inherit (config.olympus) system;
 in
 {
   nixpkgs.config = {
@@ -27,6 +27,6 @@ in
     # see: https://github.com/NixOS/nixpkgs/issues/458799#issuecomment-3508943139
     allowUnsupportedSystem = false;
 
-    cudaSupport = if (gpu == "nvidia") then true else false;
+    cudaSupport = (system.gpu or null) == "nvidia";
   };
 }
