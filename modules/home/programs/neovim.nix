@@ -1,13 +1,16 @@
 {
   inputs,
+  pkgs,
   neovimPkg ? "full",
   ...
 }:
+let
+  inherit (pkgs.stdenv.hostPlatform) system;
+in
 {
-  imports = [ inputs.editorconfig.homeModules.nixCats ];
-
-  nixCats.enable = true;
-  nixCats.packageNames = [ neovimPkg ];
+  home.packages = [
+    inputs.editorconfig.packages.${system}."nvim-${neovimPkg}"
+  ];
 
   home.sessionVariables.EDITOR = "nvim";
   home.shellAliases = {
