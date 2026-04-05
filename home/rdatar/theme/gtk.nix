@@ -24,7 +24,7 @@ in
       };
 
       gtk4.extraConfig = {
-        inherit (config.gtk) theme;
+        theme = "Catppuccin-GTK-Dark";
         Settings = ''
           gtk-application-prefer-dark-theme=1
         '';

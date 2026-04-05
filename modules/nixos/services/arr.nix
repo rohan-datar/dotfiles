@@ -46,24 +46,24 @@ in
         peerPort = 21209;
       };
 
-      # recyclarr = {
-      #   enable = true;
+      recyclarr = {
+        enable = true;
 
-      #   configuration =  {
-      #     sonarr = {
-      #       series = {
-      #         base_url = "http://localhost:8989";
-      #         api_key = "!env_var SONARR_API_KEY";
-      #       };
-      #     };
-      #     radarr = {
-      #       movies = {
-      #         base_url = "http://localhost:7878";
-      #         api_key = "!env_var RADARR_API_KEY";
-      #       };
-      #     };
-      #   };
-      # };
+        configuration = {
+          sonarr = {
+            series = {
+              base_url = "http://localhost:8989";
+              api_key = "!env_var SONARR_API_KEY";
+            };
+          };
+          radarr = {
+            movies = {
+              base_url = "http://localhost:7878";
+              api_key = "!env_var RADARR_API_KEY";
+            };
+          };
+        };
+      };
     };
 
     systemd.services.jellyfin.environment = {
