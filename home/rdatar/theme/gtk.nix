@@ -23,8 +23,9 @@ in
         '';
       };
 
+      # Explicitly set to null to adopt new default behavior (GTK4 handles theming differently)
+      gtk4.theme = null;
       gtk4.extraConfig = {
-        theme = "Catppuccin-GTK-Dark";
         Settings = ''
           gtk-application-prefer-dark-theme=1
         '';
