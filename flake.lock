@@ -131,7 +131,6 @@
           "emacs-overlay"
         ],
         "emacs-swift-development": "emacs-swift-development",
-        "emacs-ws-butler": "emacs-ws-butler",
         "flake-parts": [
           "flake-parts"
         ],
@@ -147,11 +146,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775621598,
-        "narHash": "sha256-M9qGWY16+Hbzqlu7U3AQnXqD2C6RTXh7wPyMuUALtJk=",
+        "lastModified": 1775624552,
+        "narHash": "sha256-ZAxNjk+y72Me2ED3n3cNaX+SQsiG2/qQDnQMcIob2Vw=",
         "owner": "rohan-datar",
         "repo": "editorconfig",
-        "rev": "f1f4ced28322d131ac95d5234b47955a11cd2857",
+        "rev": "904e3591e01d9e90cfbb52a1f9193645d57dd747",
         "type": "github"
       },
       "original": {
@@ -194,22 +193,6 @@
       "original": {
         "owner": "konrad1977",
         "repo": "swift-development",
-        "type": "github"
-      }
-    },
-    "emacs-ws-butler": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1749778858,
-        "narHash": "sha256-maOhnDkG3GibrbI1EuPRY+Ej4AZJgbFheu6lC72vZ4w=",
-        "owner": "lewang",
-        "repo": "ws-butler",
-        "rev": "67c49cfdf5a5a9f28792c500c8eb0017cfe74a3a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lewang",
-        "repo": "ws-butler",
         "type": "github"
       }
     },
