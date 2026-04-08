@@ -16,7 +16,7 @@ in
         autoNumlock = true;
         wayland = {
           enable = true;
-          compositor = "kwin";
+          compositor = "weston";
         };
       };
     };
