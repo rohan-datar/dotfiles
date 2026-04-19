@@ -2,6 +2,7 @@
   imports = [
     # keep-sorted start
     ./bat.nix
+    ./btop.nix
     ./carapace.nix
     ./defaults.nix
     ./direnv.nix
