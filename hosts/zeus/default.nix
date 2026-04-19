@@ -56,7 +56,7 @@ in
         libnotify
         glib
         swift
-        thunderbird
+        # thunderbird
         cifs-utils
         nautilus
         font-manager
