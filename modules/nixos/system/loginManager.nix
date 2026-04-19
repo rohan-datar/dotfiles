@@ -14,6 +14,7 @@ in
         enable = true;
         package = pkgs.kdePackages.sddm;
         autoNumlock = true;
+        settings.General.RememberLastSession = false;
         wayland = {
           enable = true;
           compositor = "kwin";

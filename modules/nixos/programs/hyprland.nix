@@ -10,8 +10,11 @@ in
 {
   config = mkIf (config.olympus.aspects.graphical.enable && config.programs.hyprland.enable) {
     programs.hyprland = {
+      withUWSM = false;
       xwayland.enable = true;
     };
+
+    programs.uwsm.enable = false;
 
     xdg.portal = {
       enable = true;
