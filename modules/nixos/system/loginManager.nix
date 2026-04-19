@@ -15,7 +15,7 @@ in
         package = pkgs.kdePackages.sddm;
         autoNumlock = true;
         wayland = {
-          enable = false;
+          enable = true;
           compositor = "kwin";
         };
       };

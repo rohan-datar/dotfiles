@@ -10,7 +10,7 @@ in
 {
   config = mkIf config.olympus.aspects.graphical.enable {
     services.xserver = {
-      enable = true;
+      enable = false;
       desktopManager.xterm.enable = false;
 
       excludePackages = [ pkgs.xterm ];
