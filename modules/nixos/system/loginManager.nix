@@ -15,10 +15,11 @@ in
         package = pkgs.kdePackages.sddm;
         autoNumlock = true;
         wayland = {
-          enable = true;
+          enable = false;
           compositor = "kwin";
         };
       };
+      displayManager.defaultSession = "niri";
     };
   };
 }
