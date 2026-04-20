@@ -27,7 +27,7 @@ in
         "$browser" = "zen";
 
         exec-once = [
-          "hypridle"
+          "noctalia-shell"
         ];
 
         xwayland = {
