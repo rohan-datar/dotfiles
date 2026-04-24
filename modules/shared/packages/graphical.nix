@@ -6,7 +6,6 @@
 }:
 let
   cfg = config.olympus.aspects;
-  inherit (lib) mkEnableOption mkOption types;
 in
 {
   config = lib.mkIf cfg.graphical.enable {
