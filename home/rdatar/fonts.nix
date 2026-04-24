@@ -30,10 +30,10 @@ in
       defaultFonts = {
         monospace = [
           "Maple Mono NF"
-          "SFMono Nerd Font"
+          "JetBrainsMono Nerd Font"
         ];
         sansSerif = [
-          "SFProDisplay Nerd Font"
+          "SFPro Nerd Font"
           "MesloLGS Nerd Font Propo"
         ];
         serif = [

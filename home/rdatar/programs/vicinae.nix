@@ -19,7 +19,7 @@
         keybinding = "emacs";
         font = {
           normal = {
-            family = "SFProDisplay Nerd Font";
+            family = "SFPro Nerd Font";
             size = 11;
           };
         };

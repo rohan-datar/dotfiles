@@ -263,7 +263,7 @@
         settingsVersion = 22;
         setupCompleted = true;
         ui = {
-          fontDefault = "SFProDisplay Nerd Font";
+          fontDefault = "SFPro Nerd Font";
           fontDefaultScale = 1;
           fontFixed = "MesloLGS Nerd Font";
           fontFixedScale = 1;
