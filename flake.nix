@@ -74,7 +74,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
+    apple-fonts = {
+      url = "github:Lyndeno/apple-fonts.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     disko = {
       url = "github:nix-community/disko";
