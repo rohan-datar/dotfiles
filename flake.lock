@@ -129,6 +129,7 @@
     },
     "editorconfig": {
       "inputs": {
+        "emacs-claude-code": "emacs-claude-code",
         "emacs-overlay": [
           "emacs-overlay"
         ],
@@ -150,16 +151,32 @@
         ]
       },
       "locked": {
-        "lastModified": 1777156492,
-        "narHash": "sha256-Fqu7VfRbmmtn8fDRw1kwbiJ7UxuXLNXgqrjBXQJqjCQ=",
+        "lastModified": 1777348918,
+        "narHash": "sha256-tIuzQ+R8dwiW7OrgQNbJ52d9Wtt/IZbWFttgUutp5Qw=",
         "owner": "rohan-datar",
         "repo": "editorconfig",
-        "rev": "918538fea72b72ce758ef03cf5d01c2bb66f80bf",
+        "rev": "5e889838f3ebf872ce9c4ec9aad22a53b4d2c2e4",
         "type": "github"
       },
       "original": {
         "owner": "rohan-datar",
         "repo": "editorconfig",
+        "type": "github"
+      }
+    },
+    "emacs-claude-code": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1776606665,
+        "narHash": "sha256-AvriQS0mI02N9frOL6xCnezzvp2ID03ZuRiOBrlujsw=",
+        "owner": "stevemolitor",
+        "repo": "claude-code.el",
+        "rev": "e2d29b05a97fdded88ba7ca0586a5483ca2e3dcb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stevemolitor",
+        "repo": "claude-code.el",
         "type": "github"
       }
     },
