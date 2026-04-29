@@ -52,7 +52,6 @@ in
         gnumake
         cacert
         wl-clipboard
-        ungoogled-chromium
         libnotify
         glib
         swift
