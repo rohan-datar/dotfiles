@@ -13,14 +13,13 @@ in
     olympus.packages = {
       inherit (pkgs)
         firefox
-        # ghostty # currently marked as broken on darwin
         fastfetch
         obsidian
         discord
         aoc-cli
         direnv
         pandoc
-        wireshark
+        # wireshark
         wireguard-ui
         bitwarden-desktop
         claude-code

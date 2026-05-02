@@ -90,9 +90,20 @@ in
 
   networking = {
     hostName = name; # Define your hostname.
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      dns = "systemd-resolved";
+    };
     nameservers = [ "10.10.0.1" ];
     enableIPv6 = false;
+  };
+
+  # Local caching resolver. Smooths over single-upstream flakiness (Zig's
+  # built-in resolver has no retry/fallback, so transient SERVFAILs from
+  # 10.10.0.1 break Nix builds otherwise).
+  services.resolved = {
+    enable = true;
+    settings.Resolve.DNSSEC = "false";
   };
 
   time = {
