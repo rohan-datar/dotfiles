@@ -30,7 +30,6 @@
 
       casks = [
         "zen"
-        "ghostty"
       ];
 
       # masApps = {
