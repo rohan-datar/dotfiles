@@ -57,6 +57,28 @@ in
         openFirewall = true;
       };
 
+      qbittorrent = {
+        enable = true;
+        vpn.enable = true;
+        openFirewall = true;
+        peerPort = 21210;
+        extraConfig = {
+          BitTorrent = {
+            "Session\\DefaultSavePath" = "/mnt/media/torrents";
+            "Session\\TempPath" = "/mnt/media/torrents/.incomplete";
+            "Session\\TempPathEnabled" = true;
+          };
+          Preferences = {
+            "Downloads\\SavePath" = "/mnt/media/torrents";
+            "Downloads\\TempPath" = "/mnt/media/torrents/.incomplete";
+            "Downloads\\TempPathEnabled" = true;
+            "Downloads\\ScanDirsV2" = builtins.toJSON {
+              "/mnt/media/torrents/.watch" = 0;
+            };
+          };
+        };
+      };
+
       transmission = {
         enable = true;
         flood.enable = true;
