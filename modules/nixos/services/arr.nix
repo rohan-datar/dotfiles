@@ -32,7 +32,10 @@ in
 
       mediaDir = "/mnt/media";
 
-      jellyfin.enable = true;
+      jellyfin = {
+        enable = true;
+        openFirewall = true;
+      };
       seerr.enable = true;
       bazarr.enable = true;
       prowlarr.enable = true;
