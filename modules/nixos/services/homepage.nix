@@ -93,15 +93,15 @@ in
               };
             }
             {
-              "Transmission" = {
-                icon = "transmission.png";
+              "qBittorrent" = {
+                icon = "qbittorrent.png";
                 href = "https://torrent.rdatar.com/";
                 widgets = [
                   {
-                    type = "transmission";
-                    url = "http://localhost:9091/transmission/rpc";
-                    username = "";
-                    password = "{{HOMEPAGE_VAR_TRANSMISSION_PWD}}";
+                    type = "qbittorrent";
+                    url = "http://192.168.15.1:8085";
+                    username = "{{HOMEPAGE_VAR_QBITTORRENT_USER}}";
+                    password = "{{HOMEPAGE_VAR_QBITTORRENT_PWD}}";
                   }
                 ];
               };

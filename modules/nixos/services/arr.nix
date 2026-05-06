@@ -82,12 +82,12 @@ in
         };
       };
 
-      transmission = {
-        enable = false;
-        flood.enable = true;
-        vpn.enable = true;
-        peerPort = 21209;
-      };
+      # transmission = {
+      #   enable = false;
+      #   flood.enable = true;
+      #   vpn.enable = true;
+      #   peerPort = 21209;
+      # };
 
       recyclarr = {
         enable = true;
