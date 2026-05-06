@@ -64,18 +64,7 @@ in
         peerPort = 21209;
         qui.enable = true;
         extraConfig = {
-          BitTorrent = {
-            "Session\\DefaultSavePath" = "/mnt/media/torrents";
-            "Session\\TempPath" = "/mnt/media/torrents/.incomplete";
-            "Session\\TempPathEnabled" = true;
-          };
           Preferences = {
-            "Downloads\\SavePath" = "/mnt/media/torrents";
-            "Downloads\\TempPath" = "/mnt/media/torrents/.incomplete";
-            "Downloads\\TempPathEnabled" = true;
-            "Downloads\\ScanDirsV2" = builtins.toJSON {
-              "/mnt/media/torrents/.watch" = 0;
-            };
             "WebUI\\Password_PBKDF2" =
               ''"@ByteArray(AcS/eSauZc8rMTFhenysTA==:woLHoXoRKxq/v3SyNB3HAL+SZKz1icLlHVzRrV54m8mJOdlt/xu9M2n+slobkmSb81m/G7h8o+/bzR4Ozn+BhQ==)"'';
           };
