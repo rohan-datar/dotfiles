@@ -21,6 +21,8 @@ in
     # TODO: maybe make this host-specific?
     age.secrets.wgconf.file = ../../../secrets/AirVPN-America-WG.conf.age;
 
+    vpnNamespaces.wg.portMappings = lib.mkForce [ ];
+
     nixarr = {
       enable = true;
 
@@ -61,7 +63,7 @@ in
         enable = true;
         vpn.enable = true;
         openFirewall = true;
-        peerPort = 21210;
+        peerPort = 21209;
         qui.enable = true;
         extraConfig = {
           BitTorrent = {
@@ -76,12 +78,14 @@ in
             "Downloads\\ScanDirsV2" = builtins.toJSON {
               "/mnt/media/torrents/.watch" = 0;
             };
+            "WebUI\\Password_PBKDF2" =
+              ''"@ByteArray(AcS/eSauZc8rMTFhenysTA==:woLHoXoRKxq/v3SyNB3HAL+SZKz1icLlHVzRrV54m8mJOdlt/xu9M2n+slobkmSb81m/G7h8o+/bzR4Ozn+BhQ==)"'';
           };
         };
       };
 
       transmission = {
-        enable = true;
+        enable = false;
         flood.enable = true;
         vpn.enable = true;
         peerPort = 21209;
