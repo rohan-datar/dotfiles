@@ -21,8 +21,6 @@ in
     # TODO: maybe make this host-specific?
     age.secrets.wgconf.file = ../../../secrets/AirVPN-America-WG.conf.age;
 
-    vpnNamespaces.wg.portMappings = lib.mkForce [ ];
-
     nixarr = {
       enable = true;
 
