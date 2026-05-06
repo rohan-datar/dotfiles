@@ -39,6 +39,11 @@ in
     };
   };
 
+  # `services.userborn` requires `system.activationScripts.users == ""`.
+  # nixarr's Seerr module extends `system.activationScripts.users.deps`, which
+  # turns it into an attrset and conflicts with userborn.
+  services.userborn.enable = lib.mkForce false;
+
   boot.kernelModules = [ "btusb" ];
 
   services.openssh.enable = true;

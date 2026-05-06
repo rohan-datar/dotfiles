@@ -33,7 +33,7 @@ in
       mediaDir = "/mnt/media";
 
       jellyfin.enable = true;
-      jellyseerr.enable = true;
+      seerr.enable = true;
       bazarr.enable = true;
       prowlarr.enable = true;
       radarr.enable = true;

@@ -155,7 +155,7 @@ in
                 href = "https://lib.rdatar.com/";
                 widgets = [
                   {
-                    type = "jellyseerr";
+                    type = "seerr";
                     url = "http://localhost:5055/";
                     key = "{{HOMEPAGE_VAR_JELLYSEERR_KEY}}";
                   }
