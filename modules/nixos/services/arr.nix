@@ -62,6 +62,7 @@ in
         vpn.enable = true;
         openFirewall = true;
         peerPort = 21210;
+        qui.enable = true;
         extraConfig = {
           BitTorrent = {
             "Session\\DefaultSavePath" = "/mnt/media/torrents";
