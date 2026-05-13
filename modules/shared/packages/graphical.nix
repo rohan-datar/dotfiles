@@ -23,7 +23,7 @@ in
         wireguard-ui
         bitwarden-desktop
         claude-code
-        opencode
+        pi-coding-agent
         ;
     };
   };

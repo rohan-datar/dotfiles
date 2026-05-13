@@ -14,7 +14,6 @@
     ./neovim.nix
     ./nh.nix
     ./nix-index.nix
-    ./opencode.nix
     ./ssh.nix
     ./starship.nix
     ./tmux.nix
