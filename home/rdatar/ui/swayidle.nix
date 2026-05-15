@@ -2,17 +2,21 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 let
   inherit (lib) mkIf;
+  inherit (pkgs.stdenv.hostPlatform) system;
 in
 {
   config = mkIf config.olympus.aspects.graphical.enable {
     services.swayidle =
       let
+        noctaliaShell = "${inputs.noctalia.packages.${system}.default}/bin/noctalia-shell";
+
         # lock command
-        lock = "noctalia-shell ipc call lockScreen lock";
+        lock = "${noctaliaShell} ipc call lockScreen lock";
         display = status: "${pkgs.niri}/bin/niri msg action power-${status}-monitors";
       in
       {
@@ -40,11 +44,13 @@ in
 
         events = {
 
-          "before-sleep" = (display "off") + "; " + lock;
+          # Keep these focused on locking/waking only; forcing display-off here can
+          # leave outputs stuck off across suspend/resume on some GPUs/monitors.
+          "before-sleep" = lock;
 
           "after-resume" = display "on";
 
-          "lock" = (display "off") + "; " + lock;
+          "lock" = lock;
 
           "unlock" = display "on";
 

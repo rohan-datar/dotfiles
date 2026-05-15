@@ -9,7 +9,7 @@ in
 {
   config = mkIf config.olympus.aspects.graphical.enable {
     wayland.windowManager.hyprland = {
-      enable = true;
+      enable = false;
       settings = {
         # keep automatic monitor config
         "monitor" = [
