@@ -37,14 +37,19 @@ in
 
   homebrew = {
     enable = true;
+
+    taps = [
+      "BarutSRB/tap"
+    ];
+
     brews = [
-      "openjdk@21"
       "xcode-build-server"
     ];
 
     casks = [
-      "omnidisksweeper"
       "beeper"
+      "omnidisksweeper"
+      "omniwm"
       # "docker-desktop"
     ];
 
