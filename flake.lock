@@ -839,11 +839,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779380654,
-        "narHash": "sha256-7AKg1jbqH7G/+qHHgzSB/jbwMKJ57xtox5M9LNwNzD0=",
+        "lastModified": 1779405245,
+        "narHash": "sha256-8FPaGNayyJDmATUq4uzpJGDCUIHyXB1Iy0hmsF6Sefk=",
         "owner": "vicinaehq",
         "repo": "vicinae",
-        "rev": "580b9f79d5c4c147e95dd1162561e2acb8efbce0",
+        "rev": "5c92dcbb3888767acd6bbf5cf46cb0a9bf708cd1",
         "type": "github"
       },
       "original": {
