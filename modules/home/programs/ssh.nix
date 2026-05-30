@@ -4,17 +4,17 @@
     # we're only using this config in graphical environments
     inherit (config.olympus.aspects.graphical) enable;
     enableDefaultConfig = false;
-    matchBlocks = {
+    settings = {
       "uwgcloud" = {
-        hostname = "104.198.64.179";
-        user = "rdatar";
-        identityFile = "~/.ssh/id_rsa";
+        HostName = "104.198.64.179";
+        User = "rdatar";
+        IdentityFile = "~/.ssh/id_rsa";
       };
 
       "homemedia" = {
-        hostname = "media.rdatar.com";
-        user = "rdatar";
-        identityFile = "~/.ssh/id_ed25519";
+        HostName = "media.rdatar.com";
+        User = "rdatar";
+        IdentityFile = "~/.ssh/id_ed25519";
       };
     };
   };
