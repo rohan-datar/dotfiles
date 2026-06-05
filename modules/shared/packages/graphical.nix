@@ -21,7 +21,7 @@ in
         pandoc
         # wireshark
         wireguard-ui
-        bitwarden-desktop
+        # bitwarden-desktop # electron-39 is EOL/insecure
         claude-code
         pi-coding-agent
         ;
