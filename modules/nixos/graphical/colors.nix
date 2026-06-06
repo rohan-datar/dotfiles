@@ -10,6 +10,7 @@
 
   config = {
     catppuccin = {
+      autoEnable = true;
       enable = lib.mkDefault config.olympus.aspects.graphical.enable;
       sources = options.catppuccin.sources.default;
       flavor = "mocha";

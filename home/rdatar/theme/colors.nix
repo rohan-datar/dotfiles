@@ -14,6 +14,7 @@ in
 
   config = {
     catppuccin = {
+      autoEnable = true;
       enable = true;
       sources = options.catppuccin.sources.default;
 
