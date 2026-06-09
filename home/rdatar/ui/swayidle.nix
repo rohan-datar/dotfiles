@@ -13,10 +13,8 @@ in
   config = mkIf config.olympus.aspects.graphical.enable {
     services.swayidle =
       let
-        noctaliaShell = "${inputs.noctalia.packages.${system}.default}/bin/noctalia-shell";
-
         # lock command
-        lock = "${noctaliaShell} ipc call lockScreen lock";
+        lock = "${inputs.noctalia.packages.${system}.default}/bin/noctalia msg session lock";
         display = status: "${pkgs.niri}/bin/niri msg action power-${status}-monitors";
       in
       {

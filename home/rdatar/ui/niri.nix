@@ -17,7 +17,7 @@ in
         screenshot-path = "~/Pictures/screenshots/%Y-%m-%d %H-%M-%S.png";
 
         spawn-at-startup = [
-          { command = [ "noctalia-shell" ]; }
+          { command = [ "noctalia" ]; }
         ];
 
         hotkey-overlay = {
@@ -67,9 +67,8 @@ in
             noctalia =
               cmd:
               [
-                "noctalia-shell"
-                "ipc"
-                "call"
+                "noctalia"
+                "msg"
               ]
               ++ (splitString " " cmd);
           in
@@ -126,13 +125,13 @@ in
                 "toggle"
               ];
             };
-            "XF86AudioRaiseVolume".action.spawn = noctalia "volume increase";
-            "XF86AudioLowerVolume".action.spawn = noctalia "volume decrease";
-            "XF86AudioMute".action.spawn = noctalia "volume muteOutput";
+            "XF86AudioRaiseVolume".action.spawn = noctalia "volume-up 5%";
+            "XF86AudioLowerVolume".action.spawn = noctalia "volume-down 5%";
+            "XF86AudioMute".action.spawn = noctalia "volume-mute";
 
-            "XF86MonBrightnessUp".action.spawn = noctalia "brightness increase";
+            "XF86MonBrightnessUp".action.spawn = noctalia "brightness-up 5%";
 
-            "XF86MonBrightnessDown".action.spawn = noctalia "brightness decrease";
+            "XF86MonBrightnessDown".action.spawn = noctalia "brightness-down 5%";
           };
 
         input.focus-follows-mouse.enable = true;
