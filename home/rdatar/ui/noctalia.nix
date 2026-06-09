@@ -7,7 +7,7 @@
 {
   imports = [ inputs.noctalia.homeModules.default ];
   config = lib.mkIf config.olympus.aspects.graphical.enable {
-    programs.noctalia-shell = {
+    programs.noctalia = {
       enable = true;
       settings = {
         appLauncher = {
@@ -290,23 +290,22 @@
           transitionEdgeSmoothness = 0.05;
           transitionType = "fade";
         };
-      };
-      # configure options
-      plugins = {
-        sources = [
-          {
-            enabled = true;
-            name = "Official Noctalia Plugins";
-            url = "https://github.com/noctalia-dev/noctalia-plugins";
-          }
-        ];
-        states = {
-          screenshot = {
-            enabled = true;
-            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        plugins = {
+          sources = [
+            {
+              enabled = true;
+              name = "Official Noctalia Plugins";
+              url = "https://github.com/noctalia-dev/noctalia-plugins";
+            }
+          ];
+          states = {
+            screenshot = {
+              enabled = true;
+              sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+            };
           };
+          version = 1;
         };
-        version = 1;
       };
     };
   };
