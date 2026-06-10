@@ -26,10 +26,6 @@ in
         "$menu" = "vicinae toggle";
         "$browser" = "zen";
 
-        exec-once = [
-          "noctalia"
-        ];
-
         xwayland = {
           "force_zero_scaling" = true;
         };

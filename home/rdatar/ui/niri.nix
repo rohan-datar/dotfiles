@@ -16,10 +16,6 @@ in
 
         screenshot-path = "~/Pictures/screenshots/%Y-%m-%d %H-%M-%S.png";
 
-        spawn-at-startup = [
-          { command = [ "noctalia" ]; }
-        ];
-
         hotkey-overlay = {
           hide-not-bound = true;
           skip-at-startup = true;

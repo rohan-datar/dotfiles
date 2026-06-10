@@ -10,6 +10,7 @@
   config = lib.mkIf config.olympus.aspects.graphical.enable {
     programs.noctalia = {
       enable = true;
+      systemd.enable = true;
       settings = {
         audio.enable_overdrive = false;
 
@@ -151,7 +152,7 @@
           clipboard_enabled = true;
           corner_radius_scale = 1;
           font_family = "SFPro Nerd Font";
-          launch_apps_as_systemd_services = false;
+          launch_apps_as_systemd_services = true;
           settings_show_advanced = true;
           ui_scale = 1.2;
           mpris.blacklist = [ ];
