@@ -24,6 +24,7 @@ in
         # bitwarden-desktop # electron-39 is EOL/insecure
         claude-code
         pi-coding-agent
+        gh
         ;
     };
   };

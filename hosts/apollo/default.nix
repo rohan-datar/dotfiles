@@ -35,6 +35,8 @@ in
 
   };
 
+  nix-homebrew.trust.casks = [ "barutsrb/tap/omniwm" ];
+
   homebrew = {
     enable = true;
 
