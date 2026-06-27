@@ -27,6 +27,7 @@ in
         raycast
         appcleaner
         openldap
+        container
         ;
       emacs = inputs.editorconfig.packages.${system}.rdmacs;
     };
@@ -35,14 +36,14 @@ in
 
   };
 
-  nix-homebrew.trust.casks = [ "barutsrb/tap/omniwm" ];
+  # nix-homebrew.trust.casks = [ "barutsrb/tap/omniwm" ];
 
   homebrew = {
     enable = true;
 
-    taps = [
-      "BarutSRB/tap"
-    ];
+    # taps = [
+    #   "BarutSRB/tap"
+    # ];
 
     brews = [
       "xcode-build-server"
@@ -51,8 +52,7 @@ in
     casks = [
       "beeper"
       "omnidisksweeper"
-      "omniwm"
-      # "docker-desktop"
+      # "omniwm"
     ];
 
     # masApps = {

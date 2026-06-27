@@ -1,6 +1,7 @@
 {
   imports = [
-    ./aerospace.nix
+    # Trying out paneru; aerospace.nix is kept on disk for easy revert.
+    ./paneru.nix
   ];
 
   home.username = "rohandatar";
