@@ -178,8 +178,7 @@
     },
     "editorconfig": {
       "inputs": {
-        "emacs-claude-code": "emacs-claude-code",
-        "emacs-monet": "emacs-monet",
+        "emacs-claude-code-ide": "emacs-claude-code-ide",
         "emacs-overlay": [
           "emacs-overlay"
         ],
@@ -200,11 +199,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782541162,
-        "narHash": "sha256-acNpaM+5IXi54AVW7+fZfkLEFHGE61UH2fthlvK1dMI=",
+        "lastModified": 1782583729,
+        "narHash": "sha256-nO6Ca2HIjN/y5ga579cZsqAH+Sqv0nxQRo2tK2ziyHY=",
         "owner": "rohan-datar",
         "repo": "editorconfig",
-        "rev": "b14386a0dc282077fa5b7de580707e1d9e17b2dc",
+        "rev": "ead131357e82b4b05bb79e2e76f84b0920038e18",
         "type": "github"
       },
       "original": {
@@ -213,35 +212,19 @@
         "type": "github"
       }
     },
-    "emacs-claude-code": {
+    "emacs-claude-code-ide": {
       "flake": false,
       "locked": {
-        "lastModified": 1777579222,
-        "narHash": "sha256-5QJrWIu4EgnHcOqMwlrs2JBBx7aI9OaSJswesr6Apfk=",
-        "owner": "stevemolitor",
-        "repo": "claude-code.el",
-        "rev": "03199df8b3a1e9cd4857f0851f7a912ba524aff3",
+        "lastModified": 1780335122,
+        "narHash": "sha256-6kaTPI2CCsdxxiCpZ7qqciv/HJCQRsJ8084+SqW8Idc=",
+        "owner": "manzaltu",
+        "repo": "claude-code-ide.el",
+        "rev": "a9485f766ea69f6cb3a3f08dea20d44fd6596673",
         "type": "github"
       },
       "original": {
-        "owner": "stevemolitor",
-        "repo": "claude-code.el",
-        "type": "github"
-      }
-    },
-    "emacs-monet": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1776563377,
-        "narHash": "sha256-C5t7pKcp8lqZUPiWAcrx2H7Gba2NSpojUPxG5AnrMJg=",
-        "owner": "stevemolitor",
-        "repo": "monet",
-        "rev": "ee2e35557e8ae07de842c435486f7c152f3750e0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "stevemolitor",
-        "repo": "monet",
+        "owner": "manzaltu",
+        "repo": "claude-code-ide.el",
         "type": "github"
       }
     },
@@ -253,11 +236,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1782531961,
-        "narHash": "sha256-nJ0B7vHj2M3b3g02sOkSVQq+5u4Bd7lCCO4eQTAC2kM=",
+        "lastModified": 1782583061,
+        "narHash": "sha256-EVgo6bXMM8Vm4fpLnwHTI51DAAZANs9Xc4oEQzfrBv4=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "1e417334dd66ea4b6862bb023424cb1a227b4af8",
+        "rev": "b087e22860a758babad4c03607389d76f9847100",
         "type": "github"
       },
       "original": {
@@ -623,11 +606,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782538027,
-        "narHash": "sha256-YXFgpYbNZcQFUO5l1Lj03QXbD/pRwQKVKa7SnuJJSIM=",
+        "lastModified": 1782579392,
+        "narHash": "sha256-OWXJUaqtsLSHYKyQk3E0AVH3J4XWBvkaT7XCORHcHUo=",
         "owner": "noctalia-dev",
         "repo": "noctalia",
-        "rev": "1a01b2b7b0d1f724158a610f68fa1de72ca7217c",
+        "rev": "ebf763a9bc18d8859c5e4f78f5f387137f0caa54",
         "type": "github"
       },
       "original": {
@@ -904,11 +887,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782513466,
-        "narHash": "sha256-u7TnJKoSgPglZeLTP/4PBMk+QSm4oVg38UhyM1y8cHI=",
+        "lastModified": 1782573994,
+        "narHash": "sha256-UqGAggLBDOuBJPlm4hB0GgEK+vdKa629j0AuIMYF8hc=",
         "owner": "vicinaehq",
         "repo": "vicinae",
-        "rev": "2fa382ea622d29d646045245ba6db49def980372",
+        "rev": "2006bd95d1dd91ba563dde98025605999849eda9",
         "type": "github"
       },
       "original": {
@@ -1046,11 +1029,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782460457,
-        "narHash": "sha256-R3EXRxLmv1uqMtacBi0L8gUCOWC6EpCPSXebf8e+vac=",
+        "lastModified": 1782554936,
+        "narHash": "sha256-tH3MNTu/o2xzYXnRYsl9/Q5k6mjIrcqWZ+qbqzdN2L8=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "563e515460b6c3bb68552979e3abbca447f8aaf1",
+        "rev": "b3df24cd84ddecf5f13c48be9bdd99cf3bc7e1dc",
         "type": "github"
       },
       "original": {
