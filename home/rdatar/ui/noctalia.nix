@@ -143,7 +143,7 @@
         osd = {
           background_opacity = 0;
           orientation = "vertical";
-          position = "center_right";
+          position_vertical = "center_right";
         };
 
         shell = {
