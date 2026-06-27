@@ -17,7 +17,7 @@
         ];
       };
 
-      animation_speed = 12;
+      animation_speed = 8;
 
       # Closest analogue to niri layout.gaps (screen-edge padding; paneru has
       # no inter-window gaps concept).
