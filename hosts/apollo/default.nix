@@ -36,14 +36,10 @@ in
 
   };
 
-  # nix-homebrew.trust.casks = [ "barutsrb/tap/omniwm" ];
+  environment.pathsToLink = [ "/libexec" ];
 
   homebrew = {
     enable = true;
-
-    # taps = [
-    #   "BarutSRB/tap"
-    # ];
 
     brews = [
       "xcode-build-server"
@@ -52,7 +48,6 @@ in
     casks = [
       "beeper"
       "omnidisksweeper"
-      # "omniwm"
     ];
 
     # masApps = {
