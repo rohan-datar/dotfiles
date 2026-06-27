@@ -1,24 +1,3 @@
-# Paneru configuration for macOS, mirroring home/rdatar/ui/niri.nix on Linux.
-#
-# `Super` from the niri config maps to `cmd` here (matches the aerospace layout
-# this host used previously). Key names follow paneru's CONFIGURATION.md, e.g.
-# `uparrow`/`downarrow`/`leftarrow`/`rightarrow`, `equal`, `minus`, `comma`,
-# `period`, `delete`.
-#
-# Notable niri binds with no paneru equivalent (left to macOS / unavailable):
-#   - mod+Q close-window        -> use macOS cmd-w
-#   - mod+Shift+F fullscreen    -> no paneru action
-#   - mod+Ctrl+F expand-column  -> no paneru action
-#   - mod+W tabbed column       -> no paneru action
-#   - mod+Shift+C center-all    -> no paneru action
-#   - mod+Shift+1 width "50%"   -> 0.5 is in preset_column_widths; cycle via window_grow
-#   - mod+Shift+Equal/Minus     -> paneru columns are horizontal strips; no vertical resize
-#   - mod+Return / mod+B        -> paneru bindings have no spawn action
-#   - mod+Shift+S screenshot    -> no paneru action
-#   - mod+Shift+Slash hotkeys   -> no paneru action
-#   - mod+Tab overview          -> no paneru action
-#   - mod+Space (vicinae)       -> no spawn action
-#   - media keys (volume/brightness) -> no spawn action
 {
   services.paneru = {
     enable = true;
@@ -37,6 +16,8 @@
           0.75
         ];
       };
+
+      animation_speed = 12;
 
       # Closest analogue to niri layout.gaps (screen-edge padding; paneru has
       # no inter-window gaps concept).
