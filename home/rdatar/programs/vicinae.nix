@@ -7,7 +7,7 @@
 }:
 {
   config = lib.mkIf config.olympus.aspects.graphical.enable {
-    services.vicinae = {
+    programs.vicinae = {
       package = pkgs.vicinae;
       enable = true;
       systemd = {
