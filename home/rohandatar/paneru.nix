@@ -64,14 +64,10 @@
           "cmd - l"
           "cmd - rightarrow"
         ];
-        window_focus_north = [
-          "cmd - k"
-          "cmd - uparrow"
-        ];
-        window_focus_south = [
-          "cmd - j"
-          "cmd - downarrow"
-        ];
+        window_focus_north = "cmd - uparrow";
+        window_virtual_north = "cmd - k";
+        window_focus_south = "cmd - downarrow";
+        window_virtual_south = "cmd - j";
 
         # swap (niri mod+shift+h/j/k/l and mod+shift+arrows)
         window_swap_west = [
@@ -82,21 +78,18 @@
           "cmd + shift - l"
           "cmd + shift - rightarrow"
         ];
-        window_swap_north = [
-          "cmd + shift - k"
-          "cmd + shift - uparrow"
-        ];
-        window_swap_south = [
-          "cmd + shift - j"
-          "cmd + shift - downarrow"
-        ];
+        window_swap_north = "cmd + shift - uparrow";
+        window_virtualmove_north = "cmd + shift - k";
+        window_swap_south = "cmd + shift - downarrow";
+        window_virtualmove_south = "cmd + shift - j";
 
-        # resize (niri mod+equal / mod+minus)
+        # resize
         window_grow = "cmd - equal";
         window_shrink = "cmd - minus";
 
         # full-width (niri mod+F maximize-column)
-        window_fullwidth = "cmd - f";
+        window_fullwidth = "cmd + shift - f";
+        window_resize = "cmd - r";
 
         # center (niri mod+C center-column)
         window_center = "cmd - c";
@@ -105,14 +98,8 @@
         window_stack = "cmd - comma";
         window_unstack = "cmd - period";
 
-        # floating (niri mod+V toggle-window-floating,
-        #           mod+Shift+V switch-focus-between-floating-and-tiling)
-        window_manage = "cmd - v";
-        window_togglefloatlayer = "cmd + shift - v";
-
-        # virtual workspaces (niri workspace up/down via mod+K/mod+J at edges)
-        window_virtual_north = "cmd + alt - k";
-        window_virtual_south = "cmd + alt - j";
+        # floating
+        window_togglefloatlayer = "cmd + alt - v";
 
         # quit (niri Ctrl+Alt+Delete)
         quit = "ctrl + alt - delete";
