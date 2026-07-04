@@ -199,11 +199,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783196508,
-        "narHash": "sha256-vE3JSmeDsZRbKGCgOy1WtfwUrXeZd1pGUbNY2+D+CTA=",
+        "lastModified": 1783197106,
+        "narHash": "sha256-BLxE4YqVTdsotDetyjx6TEs5qljHzuctU12EA0lIn3o=",
         "owner": "rohan-datar",
         "repo": "editorconfig",
-        "rev": "78219e7eef06d50827533e670caba1a16e73d19c",
+        "rev": "08aa1f28e4f259c01ade80abd48be426cb9a2723",
         "type": "github"
       },
       "original": {
