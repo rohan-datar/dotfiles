@@ -1,6 +1,7 @@
 {
   self,
   inputs,
+  lib,
   ...
 }:
 {
@@ -12,12 +13,22 @@
     perClass = class: {
       modules = [
         "${self}/modules/${class}/default.nix"
-      ];
+      ]
+      ++ lib.optional (class == "nixos") {
+        nixpkgs.overlays = [
+          inputs.niri.overlays.niri
+        ];
+      };
     };
 
     shared = {
       modules = [
         "${self}/modules/shared/default.nix"
+        {
+          nixpkgs.overlays = [
+            inputs.llm-agents.overlays.default
+          ];
+        }
       ];
     };
 

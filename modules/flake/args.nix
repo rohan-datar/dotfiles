@@ -17,8 +17,6 @@
           allowUnsupportedSystem = true;
         };
         overlays = [
-          inputs.emacs-overlay.overlays.default
-          inputs.niri.overlays.niri
         ];
       };
     };

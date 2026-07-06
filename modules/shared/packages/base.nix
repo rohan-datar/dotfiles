@@ -27,6 +27,7 @@ in
       ripgrep
       dysk
       lazygit
+      gh
       ;
     agenix = inputs.agenix.packages.${system}.default;
     inherit (self.packages.${system}) nx;

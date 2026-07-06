@@ -73,7 +73,7 @@
         window_resize = "cmd - r";
 
         # center (niri mod+C center-column)
-        window_center = "cmd - c";
+        window_center = "cmd + alt - c";
 
         # stack / unstack (niri mod+Comma / mod+Period consume-or-expel)
         window_stack = "cmd - comma";
