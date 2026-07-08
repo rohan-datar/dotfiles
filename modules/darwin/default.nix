@@ -1,15 +1,14 @@
+{ self, ... }:
 {
-  _class = "darwin";
-
-  imports = [
-    # keep-sorted start
-    ./brew
-    ./documentation.nix
-    ./extras.nix
-    ./nix.nix
-    ./packages.nix
-    ./shell.nix
-    ./system
-    # keep-sorted end
-  ];
+  flake.modules.darwin.default = {
+    imports = [
+      self.modules.darwin.brew
+      self.modules.darwin.documentation
+      self.modules.darwin.extras
+      self.modules.darwin.nix
+      self.modules.darwin.packages
+      self.modules.darwin.shell
+      self.modules.darwin.system
+    ];
+  };
 }

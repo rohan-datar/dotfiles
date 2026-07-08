@@ -2,7 +2,13 @@
   description = "Rohan's nix config";
 
   outputs =
-    inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } { imports = [ ./modules/flake ]; };
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        (inputs.import-tree ./modules)
+        inputs.nix-wrapper-modules.flakeModules.wrappers
+      ];
+    };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -35,10 +41,7 @@
 
     easy-hosts.url = "github:tgirlcloud/easy-hosts";
 
-    niri = {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    import-tree.url = "github:denful/import-tree";
 
     # macOS scrolling window manager
     paneru = {
@@ -114,6 +117,11 @@
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
+    };
+
+    nix-wrapper-modules = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 }

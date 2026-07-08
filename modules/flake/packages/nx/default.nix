@@ -9,16 +9,18 @@
       packages.nx = pkgs.writeShellApplication {
         name = "nx";
         text = builtins.readFile ./nx.sh;
-        # Minimal runtime deps for portability when using 'nix run .#nx'
-        runtimeInputs = with pkgs; [
-          nix
-          git
-          uutils-coreutils-noprefix # date, hostname, readlink, etc.
-          findutils # 'find' used by fallback formatter
-          gawk # for the HM generations fallback
-          gnugrep
-          nh
-          libnotify
+        # Minimal runtime deps for portability when using 'nix run .#nx'.
+        # Use the wrapped git so commits get the configured author identity
+        # (GIT_CONFIG_GLOBAL) rather than the bare inner git.
+        runtimeInputs = [
+          pkgs.nix
+          config.packages.git
+          pkgs.uutils-coreutils-noprefix # date, hostname, readlink, etc.
+          pkgs.findutils # 'find' used by fallback formatter
+          pkgs.gawk # for the HM generations fallback
+          pkgs.gnugrep
+          pkgs.nh
+          pkgs.libnotify
         ];
       };
 

@@ -16,8 +16,6 @@
           allowUnfree = true;
           allowUnsupportedSystem = true;
         };
-        overlays = [
-        ];
       };
     };
 }

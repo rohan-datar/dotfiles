@@ -1,0 +1,31 @@
+_: {
+  flake.modules.homeManager.ghostty =
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
+    {
+      programs.ghostty = {
+        enable = true;
+        package = if pkgs.stdenv.hostPlatform.isLinux then pkgs.ghostty else pkgs.ghostty-bin;
+
+        settings = {
+          theme = "Catppuccin Mocha";
+          background-opacity = 0.85;
+
+          background-blur-radius = 16;
+          window-decoration = false;
+
+          # font
+          font-family = pkgs.lib.mkForce "Maple Mono NF";
+          font-size = pkgs.lib.mkForce 16;
+
+          # shell stuff
+          shell-integration = "detect";
+          cursor-style = "block";
+        };
+      };
+    };
+}

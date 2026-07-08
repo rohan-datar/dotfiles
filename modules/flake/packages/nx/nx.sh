@@ -64,15 +64,15 @@ do_switch() {
 
   if have nh; then
     if [[ $OS == "Linux" ]]; then
-      nh os switch . -H "${NIX_CONFIG_NAME}"
+      nh os switch .
     else
-      nh darwin switch . -H "${NIX_CONFIG_NAME}"
+      nh darwin switch .
     fi
   else
     if [[ $OS == "Linux" ]]; then
-      sudo nixos-rebuild switch --flake .#"${NIX_CONFIG_NAME}"
+      sudo nixos-rebuild switch --flake .
     else
-      darwin-rebuild switch --flake .#"${NIX_CONFIG_NAME}"
+      darwin-rebuild switch --flake .
     fi
   fi
 
@@ -92,7 +92,7 @@ do_switch() {
   sys="$(system_gen || true)"
   # Portable ISO8601 (UTC) for uutils/BSD/GNU
   stamp="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
-  host="$(hostname)"
+  host="$(hostname -s)"
   msg="nx ${action} (${host}/${os_label}): sys=${sys:-?} @ ${stamp}"
 
   git --no-pager diff --cached -U0 || true

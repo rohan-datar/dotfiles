@@ -1,15 +1,18 @@
+{ self, lib, ... }:
 {
-  imports = [
-    # keep-sorted start prefix_order=../,../../,./
-    ../global
-    ../../home
-    ./documentation.nix
-    ./fonts.nix
-    ./nix.nix
-    ./nixpkgs.nix
-    ./packages
-    ./user
-    ./variables.nix
-    # keep-sorted end
-  ];
+  flake.modules.generic.shared =
+    { _class, ... }:
+    {
+      imports =
+        lib.optionals (_class == "nixos") [
+          self.modules.nixos.base
+          self.modules.nixos.nixpkgs
+          self.modules.nixos.variables
+        ]
+        ++ lib.optionals (_class == "darwin") [
+          self.modules.darwin.base
+          self.modules.darwin.nixpkgs
+          self.modules.darwin.variables
+        ];
+    };
 }

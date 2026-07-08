@@ -1,20 +1,21 @@
+{ self, ... }:
 {
-  _class = "nixos";
-
-  imports = [
-    # keep-sorted start
-    ./console.nix
-    ./documentation.nix
-    ./emulation.nix
-    ./extras.nix
-    ./graphical
-    ./hardware
-    ./localization.nix
-    ./nix.nix
-    ./programs
-    ./services
-    ./shell.nix
-    ./system
-    # keep-sorted end
-  ];
+  flake.modules.nixos.default = {
+    imports = [
+      self.modules.nixos.command-not-found
+      self.modules.nixos.console
+      self.modules.nixos.documentation
+      self.modules.nixos.extras
+      self.modules.nixos.firmware
+      self.modules.nixos.localization
+      self.modules.nixos.nix
+      self.modules.nixos.oomd
+      self.modules.nixos.packages
+      self.modules.nixos.serial
+      self.modules.nixos.shell
+      self.modules.nixos.size
+      self.modules.nixos.terminfo
+      self.modules.nixos.time
+    ];
+  };
 }

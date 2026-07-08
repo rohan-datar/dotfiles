@@ -22,54 +22,57 @@ nix run .#nx -- switch    # or just: nx switch
 nix run .#nx -- update
 
 # Build a specific host without switching
-nix build .#nixosConfigurations.zeus.config.system.build.toplevel
-nix build .#darwinConfigurations.apollo.config.system.build.toplevel
+nix build .#nixosConfigurations.home-desktop.config.system.build.toplevel
+nix build .#nixosConfigurations.home-media.config.system.build.toplevel
+nix build .#darwinConfigurations.Rohans-MacBook.config.system.build.toplevel
 ```
 
 ## Architecture
 
 ### Flake Entry Point
 
-`flake.nix` delegates everything to flake-parts via `imports = [ ./modules/flake ]`. The flake modules in `modules/flake/` define:
+`flake.nix` delegates everything to flake-parts via `inputs.import-tree ./modules`. Every file under `modules/` is a flake-parts module. Features are exposed as aspects through the `flake.modules.<class>.<name>` namespace, contributed by the files in `modules/`.
+
+The flake modules in `modules/flake/` define:
 - `args.nix` — overlays and system configuration
 - `formatter.nix` — treefmt with nixfmt, deadnix, statix, shfmt, shellcheck, stylua, keep-sorted
+- `modules.nix` — enables the `flake.modules.*` namespace
 - `packages/` — the `nx` helper script
 
 ### Host Management (easy-hosts)
 
-Hosts are defined in `hosts/default.nix` with class and tags:
+Hosts are defined in `modules/hosts.nix` with class and tags:
 
-| Host | Class | Arch | Tags | Role |
-|------|-------|------|------|------|
-| **zeus** | nixos | x86_64 | full | Desktop (Hyprland/Niri, NVIDIA) |
-| **dionysus** | nixos | x86_64 | minimal | Media server (arr stack, Jellyfin) |
-| **apollo** | darwin | aarch64 | full | MacBook (Aerospace, Homebrew) |
+| Host | Class | Arch | Role |
+|------|-------|------|------|
+| **home-desktop** | nixos | x86_64 | Desktop (Hyprland/Niri, NVIDIA) |
+| **home-media** | nixos | x86_64 | Media server (arr stack, Jellyfin) — no home-manager |
+| **Rohans-MacBook** | darwin | aarch64 | MacBook (Aerospace, Homebrew) |
 
-`perClass` auto-loads `modules/{nixos,darwin}/default.nix`. `perTag` sets `neovimPkg` specialArg ("full" or "minimal"). Each host dir (`hosts/{name}/`) has `default.nix`, `hardware-configuration.nix`, and `user.nix`.
+`perClass` applies `self.modules.<class>.default`. Each host dir (`hosts/{name}/`) has `default.nix` plus `hardware-configuration.nix` and `user.nix` where applicable; everything else is opted into by importing aspects (e.g. `self.modules.nixos.graphical`, `self.modules.nixos.rdatar`).
 
 ### Module Hierarchy
 
 ```
 modules/
-  global/    — olympus option declarations (aspects, packages)
-  shared/    — applied to ALL hosts (user creation, fonts, nix settings, home-manager setup)
-  nixos/     — NixOS-only (hardware, graphical, system, services)
-  darwin/    — macOS-only (system prefs, homebrew, nix settings)
-  home/      — Home Manager modules (programs, env, XDG)
-  flake/     — flake-parts modules (formatter, packages, args)
+  meta.nix          — the only custom option: flake.meta.defaults (default programs)
+  hosts.nix         — easy-hosts configuration
+  home-manager.nix  — flake.modules.{nixos,darwin}.home-manager aspect (imported by graphical umbrellas only)
+  users/            — per-user OS account aspects (flake.modules.nixos.rdatar, flake.modules.darwin.rohandatar)
+  shared/           — generic.shared aspect applied to all hosts (base, nixpkgs, variables)
+  nixos/            — NixOS-only aspects (hardware, graphical, system, services)
+  darwin/           — macOS-only aspects (system prefs, homebrew, nix settings)
+  home/             — Home Manager aspects; per-user configs in _{username}/ (import-tree-skipped plain HM modules)
+  flake/            — flake-parts plumbing (formatter, packages, args, modules)
 ```
 
-### The `olympus` Namespace
+### Aspects
 
-All custom options live under `olympus.*` to avoid polluting the global namespace:
-- `olympus.aspects.{graphical,server}.enable` — feature toggles that gate entire feature sets
-- `olympus.system.{users,cpu,gpu,sound,bluetooth,emulation}` — hardware/system options
-- `olympus.services.{arr,homepage}` — service toggles
-- `olympus.programs.defaults.{shell,terminal,editor,browser,launcher,screenLocker}` — default programs
+Features are organized as aspects under `flake.modules.<class>.<name>`. Hosts opt in by importing the relevant aspect (e.g. `self.modules.nixos.graphical`). Feature enablement is **import-based**: there are no enable flags — importing an aspect enables it. The only custom option is `flake.meta.defaults` (flake-level, `modules/meta.nix`); Home Manager aspect files read it by closing over the flake-parts `config` at the top of the file.
 
 ### Home Manager Integration
 
-Configured in `modules/shared/default.nix` with `useGlobalPkgs = true` and `useUserPackages = true`. Per-user configs live in `home/{username}/`. Shared home modules from `modules/home/` are applied to all users.
+Home Manager is a graphical-host concern: `flake.modules.<class>.home-manager` (in `modules/home-manager.nix`) is imported by the `graphical` umbrella aspects, with `useGlobalPkgs = true` and `useUserPackages = true`. Server hosts have **no home-manager** — they get self-contained wrapped tools (`modules/wrapped/`) via `server-base` instead. Per-user configs live in `modules/home/_{username}/` (underscore-prefixed so import-tree skips them; the files inside are plain HM modules), exposed as `flake.modules.homeManager.{username}` by `modules/home/users.nix` and attached in each host's `user.nix` (`home-manager.users.<name>.imports`).
 
 ### Secrets
 
@@ -79,6 +82,6 @@ Managed with Agenix. Encrypted `.age` files in `secrets/`. Never commit plaintex
 
 - **Formatter**: Always run `nix fmt` before committing. The `nx switch` command does this automatically.
 - **keep-sorted**: Lists marked with `# keep-sorted start` / `# keep-sorted end` are auto-sorted by the formatter. Add new items anywhere in the block; they'll be sorted on format.
-- **Module pattern**: New modules should define options under the `olympus` namespace and use `mkIf` to gate configuration on the relevant aspect/option.
-- **Conditional config**: Use `lib.mkIf config.olympus.aspects.graphical.enable` to gate graphical-only settings. Use `_class` checks for NixOS vs Darwin differences.
+- **Module pattern**: New modules should define `flake.modules.<class>.<name>` aspects. Never use `pkgs`, `config`, or `osConfig` at the top-level flake-parts function — those belong inside the aspect value.
+- **Conditional config**: Gate features by import, not flags — graphical-only settings belong in aspects imported by the `graphical` umbrellas. Use `_class` checks for NixOS vs Darwin differences when a single file defines both classes, and `pkgs.stdenv.hostPlatform` checks for platform differences inside Home Manager modules.
 - **CI**: Pushes trigger `nix flake check --all-systems` on both Linux and macOS runners. Flake lock is auto-updated on a schedule (Tue/Thu) with auto-merge after checks pass.
