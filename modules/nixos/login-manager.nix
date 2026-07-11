@@ -35,6 +35,10 @@
           enable = true;
           greeter-args = "--session Niri";
         };
+
+        # noctalia's greeter sync escalates via pkexec, which needs the setuid
+        # wrapper (no longer enabled by security.polkit.enable alone)
+        security.polkit.enablePkexecWrapper = true;
       };
     };
 }
