@@ -152,7 +152,11 @@
           clipboard_enabled = true;
           corner_radius_scale = 1;
           font_family = "SFPro Nerd Font";
+          # run0 (the default escalator) cannot ask for a password when
+          # launched from the shell GUI; pkexec goes through the polkit agent
+          greeter_sync.privilege_command = "pkexec";
           launch_apps_as_systemd_services = true;
+          polkit_agent = true;
           settings_show_advanced = true;
           ui_scale = 1.2;
           mpris.blacklist = [ ];
