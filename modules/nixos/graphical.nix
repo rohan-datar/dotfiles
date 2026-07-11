@@ -12,7 +12,6 @@
       self.modules.nixos.home-manager
       self.modules.nixos.hyprland
       self.modules.nixos.login-manager
-      self.modules.nixos.noctalia-greeter
       self.modules.nixos.logs
       self.modules.nixos.runners
       self.modules.nixos.wayland
