@@ -4,7 +4,7 @@ let
     {
       environment.systemPackages = builtins.attrValues {
         inherit (pkgs)
-          firefox
+          # firefox
           fastfetch
           obsidian
           discord

@@ -1,5 +1,4 @@
 {
-  config,
   inputs,
   options,
   pkgs,
@@ -15,6 +14,7 @@ in
   ];
 
   config = {
+    home.pointerCursor.enable = isGui;
     catppuccin = {
       autoEnable = true;
       enable = true;

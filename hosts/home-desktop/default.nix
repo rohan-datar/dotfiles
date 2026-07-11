@@ -22,6 +22,8 @@ in
     self.modules.nixos.printing
   ];
 
+  services.displayManager.noctalia-greeter.enable = true;
+
   environment.variables = {
     FLAKE = "/home/rdatar/nix";
     NH_FLAKE = "/home/rdatar/nix";
@@ -44,7 +46,6 @@ in
     pkgs.wl-clipboard
     pkgs.libnotify
     pkgs.glib
-    pkgs.swift
     # pkgs.thunderbird
     pkgs.cifs-utils
     pkgs.nautilus
