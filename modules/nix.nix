@@ -21,6 +21,7 @@ let
           automatic = true;
           options = "--delete-older-than 10d";
         };
+        optimise.automatic = true;
 
         channel.enable = false;
 

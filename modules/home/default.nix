@@ -9,7 +9,6 @@
     ./_internal/carapace.nix
     ./_internal/direnv.nix
     ./_internal/git.nix
-    ./_internal/nh.nix
     ./_internal/nix-index.nix
     ./_internal/ssh.nix
     ./_internal/zsh.nix
@@ -29,7 +28,6 @@
       self.modules.homeManager.carapace
       self.modules.homeManager.direnv
       self.modules.homeManager.git
-      self.modules.homeManager.nh
       self.modules.homeManager.nix-index
       self.modules.homeManager.ssh
       self.modules.homeManager.zsh

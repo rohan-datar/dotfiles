@@ -116,6 +116,12 @@ do_update() {
   NX_SKIP_CHECK=1 do_switch update
 }
 
+do_clean() {
+  local keep="${1:-3}"
+  [[ $keep =~ ^[0-9]+$ ]] || die "clean: expected a generation count, got '$keep'"
+  nh clean all --keep "$keep" --keep-one --optimise
+}
+
 usage() {
   cat <<USAGE
 Usage: nx <command>
@@ -123,6 +129,7 @@ Usage: nx <command>
 Commands (aliases):
   switch, s     Format, check (warn), rebuild OS+HM, commit if repo changed
   update, u     Pull; update lock; check (require); then 'switch'
+  clean, c      Run garbage collection and optimize the nix store
   help, h       Show this help
 
 Env:
@@ -136,6 +143,7 @@ shift || true
 case "$cmd" in
 switch | s) do_switch "$@" ;;
 update | u) do_update "$@" ;;
+clean | c) do_clean "$@" ;;
 help | h | --help | -h) usage ;;
 *)
   usage
