@@ -14,7 +14,7 @@ in
         # keep automatic monitor config
         "monitor" = [
           ",preferred,auto,auto"
-          "HDMI-A-1,preferred,auto,auto"
+          "DP-3,preferred,auto,auto"
         ];
 
         # set alt as the mod key

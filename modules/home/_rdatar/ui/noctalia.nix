@@ -116,18 +116,18 @@
         lockscreen_widgets = {
           enabled = false;
           schema_version = 2;
-          widget_order = [ "lockscreen-login-box@HDMI-A-1" ];
+          widget_order = [ "lockscreen-login-box@DP-3" ];
           grid = {
             cell_size = 16;
             major_interval = 4;
             visible = true;
           };
-          widget."lockscreen-login-box@HDMI-A-1" = {
+          widget."lockscreen-login-box@DP-3" = {
             box_height = 0.0;
             box_width = 0.0;
             cx = 1280.0;
             cy = 1317.0;
-            output = "HDMI-A-1";
+            output = "DP-3";
             rotation = 0.0;
             type = "login_box";
           };
@@ -216,7 +216,7 @@
           };
           default.path = "/home/rdatar/.local/share/backgrounds/satellite.png";
           last.path = "/home/rdatar/.local/share/backgrounds/satellite.png";
-          monitors."HDMI-A-1".path = "/home/rdatar/.local/share/backgrounds/satellite.png";
+          monitors."DP-3".path = "/home/rdatar/.local/share/backgrounds/satellite.png";
         };
 
         weather = {
