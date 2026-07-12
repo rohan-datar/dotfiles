@@ -4,19 +4,6 @@
     {
       nixpkgs.config.cudaSupport = true;
 
-      # https://github.com/NixOS/nixpkgs/issues/540288 - update_deps.py needs
-      # git, which isn't available in the sandboxed build
-      nixpkgs.overlays = [
-        (final: prev: {
-          vulkan-validation-layers = prev.vulkan-validation-layers.overrideAttrs (old: {
-            cmakeFlags = [
-              "-DUPDATE_DEPS=OFF"
-            ]
-            ++ old.cmakeFlags;
-          });
-        })
-      ];
-
       environment.systemPackages = [
         pkgs.nvtopPackages.nvidia
         pkgs.vulkan-tools
