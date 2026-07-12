@@ -48,7 +48,6 @@ _: {
 
         outputs = {
           "DP-3" = {
-            mode = "2560x1440@119.999";
             variable-refresh-rate = { };
           };
         };
