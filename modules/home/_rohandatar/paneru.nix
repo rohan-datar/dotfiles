@@ -16,7 +16,7 @@
           0.75
         ];
         sliver_width = 2;
-        animation_speed = 8;
+        animation_speed = 4;
       };
 
       # Closest analogue to niri layout.gaps (screen-edge padding; paneru has
