@@ -59,10 +59,6 @@
           "cmd + shift - l"
           "cmd + shift - rightarrow"
         ];
-        window_swap_north = "cmd + shift - uparrow";
-        window_virtualmove_north = "cmd + shift - k";
-        window_swap_south = "cmd + shift - downarrow";
-        window_virtualmove_south = "cmd + shift - j";
 
         # resize
         window_grow = "cmd - equal";
@@ -84,6 +80,31 @@
 
         # quit (niri Ctrl+Alt+Delete)
         quit = "ctrl + alt - delete";
+
+        # workspaces
+        window_swap_north = "cmd + shift - uparrow";
+        window_virtualmove_north = "cmd + shift - k";
+        window_swap_south = "cmd + shift - downarrow";
+        window_virtualmove_south = "cmd + shift - j";
+
+        window_virtualnum_1 = "cmd - 1";
+        window_virtualmovenum_1 = "cmd + shift - 1";
+        window_virtualnum_2 = "cmd - 2";
+        window_virtualmovenum_2 = "cmd + shift - 2";
+        window_virtualnum_3 = "cmd - 3";
+        window_virtualmovenum_3 = "cmd + shift - 3";
+        window_virtualnum_4 = "cmd - 4";
+        window_virtualmovenum_4 = "cmd + shift - 4";
+        window_virtualnum_5 = "cmd - 5";
+        window_virtualmovenum_5 = "cmd + shift - 5";
+        window_virtualnum_6 = "cmd - 6";
+        window_virtualmovenum_6 = "cmd + shift - 6";
+        window_virtualnum_7 = "cmd - 7";
+        window_virtualmovenum_7 = "cmd + shift - 7";
+        window_virtualnum_8 = "cmd - 8";
+        window_virtualmovenum_8 = "cmd + shift - 8";
+        window_virtualnum_9 = "cmd - 9";
+        window_virtualmovenum_9 = "cmd + shift - 9";
       };
     };
   };
