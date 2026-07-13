@@ -16,7 +16,6 @@
           0.75
         ];
         sliver_width = 2;
-        virtual_workspace_animations = true;
         animation_speed = 8;
       };
 
