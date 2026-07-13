@@ -1,7 +1,6 @@
 {
   self,
   inputs,
-  lib,
   ...
 }:
 {
@@ -21,11 +20,6 @@
     shared = {
       modules = [
         self.modules.generic.shared
-        {
-          nixpkgs.overlays = [
-            inputs.llm-agents.overlays.default
-          ];
-        }
       ];
     };
 

@@ -1,11 +1,13 @@
+{ inputs, ... }:
 let
   aiPackages =
     { pkgs, ... }:
     {
       environment.systemPackages = builtins.attrValues {
-        inherit (pkgs.llm-agents)
+        inherit (inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system})
           claude-code
           omp
+          pi
           ;
       };
     };

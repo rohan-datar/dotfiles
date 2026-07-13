@@ -16,6 +16,8 @@ in
 
       services.openssh.enable = true;
 
+      services.fail2ban.enable = true;
+
       environment.variables.EDITOR = "nvim";
 
       # see https://www.openwall.com/lists/oss-security/2025/12/28/4
