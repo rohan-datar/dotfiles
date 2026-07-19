@@ -1,9 +1,9 @@
 let
-  home-media-user-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIManVcKWQ9IZCy7Kge/CgHg4ER07TAEPnvOuSiQMKupS";
-  home-media-user-rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5PieeZRD8Dbsab1V5cqUH8d9J+mP4vCLYL4apM8AH1rgXlfaDARtI61YXm9bd+IM+XUxTUnnGO/Seu/y6lvr41xyLrseAPMOpWVYRMbtdo2nCYZjYCKf8XRPoeheiJBZ8VVwHxMNuXeFaQccHkwB515mrXqgxOh/qAioi4quDg2WotT2QIPWuGBIqnMB7IaEvFJK1fCNMmCRskYn2DNt3R3lrgj6T+mNemf8NFeJ4t8AYnFOv2LqBhvT5MeI5lU5GpdPv6211DQy45MeQUTGCw91YMEi3f76zz6VikCEGeSXESnoZUcxXUXclqSkGHfmoDQxr8i0H8ZQKJZhpRmHxBBTe8x8gQJUAUjFOJULFnjewL66HzpZONN/pRE2JfZcYgnGxxmZ9OznNvpn97meQrMhsc43MEqGg2rrSAvBQdMuPGVkIFKr2cXochmSEIj0/idynyaZlMJgVWRrrLtep1Hy9Q91SHYZb+KMscBcDFGw71lzcHF+tGICs++523Ms=";
-  home-media-user-keys = [
-    home-media-user-ed25519
-    home-media-user-rsa
+  homelab-user-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIManVcKWQ9IZCy7Kge/CgHg4ER07TAEPnvOuSiQMKupS";
+  homelab-user-rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5PieeZRD8Dbsab1V5cqUH8d9J+mP4vCLYL4apM8AH1rgXlfaDARtI61YXm9bd+IM+XUxTUnnGO/Seu/y6lvr41xyLrseAPMOpWVYRMbtdo2nCYZjYCKf8XRPoeheiJBZ8VVwHxMNuXeFaQccHkwB515mrXqgxOh/qAioi4quDg2WotT2QIPWuGBIqnMB7IaEvFJK1fCNMmCRskYn2DNt3R3lrgj6T+mNemf8NFeJ4t8AYnFOv2LqBhvT5MeI5lU5GpdPv6211DQy45MeQUTGCw91YMEi3f76zz6VikCEGeSXESnoZUcxXUXclqSkGHfmoDQxr8i0H8ZQKJZhpRmHxBBTe8x8gQJUAUjFOJULFnjewL66HzpZONN/pRE2JfZcYgnGxxmZ9OznNvpn97meQrMhsc43MEqGg2rrSAvBQdMuPGVkIFKr2cXochmSEIj0/idynyaZlMJgVWRrrLtep1Hy9Q91SHYZb+KMscBcDFGw71lzcHF+tGICs++523Ms=";
+  homelab-user-keys = [
+    homelab-user-ed25519
+    homelab-user-rsa
   ];
 
   home-media-system-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPYALV0x6If58isPYKWvxsPoYPbBagPE9HAN360didH8";
@@ -12,7 +12,11 @@ let
     home-media-system-ed25519
     home-media-system-rsa
   ];
-  home-media-keys = home-media-system-keys ++ home-media-user-keys;
+  home-media-keys = home-media-system-keys ++ homelab-user-keys;
+
+  home-nas-system-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhTxnfP8wJU3mCZKKAZwesBb31QeQ0dSo/Lx0thyG6X";
+  home-nas-system-keys = [ home-nas-system-ed25519 ];
+  home-nas-keys = home-nas-system-keys ++ homelab-user-keys;
 
   user-home-desktop-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB2wVTZEDwBCIvmTEiKj3pUmhOR+W9qknzbVTXhM25h6";
   user-home-desktop-rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5S21/xsJ1FVhZydkl0zMiqcZUQrbPv07rhL1INIrm6J4DdaytzBTJEOzLa/CnDRaABTGnuIYOuLJ1dxTBTxuDDtUJex/totmJKxaSQdRbTRFeEq/wY3Y8eG9E2ELpmQTsEyKUNFIrCPmWBHwRCl7UrzSOoAwPSxC5trGbYeI/hvaY0ejn3xawXWEyXHhIYzsv38X903AQIPy0++hICJ58xnTZ4eRy2dDw9KkH9PB5zCc1QPt7VNq2oedOra8KpamTokubW2Q5k1fInSBU0/mhKAz/FYnpR+mhacoK5FuKcPCfcHSoJo2wzctWt93Ekm4/+lrxV6vj/XBjDmDsWC4BErIw0v8+4UMszUKOQBplEz4zAzYnuG6vttoDwKYw5JY9hpzswsc/2WUzQ4o3vMMtLSoQZ2JtMdO5NeWHAL20cnrLS+8joARQ0hw9RoypSDRWa6VwBwoOVjg7tZNf8agnB1Ga1hqBaAw6TqXxfX+KvQDfiET5Awgi3dc4MqrVSJU=";
@@ -37,7 +41,7 @@ let
     rdatar-macbook-rsa
   ];
 
-  allKeys = rdatar-desktop ++ home-desktop ++ rdatar-macbook ++ home-media-keys;
+  allKeys = rdatar-desktop ++ home-desktop ++ rdatar-macbook ++ home-media-keys ++ home-nas-keys;
 
 in
 {
@@ -45,4 +49,7 @@ in
   "AirVPN-America-WG.conf.age".publicKeys = home-media-keys;
   "homepage-env.age".publicKeys = home-media-keys;
   "nix-access-tokens.conf.age".publicKeys = allKeys;
+  # iCloud app-specific password for outbound alert mail (ZED/smartd on home-nas).
+  # rdatar-macbook included so it can be edited from the MacBook.
+  "smtp-password.age".publicKeys = home-nas-keys ++ rdatar-macbook;
 }

@@ -34,6 +34,9 @@
       home-media = {
         class = "nixos";
       };
+      home-nas = {
+        class = "nixos";
+      };
     };
   };
 }
