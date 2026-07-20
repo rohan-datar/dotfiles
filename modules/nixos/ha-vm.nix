@@ -7,6 +7,15 @@ _: {
       virtualisation.libvirtd.enable = true;
       programs.virt-manager.enable = true; # optional GUI over SSH -X / remote
 
+      # Web UI for the HAOS guest: VM state + console in the browser,
+      # nicer than virt-manager over X forwarding when the VM won't boot.
+      services.cockpit = {
+        enable = true;
+        port = 9090;
+        plugins = [ pkgs.cockpit-machines ];
+      };
+      networking.firewall.interfaces.br0.allowedTCPPorts = [ 9090 ];
+
       environment.systemPackages = [
         pkgs.virt-manager
         pkgs.virtiofsd
