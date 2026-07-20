@@ -21,6 +21,10 @@
     {
       imports = [ wlib.wrapperModules.fish ];
 
+      # The upstream module defaults to --no-config, which also disables
+      # reading/writing history; drop it so history persists across sessions.
+      flags."--no-config" = false;
+
       abbreviations = {
         lg = "lazygit";
         ls = "ls --color";
