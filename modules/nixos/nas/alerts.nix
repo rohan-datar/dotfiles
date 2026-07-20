@@ -18,7 +18,7 @@ _: {
           # iCloud wants the account's primary address as the username; the custom-domain
           # address works as From once it's an alias on the account.
           user = "rohandatar@icloud.com";
-          from = "me@rdatar.com";
+          from = "nas@rdatar.com";
           passwordeval = "cat ${config.age.secrets.smtp-password.path}";
         };
       };
