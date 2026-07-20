@@ -28,7 +28,6 @@ _: {
       # SMART pre-failure indicators: journal + email.
       services.smartd = {
         enable = true;
-        notifications.test = true;
         notifications.mail = {
           enable = true;
           recipient = "me@rdatar.com";
