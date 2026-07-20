@@ -19,7 +19,9 @@ _: {
           # address works as From once it's an alias on the account.
           user = "rohandatar@icloud.com";
           from = "nas@rdatar.com";
-          passwordeval = "cat ${config.age.secrets.smtp-password.path}";
+          # Absolute path required: passwordeval runs inside arbitrary service
+          # contexts (smartd's unit has no coreutils in PATH, so bare `cat` fails).
+          passwordeval = "${pkgs.uutils-coreutils-noprefix}/bin/cat ${config.age.secrets.smtp-password.path}";
         };
       };
 
