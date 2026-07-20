@@ -21,10 +21,6 @@
     {
       imports = [ wlib.wrapperModules.fish ];
 
-      # The upstream module defaults to --no-config, which also disables
-      # reading/writing history; drop it so history persists across sessions.
-      flags."--no-config" = false;
-
       abbreviations = {
         lg = "lazygit";
         ls = "ls --color";
@@ -48,6 +44,13 @@
       # `status is-interactive`. Tools are resolved from PATH — the wrapped
       # versions are installed via environment.systemPackages (base.nix).
       configFile.content = ''
+        # --no-config disables history by setting fish_history to an invalid
+        # session name ("||") and enabling fish_private_mode; undo both so
+        # history persists across sessions. Side effect: `fish --private` on
+        # the wrapped fish needs fish_private_mode re-set manually.
+        set -e fish_private_mode
+        set -g fish_history fish
+
         # Key bindings
         function fish_user_key_bindings
           # Execute this once per mode that emacs bindings should be used in
@@ -69,6 +72,16 @@
 
           # Catppuccin Mocha syntax highlighting + pager colors
           source ${catppuccinTheme}
+
+          # --no-config leaves fish_complete_path empty, dropping completions
+          # shipped by nix-installed packages. Built-in completions still work
+          # via fish's internal fallback, so only the vendor dirs are needed.
+          for profile in ~/.nix-profile /etc/profiles/per-user/$USER /run/current-system/sw /nix/var/nix/profiles/default
+            test -d $profile/share/fish/vendor_completions.d
+            and set -a fish_complete_path $profile/share/fish/vendor_completions.d
+          end
+
+          command -q carapace; and carapace _carapace fish | source
 
           any-nix-shell fish --info-right | source
           zoxide init --cmd cd fish | source
