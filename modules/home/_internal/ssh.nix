@@ -15,6 +15,16 @@ _: {
           User = "rdatar";
           IdentityFile = "~/.ssh/id_ed25519";
         };
+        "homenas" = {
+          HostName = "10.10.1.10";
+          User = "rdatar";
+          IdentityFile = "~/.ssh/id_ed25519";
+        };
+        "homeserver" = {
+          HostName = "10.10.1.12";
+          User = "rdatar";
+          IdentityFile = "~/.ssh/id_ed25519";
+        };
       };
     };
   };
