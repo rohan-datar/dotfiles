@@ -18,6 +18,10 @@ let
   home-nas-system-keys = [ home-nas-system-ed25519 ];
   home-nas-keys = home-nas-system-keys ++ homelab-user-keys;
 
+  home-server-system-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN31h8o/Mo0cBJGV4nfSKEFZ03cy3e5mJ/Ic2VTsiPQN";
+  home-server-system-keys = [ home-server-system-ed25519 ];
+  home-server-keys = home-server-system-keys ++ homelab-user-keys;
+
   user-home-desktop-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB2wVTZEDwBCIvmTEiKj3pUmhOR+W9qknzbVTXhM25h6";
   user-home-desktop-rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5S21/xsJ1FVhZydkl0zMiqcZUQrbPv07rhL1INIrm6J4DdaytzBTJEOzLa/CnDRaABTGnuIYOuLJ1dxTBTxuDDtUJex/totmJKxaSQdRbTRFeEq/wY3Y8eG9E2ELpmQTsEyKUNFIrCPmWBHwRCl7UrzSOoAwPSxC5trGbYeI/hvaY0ejn3xawXWEyXHhIYzsv38X903AQIPy0++hICJ58xnTZ4eRy2dDw9KkH9PB5zCc1QPt7VNq2oedOra8KpamTokubW2Q5k1fInSBU0/mhKAz/FYnpR+mhacoK5FuKcPCfcHSoJo2wzctWt93Ekm4/+lrxV6vj/XBjDmDsWC4BErIw0v8+4UMszUKOQBplEz4zAzYnuG6vttoDwKYw5JY9hpzswsc/2WUzQ4o3vMMtLSoQZ2JtMdO5NeWHAL20cnrLS+8joARQ0hw9RoypSDRWa6VwBwoOVjg7tZNf8agnB1Ga1hqBaAw6TqXxfX+KvQDfiET5Awgi3dc4MqrVSJU=";
 
@@ -41,7 +45,13 @@ let
     rdatar-macbook-rsa
   ];
 
-  allKeys = rdatar-desktop ++ home-desktop ++ rdatar-macbook ++ home-media-keys ++ home-nas-keys;
+  allKeys =
+    rdatar-desktop
+    ++ home-desktop
+    ++ rdatar-macbook
+    ++ home-media-keys
+    ++ home-nas-keys
+    ++ home-server-keys;
 
 in
 {

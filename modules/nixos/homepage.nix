@@ -158,20 +158,6 @@
               {
                 "Infrastructure" = [
                   {
-                    "TrueNAS" = {
-                      icon = "truenas.png";
-                      href = "https://store.rdatar.com/";
-                      widgets = [
-                        {
-                          type = "truenas";
-                          version = 2;
-                          url = "http://10.10.1.10/";
-                          key = "{{HOMEPAGE_VAR_TRUENAS_KEY}}";
-                        }
-                      ];
-                    };
-                  }
-                  {
                     "Adguard" = {
                       icon = "adguard-home.png";
                       href = "https://dns.rdatar.com/";
