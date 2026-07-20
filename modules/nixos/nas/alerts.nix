@@ -17,7 +17,7 @@ _: {
           tls_starttls = true;
           # iCloud wants the account's primary address as the username; the custom-domain
           # address works as From once it's an alias on the account.
-          user = "rohandatar2000@gmail.com";
+          user = "rohandatar@icloud.com";
           from = "me@rdatar.com";
           passwordeval = "cat ${config.age.secrets.smtp-password.path}";
         };
