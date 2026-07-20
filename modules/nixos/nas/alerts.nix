@@ -30,7 +30,7 @@ _: {
         notifications.mail = {
           enable = true;
           recipient = "me@rdatar.com";
-          sender = "me@rdatar.com";
+          sender = "nas@rdatar.com";
         };
       };
 
