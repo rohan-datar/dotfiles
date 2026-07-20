@@ -51,7 +51,7 @@ _: {
         unbind %
         bind | split-window -h
 
-        unbind "
+        unbind '"'
         bind - split-window -v
 
         bind j resize-pane -D 5
