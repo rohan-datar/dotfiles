@@ -1,4 +1,4 @@
-{ ... }:
+_:
 {
   flake.modules.nixos.ha-vm =
     { pkgs, ... }:
