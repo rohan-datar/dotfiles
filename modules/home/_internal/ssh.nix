@@ -21,7 +21,7 @@ _: {
           IdentityFile = "~/.ssh/id_ed25519";
         };
         "homeserver" = {
-          HostName = "10.10.1.12";
+          HostName = "10.10.1.13";
           User = "rdatar";
           IdentityFile = "~/.ssh/id_ed25519";
         };
