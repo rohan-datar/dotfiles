@@ -8,6 +8,7 @@
     self.modules.nixos.intel-cpu # i5-7500T
     self.modules.nixos.ha-vm
     self.modules.nixos.keycloak
+    self.modules.nixos.lldap # identity source of truth (Keycloak federates it)
     # Phase 7 adds: self.modules.nixos.monitoring
   ];
 
