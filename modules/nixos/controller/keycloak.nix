@@ -12,6 +12,8 @@ _: {
           passwordFile = config.age.secrets.keycloak-db-password.path;
         };
 
+        initialAdminPassword = "admin";
+
         settings = {
           hostname = "auth.datars.org";
           http-enabled = true;
