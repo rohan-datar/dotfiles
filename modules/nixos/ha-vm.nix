@@ -2,9 +2,10 @@ _: {
   flake.modules.nixos.ha-vm =
     { pkgs, ... }:
     {
-      # OVMF (UEFI firmware for the HAOS guest) ships with QEMU by default;
-      # the old qemu.ovmf option was removed from nixpkgs.
-      virtualisation.libvirtd.enable = true;
+      virtualisation.libvirtd = {
+        enable = true;
+        dbus.enable = true;
+      };
       programs.virt-manager.enable = true; # optional GUI over SSH -X / remote
 
       # Web UI for the HAOS guest: VM state + console in the browser,
