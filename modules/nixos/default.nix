@@ -10,6 +10,7 @@
       self.modules.nixos.localization
       self.modules.nixos.nix
       self.modules.nixos.oomd
+      self.modules.nixos.overlays
       self.modules.nixos.packages
       self.modules.nixos.serial
       self.modules.nixos.shell
