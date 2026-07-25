@@ -91,7 +91,7 @@
     };
 
     nixarr = {
-      url = "github:nix-media-server/nixarr#51de21b1471f1a696a4ca941d1bfd6b4d5ebe328"; # until https://github.com/nix-media-server/nixarr/pull/178 is merged
+      url = "github:nix-media-server/nixarr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
