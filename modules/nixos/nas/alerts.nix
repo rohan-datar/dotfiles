@@ -5,7 +5,7 @@ _: {
       age.secrets.smtp-password.file = ../../../secrets/smtp-password.age;
 
       # Outbound mail via iCloud SMTP (see Apple support 102525). Auth uses an
-      # app-specific password stored in agenix; regular Apple ID passwords are rejected.
+      # app-specific password stored in ragenix; regular Apple ID passwords are rejected.
       programs.msmtp = {
         enable = true;
         setSendmail = true; # provides /run/wrappers/bin/sendmail (used by smartd)

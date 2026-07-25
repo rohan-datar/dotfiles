@@ -40,7 +40,7 @@ let
         lazygit
         gh
         ;
-      agenix = inputs.agenix.packages.${system}.default;
+      ragenix = inputs.ragenix.packages.${system}.default;
     });
 in
 {

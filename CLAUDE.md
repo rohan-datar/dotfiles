@@ -76,7 +76,7 @@ Home Manager is a graphical-host concern: `flake.modules.<class>.home-manager` (
 
 ### Secrets
 
-Managed with Agenix. Encrypted `.age` files in `secrets/`. Never commit plaintext secrets.
+Managed with Ragenix. Encrypted `.age` files in `secrets/`. Never commit plaintext secrets.
 
 ## Conventions
 

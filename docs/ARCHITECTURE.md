@@ -87,7 +87,7 @@ Features are enabled by importing aspects — there are no enable flags. For exa
 
 ## Secret Management
 
-Secrets are managed with [Agenix](https://github.com/ryantm/agenix) and stored in `secrets/`. Never commit plaintext secrets.
+Secrets are managed with [Ragenix](https://github.com/yaxitech/ragenix) and stored in `secrets/`. Never commit plaintext secrets.
 
 ## Package Management
 
@@ -121,4 +121,4 @@ Hardware-specific aspects are under `modules/nixos/`:
 - `modules/home/` — Home Manager aspects, including per-user configs in `_{username}/`
 - `modules/shared/` — class-agnostic shared modules
 - `hosts/{hostname}/` — per-host configuration
-- `secrets/` — agenix-encrypted secrets
+- `secrets/` — ragenix-encrypted secrets

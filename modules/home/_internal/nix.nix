@@ -5,8 +5,8 @@ _: {
       "${config.home.homeDirectory}/.ssh/id_rsa"
     ];
 
-    age.secretsDir = "${config.home.homeDirectory}/.agenix";
-    age.secretsMountPoint = "${config.home.homeDirectory}/.agenix.d";
+    age.secretsDir = "${config.home.homeDirectory}/.ragenix";
+    age.secretsMountPoint = "${config.home.homeDirectory}/.ragenix.d";
 
     age.secrets.nix-access-tokens = {
       file = ../../../secrets/nix-access-tokens.conf.age;

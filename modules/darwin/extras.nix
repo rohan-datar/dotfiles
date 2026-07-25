@@ -3,7 +3,7 @@ _: {
     { inputs, ... }:
     {
       imports = [
-        inputs.agenix.darwinModules.default
+        inputs.ragenix.darwinModules.default
       ];
 
       # Expose `services.paneru` to home-manager on darwin (macOS only).

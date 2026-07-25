@@ -59,7 +59,7 @@ in
   "AirVPN-America-WG.conf.age".publicKeys = home-media-keys;
   "homepage-env.age".publicKeys = home-media-keys;
   "nix-access-tokens.conf.age".publicKeys = allKeys;
-  # iCloud app-specific password for outbound alert mail (ZED/smartd on home-nas).
-  # rdatar-macbook included so it can be edited from the MacBook.
   "smtp-password.age".publicKeys = home-nas-keys ++ rdatar-macbook;
+  "keycloak-db-password.age".publicKeys = home-controller-keys;
+
 }

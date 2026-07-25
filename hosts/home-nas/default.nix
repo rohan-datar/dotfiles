@@ -4,7 +4,7 @@
     ./hardware-configuration.nix
     ./disks.nix
     self.modules.nixos.rdatar # your admin account + ssh keys
-    self.modules.nixos.server # openssh, fail2ban, agenix, base server tools
+    self.modules.nixos.server # openssh, fail2ban, ragenix, base server tools
     self.modules.nixos.intel-cpu # N100
     self.modules.nixos.nas-zfs
     self.modules.nixos.nas-samba
