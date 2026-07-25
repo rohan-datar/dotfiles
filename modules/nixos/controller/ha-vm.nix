@@ -21,6 +21,8 @@ _: {
         allowed-origins = [
           "https://10.10.1.13:9090"
           "wss://10.10.1.13:9090"
+          "https://controller.rdatar.com"
+          "wss://controller.rdatar.com"
         ];
         settings.WebService = {
           # Caddy terminates TLS and proxies plain http; without this cockpit
