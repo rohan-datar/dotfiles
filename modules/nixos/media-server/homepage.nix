@@ -6,7 +6,7 @@
         {
           age.secrets = {
             homepage-env = {
-              file = ../../secrets/homepage-env.age;
+              file = ../../../secrets/homepage-env.age;
               owner = "root";
               group = "users";
               mode = "400";
@@ -100,7 +100,7 @@
                   {
                     "Prowlarr" = {
                       icon = "prowlarr.png";
-                      href = "http://10.10.1.11:9696/";
+                      href = "http://trackers.rdatar.com/";
                       widgets = [
                         {
                           type = "prowlarr";
@@ -207,6 +207,12 @@
                     "Home Controller" = {
                       icon = "cockpit.png";
                       href = "https://controller.rdatar.com";
+                    };
+                  }
+                  {
+                    "Keycloak" = {
+                      icon = "keycloak.png";
+                      href = "https://auth.datars.org";
                     };
                   }
                   # {

@@ -6,7 +6,7 @@
       (
         { config, ... }:
         {
-          age.secrets.wgconf.file = ../../secrets/AirVPN-America-WG.conf.age;
+          age.secrets.wgconf.file = ../../../secrets/AirVPN-America-WG.conf.age;
 
           nixarr = {
             enable = true;
