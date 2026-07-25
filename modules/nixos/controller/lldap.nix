@@ -11,7 +11,8 @@ _: {
       services.lldap = {
         enable = true;
         environmentFile = config.age.secrets.lldap-env.path;
-        environment.LLDAP_LDAP_USER_PASS_FILE = config.age.secrets.lldap-admin-password.path;
+        # %d = the systemd credentials dir; see LoadCredential below.
+        environment.LLDAP_LDAP_USER_PASS_FILE = "%d/admin-password";
 
         # The admin password is applied on first start (empty DB) and may then be
         # changed in the web UI; we deliberately do not force-reset it on every
@@ -30,6 +31,13 @@ _: {
           ldap_user_email = "me@rdatar.com";
         };
       };
+
+      # lldap runs as a DynamicUser and reads the password file itself, so the
+      # root-owned agenix path is unreadable to it (and agenix can't chown to a
+      # user that doesn't exist yet); LoadCredential hands the file across.
+      systemd.services.lldap.serviceConfig.LoadCredential = [
+        "admin-password:${config.age.secrets.lldap-admin-password.path}"
+      ];
 
       # LAN bridge only; the default sqlite DB lives in /var/lib/lldap.
       networking.firewall.interfaces.br0.allowedTCPPorts = [

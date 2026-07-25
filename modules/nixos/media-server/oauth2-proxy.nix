@@ -27,6 +27,9 @@ _: {
         extraConfig = {
           whitelist-domain = ".media.rdatar.com"; # allowed post-login redirect targets
           code-challenge-method = "S256"; # PKCE
+          # Keycloak is the only provider — go straight there instead of showing
+          # the /oauth2/sign_in button page first.
+          skip-provider-button = true;
         };
       };
     };
