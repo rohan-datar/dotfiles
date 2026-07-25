@@ -62,5 +62,5 @@ in
   "nix-access-tokens.conf.age".publicKeys = allKeys;
   "smtp-password.age".publicKeys = home-nas-keys ++ rdatar-macbook;
   "keycloak-db-password.age".publicKeys = home-controller-keys;
-
+  "oauth2-proxy-env.age".publicKeys = home-controller-keys;
 }
