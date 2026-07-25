@@ -13,6 +13,18 @@ _: {
         enable = true;
         port = 9090;
         plugins = [ pkgs.cockpit-machines ];
+
+        allowed-origins = [
+          "https://10.10.1.13:9090"
+          "wss://10.10.1.13:9090"
+        ];
+        settings.WebService = {
+          # Caddy terminates TLS and proxies plain http; without this cockpit
+          # redirects http→https and Firefox loops. LAN-only exposure.
+          AllowUnencrypted = true;
+          ProtocolHeader = "X-Forwarded-Proto";
+          ForwardedForHeader = "X-Forwarded-For";
+        };
       };
       networking.firewall.interfaces.br0.allowedTCPPorts = [ 9090 ];
 
