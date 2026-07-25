@@ -14,11 +14,8 @@
     self.modules.nixos.intel-cpu
     self.modules.nixos.intel-gpu
     self.modules.nixos.bluetooth
-    # *.media.rdatar.com ingress (Caddy + forward auth). Keep these COMMENTED
-    # until secrets/oauth2-proxy-env.age and secrets/cloudflare-dns-token.age
-    # exist — referencing a missing .age path breaks evaluation.
-    # self.modules.nixos.media-oauth2-proxy
-    # self.modules.nixos.media-ingress
+    self.modules.nixos.media-oauth2-proxy
+    self.modules.nixos.media-ingress
   ];
 
   environment.variables = {
