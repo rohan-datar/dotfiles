@@ -21,7 +21,7 @@
   };
 
   networking = {
-    hostName = "home-server";
+    hostName = "home-controller";
     bridges.br0.interfaces = [ "eno1" ];
     interfaces.br0.ipv4.addresses = [
       {

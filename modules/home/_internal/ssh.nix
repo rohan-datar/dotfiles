@@ -20,7 +20,7 @@ _: {
           User = "rdatar";
           IdentityFile = "~/.ssh/id_ed25519";
         };
-        "homeserver" = {
+        "homecontroller" = {
           HostName = "10.10.1.13";
           User = "rdatar";
           IdentityFile = "~/.ssh/id_ed25519";

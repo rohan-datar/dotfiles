@@ -37,7 +37,7 @@
       home-nas = {
         class = "nixos";
       };
-      home-server = {
+      home-controller = {
         class = "nixos";
       };
     };
