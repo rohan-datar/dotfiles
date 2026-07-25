@@ -49,9 +49,10 @@ let
     rdatar-desktop
     ++ home-desktop
     ++ rdatar-macbook
-    ++ home-media-keys
-    ++ home-nas-keys
-    ++ home-controller-keys;
+    ++ homelab-user-keys
+    ++ home-media-system-keys
+    ++ home-controller-system-keys
+    ++ home-nas-system-keys;
 
 in
 {
