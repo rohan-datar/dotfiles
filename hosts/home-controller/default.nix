@@ -7,7 +7,7 @@
     self.modules.nixos.server # openssh, fail2ban, ragenix, base server tools
     self.modules.nixos.intel-cpu # i5-7500T
     self.modules.nixos.ha-vm
-    # Phase 5 adds: self.modules.nixos.authentik
+    self.modules.nixos.keycloak
     # Phase 7 adds: self.modules.nixos.monitoring
   ];
 
