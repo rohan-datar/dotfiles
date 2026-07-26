@@ -39,9 +39,18 @@ _: {
         pkgs.virtiofsd
       ];
 
-      # udev rules give the dongles stable /dev symlinks; pass THOSE to the guest by device path.
+      # Both dongles go to the guest by USB passthrough, so the host must never bind them:
+      # libvirt unbinds at VM start, but a USB reset re-probes and the host wins the race,
+      # leaving the guest with a dead handle. Host runs no Bluetooth stack of its own.
+      boot.blacklistedKernelModules = [
+        "cp210x"
+        "btusb"
+      ];
+
+      # Vestigial: the BT dongle is also passed through as a USB device, so this symlink is
+      # unused. Harmless (a usb-subsystem SYMLINK binds no driver), kept only as a handle for
+      # host-side debugging.
       services.udev.extraRules = ''
-        SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="zigbee", GROUP="dialout"
         SUBSYSTEM=="usb", ATTRS{idVendor}=="2357", SYMLINK+="btusb"
       '';
     };
