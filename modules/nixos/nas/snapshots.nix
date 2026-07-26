@@ -6,6 +6,10 @@ _: {
         useTemplate = [ "production" ];
         recursive = true;
       };
+      datasets."data-pool/paperless" = {
+        useTemplate = [ "production" ];
+        recursive = true;
+      };
       templates.production = {
         hourly = 36;
         daily = 30;

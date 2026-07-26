@@ -12,6 +12,7 @@
     self.modules.nixos.nas-snapshots
     self.modules.nixos.nas-alerts
     self.modules.nixos.nas-cockpit
+    self.modules.nixos.nas-paperless
   ];
 
   # Match the UID/GID rdatar had on TrueNAS so ownership of existing pool data
