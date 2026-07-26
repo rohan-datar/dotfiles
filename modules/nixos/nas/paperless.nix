@@ -24,7 +24,12 @@ _: {
           PAPERLESS_URL = "https://docs.datars.org";
           PAPERLESS_OCR_LANGUAGE = "eng";
           PAPERLESS_APPS = "allauth.socialaccount.providers.openid_connect";
-          PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS = "false";
+          # A first OIDC login IS an allauth "signup" (it must create the local
+          # Django user), so social signups stay on — Keycloak already gates who
+          # can get that far. Local registration is a separate setting and off.
+          PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS = "true";
+          PAPERLESS_SOCIAL_AUTO_SIGNUP = "true"; # skip the confirm-signup form
+          PAPERLESS_ACCOUNT_ALLOW_SIGNUPS = "false";
         };
       };
 
