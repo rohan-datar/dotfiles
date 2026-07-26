@@ -61,7 +61,7 @@ _: {
           # Bazarr
           "subtitles.media.rdatar.com" = {
             useACMEHost = "media.rdatar.com";
-            extraConfig = protected 9696;
+            extraConfig = protected 6767;
           };
         };
       };

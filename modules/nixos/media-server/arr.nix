@@ -7,6 +7,7 @@
         { config, ... }:
         {
           age.secrets.wgconf.file = ../../../secrets/AirVPN-America-WG.conf.age;
+          age.secrets.qui-env.file = ../../../secrets/qui-env.age;
 
           nixarr = {
             enable = true;
@@ -82,6 +83,7 @@
             VDPAU_DRIVER = "va_gl";
             LIBVA_DRIVER_NAME = "iHD";
           };
+          systemd.services.qui.serviceConfig.EnvironmentFile = config.age.secrets.qui-env.path;
         }
       )
     ];
