@@ -53,14 +53,13 @@ _: {
             useACMEHost = "media.rdatar.com";
             extraConfig = protected 7878;
           };
-          # qui, the WebUI nixarr puts in front of qBittorrent
-          # (nixarr.qbittorrent.webuiPort; qBittorrent's own UI stays on 8085).
-          "torrent.media.rdatar.com" = {
-            useACMEHost = "media.rdatar.com";
-            extraConfig = protected 5252;
-          };
           # Prowlarr
           "trackers.media.rdatar.com" = {
+            useACMEHost = "media.rdatar.com";
+            extraConfig = protected 9696;
+          };
+          # Bazarr
+          "subtitles.media.rdatar.com" = {
             useACMEHost = "media.rdatar.com";
             extraConfig = protected 9696;
           };

@@ -12,8 +12,8 @@
     browser = "zen";
     editor = "nvim";
     pager = "less -FR";
-    manpager = "nvim --clean +Man!";
-    launcher = "quickshell";
+    manpager = "nvim +Man!";
+    launcher = "vicinae";
     bar = "quickshell";
     screenLocker = "noctalia";
   };

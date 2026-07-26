@@ -24,6 +24,7 @@
               title = "Homelab";
               headerStyle = "boxed";
               color = "slate";
+              disableIndexing = true;
             };
 
             widgets = [
@@ -60,7 +61,7 @@
                   {
                     "Sonarr" = {
                       icon = "sonarr.png";
-                      href = "https://tv.rdatar.com/";
+                      href = "https://tv.media.rdatar.com/";
                       widgets = [
                         {
                           type = "sonarr";
@@ -73,7 +74,7 @@
                   {
                     "Radarr" = {
                       icon = "radarr.png";
-                      href = "https://movie.rdatar.com/";
+                      href = "https://movie.media.rdatar.com/";
                       widgets = [
                         {
                           type = "radarr";
@@ -100,7 +101,7 @@
                   {
                     "Prowlarr" = {
                       icon = "prowlarr.png";
-                      href = "http://trackers.rdatar.com/";
+                      href = "http://trackers.media.rdatar.com/";
                       widgets = [
                         {
                           type = "prowlarr";
@@ -113,7 +114,7 @@
                   {
                     "Bazarr" = {
                       icon = "bazarr.png";
-                      href = "http://10.10.1.11:6767/";
+                      href = "http://subtitles.media.rdatar.com/";
                       widgets = [
                         {
                           type = "bazarr";
@@ -130,7 +131,7 @@
                   {
                     "Jellyfin" = {
                       icon = "jellyfin.png";
-                      href = "https://watch.rdatar.com/";
+                      href = "https://watch.datars.org/";
                       widgets = [
                         {
                           type = "jellyfin";

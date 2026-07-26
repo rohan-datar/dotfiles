@@ -66,4 +66,5 @@ in
   "lldap-admin-password.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "oauth2-proxy-env.age".publicKeys = home-media-keys;
   "cloudflare-dns-token.age".publicKeys = home-media-keys;
+  "qui-env.age".publicKeys = home-media-keys;
 }
