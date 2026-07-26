@@ -216,6 +216,12 @@
                       href = "https://auth.datars.org";
                     };
                   }
+                  {
+                    "LLDAP" = {
+                      icon = "lldap.png";
+                      href = "https://ldap.rdatar.com";
+                    };
+                  }
                   # {
                   #   "Speedtest Tracker" = {
                   #     icon = "speedtest-tracker.png";
