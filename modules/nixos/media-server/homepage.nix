@@ -124,10 +124,16 @@
                       ];
                     };
                   }
+                  {
+                    "Shelfmark" = {
+                      icon = "shelfmark.png";
+                      href = "https://shelfmark.media.rdatar.com/";
+                    };
+                  }
                 ];
               }
               {
-                "Media" = [
+                "Applications" = [
                   {
                     "Jellyfin" = {
                       icon = "jellyfin.png";
@@ -144,7 +150,7 @@
                   {
                     "Jellyseerr" = {
                       icon = "jellyseerr.png";
-                      href = "https://lib.rdatar.com/";
+                      href = "https://catlog.datars.org/";
                       widgets = [
                         {
                           type = "seerr";
@@ -152,6 +158,19 @@
                           key = "{{HOMEPAGE_VAR_JELLYSEERR_KEY}}";
                         }
                       ];
+                    };
+                  }
+                  {
+                    "Komga" = {
+                      icon = "komga.png";
+                      href = "https://books.datars.org/";
+                      # widgets = [
+                      #   {
+                      #     type = "seerr";
+                      #     url = "http://localhost:25600/";
+                      #     key = "{{HOMEPAGE_VAR_KOMGA_KEY}}";
+                      #   }
+                      # ];
                     };
                   }
                 ];
