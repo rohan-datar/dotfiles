@@ -63,6 +63,11 @@ _: {
             useACMEHost = "media.rdatar.com";
             extraConfig = protected 6767;
           };
+          # Shelfmark
+          "shelfmark.media.rdatar.com" = {
+            useACMEHost = "media.rdatar.com";
+            extraConfig = protected 8084;
+          };
         };
       };
 

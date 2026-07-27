@@ -10,6 +10,7 @@
     self.modules.nixos.rdatar
     self.modules.nixos.server
     self.modules.nixos.arr
+    self.modules.nixos.media-books
     self.modules.nixos.homepage
     self.modules.nixos.intel-cpu
     self.modules.nixos.intel-gpu
