@@ -28,22 +28,11 @@
               enable = true;
               openFirewall = true;
             };
-            bazarr = {
-              enable = true;
-              openFirewall = true;
-            };
-            prowlarr = {
-              enable = true;
-              openFirewall = true;
-            };
-            radarr = {
-              enable = true;
-              openFirewall = true;
-            };
-            sonarr = {
-              enable = true;
-              openFirewall = true;
-            };
+
+            bazarr.enable = true;
+            prowlarr.enable = true;
+            radarr.enable = true;
+            sonarr.enable = true;
 
             qbittorrent = {
               enable = true;
