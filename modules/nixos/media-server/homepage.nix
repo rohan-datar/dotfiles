@@ -164,13 +164,13 @@
                     "Komga" = {
                       icon = "komga.png";
                       href = "https://books.datars.org/";
-                      # widgets = [
-                      #   {
-                      #     type = "seerr";
-                      #     url = "http://localhost:25600/";
-                      #     key = "{{HOMEPAGE_VAR_KOMGA_KEY}}";
-                      #   }
-                      # ];
+                      widgets = [
+                        {
+                          type = "seerr";
+                          url = "http://localhost:25600/";
+                          key = "{{HOMEPAGE_VAR_KOMGA_KEY}}";
+                        }
+                      ];
                     };
                   }
                 ];
