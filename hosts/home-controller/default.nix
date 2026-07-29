@@ -9,7 +9,10 @@
     self.modules.nixos.ha-vm
     self.modules.nixos.keycloak
     self.modules.nixos.lldap # identity source of truth (Keycloak federates it)
-    # Phase 7 adds: self.modules.nixos.monitoring
+    self.modules.nixos.metrics-agent # node_exporter, scraped over loopback
+    self.modules.nixos.prometheus # loopback-only TSDB for the whole lab
+    self.modules.nixos.grafana # dashboards, Keycloak OIDC
+    self.modules.nixos.gatus # availability checks + status page
   ];
 
   # No aspect sets a bootloader here (home-nas gets systemd-boot via nas-zfs).

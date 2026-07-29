@@ -17,6 +17,8 @@
     self.modules.nixos.bluetooth
     self.modules.nixos.media-oauth2-proxy
     self.modules.nixos.media-ingress
+    self.modules.nixos.metrics-agent
+    self.modules.nixos.media-watchdog # watches home-controller from the outside
   ];
 
   environment.variables = {
@@ -53,6 +55,9 @@
     };
 
     nameservers = [ "10.10.0.1" ];
+
+    # node_exporter, for the controller's Prometheus. LAN interface only.
+    firewall.interfaces.enp1s0.allowedTCPPorts = [ 9100 ];
   };
 
   fileSystems = {

@@ -166,9 +166,22 @@
                       href = "https://books.datars.org/";
                       widgets = [
                         {
-                          type = "seerr";
+                          type = "komga";
                           url = "http://localhost:25600/";
                           key = "{{HOMEPAGE_VAR_KOMGA_KEY}}";
+                        }
+                      ];
+                    };
+                  }
+                  {
+                    "Paperless" = {
+                      icon = "paperless.png";
+                      href = "https://docs.datars.org";
+                      widgets = [
+                        {
+                          type = "paperlessngx";
+                          url = "http://10.10.1.10:28981";
+                          key = "{{HOMEPAGE_VAR_PAPERLESS_KEY}}";
                         }
                       ];
                     };
@@ -206,9 +219,15 @@
                     };
                   }
                   {
+                    "Netgear Nighthawk" = {
+                      icon = "netgear.png";
+                      href = "https://10.10.0.2/";
+                    };
+                  }
+                  {
                     "OpenWRT" = {
                       icon = "openwrt.png";
-                      href = "https://10.10.0.2/";
+                      href = "https://10.10.0.4/";
                     };
                   }
                   {

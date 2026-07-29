@@ -13,6 +13,8 @@
     self.modules.nixos.nas-alerts
     self.modules.nixos.nas-cockpit
     self.modules.nixos.nas-paperless
+    self.modules.nixos.metrics-agent
+    self.modules.nixos.nas-metrics # zfs + smartctl exporters
   ];
 
   # Match the UID/GID rdatar had on TrueNAS so ownership of existing pool data
@@ -52,6 +54,13 @@
       interface = "enp2s0";
     };
     nameservers = [ "10.10.0.1" ];
+    # node (9100), zfs (9134) and smartctl (9633) exporters, for the
+    # controller's Prometheus. LAN interface only.
+    firewall.interfaces.enp2s0.allowedTCPPorts = [
+      9100
+      9134
+      9633
+    ];
   };
 
   time.timeZone = "America/Chicago";
