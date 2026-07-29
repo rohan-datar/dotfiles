@@ -8,6 +8,14 @@ _: {
       virtualisation.libvirtd = {
         enable = true;
         dbus.enable = true;
+        # NixOS defaults this to "suspend", which managedsaves the guest at host shutdown and
+        # restores it from that RAM image at boot. Restoring is incompatible with USB
+        # passthrough: the guest resumes believing it still holds the dongles it had before,
+        # while the host re-enumerated them as fresh devices, so nothing ever re-enumerates
+        # guest-side and both radios come back dead. libvirt 12.4.0 also segfaults in
+        # qemuDomainRestoreInternal on the way through. Shut the guest down properly instead;
+        # a cold boot re-enumerates and costs ~45s of extra host shutdown time.
+        onShutdown = "shutdown";
       };
       # The bridge's service user must pass libvirtd's polkit check
       # (org.libvirt.unix.manage is granted to the libvirtd group)
@@ -50,9 +58,16 @@ _: {
       # been fine for five days until the day's first rebuild. Blacklisting is what makes the
       # unbind permanent. The host runs no Bluetooth stack of its own, so it loses nothing.
       #
-      # NB: the domain XML must also use a qemu-xhci USB controller. With no host driver ever
-      # binding, the guest does not enumerate these full-speed dongles through libvirt's
-      # default ich9 EHCI+UHCI-companion controllers. See hosts/home-controller/haos.xml.
+      # The second, separate failure mode here was libvirt-guests restoring the VM from a saved
+      # image at boot rather than cold-booting it; see virtualisation.libvirtd.onShutdown
+      # above. Symptom was identical to the driver race — dongles dead, guest never claiming
+      # them (host interfaces read empty rather than "usbfs") — which made the two easy to
+      # confuse. Diagnostic that tells them apart: if the host drivers are absent AND the guest
+      # still doesn't claim the devices, it was a restore, not a rebind.
+      #
+      # The domain uses qemu-xhci rather than libvirt's default ich9 EHCI+UHCI companion set.
+      # That was changed while chasing the restore bug and is retained as the better controller
+      # for passthrough, but it was never the fix for either failure.
       boot.blacklistedKernelModules = [
         "cp210x"
         "btusb"
