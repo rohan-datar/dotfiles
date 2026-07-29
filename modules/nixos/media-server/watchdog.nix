@@ -59,6 +59,19 @@ _: {
               conditions = [ "[STATUS] == 200" ];
               alerts = email;
             }
+            # The main Gatus pushes through ntfy, so it cannot report ntfy's own
+            # death while the host stays up. /v1/health is unauthenticated even
+            # under auth-default-access=deny-all, and answers {"healthy":true}.
+            {
+              name = "ntfy";
+              url = "http://10.10.1.13:2586/v1/health";
+              interval = "60s";
+              conditions = [
+                "[STATUS] == 200"
+                "[BODY].healthy == true"
+              ];
+              alerts = email;
+            }
             {
               name = "keycloak";
               url = "https://auth.datars.org/realms/homelab/.well-known/openid-configuration";

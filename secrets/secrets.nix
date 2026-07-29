@@ -45,6 +45,9 @@ let
     rdatar-macbook-rsa
   ];
 
+  restic-keys =
+    homelab-user-keys ++ home-nas-system-keys ++ home-controller-system-keys ++ rdatar-macbook;
+
   allKeys =
     rdatar-desktop
     ++ home-desktop
@@ -60,7 +63,7 @@ in
   "AirVPN-America-WG.conf.age".publicKeys = home-media-keys;
   "homepage-env.age".publicKeys = home-media-keys;
   "nix-access-tokens.conf.age".publicKeys = allKeys;
-  "smtp-password.age".publicKeys = home-nas-keys ++ rdatar-macbook;
+  "smtp-password.age".publicKeys = allKeys;
   "keycloak-db-password.age".publicKeys = home-controller-keys;
   "lldap-env.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "lldap-admin-password.age".publicKeys = home-controller-keys ++ rdatar-macbook;
@@ -77,4 +80,6 @@ in
   "gatus-env.age".publicKeys =
     homelab-user-keys ++ home-controller-system-keys ++ home-media-system-keys ++ rdatar-macbook;
   "ha-prometheus-token.age".publicKeys = home-controller-keys ++ rdatar-macbook;
+  "storagebox-ssh-key.age".publicKeys = restic-keys;
+  "restic-password.age".publicKeys = restic-keys;
 }

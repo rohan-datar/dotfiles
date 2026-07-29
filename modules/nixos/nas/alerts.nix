@@ -1,30 +1,9 @@
 _: {
+  # Mail transport (msmtp) comes from the shared `mail` aspect — this aspect
+  # only decides what gets mailed and assumes sendmail/msmtp are present.
   flake.modules.nixos.nas-alerts =
-    { config, pkgs, ... }:
+    { pkgs, ... }:
     {
-      age.secrets.smtp-password.file = ../../../secrets/smtp-password.age;
-
-      # Outbound mail via iCloud SMTP (see Apple support 102525). Auth uses an
-      # app-specific password stored in ragenix; regular Apple ID passwords are rejected.
-      programs.msmtp = {
-        enable = true;
-        setSendmail = true; # provides /run/wrappers/bin/sendmail (used by smartd)
-        accounts.default = {
-          auth = true;
-          host = "smtp.mail.me.com";
-          port = 587;
-          tls = true;
-          tls_starttls = true;
-          # iCloud wants the account's primary address as the username; the custom-domain
-          # address works as From once it's an alias on the account.
-          user = "rohandatar@icloud.com";
-          from = "nas@rdatar.com";
-          # Absolute path required: passwordeval runs inside arbitrary service
-          # contexts (smartd's unit has no coreutils in PATH, so bare `cat` fails).
-          passwordeval = "${pkgs.uutils-coreutils-noprefix}/bin/cat ${config.age.secrets.smtp-password.path}";
-        };
-      };
-
       # SMART pre-failure indicators: journal + email.
       services.smartd = {
         enable = true;

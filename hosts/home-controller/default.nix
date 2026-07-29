@@ -13,6 +13,10 @@
     self.modules.nixos.prometheus # loopback-only TSDB for the whole lab
     self.modules.nixos.grafana # dashboards, Keycloak OIDC
     self.modules.nixos.gatus # availability checks + status page
+    self.modules.nixos.ntfy # push notifications, Gatus's alert channel
+    self.modules.nixos.speedtest # WAN throughput exporter + its hourly job
+    self.modules.nixos.mail # msmtp transport for backup failure mail
+    self.modules.nixos.controller-restic # offsite identity backup (Storage Box)
   ];
 
   # No aspect sets a bootloader here (home-nas gets systemd-boot via nas-zfs).

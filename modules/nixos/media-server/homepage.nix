@@ -260,20 +260,49 @@
                       href = "https://ldap.rdatar.com";
                     };
                   }
-                  # {
-                  #   "Speedtest Tracker" = {
-                  #     icon = "speedtest-tracker.png";
-                  #     href = "https://10.10.1.10:30221";
-                  #     widgets = [
-                  #       {
-                  #         type = "speedtest";
-                  #         url = "http://10.10.1.10:30220";
-                  #         version = 2;
-                  #         key = "{{HOMEPAGE_VAR_SPEEDTEST_TRACKER_KEY}}";
-                  #       }
-                  #     ];
-                  #   };
-                  # }
+                  {
+                    "Grafana" = {
+                      icon = "grafana.png";
+                      href = "http://grafana.rdatar.com/";
+                      widgets = [
+                        {
+                          type = "grafana";
+                          version = 2; # admin/stats shape changed after Grafana 10.4
+                          url = "http://10.10.1.13:3000";
+                          username = "{{HOMEPAGE_VAR_GRAFANA_USER}}";
+                          password = "{{HOMEPAGE_VAR_GRAFANA_PWD}}";
+                        }
+                      ];
+                    };
+                  }
+                  {
+                    "Gatus" = {
+                      icon = "gatus.png";
+                      href = "https://status.datars.org/";
+                      widgets = [
+                        {
+                          type = "gatus";
+                          url = "http://10.10.1.13:8081";
+                        }
+                      ];
+                    };
+                  }
+                  {
+                    "ntfy" = {
+                      icon = "ntfy.png";
+                      href = "https://ntfy.datars.org/";
+                      widgets = [
+                        {
+                          type = "ntfy";
+                          url = "http://10.10.1.13:2586";
+                          topic = "homelab";
+                          # Needs an ntfy token with *read* access to the topic;
+                          # the Gatus publisher token is write-only.
+                          key = "{{HOMEPAGE_VAR_NTFY_TOKEN}}";
+                        }
+                      ];
+                    };
+                  }
                 ];
               }
             ];
