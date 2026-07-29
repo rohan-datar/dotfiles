@@ -19,6 +19,9 @@ _: {
       port = 9091;
       retentionTime = "90d";
       globalConfig.scrape_interval = "30s";
+      # promtool runs in the build sandbox, where the agenix bearer_token_file
+      # can't exist — full check would stat it and fail the build.
+      checkConfig = "syntax-only";
 
       scrapeConfigs = [
         {
@@ -29,7 +32,7 @@ _: {
                 "localhost:9100" # home-controller
                 "10.10.1.11:9100" # home-media
                 "10.10.1.10:9100" # home-nas
-                "10.10.0.1:9100" # OPNsense — uncomment once os-node_exporter is installed
+                "10.10.0.1:9100" # OPNsense (os-node_exporter)
               ];
             }
           ];
@@ -46,8 +49,6 @@ _: {
           job_name = "gatus";
           static_configs = [ { targets = [ "localhost:8081" ]; } ];
         }
-        # Home Assistant, once the `prometheus:` integration and its long-lived
-        # token exist (ha-prometheus-token.age, owner = "prometheus"):
         {
           job_name = "homeassistant";
           metrics_path = "/api/prometheus";
