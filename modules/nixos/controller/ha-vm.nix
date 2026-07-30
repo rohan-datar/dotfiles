@@ -10,11 +10,14 @@ _: {
         dbus.enable = true;
         # NixOS defaults this to "suspend", which managedsaves the guest at host shutdown and
         # restores it from that RAM image at boot. Restoring is incompatible with USB
-        # passthrough: the guest resumes believing it still holds the dongles it had before,
-        # while the host re-enumerated them as fresh devices, so nothing ever re-enumerates
-        # guest-side and both radios come back dead. libvirt 12.4.0 also segfaults in
-        # qemuDomainRestoreInternal on the way through. Shut the guest down properly instead;
-        # a cold boot re-enumerates and costs ~45s of extra host shutdown time.
+        # passthrough: QEMU re-creates the usb-host devices, but a resumed guest never
+        # re-enumerates its USB bus, so nothing claims them and both radios come back dead.
+        # Verified minimal: `virsh managedsave haos && virsh start haos` breaks them on a
+        # settled host with no reboot at all — the host-side interfaces go from "usbfs" to
+        # unclaimed. libvirt 12.4.0 additionally segfaults in qemuDomainRestoreInternal when
+        # the restore happens via autostart at daemon start (not via virsh start).
+        # Shut the guest down properly instead; a cold boot re-enumerates, and costs ~40s of
+        # extra host shutdown time.
         onShutdown = "shutdown";
       };
       # The bridge's service user must pass libvirtd's polkit check
