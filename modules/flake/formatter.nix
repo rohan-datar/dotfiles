@@ -49,7 +49,7 @@
             };
 
             nixfmt = {
-              command = "nixfmt -";
+              command = "nixfmt";
               includes = [ "*.nix" ];
             };
 

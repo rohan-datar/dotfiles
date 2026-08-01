@@ -4,7 +4,8 @@
 { inputs, ... }:
 {
   # set the output systems for this flake
-  systems = import inputs.systems;
+  # nixpkgs 26.11 dropped x86_64-darwin support; the only Darwin host is aarch64.
+  systems = builtins.filter (s: s != "x86_64-darwin") (import inputs.systems);
 
   perSystem =
     { system, ... }:
