@@ -12,6 +12,10 @@
       enable = true;
       systemd.enable = true;
       settings = {
+        accessibility = {
+          ui_scale = 1.2;
+        };
+
         audio.enable_overdrive = false;
 
         bar.main = {
@@ -158,15 +162,18 @@
           launch_apps_as_systemd_services = true;
           polkit_agent = true;
           settings_show_advanced = true;
-          ui_scale = 1.2;
           mpris.blacklist = [ ];
           panel = {
-            clipboard_placement = "centered";
+            clipboard_placement = "floating";
+            clipboard_position = "center";
             control_center_placement = "attached";
-            launcher_placement = "centered";
+            launcher_placement = "floating";
+            launcher_position = "center";
             open_near_click_control_center = true;
-            session_placement = "centered";
-            wallpaper_placement = "centered";
+            session_placement = "floating";
+            session_position = "center";
+            wallpaper_placement = "floating";
+            wallpaper_position = "center";
           };
           session.actions = [
             {
@@ -250,12 +257,11 @@
           network.show_label = false;
           notifications.hide_when_no_unread = false;
           volume = {
-            scroll_step = 5;
             show_label = false;
           };
           workspaces = {
-            display = "id";
             hide_when_empty = true;
+            label_source = "id";
             max_label_chars = 2;
           };
         };
