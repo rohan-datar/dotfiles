@@ -1,11 +1,17 @@
 _: {
   flake.modules.nixos.keycloak =
-    { config, ... }:
+    {
+      config,
+      pkgs,
+      ...
+    }:
     {
       age.secrets.keycloak-db-password.file = ../../../secrets/keycloak-db-password.age;
 
       services.keycloak = {
         enable = true;
+
+        plugins = [ pkgs.keycloak.plugins.keycloak-restrict-client-auth ];
         database = {
           type = "postgresql";
           createLocally = true;
