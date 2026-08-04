@@ -40,11 +40,9 @@ _: {
         enable = true;
 
         settings = {
+          external_host = "portal.rdatar.com";
+
           http = {
-            # Browser SSH, VNC and RDP all ride this listener, so it is the only
-            # one that needs to exist. 8888 is upstream's default and is also
-            # hardcoded into the nixpkgs module's first-boot `unattended-setup`,
-            # so moving it would desync the bootstrap config from this one.
             listen = "[::]:8888";
 
             external_host = "portal.rdatar.com";
