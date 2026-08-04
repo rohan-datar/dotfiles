@@ -26,10 +26,10 @@ _: {
       startWithSsoSecret = pkgs.writeShellScript "warpgate-start" ''
         set -euo pipefail
         umask 077
-        secret=$(cat "$CREDENTIALS_DIRECTORY/ssoClientSecret")
-        ${pkgs.gnused}/bin/sed -i \
-          "s|${ssoSecretPlaceholder}|$secret|" \
-          /var/lib/warpgate/config.yaml
+        secret=$(< "$CREDENTIALS_DIRECTORY/ssoClientSecret")
+        config=$(< /var/lib/warpgate/config.yaml)
+        printf '%s\n' "''${config//${ssoSecretPlaceholder}/$secret}" \
+          > /var/lib/warpgate/config.yaml
         exec ${lib.getExe pkgs.warpgate} --config /var/lib/warpgate/config.yaml run
       '';
     in
