@@ -47,6 +47,8 @@ _: {
 
             external_host = "portal.rdatar.com";
 
+            external_port = 443;
+
             trust_x_forwarded_headers = true;
           };
 
