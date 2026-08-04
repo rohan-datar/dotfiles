@@ -19,6 +19,7 @@
     self.modules.nixos.media-ingress
     self.modules.nixos.metrics-agent
     self.modules.nixos.media-watchdog # watches home-controller from the outside
+    self.modules.nixos.warpgate
   ];
 
   environment.variables = {

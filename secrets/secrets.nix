@@ -75,11 +75,10 @@ in
   "paperless-oidc-env.age".publicKeys = home-nas-keys;
   "grafana-oidc-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "grafana-secret-key.age".publicKeys = home-controller-keys ++ rdatar-macbook;
-  # Both Gatus instances (controller status page + media watchdog) read
-  # GATUS_SMTP_PASSWORD from here.
   "gatus-env.age".publicKeys =
     homelab-user-keys ++ home-controller-system-keys ++ home-media-system-keys ++ rdatar-macbook;
   "ha-prometheus-token.age".publicKeys = home-controller-keys ++ rdatar-macbook;
+  "warpgate-sso-secret.age".publicKeys = home-media-keys ++ rdatar-macbook;
   "storagebox-ssh-key.age".publicKeys = restic-keys;
   "restic-password.age".publicKeys = restic-keys;
 }
