@@ -1,12 +1,4 @@
 _: {
-  # Availability monitoring + the family-facing status page. Port 8081 because
-  # Keycloak already owns 8080 on this host. Gatus is the lab's only availability
-  # alerter — there is no Alertmanager; smartd/ZED mail hardware faults directly.
-  #
-  # Alerts push to the local ntfy (the `ntfy` aspect). Email is deliberately not
-  # a second provider here: the only failure this instance cannot report is one
-  # that takes this host down, and the home-media watchdog already mails for
-  # exactly that. A second channel would just double every ordinary outage.
   flake.modules.nixos.gatus =
     { config, ... }:
     let
@@ -29,10 +21,6 @@ _: {
       };
     in
     {
-      # GATUS_NTFY_TOKEN=<ntfy access token>. Gatus interpolates ${VAR} from this
-      # file into the config at startup. The same file also carries
-      # GATUS_SMTP_PASSWORD for the home-media watchdog, which is unused here —
-      # this instance pushes and does not mail.
       age.secrets.gatus-env.file = ../../../secrets/gatus-env.age;
 
       services.gatus = {
@@ -52,16 +40,10 @@ _: {
           };
 
           alerting.ntfy = {
-            # ntfy runs on this host: post straight to it instead of hairpinning
-            # out through the public vhost. Gatus POSTs to the server root with
-            # the topic in the JSON body, so this must NOT include the topic.
             url = "http://127.0.0.1:2586";
             topic = "homelab";
-            # Must be an ntfy access token (`tk_…`) — Gatus refuses to start on
-            # anything else, and it is sent as a Bearer header.
             token = "\${GATUS_NTFY_TOKEN}";
             default-alert = {
-              # 3x60s of failure before pushing: kills flap noise.
               failure-threshold = 3;
               success-threshold = 2;
               send-on-resolved = true;
@@ -141,6 +123,18 @@ _: {
               conditions = [ "[STATUS] < 400" ];
               alerts = ntfy;
             }
+            {
+              name = "warpgate";
+              group = "public";
+              interval = "60s";
+              url = "https://portal.rdatar.com";
+              client.ignore-redirect = true;
+              conditions = [
+                "[STATUS] == 307"
+                "[CERTIFICATE_EXPIRATION] > 240h"
+              ];
+              alerts = ntfy;
+            }
 
             # --- Forward-auth tier ---
             (ingress "tv")
@@ -155,6 +149,17 @@ _: {
               group = "infra";
               interval = "120s";
               url = "tcp://10.10.1.10:445";
+              conditions = [ "[CONNECTED] == true" ];
+              alerts = ntfy;
+            }
+            {
+              # Separates "Warpgate is down" from "the ingress path is down":
+              # if this passes while the public probe fails, the fault is in
+              # DNS/Caddy/OPNsense, not the bastion.
+              name = "warpgate-direct";
+              group = "infra";
+              interval = "60s";
+              url = "tcp://10.10.1.11:8888";
               conditions = [ "[CONNECTED] == true" ];
               alerts = ntfy;
             }

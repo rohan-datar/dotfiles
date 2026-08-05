@@ -46,7 +46,11 @@ let
   ];
 
   restic-keys =
-    homelab-user-keys ++ home-nas-system-keys ++ home-controller-system-keys ++ rdatar-macbook;
+    homelab-user-keys
+    ++ home-nas-system-keys
+    ++ home-controller-system-keys
+    ++ home-media-system-keys
+    ++ rdatar-macbook;
 
   allKeys =
     rdatar-desktop
