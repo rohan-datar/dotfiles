@@ -1,32 +1,58 @@
 _: {
-  # WAN throughput graphs, replacing the old TrueNAS speedtest app. Lives on the
-  # controller so the monitoring stack stays on one host; Prometheus is local, so
-  # the exporter binds loopback and opens no firewall port.
-  #
-  # The exporter keeps no cache and has no schedule of its own: it runs a full
-  # speedtest inline on every scrape (~40s, one at a time) and saturates the WAN
-  # while it does. The cadence is therefore purely a property of the scrape job,
-  # which is why it ships with the exporter here instead of living in the
-  # prometheus aspect — dropping this import removes both halves at once.
-  flake.modules.nixos.speedtest = _: {
-    services.prometheus.exporters.speedtest = {
-      enable = true;
-      listenAddress = "127.0.0.1";
-      port = 9798;
-    };
+  # WAN speedtest metrics
+  flake.modules.nixos.speedtest =
+    { pkgs, lib, ... }:
+    let
+      # node_exporter reads *.prom from here. The scratch file deliberately does not end in
+      # .prom, so a half-written file is never parsed; the rename over it is atomic.
+      textfileDir = "/var/lib/prometheus-node-exporter-text-files";
 
-    services.prometheus.scrapeConfigs = [
-      {
-        job_name = "speedtest";
-        # Overrides the 30s global. Hourly matches upstream's own recommendation:
-        # one 40s WAN-saturating test per hour is ~1% duty cycle on a link the
-        # family also streams over, and it halves the churn from the per-test
-        # `test_uuid` label (every run mints a fresh series).
-        scrape_interval = "60m";
-        # Must outlast the test; the exporter's own handler gives up at 60s.
-        scrape_timeout = "60s";
-        static_configs = [ { targets = [ "127.0.0.1:9798" ]; } ];
-      }
-    ];
-  };
+      speedtest-metrics = pkgs.writers.writePython3Bin "speedtest-metrics" {
+      } (builtins.readFile ./speedtest-metrics.py);
+    in
+    {
+      # Merges with the collector list set in modules/nixos/metrics-agent.nix.
+      services.prometheus.exporters.node = {
+        enabledCollectors = [ "textfile" ];
+        extraFlags = [ "--collector.textfile.directory=${textfileDir}" ];
+      };
+
+      systemd.tmpfiles.rules = [ "d ${textfileDir} 0755 root root -" ];
+
+      systemd.services.speedtest-metrics = {
+        description = "Measure WAN throughput and publish it for the node exporter";
+        after = [ "network-online.target" ];
+        wants = [ "network-online.target" ];
+        environment = {
+          # Ookla's CLI persists its licence acceptance under $HOME; without a writable
+          # one it fails on a read-only /root.
+          HOME = "/var/lib/speedtest-metrics";
+          SPEEDTEST_BIN = lib.getExe pkgs.ookla-speedtest;
+          TEXTFILE_DIR = textfileDir;
+        };
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = lib.getExe speedtest-metrics;
+          StateDirectory = "speedtest-metrics";
+          MemoryMax = "512M";
+          # Comfortably longer than a test (~40s) without letting a wedged run linger.
+          TimeoutStartSec = "5min";
+          Nice = 10;
+          IOSchedulingClass = "idle";
+        };
+      };
+
+      systemd.timers.speedtest-metrics = {
+        description = "WAN throughput measurement, every 20 minutes";
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+          OnCalendar = "*:0/20";
+          RandomizedDelaySec = "2m";
+          # Catch up after the host has been down, rather than silently skipping a slot.
+          Persistent = true;
+          AccuracySec = "1m";
+          Unit = "speedtest-metrics.service";
+        };
+      };
+    };
 }
