@@ -96,8 +96,7 @@ in
             extra-substituters = [ "https://u630851-sub3.your-storagebox.de" ];
 
             extra-trusted-public-keys = [
-              "homelab-1:mrqVIHbzAqQrYiUiih6cBT8d1uXZBt5IB0J9cddhtbE=
-"
+              "homelab-1:mrqVIHbzAqQrYiUiih6cBT8d1uXZBt5IB0J9cddhtbE="
             ];
 
             netrc-file = config.age.secrets.storagebox-netrc.path;
