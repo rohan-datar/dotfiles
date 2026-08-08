@@ -4,9 +4,9 @@ let
     {
       environment.systemPackages = builtins.attrValues {
         inherit (pkgs)
-          # firefox
+          firefox
           fastfetch
-          obsidian
+          # obsidian
           discord
           aoc-cli
           direnv
