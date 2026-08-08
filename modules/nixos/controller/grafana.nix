@@ -1,12 +1,7 @@
 _: {
-  # Private tier: LAN/WireGuard only, like the lldap UI — no public vhost.
-  # Login is Keycloak OIDC (client `grafana`); the local admin account stays
-  # enabled as break-glass, so `disable_login_form` is deliberately unset.
   flake.modules.nixos.grafana =
     { config, ... }:
     {
-      # The Keycloak client secret, raw (no KEY= prefix): `$__file{}` below reads
-      # the file verbatim. Grafana reads it itself, hence the owner.
       age.secrets.grafana-oidc-secret = {
         file = ../../../secrets/grafana-oidc-secret.age;
         owner = "grafana";
@@ -21,6 +16,9 @@ _: {
         owner = "grafana";
       };
 
+      # `declarativePlugins` is deliberately unset: setting it flips
+      # `settings.plugins.preinstall_disabled` to true, which drops the six
+      # plugins nixpkgs preinstalls, so it would cost more than it buys.
       services.grafana = {
         enable = true;
 
@@ -54,8 +52,6 @@ _: {
           datasources.settings.datasources = [
             {
               name = "Prometheus";
-              # Fixed uid so the committed dashboards can reference it directly
-              # instead of going through an import-time `${DS_PROMETHEUS}` input.
               uid = "prometheus";
               type = "prometheus";
               url = "http://127.0.0.1:9091";

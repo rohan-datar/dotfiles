@@ -52,6 +52,16 @@ let
     ++ home-media-system-keys
     ++ rdatar-macbook;
 
+  # Every NixOS host substitutes from the Storage Box binary cache, so every
+  # NixOS system key needs the netrc. Rohans-MacBook is excluded on purpose:
+  # it is aarch64-darwin and cannot use that cache.
+  nix-cache-keys =
+    homelab-user-keys
+    ++ home-desktop
+    ++ home-media-system-keys
+    ++ home-controller-system-keys
+    ++ home-nas-system-keys;
+
   allKeys =
     rdatar-desktop
     ++ home-desktop
@@ -84,5 +94,6 @@ in
   "ha-prometheus-token.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "warpgate-sso-secret.age".publicKeys = home-media-keys ++ rdatar-macbook;
   "storagebox-ssh-key.age".publicKeys = restic-keys;
+  "storagebox-netrc.age".publicKeys = nix-cache-keys;
   "restic-password.age".publicKeys = restic-keys;
 }

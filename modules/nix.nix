@@ -62,7 +62,7 @@ let
             "flakes"
             "cgroups"
           ];
-          http-connections = 50;
+          http-connections = lib.mkDefault 50;
         };
 
         extraOptions = ''
@@ -72,19 +72,43 @@ let
     };
 in
 {
-  flake.modules.nixos.nix = {
-    imports = [ sharedNix ];
-    config = {
-      nix = {
-        gc.dates = "Mon *-*-* 03:00";
-        optimise = {
-          automatic = true;
-          dates = [ "04:00" ];
+  flake.modules.nixos.nix =
+    { config, ... }:
+    {
+      imports = [ sharedNix ];
+      config = {
+        age.secrets.storagebox-netrc = {
+          file = ../secrets/storagebox-netrc.age;
+          owner = "root";
+          mode = "400";
         };
-        settings.use-cgroups = true;
+
+        nix = {
+          gc.dates = "Mon *-*-* 03:00";
+          optimise = {
+            automatic = true;
+            dates = [ "04:00" ];
+          };
+
+          settings = {
+            use-cgroups = true;
+
+            extra-substituters = [ "https://u630851-sub3.your-storagebox.de" ];
+
+            extra-trusted-public-keys = [
+              "homelab-1:mrqVIHbzAqQrYiUiih6cBT8d1uXZBt5IB0J9cddhtbE=
+"
+            ];
+
+            netrc-file = config.age.secrets.storagebox-netrc.path;
+
+            http-connections = 16;
+
+            fallback = true;
+          };
+        };
       };
     };
-  };
 
   flake.modules.darwin.nix = {
     imports = [ sharedNix ];

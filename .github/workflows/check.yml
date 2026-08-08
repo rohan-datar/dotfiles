@@ -24,6 +24,7 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 1
+          ref: ${{ inputs.ref }}
       - uses: DeterminateSystems/nix-installer-action@main
       - name: Check flake evaluation
         run: nix -Lv flake check
@@ -33,6 +34,69 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 1
+          ref: ${{ inputs.ref }}
       - uses: DeterminateSystems/nix-installer-action@main
       - name: Check flake evaluation
         run: nix -Lv flake check
+
+  # Populates the Hetzner Storage Box binary cache that the NixOS hosts
+  # substitute from (see modules/nix.nix).
+  push-to-cache:
+    name: Push ${{ matrix.host }} to binary cache
+    if: github.ref == 'refs/heads/main'
+    needs: check-flake-linux
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        host:
+          - home-controller
+          - home-desktop
+          - home-media
+          - home-nas
+    steps:
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: false
+
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+          ref: ${{ inputs.ref }}
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Install signing and Storage Box keys
+        env:
+          NIX_CACHE_SIGNING_KEY: ${{ secrets.NIX_CACHE_SIGNING_KEY }}
+          STORAGEBOX_SSH_KEY: ${{ secrets.STORAGEBOX_SSH_KEY }}
+        run: |
+          install -m 0600 /dev/null key.private
+          install -m 0600 /dev/null storagebox.key
+          # No trailing newline: Nix base64-decodes the key file verbatim.
+          printf '%s' "$NIX_CACHE_SIGNING_KEY" > key.private
+          # OpenSSH does require the trailing newline.
+          printf '%s\n' "$STORAGEBOX_SSH_KEY" > storagebox.key
+
+      - name: Build ${{ matrix.host }}
+        run: |
+          nix build -L .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
+
+      - name: Sign into local cache
+        run: |
+          nix copy --to "file://$PWD/cache?compression=zstd&secret-key=$PWD/key.private" ./result
+
+      # --ignore-existing: cache entries are content-addressed, so anything
+      # already on the box is skipped.
+      - name: Push delta to Storage Box
+        run: |
+          rsync -a --ignore-existing \
+            -e "ssh -p23 -o StrictHostKeyChecking=accept-new -i $PWD/storagebox.key" \
+            cache/ u630851-sub2@u630851.your-storagebox.de:./
