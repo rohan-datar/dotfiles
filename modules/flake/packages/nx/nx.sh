@@ -20,10 +20,12 @@ Darwin) os_label="macOS" ;;
 *) die "Unsupported OS: $OS" ;;
 esac
 
-# --- Formatting: prefer `nix fmt` (flake's formatter). Fallback: run nixfmt on each file.
+# --- Formatting via the flake's own formatter (treefmt).
 format_repo() {
-  if ! nix fmt "${FLAKE}" >/dev/null 2>&1; then
-    echo "nx: nix fmt unavailable or failed"
+  # stdout is noise on success, but stderr is deliberately left alone: formatting
+  # failing is non-fatal, and it should never be silent.
+  if ! nix fmt "${FLAKE}" >/dev/null; then
+    echo "nx: nix fmt failed (continuing)" >&2
   fi
 }
 
@@ -96,21 +98,27 @@ do_switch() {
   msg="nx ${action} (${host}/${os_label}): sys=${sys:-?} @ ${stamp}"
 
   git --no-pager diff --cached -U0 || true
-  git commit -m "$msg" || true
+  # Non-fatal, but worth saying: the rebuild has already been applied at this point,
+  # so a silent commit failure leaves the repo and the running system out of step.
+  if ! git commit -m "$msg"; then
+    echo "nx: commit failed; the rebuild was already applied" >&2
+  fi
 }
 
 do_update() {
   pushd "$FLAKE" >/dev/null
   trap 'popd >/dev/null' RETURN
 
-  # Pre-update sanity (warn-only)
+  # Pre-update sanity: warn only. A failure here predates the update, so it shouldn't
+  # stop you pulling the very inputs that might fix it.
   flake_check warn
 
   git pull --rebase --autostash --ff-only || true
   nix flake update
 
-  # Post-update must pass before switching
-  flake_check warn
+  # Post-update must pass before switching. This is the check that decides whether the
+  # new lock is safe to apply, so it's the one that blocks; NX_SKIP_CHECK=1 overrides.
+  flake_check require
 
   # Switch; avoid duplicate check here
   NX_SKIP_CHECK=1 do_switch update
@@ -119,6 +127,9 @@ do_update() {
 do_clean() {
   local keep="${1:-3}"
   [[ $keep =~ ^[0-9]+$ ]] || die "clean: expected a generation count, got '$keep'"
+  # switch degrades to nixos-rebuild without nh; clean has no equivalent, so say so
+  # plainly rather than dying with 'nh: command not found'.
+  have nh || die "clean: requires nh, which is not on PATH"
   nh clean all --keep "$keep" --keep-one --optimise
 }
 
@@ -129,7 +140,8 @@ Usage: nx <command>
 Commands (aliases):
   switch, s     Format, check (warn), rebuild OS+HM, commit if repo changed
   update, u     Pull; update lock; check (require); then 'switch'
-  clean, c      Run garbage collection and optimize the nix store
+  clean, c [N]  Garbage-collect and optimise the store, keeping N generations
+                (default 3). Requires nh.
   help, h       Show this help
 
 Env:
@@ -141,7 +153,7 @@ USAGE
 cmd="${1:-switch}"
 shift || true
 case "$cmd" in
-switch | s) do_switch "$@" ;;
+switch | s) do_switch switch ;;
 update | u) do_update "$@" ;;
 clean | c) do_clean "$@" ;;
 help | h | --help | -h) usage ;;

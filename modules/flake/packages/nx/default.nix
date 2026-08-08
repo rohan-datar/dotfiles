@@ -15,12 +15,9 @@
         runtimeInputs = [
           pkgs.nix
           config.packages.git
-          pkgs.uutils-coreutils-noprefix # date, hostname, readlink, etc.
-          pkgs.findutils # 'find' used by fallback formatter
-          pkgs.gawk # for the HM generations fallback
-          pkgs.gnugrep
+          pkgs.uutils-coreutils-noprefix # date, hostname, readlink
           pkgs.nh
-          pkgs.libnotify
+          pkgs.libnotify # notify-send, Linux only
         ];
       };
 
