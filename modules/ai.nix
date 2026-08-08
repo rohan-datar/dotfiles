@@ -8,6 +8,7 @@ let
           claude-code
           omp
           pi
+          prime-agent
           ;
       };
     };
