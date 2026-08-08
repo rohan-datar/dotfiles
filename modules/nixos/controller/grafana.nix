@@ -29,7 +29,7 @@ _: {
             http_addr = "0.0.0.0";
             http_port = 3000;
             # Must match the base of the Keycloak client's redirect URI.
-            root_url = "http://10.10.1.13:3000";
+            root_url = "http://grafana.rdatar.com";
           };
 
           security.secret_key = "$__file{${config.age.secrets.grafana-secret-key.path}}";
