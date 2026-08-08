@@ -22,12 +22,55 @@
 
             settings = {
               title = "Homelab";
-              headerStyle = "boxed";
+              headerStyle = "boxedWidgets";
+              theme = "dark";
               color = "slate";
+              iconStyle = "theme";
+              statusStyle = "dot";
+              useEqualHeights = true;
+              hideVersion = true;
               disableIndexing = true;
+
+              layout = {
+                Applications = {
+                  icon = "mdi-apps";
+                  style = "row";
+                  columns = 4;
+                };
+                Arrs = {
+                  icon = "mdi-download";
+                  style = "row";
+                  columns = 3;
+                };
+                Hosts.icon = "mdi-server";
+                Identity.icon = "mdi-shield-lock";
+                Network.icon = "mdi-lan";
+                Observability.icon = "mdi-chart-line";
+              };
             };
 
             widgets = [
+              {
+                resources = {
+                  label = "home-media";
+                  cpu = true;
+                  memory = true;
+                  cputemp = true;
+                  uptime = true;
+                  units = "metric";
+                };
+              }
+              {
+                resources = {
+                  label = "Storage";
+                  # /mnt/media is the NFS export from home-nas. If the NAS is down
+                  # this tile errors on its own rather than taking the row with it.
+                  disk = [
+                    "/"
+                    "/mnt/media"
+                  ];
+                };
+              }
               {
                 datetime = {
                   format = {
@@ -46,13 +89,6 @@
                   showSearchSuggestions = true;
                 };
               }
-              {
-                resources = {
-                  cpu = true;
-                  disk = "/";
-                  memory = true;
-                };
-              }
             ];
 
             services = [
@@ -62,6 +98,7 @@
                     "Sonarr" = {
                       icon = "sonarr.png";
                       href = "https://tv.media.rdatar.com/";
+                      description = "TV series automation";
                       widgets = [
                         {
                           type = "sonarr";
@@ -75,6 +112,7 @@
                     "Radarr" = {
                       icon = "radarr.png";
                       href = "https://movie.media.rdatar.com/";
+                      description = "Movie automation";
                       widgets = [
                         {
                           type = "radarr";
@@ -88,6 +126,7 @@
                     "qBittorrent" = {
                       icon = "qbittorrent.png";
                       href = "https://torrent.rdatar.com/";
+                      description = "Downloads, inside the VPN namespace";
                       widgets = [
                         {
                           type = "qbittorrent";
@@ -102,6 +141,7 @@
                     "Prowlarr" = {
                       icon = "prowlarr.png";
                       href = "http://trackers.media.rdatar.com/";
+                      description = "Indexer manager for the arrs";
                       widgets = [
                         {
                           type = "prowlarr";
@@ -115,6 +155,7 @@
                     "Bazarr" = {
                       icon = "bazarr.png";
                       href = "http://subtitles.media.rdatar.com/";
+                      description = "Subtitles for Sonarr and Radarr";
                       widgets = [
                         {
                           type = "bazarr";
@@ -128,6 +169,7 @@
                     "Shelfmark" = {
                       icon = "shelfmark.png";
                       href = "https://shelfmark.media.rdatar.com/";
+                      description = "Book automation and ingest";
                     };
                   }
                 ];
@@ -138,6 +180,7 @@
                     "Jellyfin" = {
                       icon = "jellyfin.png";
                       href = "https://watch.datars.org/";
+                      description = "Movies, TV and music";
                       widgets = [
                         {
                           type = "jellyfin";
@@ -151,6 +194,7 @@
                     "Jellyseerr" = {
                       icon = "jellyseerr.png";
                       href = "https://catlog.datars.org/";
+                      description = "Request movies and TV";
                       widgets = [
                         {
                           type = "seerr";
@@ -164,6 +208,7 @@
                     "Komga" = {
                       icon = "komga.png";
                       href = "https://books.datars.org/";
+                      description = "Comics and ebooks, Kobo sync";
                       widgets = [
                         {
                           type = "komga";
@@ -177,6 +222,7 @@
                     "Paperless" = {
                       icon = "paperless.png";
                       href = "https://docs.datars.org";
+                      description = "Scanned document archive";
                       widgets = [
                         {
                           type = "paperlessngx";
@@ -189,25 +235,12 @@
                 ];
               }
               {
-                "Infrastructure" = [
-                  {
-                    "Adguard" = {
-                      icon = "adguard-home.png";
-                      href = "https://dns.rdatar.com/";
-                      widgets = [
-                        {
-                          type = "adguard";
-                          url = "http://10.10.0.1:8080/";
-                          username = "rdatar";
-                          password = "{{HOMEPAGE_VAR_ADGUARD_PWD}}";
-                        }
-                      ];
-                    };
-                  }
+                "Network" = [
                   {
                     "Opnsense" = {
                       icon = "opnsense.png";
                       href = "https://net.rdatar.com/";
+                      description = "Router, firewall, reverse proxy";
                       widgets = [
                         {
                           type = "opnsense";
@@ -219,51 +252,65 @@
                     };
                   }
                   {
+                    "Adguard" = {
+                      icon = "adguard-home.png";
+                      href = "https://dns.rdatar.com/";
+                      description = "DNS filtering and LAN records";
+                      widgets = [
+                        {
+                          type = "adguard";
+                          url = "http://10.10.0.1:8080/";
+                          username = "rdatar";
+                          password = "{{HOMEPAGE_VAR_ADGUARD_PWD}}";
+                        }
+                      ];
+                    };
+                  }
+                  {
                     "Netgear Nighthawk" = {
                       icon = "netgear.png";
                       href = "https://10.10.0.2/";
+                      description = "Wi-Fi access point";
+                      siteMonitor = "http://10.10.0.2/";
                     };
                   }
                   {
                     "OpenWRT" = {
                       icon = "openwrt.png";
                       href = "https://10.10.0.4/";
+                      description = "Wi-Fi access point";
+                      siteMonitor = "http://10.10.0.4/";
                     };
                   }
-                  {
-                    "HomeAssistant" = {
-                      icon = "home-assistant.png";
-                      href = "https://ha.rdatar.com";
-                    };
-                  }
-                  {
-                    "NAS" = {
-                      icon = "cockpit.png";
-                      href = "https://store.rdatar.com";
-                    };
-                  }
-                  {
-                    "Home Controller" = {
-                      icon = "cockpit.png";
-                      href = "https://controller.rdatar.com";
-                    };
-                  }
+                ];
+              }
+              {
+                "Identity" = [
                   {
                     "Keycloak" = {
                       icon = "keycloak.png";
                       href = "https://auth.datars.org";
+                      description = "OIDC for the homelab realm";
+                      siteMonitor = "https://auth.datars.org";
                     };
                   }
                   {
                     "LLDAP" = {
                       icon = "lldap.png";
                       href = "https://ldap.rdatar.com";
+                      description = "Directory behind Keycloak";
+                      siteMonitor = "https://ldap.rdatar.com";
                     };
                   }
+                ];
+              }
+              {
+                "Observability" = [
                   {
                     "Grafana" = {
                       icon = "grafana.png";
                       href = "http://grafana.rdatar.com/";
+                      description = "Prometheus dashboards";
                       widgets = [
                         {
                           type = "grafana";
@@ -279,6 +326,7 @@
                     "Gatus" = {
                       icon = "gatus.png";
                       href = "https://status.datars.org/";
+                      description = "Uptime checks and alerting";
                       widgets = [
                         {
                           type = "gatus";
@@ -291,16 +339,43 @@
                     "ntfy" = {
                       icon = "ntfy.png";
                       href = "https://ntfy.datars.org/";
+                      description = "Push notifications";
                       widgets = [
                         {
                           type = "ntfy";
                           url = "http://10.10.1.13:2586";
                           topic = "homelab";
-                          # Needs an ntfy token with *read* access to the topic;
-                          # the Gatus publisher token is write-only.
                           key = "{{HOMEPAGE_VAR_NTFY_TOKEN}}";
                         }
                       ];
+                    };
+                  }
+                ];
+              }
+              {
+                "Hosts" = [
+                  {
+                    "NAS" = {
+                      icon = "cockpit.png";
+                      href = "https://store.rdatar.com";
+                      description = "home-nas, Cockpit";
+                      siteMonitor = "https://store.rdatar.com";
+                    };
+                  }
+                  {
+                    "Home Controller" = {
+                      icon = "cockpit.png";
+                      href = "https://controller.rdatar.com";
+                      description = "home-controller, Cockpit";
+                      siteMonitor = "https://controller.rdatar.com";
+                    };
+                  }
+                  {
+                    "HomeAssistant" = {
+                      icon = "home-assistant.png";
+                      href = "https://ha.rdatar.com";
+                      description = "Home automation, VM on the controller";
+                      siteMonitor = "https://ha.rdatar.com";
                     };
                   }
                 ];
