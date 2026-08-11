@@ -82,7 +82,8 @@ in
   "lldap-env.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "lldap-admin-password.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "oauth2-proxy-env.age".publicKeys = home-media-keys;
-  "cloudflare-dns-token.age".publicKeys = home-media-keys ++ home-controller-keys;
+  "cloudflare-dns-token.age".publicKeys =
+    home-media-system-keys ++ home-controller-system-keys ++ homelab-user-keys;
   "qui-env.age".publicKeys = home-media-keys;
   "komga-oidc-env.age".publicKeys = home-media-keys;
   "paperless-admin-password.age".publicKeys = home-nas-keys;
