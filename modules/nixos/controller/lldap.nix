@@ -2,16 +2,27 @@ _: {
   flake.modules.nixos.lldap =
     { config, ... }:
     {
-      # JWT signing secret + private-key seed. The admin password lives in its
-      # own file because the nixpkgs module's assertion only accepts a *path*
-      # (`LLDAP_LDAP_USER_PASS_FILE`) — it cannot see inside an EnvironmentFile.
       age.secrets.lldap-env.file = ../../../secrets/lldap-env.age;
       age.secrets.lldap-admin-password.file = ../../../secrets/lldap-admin-password.age;
+      age.secrets.cloudflare-dns-token.file = ../../../secrets/cloudflare-dns-token.age;
+
+      security.acme = {
+        acceptTerms = true;
+        defaults.email = "me@rdatar.com";
+        certs."ldap.rdatar.com" = {
+          domain = "ldap.rdatar.com";
+          dnsProvider = "cloudflare";
+          environmentFile = config.age.secrets.cloudflare-dns-token.path;
+          group = "lldap-certs";
+          reloadServices = [ "lldap.service" ];
+        };
+      };
+
+      users.groups.lldap-certs.members = [ "lldap" ];
 
       services.lldap = {
         enable = true;
         environmentFile = config.age.secrets.lldap-env.path;
-        # %d = the systemd credentials dir; see LoadCredential below.
         environment.LLDAP_LDAP_USER_PASS_FILE = "%d/admin-password";
 
         # The admin password is applied on first start (empty DB) and may then be
@@ -24,6 +35,13 @@ _: {
           # LDAP for Jellyfin on 10.10.1.11 and Keycloak federation
           ldap_host = "0.0.0.0";
           ldap_port = 3890;
+          # LDAPS alongside plain LDAP, using the ACME cert from above.
+          ldaps_options = {
+            enabled = true;
+            port = 6360;
+            cert_file = "${config.security.acme.certs."ldap.rdatar.com".directory}/fullchain.pem";
+            key_file = "${config.security.acme.certs."ldap.rdatar.com".directory}/key.pem";
+          };
           # Admin web UI on the LAN.
           http_host = "0.0.0.0";
           http_port = 17170;
@@ -39,9 +57,15 @@ _: {
         "admin-password:${config.age.secrets.lldap-admin-password.path}"
       ];
 
+      # lldap is a DynamicUser, so it has no static group membership; the ACME
+      # certs are owned by acme:lldap-certs (group-readable), so add the group
+      # via SupplementaryGroups for the LDAPS key/cert to be readable.
+      systemd.services.lldap.serviceConfig.SupplementaryGroups = [ "lldap-certs" ];
+
       # LAN bridge only; the default sqlite DB lives in /var/lib/lldap.
       networking.firewall.interfaces.br0.allowedTCPPorts = [
         3890
+        6360
         17170
       ];
     };
