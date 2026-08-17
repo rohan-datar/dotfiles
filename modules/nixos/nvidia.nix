@@ -2,7 +2,8 @@
   flake.modules.nixos.nvidia =
     { pkgs, ... }:
     {
-      nixpkgs.config.cudaSupport = true;
+      # NOTE: Don't turn this back on globally, override individual packages if they need CUDA support
+      # `nixpkgs.config.cudaSupport = true`
 
       environment.systemPackages = [
         pkgs.nvtopPackages.nvidia
