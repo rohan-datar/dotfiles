@@ -46,6 +46,8 @@ jobs:
     if: github.ref == 'refs/heads/main'
     needs: check-flake-linux
     runs-on: ubuntu-latest
+    # A wedged runner otherwise burns ~45min before the service reclaims it.
+    timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
@@ -71,12 +73,11 @@ jobs:
           fetch-depth: 1
           ref: ${{ inputs.ref }}
 
-      - uses: DeterminateSystems/nix-installer-action@main
-
-      - name: Install signing and Storage Box keys
+      - name: Install signing, netrc, and Storage Box keys
         env:
           NIX_CACHE_SIGNING_KEY: ${{ secrets.NIX_CACHE_SIGNING_KEY }}
           STORAGEBOX_SSH_KEY: ${{ secrets.STORAGEBOX_SSH_KEY }}
+          STORAGEBOX_NETRC: ${{ secrets.STORAGEBOX_NETRC }}
         run: |
           install -m 0600 /dev/null key.private
           install -m 0600 /dev/null storagebox.key
@@ -84,17 +85,29 @@ jobs:
           printf '%s' "$NIX_CACHE_SIGNING_KEY" > key.private
           # OpenSSH does require the trailing newline.
           printf '%s\n' "$STORAGEBOX_SSH_KEY" > storagebox.key
+          # Same create-then-fill pattern: `tee` alone would briefly leave the
+          # file world-readable, and `install` will not read from a pipe.
+          sudo install -m 0600 -o root -g root /dev/null /etc/nix-cache-netrc
+          printf '%s\n' "$STORAGEBOX_NETRC" | sudo tee /etc/nix-cache-netrc > /dev/null
+
+      - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: |
+            extra-substituters = https://u630851-sub3.your-storagebox.de
+            extra-trusted-public-keys = homelab-1:mrqVIHbzAqQrYiUiih6cBT8d1uXZBt5IB0J9cddhtbE=
+            netrc-file = /etc/nix-cache-netrc
+            fallback = true
+            http-connections = 16
 
       - name: Build ${{ matrix.host }}
         run: |
-          nix build -L .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
+          nix build -L --max-jobs 1 \
+            .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
 
       - name: Sign into local cache
         run: |
           nix copy --to "file://$PWD/cache?compression=zstd&secret-key=$PWD/key.private" ./result
 
-      # --ignore-existing: cache entries are content-addressed, so anything
-      # already on the box is skipped.
       - name: Push delta to Storage Box
         run: |
           rsync -a --ignore-existing \
