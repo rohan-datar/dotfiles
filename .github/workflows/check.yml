@@ -79,6 +79,10 @@ jobs:
           STORAGEBOX_SSH_KEY: ${{ secrets.STORAGEBOX_SSH_KEY }}
           STORAGEBOX_NETRC: ${{ secrets.STORAGEBOX_NETRC }}
         run: |
+          : "${NIX_CACHE_SIGNING_KEY:?is unset or empty in repo secrets}"
+          : "${STORAGEBOX_SSH_KEY:?is unset or empty in repo secrets}"
+          : "${STORAGEBOX_NETRC:?is unset or empty in repo secrets}"
+
           install -m 0600 /dev/null key.private
           install -m 0600 /dev/null storagebox.key
           # No trailing newline: Nix base64-decodes the key file verbatim.
@@ -98,6 +102,15 @@ jobs:
             netrc-file = /etc/nix-cache-netrc
             fallback = true
             http-connections = 16
+
+      - name: Check binary cache auth
+        run: |
+          code=$(sudo curl -sS -o /dev/null -w '%{http_code}' \
+            --netrc-file /etc/nix-cache-netrc \
+            https://u630851-sub3.your-storagebox.de/nix-cache-info || echo 000)
+          echo "nix-cache-info -> HTTP $code"
+          [ "$code" = 200 ] \
+            || echo "::warning::Storage Box cache unusable (HTTP $code) — this run builds from source"
 
       - name: Build ${{ matrix.host }}
         run: |
