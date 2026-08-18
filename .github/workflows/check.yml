@@ -1,8 +1,8 @@
 ---
 name: Check nix flake
 concurrency:
-  cancel-in-progress: true
   group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 'on':
   push:
@@ -85,14 +85,13 @@ jobs:
 
           install -m 0600 /dev/null key.private
           install -m 0600 /dev/null storagebox.key
-          # No trailing newline: Nix base64-decodes the key file verbatim.
           printf '%s' "$NIX_CACHE_SIGNING_KEY" > key.private
-          # OpenSSH does require the trailing newline.
           printf '%s\n' "$STORAGEBOX_SSH_KEY" > storagebox.key
-          # Same create-then-fill pattern: `tee` alone would briefly leave the
-          # file world-readable, and `install` will not read from a pipe.
           sudo install -m 0600 -o root -g root /dev/null /etc/nix-cache-netrc
-          printf '%s\n' "$STORAGEBOX_NETRC" | sudo tee /etc/nix-cache-netrc > /dev/null
+          printf '%s\n' "$STORAGEBOX_NETRC" \
+            | tr -d '\r' \
+            | sed '/^[[:space:]]*$/d' \
+            | sudo tee /etc/nix-cache-netrc > /dev/null
 
       - uses: DeterminateSystems/nix-installer-action@main
         with:
@@ -105,12 +104,32 @@ jobs:
 
       - name: Check binary cache auth
         run: |
+          H=u630851-sub3.your-storagebox.de
+
           code=$(sudo curl -sS -o /dev/null -w '%{http_code}' \
-            --netrc-file /etc/nix-cache-netrc \
-            https://u630851-sub3.your-storagebox.de/nix-cache-info || echo 000)
+            --netrc-file /etc/nix-cache-netrc "https://$H/nix-cache-info" || echo 000)
           echo "nix-cache-info -> HTTP $code"
-          [ "$code" = 200 ] \
-            || echo "::warning::Storage Box cache unusable (HTTP $code) — this run builds from source"
+
+          # TEMPORARY DIAGNOSTIC. Nothing here derives from the password: this
+          # repo is public, so its Actions logs are public too. The one question
+          # worth answering is whether curl sends an Authorization header at
+          # all — if it does not, the `machine` line fails to match the
+          # requested host and no credential is ever transmitted, which is
+          # indistinguishable from a bad password at the HTTP layer.
+          if [ "$code" != 200 ]; then
+            echo "--- diagnostic ---"
+            echo "netrc bytes: $(sudo wc -c < /etc/nix-cache-netrc)"
+            echo "netrc lines: $(sudo wc -l < /etc/nix-cache-netrc)"
+            echo "machine line matches host: $(sudo tr -d '\r' < /etc/nix-cache-netrc \
+              | grep -c "^[[:space:]]*machine[[:space:]]\+$H[[:space:]]*$")"
+            echo "login line matches sub3:   $(sudo tr -d '\r' < /etc/nix-cache-netrc \
+              | grep -c '^[[:space:]]*login[[:space:]]\+u630851-sub3[[:space:]]*$')"
+            echo "password keyword present:  $(sudo tr -d '\r' < /etc/nix-cache-netrc \
+              | grep -c '^[[:space:]]*password[[:space:]]\+..*$')"
+            echo "authorization header sent: $(sudo curl -sS -v --netrc-file /etc/nix-cache-netrc \
+              "https://$H/nix-cache-info" 2>&1 >/dev/null | grep -ci '^> authorization: basic')"
+            echo "::warning::Storage Box cache unusable (HTTP $code) — this run builds from source"
+          fi
 
       - name: Build ${{ matrix.host }}
         run: |
