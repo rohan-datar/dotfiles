@@ -68,8 +68,20 @@ jobs:
           echo "mode/owner:          $(sudo stat -c '%a %U:%G' "$NETRC")"
           echo "readable by $(id -un)?  $([ -r "$NETRC" ] && echo yes || echo NO)"
 
-      # Repeat the probe: a single attempt cannot distinguish "broken" from
-      # "intermittent", and intermittency is now the open question.
+          # See check.yml: the daemon parses netrc once at startup and the
+          # installer started it before this file existed.
+          for unit in nix-daemon.service determinate-nixd.service; do
+            if systemctl is-active --quiet "$unit" 2>/dev/null; then
+              sudo systemctl restart "$unit" && echo "restarted $unit"
+            fi
+          done
+
+      # CAVEAT: `nix store info --store <url>` runs in the CLIENT and reads
+      # netrc itself. `nix build` substitutes through the DAEMON, which parses
+      # netrc once at startup. A green result here therefore does NOT prove a
+      # build will authenticate — that divergence is exactly what made this
+      # harness report 20/20 while real builds 401'd. The daemon restart above
+      # is what closes the gap; only a real build fully proves it.
       - name: Probe the cache
         run: |
           H=u630851-sub3.your-storagebox.de

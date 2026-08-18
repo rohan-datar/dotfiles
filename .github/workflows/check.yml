@@ -131,6 +131,17 @@ jobs:
           echo "netrc mode/owner:    $(sudo stat -c '%a %U:%G' "$NETRC")"
           echo "readable by $(id -un)?  $([ -r "$NETRC" ] && echo yes || echo NO)"
 
+          # LOAD-BEARING. The client re-reads netrc every invocation, but the
+          # daemon — which is what `nix build` substitutes through — parses it
+          # once at startup, and the installer started it before this file
+          # existed. Without this restart the auth check below (client) passes
+          # while the build (daemon) 401s on the same runner seconds later.
+          for unit in nix-daemon.service determinate-nixd.service; do
+            if systemctl is-active --quiet "$unit" 2>/dev/null; then
+              sudo systemctl restart "$unit" && echo "restarted $unit"
+            fi
+          done
+
       - name: Check binary cache auth
         run: |
           H=u630851-sub3.your-storagebox.de
