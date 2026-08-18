@@ -2,6 +2,8 @@
 name: Check nix flake
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
+  # Never cancel on main: push-to-cache exists to publish artefacts, and killing
+  # it mid-flight leaves the cache half-populated.
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 'on':
@@ -46,9 +48,9 @@ jobs:
     if: github.ref == 'refs/heads/main'
     needs: check-flake-linux
     runs-on: ubuntu-latest
-    # A wedged runner otherwise burns ~45min before the service reclaims it.
     timeout-minutes: 90
     strategy:
+      # One host failing to build should not hide whether the others made it.
       fail-fast: false
       matrix:
         host:
@@ -57,6 +59,8 @@ jobs:
           - home-media
           - home-nas
     steps:
+      # A NixOS closure plus its zstd `file://` copy does not fit in the ~14 GB
+      # a stock runner has free.
       - name: Free disk space
         uses: jlumbroso/free-disk-space@main
         with:
@@ -79,6 +83,8 @@ jobs:
           STORAGEBOX_SSH_KEY: ${{ secrets.STORAGEBOX_SSH_KEY }}
           STORAGEBOX_NETRC: ${{ secrets.STORAGEBOX_NETRC }}
         run: |
+          # An unset secret expands to the empty string and would otherwise
+          # degrade silently into a full rebuild.
           : "${NIX_CACHE_SIGNING_KEY:?is unset or empty in repo secrets}"
           : "${STORAGEBOX_SSH_KEY:?is unset or empty in repo secrets}"
           : "${STORAGEBOX_NETRC:?is unset or empty in repo secrets}"
@@ -90,27 +96,18 @@ jobs:
           # OpenSSH does require the trailing newline.
           printf '%s\n' "$STORAGEBOX_SSH_KEY" > storagebox.key
 
-          # Written BEFORE Nix is installed, so the daemon comes up with the
-          # credential already in place: no append, no restart, and nothing
-          # racing us to rewrite the file.
-          #
-          # Owned by the runner user at 0600. The daemon substitutes as root and
-          # root bypasses permission checks; the unprivileged client, which reads
-          # netrc itself for `nix store info --store`, needs it too. No other
-          # account gains access, so this is not a loosening.
+          # Written before Nix is installed so the daemon starts with the
+          # credential in place. Owned by the runner user at 0600: root reads it
+          # regardless, and the unprivileged client needs it too.
           sudo install -m 0600 -o "$(id -un)" -g "$(id -gn)" /dev/null /etc/nix-cache-netrc
           printf '%s\n' "$STORAGEBOX_NETRC" \
             | tr -d '\r' \
             | sed '/^[[:space:]]*$/d' \
             | sudo tee /etc/nix-cache-netrc > /dev/null
-          echo "netrc: $(stat -c '%a %U:%G %s bytes' /etc/nix-cache-netrc)"
 
-      # Upstream Nix, deliberately NOT DeterminateSystems/nix-installer-action.
-      # Determinate pins its own netrc-file, overrides whatever extra-conf sets,
-      # and regenerates that file asynchronously on daemon restart — so the
-      # credential was either never read or wiped moments after we wrote it, and
-      # no ordering of write-and-restart could satisfy both. Upstream Nix simply
-      # honours netrc-file from config, which makes this boring.
+      # Upstream Nix, deliberately not Determinate: Determinate pins its own
+      # netrc-file, overrides extra-conf, and regenerates that file on daemon
+      # restart, so the credential is either never read or wiped after writing.
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: |
@@ -120,45 +117,39 @@ jobs:
             fallback = true
             http-connections = 16
 
+      # An unusable cache degrades into a silent full rebuild, so surface it as a
+      # warning — `fallback` means the run is still correct, just slow.
+      #
+      # The sub3 password must avoid whitespace, '#', quotes and backslash:
+      # netrc parsing differs by curl build, and some treat '#' as a comment
+      # delimiter, silently yielding an empty password and a bare 401.
       - name: Check binary cache auth
         run: |
           H=u630851-sub3.your-storagebox.de
-
-          # `nix store info` is the probe that matters: it exercises the same
-          # code path substitution takes. A curl check is NOT a substitute —
-          # Nix links its own libcurl and resolves netrc-file independently, so
-          # curl can return 200 on the very same URL that Nix 401s on.
-          #
-          # Capture the output rather than piping into sed: `if cmd | sed` tests
-          # sed's exit status, which is always 0, and cheerfully reports success
-          # on a failed probe.
-          echo "nix netrc-file: $(nix config show netrc-file)"
           if out=$(nix store info --store "https://$H" 2>&1); then
-            printf '%s\n' "$out" | sed 's/^/  nix: /'
-            echo "nix -> cache reachable"
+            echo "cache reachable"
           else
             printf '%s\n' "$out" | sed 's/^/  nix: /'
-            echo "::warning::Nix cannot use the Storage Box cache — this run builds from source"
+            echo "::warning::Storage Box cache unusable — this run builds from source"
           fi
 
-          # Warning rather than failure on purpose: `fallback` means the run is
-          # still correct, just slow, and a Hetzner blip should not break CI.
-          #
-          # NOTE: the sub3 password must avoid whitespace, '#', quotes and
-          # backslash. netrc parsing differs by curl build — a '#' that curl
-          # 8.21.0 on the NixOS hosts passes through verbatim is treated as a
-          # comment delimiter by other builds, which silently yields an EMPTY
-          # password and a 401 indistinguishable from a wrong one.
-
+      # --max-jobs 1: home-desktop's closure contains several Apple-font Nerd
+      # patches and nvidia-kernel-modules, and building four at once exhausts a
+      # 16 GB runner. Substitutions are unaffected by this flag.
       - name: Build ${{ matrix.host }}
         run: |
           nix build -L --max-jobs 1 \
             .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
 
+      # Sign at copy time; post-build signing hooks leave paths unsigned in the
+      # destination, and an unsigned path is silently useless to the hosts.
       - name: Sign into local cache
         run: |
           nix copy --to "file://$PWD/cache?compression=zstd&secret-key=$PWD/key.private" ./result
 
+      # sub2 is the read-write account and exists only for this step; the hosts
+      # read the same directory through the read-only sub3. Cache entries are
+      # content-addressed, so --ignore-existing uploads just the delta.
       - name: Push delta to Storage Box
         run: |
           rsync -a --ignore-existing \
