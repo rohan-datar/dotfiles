@@ -73,7 +73,7 @@ jobs:
           fetch-depth: 1
           ref: ${{ inputs.ref }}
 
-      - name: Install signing and Storage Box keys
+      - name: Install signing, netrc, and Storage Box keys
         env:
           NIX_CACHE_SIGNING_KEY: ${{ secrets.NIX_CACHE_SIGNING_KEY }}
           STORAGEBOX_SSH_KEY: ${{ secrets.STORAGEBOX_SSH_KEY }}
@@ -85,52 +85,40 @@ jobs:
 
           install -m 0600 /dev/null key.private
           install -m 0600 /dev/null storagebox.key
+          # No trailing newline: Nix base64-decodes the key file verbatim.
           printf '%s' "$NIX_CACHE_SIGNING_KEY" > key.private
+          # OpenSSH does require the trailing newline.
           printf '%s\n' "$STORAGEBOX_SSH_KEY" > storagebox.key
 
-      # Note there is no `netrc-file` here. Setting it is futile: Determinate
-      # Nix pins its own (`/nix/var/determinate/netrc`) and that wins, so a
-      # netrc-file we name is simply never read — Nix then sends no credential
-      # and takes a 401 that looks exactly like a bad password.
-      - uses: DeterminateSystems/nix-installer-action@main
-        with:
-          extra-conf: |
-            extra-substituters = https://u630851-sub3.your-storagebox.de
-            extra-trusted-public-keys = homelab-1:mrqVIHbzAqQrYiUiih6cBT8d1uXZBt5IB0J9cddhtbE=
-            fallback = true
-            http-connections = 16
-
-      # Append to whatever netrc Nix has actually resolved, rather than telling
-      # Nix where to look. Resolving it at runtime means a future change to
-      # Determinate's layout cannot silently reintroduce the 401. netrc holds a
-      # list of `machine` entries, so appending leaves Determinate's own
-      # (FlakeHub) credentials intact, and `tee -a` preserves the file's
-      # existing owner and mode.
-      - name: Add Storage Box credentials to Nix's netrc
-        env:
-          STORAGEBOX_NETRC: ${{ secrets.STORAGEBOX_NETRC }}
-        run: |
-          NETRC=$(nix config show netrc-file)
-          echo "Nix netrc: $NETRC"
-
-          # mkdir -p, not `install -d`: install would reset the mode of a
-          # directory Determinate already owns.
-          sudo mkdir -p "$(dirname "$NETRC")"
-          sudo touch "$NETRC"
-          # Force a newline first. If the existing file does not end in one,
-          # appending welds our `machine` token onto its last line and corrupts
-          # both entries.
-          printf '\n' | sudo tee -a "$NETRC" > /dev/null
+          # Written BEFORE Nix is installed, so the daemon comes up with the
+          # credential already in place: no append, no restart, and nothing
+          # racing us to rewrite the file.
+          #
+          # Owned by the runner user at 0600. The daemon substitutes as root and
+          # root bypasses permission checks; the unprivileged client, which reads
+          # netrc itself for `nix store info --store`, needs it too. No other
+          # account gains access, so this is not a loosening.
+          sudo install -m 0600 -o "$(id -un)" -g "$(id -gn)" /dev/null /etc/nix-cache-netrc
           printf '%s\n' "$STORAGEBOX_NETRC" \
             | tr -d '\r' \
             | sed '/^[[:space:]]*$/d' \
-            | sudo tee -a "$NETRC" > /dev/null
+            | sudo tee /etc/nix-cache-netrc > /dev/null
+          echo "netrc: $(stat -c '%a %U:%G %s bytes' /etc/nix-cache-netrc)"
 
-          # Confirm the append landed and that the unprivileged Nix client can
-          # actually open it. Neither line reveals any credential.
-          echo "machine entries now: $(sudo grep -c '^[[:space:]]*machine[[:space:]]' "$NETRC")"
-          echo "netrc mode/owner:    $(sudo stat -c '%a %U:%G' "$NETRC")"
-          echo "readable by $(id -un)?  $([ -r "$NETRC" ] && echo yes || echo NO)"
+      # Upstream Nix, deliberately NOT DeterminateSystems/nix-installer-action.
+      # Determinate pins its own netrc-file, overrides whatever extra-conf sets,
+      # and regenerates that file asynchronously on daemon restart — so the
+      # credential was either never read or wiped moments after we wrote it, and
+      # no ordering of write-and-restart could satisfy both. Upstream Nix simply
+      # honours netrc-file from config, which makes this boring.
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            extra-substituters = https://u630851-sub3.your-storagebox.de
+            extra-trusted-public-keys = homelab-1:mrqVIHbzAqQrYiUiih6cBT8d1uXZBt5IB0J9cddhtbE=
+            netrc-file = /etc/nix-cache-netrc
+            fallback = true
+            http-connections = 16
 
       - name: Check binary cache auth
         run: |
