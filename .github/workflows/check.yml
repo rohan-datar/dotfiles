@@ -73,7 +73,7 @@ jobs:
           fetch-depth: 1
           ref: ${{ inputs.ref }}
 
-      - name: Install signing, netrc, and Storage Box keys
+      - name: Install signing and Storage Box keys
         env:
           NIX_CACHE_SIGNING_KEY: ${{ secrets.NIX_CACHE_SIGNING_KEY }}
           STORAGEBOX_SSH_KEY: ${{ secrets.STORAGEBOX_SSH_KEY }}
@@ -87,70 +87,67 @@ jobs:
           install -m 0600 /dev/null storagebox.key
           printf '%s' "$NIX_CACHE_SIGNING_KEY" > key.private
           printf '%s\n' "$STORAGEBOX_SSH_KEY" > storagebox.key
-          # Owned by the runner user, still 0600. System curl (as root) reads
-          # this fine, but Nix takes a 401 on the same URL in the same second:
-          # the process fetching nix-cache-info is the unprivileged client, not
-          # the root daemon, so it could not open a root-owned 0600 file and
-          # silently sent no credential. Changing the owner rather than the mode
-          # fixes that without making the file readable to anyone else — root
-          # bypasses permission checks, so the daemon can still read it too.
-          sudo install -m 0600 -o "$(id -un)" -g "$(id -gn)" /dev/null /etc/nix-cache-netrc
-          printf '%s\n' "$STORAGEBOX_NETRC" \
-            | tr -d '\r' \
-            | sed '/^[[:space:]]*$/d' \
-            | sudo tee /etc/nix-cache-netrc > /dev/null
 
+      # Note there is no `netrc-file` here. Setting it is futile: Determinate
+      # Nix pins its own (`/nix/var/determinate/netrc`) and that wins, so a
+      # netrc-file we name is simply never read — Nix then sends no credential
+      # and takes a 401 that looks exactly like a bad password.
       - uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-conf: |
             extra-substituters = https://u630851-sub3.your-storagebox.de
             extra-trusted-public-keys = homelab-1:mrqVIHbzAqQrYiUiih6cBT8d1uXZBt5IB0J9cddhtbE=
-            netrc-file = /etc/nix-cache-netrc
             fallback = true
             http-connections = 16
+
+      # Append to whatever netrc Nix has actually resolved, rather than telling
+      # Nix where to look. Resolving it at runtime means a future change to
+      # Determinate's layout cannot silently reintroduce the 401. netrc holds a
+      # list of `machine` entries, so appending leaves Determinate's own
+      # (FlakeHub) credentials intact, and `tee -a` preserves the file's
+      # existing owner and mode.
+      - name: Add Storage Box credentials to Nix's netrc
+        env:
+          STORAGEBOX_NETRC: ${{ secrets.STORAGEBOX_NETRC }}
+        run: |
+          NETRC=$(nix config show netrc-file)
+          echo "Nix netrc: $NETRC"
+          sudo install -d -m 0755 "$(dirname "$NETRC")"
+          sudo touch "$NETRC"
+          printf '%s\n' "$STORAGEBOX_NETRC" \
+            | tr -d '\r' \
+            | sed '/^[[:space:]]*$/d' \
+            | sudo tee -a "$NETRC" > /dev/null
 
       - name: Check binary cache auth
         run: |
           H=u630851-sub3.your-storagebox.de
 
-          code=$(sudo curl -sS -o /dev/null -w '%{http_code}' \
-            --netrc-file /etc/nix-cache-netrc "https://$H/nix-cache-info" || echo 000)
-          echo "nix-cache-info -> HTTP $code"
-
-          # Two probes on purpose, because they can disagree and the
-          # disagreement is itself the diagnosis: curl tests whether the
-          # credential is accepted, `nix store info` tests the code path
-          # substitution actually takes. Nix links its OWN libcurl, parses netrc
-          # independently of the system curl, and reads config as the daemon —
-          # so a green curl proves nothing about whether Nix can use the cache.
+          # `nix store info` is the probe that matters: it exercises the same
+          # code path substitution takes. A curl check is NOT a substitute —
+          # Nix links its own libcurl and resolves netrc-file independently, so
+          # curl can return 200 on the very same URL that Nix 401s on.
           #
-          # Run as root via an absolute path: /etc/nix-cache-netrc is 0600 root,
-          # the daemon that substitutes is root, and an unprivileged probe would
-          # fail to read it and report a misleading 401.
-          # Confirm the installer's extra-conf actually landed; a missing
-          # netrc-file here would produce the same 401 as a bad password.
-          nix config show | grep -E '^(netrc-file|extra-substituters|fallback)' || true
-
-          # Unprivileged on purpose: this is the identity that failed before,
-          # so it is the one worth probing.
-          if nix store info --store "https://$H" 2>&1 | sed 's/^/  nix: /'; then
+          # Capture the output rather than piping into sed: `if cmd | sed` tests
+          # sed's exit status, which is always 0, and cheerfully reports success
+          # on a failed probe.
+          echo "nix netrc-file: $(nix config show netrc-file)"
+          if out=$(nix store info --store "https://$H" 2>&1); then
+            printf '%s\n' "$out" | sed 's/^/  nix: /'
             echo "nix -> cache reachable"
           else
+            printf '%s\n' "$out" | sed 's/^/  nix: /'
             echo "::warning::Nix cannot use the Storage Box cache — this run builds from source"
           fi
 
-          # A cache that 401s degrades into a silent full rebuild rather than a
-          # failure, so surface it. Deliberately a warning, not an error:
-          # `fallback` means the run is still correct, just slow, and a Hetzner
-          # blip should not break CI.
+          # Warning rather than failure on purpose: `fallback` means the run is
+          # still correct, just slow, and a Hetzner blip should not break CI.
           #
           # NOTE: the sub3 password must avoid whitespace, '#', quotes and
           # backslash. netrc parsing differs by curl build — a '#' that curl
           # 8.21.0 on the NixOS hosts passes through verbatim is treated as a
-          # comment delimiter by the runner's curl, which silently yields an
-          # EMPTY password and an indistinguishable 401.
-          [ "$code" = 200 ] \
-            || echo "::warning::curl cannot authenticate to the cache (HTTP $code)"
+          # comment delimiter by other builds, which silently yields an EMPTY
+          # password and a 401 indistinguishable from a wrong one.
 
       - name: Build ${{ matrix.host }}
         run: |
