@@ -56,14 +56,6 @@ jobs:
             echo "pre-existing:        (file absent)"
           fi
 
-          # Restart FIRST: the daemon parses netrc at startup so it must be
-          # restarted, but determinate-nixd regenerates this file on restart, so
-          # restarting afterwards discards our entry. See check.yml.
-          for unit in nix-daemon.service determinate-nixd.service; do
-            if systemctl is-active --quiet "$unit" 2>/dev/null; then
-              sudo systemctl restart "$unit" && echo "restarted $unit"
-            fi
-          done
 
           sudo mkdir -p "$(dirname "$NETRC")"
           sudo touch "$NETRC"
