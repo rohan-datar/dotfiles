@@ -87,7 +87,14 @@ jobs:
           install -m 0600 /dev/null storagebox.key
           printf '%s' "$NIX_CACHE_SIGNING_KEY" > key.private
           printf '%s\n' "$STORAGEBOX_SSH_KEY" > storagebox.key
-          sudo install -m 0600 -o root -g root /dev/null /etc/nix-cache-netrc
+          # Owned by the runner user, still 0600. System curl (as root) reads
+          # this fine, but Nix takes a 401 on the same URL in the same second:
+          # the process fetching nix-cache-info is the unprivileged client, not
+          # the root daemon, so it could not open a root-owned 0600 file and
+          # silently sent no credential. Changing the owner rather than the mode
+          # fixes that without making the file readable to anyone else — root
+          # bypasses permission checks, so the daemon can still read it too.
+          sudo install -m 0600 -o "$(id -un)" -g "$(id -gn)" /dev/null /etc/nix-cache-netrc
           printf '%s\n' "$STORAGEBOX_NETRC" \
             | tr -d '\r' \
             | sed '/^[[:space:]]*$/d' \
@@ -110,48 +117,40 @@ jobs:
             --netrc-file /etc/nix-cache-netrc "https://$H/nix-cache-info" || echo 000)
           echo "nix-cache-info -> HTTP $code"
 
-          # TEMPORARY DIAGNOSTIC. Nothing here derives from the password: this
-          # repo is public, so its Actions logs are public too. The one question
-          # worth answering is whether curl sends an Authorization header at
-          # all — if it does not, the `machine` line fails to match the
-          # requested host and no credential is ever transmitted, which is
-          # indistinguishable from a bad password at the HTTP layer.
-          if [ "$code" != 200 ]; then
-            echo "--- diagnostic ---"
-            # `sudo cmd < file` does NOT work: the shell opens the redirect as
-            # the unprivileged user before sudo runs. Pipe from `sudo cat`.
-            sudo cat /etc/nix-cache-netrc > /tmp/nt.$$
-            echo "netrc bytes: $(wc -c < /tmp/nt.$$)"
-            echo "netrc lines: $(wc -l < /tmp/nt.$$)"
-            echo "machine lines total:       $(tr -d '\r' < /tmp/nt.$$ | grep -c '^[[:space:]]*machine[[:space:]]')"
-            echo "machine line matches host: $(tr -d '\r' < /tmp/nt.$$ \
-              | grep -c "^[[:space:]]*machine[[:space:]]\+$H[[:space:]]*$")"
-            echo "login lines total:         $(tr -d '\r' < /tmp/nt.$$ | grep -c '^[[:space:]]*login[[:space:]]')"
-            echo "login line matches sub3:   $(tr -d '\r' < /tmp/nt.$$ \
-              | grep -c '^[[:space:]]*login[[:space:]]\+u630851-sub3[[:space:]]*$')"
-            echo "password lines total:      $(tr -d '\r' < /tmp/nt.$$ | grep -c '^[[:space:]]*password[[:space:]]')"
-            # Catches a sudo prompt or shell noise pasted in ahead of the file.
-            echo "first token on line 1:     [$(head -1 /tmp/nt.$$ | awk '{print $1}')]"
-            rm -f /tmp/nt.$$
+          # Two probes on purpose, because they can disagree and the
+          # disagreement is itself the diagnosis: curl tests whether the
+          # credential is accepted, `nix store info` tests the code path
+          # substitution actually takes. Nix links its OWN libcurl, parses netrc
+          # independently of the system curl, and reads config as the daemon —
+          # so a green curl proves nothing about whether Nix can use the cache.
+          #
+          # Run as root via an absolute path: /etc/nix-cache-netrc is 0600 root,
+          # the daemon that substitutes is root, and an unprivileged probe would
+          # fail to read it and report a misleading 401.
+          # Confirm the installer's extra-conf actually landed; a missing
+          # netrc-file here would produce the same 401 as a bad password.
+          nix config show | grep -E '^(netrc-file|extra-substituters|fallback)' || true
 
-            # Only the username is printed; it is already public in this file.
-            # The two booleans below leak one bit each about whitespace, which
-            # is worth it to catch the corruption we cannot otherwise see.
-            sent=$(sudo curl -sS -v --netrc-file /etc/nix-cache-netrc \
-              "https://$H/nix-cache-info" 2>&1 >/dev/null \
-              | grep -i '^> authorization: basic' | sed 's/.*Basic //' \
-              | tr -d '\r' | base64 -d 2>/dev/null)
-            echo "authorization header sent: $([ -n "$sent" ] && echo 1 || echo 0)"
-            echo "login curl transmits:      [${sent%%:*}]"
-            pw=${sent#*:}
-            echo "transmitted pw is empty:   $([ -z "$pw" ] && echo YES || echo no)"
-            case "$pw" in
-              ' '*|*' ') echo "transmitted pw has edge whitespace: YES" ;;
-              *)         echo "transmitted pw has edge whitespace: no" ;;
-            esac
-
-            echo "::warning::Storage Box cache unusable (HTTP $code) — this run builds from source"
+          # Unprivileged on purpose: this is the identity that failed before,
+          # so it is the one worth probing.
+          if nix store info --store "https://$H" 2>&1 | sed 's/^/  nix: /'; then
+            echo "nix -> cache reachable"
+          else
+            echo "::warning::Nix cannot use the Storage Box cache — this run builds from source"
           fi
+
+          # A cache that 401s degrades into a silent full rebuild rather than a
+          # failure, so surface it. Deliberately a warning, not an error:
+          # `fallback` means the run is still correct, just slow, and a Hetzner
+          # blip should not break CI.
+          #
+          # NOTE: the sub3 password must avoid whitespace, '#', quotes and
+          # backslash. netrc parsing differs by curl build — a '#' that curl
+          # 8.21.0 on the NixOS hosts passes through verbatim is treated as a
+          # comment delimiter by the runner's curl, which silently yields an
+          # EMPTY password and an indistinguishable 401.
+          [ "$code" = 200 ] \
+            || echo "::warning::curl cannot authenticate to the cache (HTTP $code)"
 
       - name: Build ${{ matrix.host }}
         run: |
