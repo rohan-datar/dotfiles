@@ -118,16 +118,38 @@ jobs:
           # indistinguishable from a bad password at the HTTP layer.
           if [ "$code" != 200 ]; then
             echo "--- diagnostic ---"
-            echo "netrc bytes: $(sudo wc -c < /etc/nix-cache-netrc)"
-            echo "netrc lines: $(sudo wc -l < /etc/nix-cache-netrc)"
-            echo "machine line matches host: $(sudo tr -d '\r' < /etc/nix-cache-netrc \
+            # `sudo cmd < file` does NOT work: the shell opens the redirect as
+            # the unprivileged user before sudo runs. Pipe from `sudo cat`.
+            sudo cat /etc/nix-cache-netrc > /tmp/nt.$$
+            echo "netrc bytes: $(wc -c < /tmp/nt.$$)"
+            echo "netrc lines: $(wc -l < /tmp/nt.$$)"
+            echo "machine lines total:       $(tr -d '\r' < /tmp/nt.$$ | grep -c '^[[:space:]]*machine[[:space:]]')"
+            echo "machine line matches host: $(tr -d '\r' < /tmp/nt.$$ \
               | grep -c "^[[:space:]]*machine[[:space:]]\+$H[[:space:]]*$")"
-            echo "login line matches sub3:   $(sudo tr -d '\r' < /etc/nix-cache-netrc \
+            echo "login lines total:         $(tr -d '\r' < /tmp/nt.$$ | grep -c '^[[:space:]]*login[[:space:]]')"
+            echo "login line matches sub3:   $(tr -d '\r' < /tmp/nt.$$ \
               | grep -c '^[[:space:]]*login[[:space:]]\+u630851-sub3[[:space:]]*$')"
-            echo "password keyword present:  $(sudo tr -d '\r' < /etc/nix-cache-netrc \
-              | grep -c '^[[:space:]]*password[[:space:]]\+..*$')"
-            echo "authorization header sent: $(sudo curl -sS -v --netrc-file /etc/nix-cache-netrc \
-              "https://$H/nix-cache-info" 2>&1 >/dev/null | grep -ci '^> authorization: basic')"
+            echo "password lines total:      $(tr -d '\r' < /tmp/nt.$$ | grep -c '^[[:space:]]*password[[:space:]]')"
+            # Catches a sudo prompt or shell noise pasted in ahead of the file.
+            echo "first token on line 1:     [$(head -1 /tmp/nt.$$ | awk '{print $1}')]"
+            rm -f /tmp/nt.$$
+
+            # Only the username is printed; it is already public in this file.
+            # The two booleans below leak one bit each about whitespace, which
+            # is worth it to catch the corruption we cannot otherwise see.
+            sent=$(sudo curl -sS -v --netrc-file /etc/nix-cache-netrc \
+              "https://$H/nix-cache-info" 2>&1 >/dev/null \
+              | grep -i '^> authorization: basic' | sed 's/.*Basic //' \
+              | tr -d '\r' | base64 -d 2>/dev/null)
+            echo "authorization header sent: $([ -n "$sent" ] && echo 1 || echo 0)"
+            echo "login curl transmits:      [${sent%%:*}]"
+            pw=${sent#*:}
+            echo "transmitted pw is empty:   $([ -z "$pw" ] && echo YES || echo no)"
+            case "$pw" in
+              ' '*|*' ') echo "transmitted pw has edge whitespace: YES" ;;
+              *)         echo "transmitted pw has edge whitespace: no" ;;
+            esac
+
             echo "::warning::Storage Box cache unusable (HTTP $code) — this run builds from source"
           fi
 
