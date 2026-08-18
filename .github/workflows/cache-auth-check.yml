@@ -56,6 +56,15 @@ jobs:
             echo "pre-existing:        (file absent)"
           fi
 
+          # Restart FIRST: the daemon parses netrc at startup so it must be
+          # restarted, but determinate-nixd regenerates this file on restart, so
+          # restarting afterwards discards our entry. See check.yml.
+          for unit in nix-daemon.service determinate-nixd.service; do
+            if systemctl is-active --quiet "$unit" 2>/dev/null; then
+              sudo systemctl restart "$unit" && echo "restarted $unit"
+            fi
+          done
+
           sudo mkdir -p "$(dirname "$NETRC")"
           sudo touch "$NETRC"
           printf '\n' | sudo tee -a "$NETRC" > /dev/null
@@ -68,13 +77,6 @@ jobs:
           echo "mode/owner:          $(sudo stat -c '%a %U:%G' "$NETRC")"
           echo "readable by $(id -un)?  $([ -r "$NETRC" ] && echo yes || echo NO)"
 
-          # See check.yml: the daemon parses netrc once at startup and the
-          # installer started it before this file existed.
-          for unit in nix-daemon.service determinate-nixd.service; do
-            if systemctl is-active --quiet "$unit" 2>/dev/null; then
-              sudo systemctl restart "$unit" && echo "restarted $unit"
-            fi
-          done
 
       # CAVEAT: `nix store info --store <url>` runs in the CLIENT and reads
       # netrc itself. `nix build` substitutes through the DAEMON, which parses

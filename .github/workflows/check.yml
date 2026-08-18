@@ -112,6 +112,18 @@ jobs:
         run: |
           NETRC=$(nix config show netrc-file)
           echo "Nix netrc: $NETRC"
+          # Restart the daemon FIRST, before writing. Two facts collide here:
+          # the daemon parses netrc at startup and the installer starts it
+          # before this step runs, so it must be restarted; but determinate-nixd
+          # manages this file and regenerates it on restart, so restarting
+          # afterwards silently discards our entry. Restarting first satisfies
+          # both — fresh daemon, and our append is the last write.
+          for unit in nix-daemon.service determinate-nixd.service; do
+            if systemctl is-active --quiet "$unit" 2>/dev/null; then
+              sudo systemctl restart "$unit" && echo "restarted $unit"
+            fi
+          done
+
           # mkdir -p, not `install -d`: install would reset the mode of a
           # directory Determinate already owns.
           sudo mkdir -p "$(dirname "$NETRC")"
@@ -130,17 +142,6 @@ jobs:
           echo "machine entries now: $(sudo grep -c '^[[:space:]]*machine[[:space:]]' "$NETRC")"
           echo "netrc mode/owner:    $(sudo stat -c '%a %U:%G' "$NETRC")"
           echo "readable by $(id -un)?  $([ -r "$NETRC" ] && echo yes || echo NO)"
-
-          # LOAD-BEARING. The client re-reads netrc every invocation, but the
-          # daemon — which is what `nix build` substitutes through — parses it
-          # once at startup, and the installer started it before this file
-          # existed. Without this restart the auth check below (client) passes
-          # while the build (daemon) 401s on the same runner seconds later.
-          for unit in nix-daemon.service determinate-nixd.service; do
-            if systemctl is-active --quiet "$unit" 2>/dev/null; then
-              sudo systemctl restart "$unit" && echo "restarted $unit"
-            fi
-          done
 
       - name: Check binary cache auth
         run: |
