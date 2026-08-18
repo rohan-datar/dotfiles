@@ -18,6 +18,14 @@ jobs:
   auth:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    # Four replicas to mirror push-to-cache's concurrency. A lone job probes
+    # 5/5 clean, but the real matrix had one host 401 while two others
+    # succeeded in the same second — so simultaneous auth against one Hetzner
+    # sub-account is the remaining suspect, and one job cannot reproduce it.
+    strategy:
+      fail-fast: false
+      matrix:
+        replica: [1, 2, 3, 4]
     steps:
       # No netrc-file here: Determinate Nix pins its own and overrides
       # extra-conf, so naming one guarantees it is never read.
