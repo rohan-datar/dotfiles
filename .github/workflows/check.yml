@@ -112,12 +112,24 @@ jobs:
         run: |
           NETRC=$(nix config show netrc-file)
           echo "Nix netrc: $NETRC"
-          sudo install -d -m 0755 "$(dirname "$NETRC")"
+          # mkdir -p, not `install -d`: install would reset the mode of a
+          # directory Determinate already owns.
+          sudo mkdir -p "$(dirname "$NETRC")"
           sudo touch "$NETRC"
+          # Force a newline first. If the existing file does not end in one,
+          # appending welds our `machine` token onto its last line and corrupts
+          # both entries.
+          printf '\n' | sudo tee -a "$NETRC" > /dev/null
           printf '%s\n' "$STORAGEBOX_NETRC" \
             | tr -d '\r' \
             | sed '/^[[:space:]]*$/d' \
             | sudo tee -a "$NETRC" > /dev/null
+
+          # Confirm the append landed and that the unprivileged Nix client can
+          # actually open it. Neither line reveals any credential.
+          echo "machine entries now: $(sudo grep -c '^[[:space:]]*machine[[:space:]]' "$NETRC")"
+          echo "netrc mode/owner:    $(sudo stat -c '%a %U:%G' "$NETRC")"
+          echo "readable by $(id -un)?  $([ -r "$NETRC" ] && echo yes || echo NO)"
 
       - name: Check binary cache auth
         run: |

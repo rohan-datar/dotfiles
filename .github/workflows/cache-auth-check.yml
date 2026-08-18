@@ -1,0 +1,83 @@
+---
+# Debug harness for the Storage Box binary cache credential path.
+#
+# Reproduces ONLY the netrc + substituter setup from check.yml's push-to-cache
+# job and then probes — no checkout, no matrix, no building. Turnaround is
+# ~1 minute instead of the ~25 a full matrix build needs, which matters because
+# the failure being chased is intermittent: the same commit has had jobs both
+# authenticate and 401 within the same run.
+#
+# Manual dispatch only. If you change the netrc handling here, mirror it into
+# check.yml — the two are duplicated on purpose so this stays standalone.
+name: Cache auth check
+
+'on':
+  workflow_dispatch: {}
+
+jobs:
+  auth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # No netrc-file here: Determinate Nix pins its own and overrides
+      # extra-conf, so naming one guarantees it is never read.
+      - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: |
+            extra-substituters = https://u630851-sub3.your-storagebox.de
+            extra-trusted-public-keys = homelab-1:mrqVIHbzAqQrYiUiih6cBT8d1uXZBt5IB0J9cddhtbE=
+            fallback = true
+            http-connections = 16
+
+      - name: Add Storage Box credentials to Nix's netrc
+        env:
+          STORAGEBOX_NETRC: ${{ secrets.STORAGEBOX_NETRC }}
+        run: |
+          : "${STORAGEBOX_NETRC:?is unset or empty in repo secrets}"
+
+          NETRC=$(nix config show netrc-file)
+          echo "Nix netrc: $NETRC"
+
+          # What Determinate leaves here varies between runners, which is the
+          # leading suspect for the intermittency: appending to a file with no
+          # trailing newline welds our `machine` token onto its last line.
+          if [ -e "$NETRC" ]; then
+            echo "pre-existing size:   $(sudo stat -c '%s' "$NETRC")"
+            echo "ends with newline?   $(sudo tail -c1 "$NETRC" | od -c | head -1 | grep -q '\\n' && echo yes || echo NO)"
+          else
+            echo "pre-existing:        (file absent)"
+          fi
+
+          sudo mkdir -p "$(dirname "$NETRC")"
+          sudo touch "$NETRC"
+          printf '\n' | sudo tee -a "$NETRC" > /dev/null
+          printf '%s\n' "$STORAGEBOX_NETRC" \
+            | tr -d '\r' \
+            | sed '/^[[:space:]]*$/d' \
+            | sudo tee -a "$NETRC" > /dev/null
+
+          echo "machine entries now: $(sudo grep -c '^[[:space:]]*machine[[:space:]]' "$NETRC")"
+          echo "mode/owner:          $(sudo stat -c '%a %U:%G' "$NETRC")"
+          echo "readable by $(id -un)?  $([ -r "$NETRC" ] && echo yes || echo NO)"
+
+      # Repeat the probe: a single attempt cannot distinguish "broken" from
+      # "intermittent", and intermittency is now the open question.
+      - name: Probe the cache
+        run: |
+          H=u630851-sub3.your-storagebox.de
+          pass=0
+          fail=0
+          for i in 1 2 3 4 5; do
+            if out=$(nix store info --store "https://$H" 2>&1); then
+              echo "attempt $i: OK"
+              pass=$((pass + 1))
+            else
+              echo "attempt $i: FAIL"
+              printf '%s\n' "$out" | grep -iE 'error|401|403|refused' | head -2 | sed 's/^/    /'
+              fail=$((fail + 1))
+            fi
+            sleep 3
+          done
+          echo "----"
+          echo "passed $pass / failed $fail"
+          [ "$fail" -eq 0 ] || echo "::warning::cache auth is intermittent or broken ($fail/5 failed)"
