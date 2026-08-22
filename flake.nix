@@ -54,10 +54,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Pinned ahead of ragenix's lock, which still uses the removed stdenv.isLinux
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ragenix = {
       url = "github:yaxitech/ragenix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "rust-overlay";
       };
     };
 
