@@ -65,8 +65,6 @@
           bind --mode insert ctrl-n 'down-or-search'
         end
 
-        set -Ux fifc_editor nvim
-
         if status is-interactive
           set fish_greeting
 
@@ -87,8 +85,17 @@
           zoxide init --cmd cd fish | source
           direnv hook fish | source
           fzf --fish | source
+          set -gx FZF_DEFAULT_OPTS "--height 40% --layout=reverse --border"
           starship init fish | source
           enable_transience
+        end
+
+        # --no-config makes fish skip vendor_conf.d, which is how Ghostty
+        # injects its shell integration (fish_handle_reflow for prompt repaint
+        # on reflow/wake, OSC 133 prompt marks, cwd reporting). Source it
+        # manually; keep last — the script ends by exiting its own source.
+        if set -q GHOSTTY_RESOURCES_DIR
+          source "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish"
         end
       '';
     };
