@@ -17,6 +17,7 @@
     self.modules.nixos.nas-paperless
     self.modules.nixos.metrics-agent
     self.modules.nixos.nas-metrics # zfs + smartctl exporters
+    self.modules.nixos.auto-upgrade # unattended upgrades
   ];
 
   # Match the UID/GID rdatar had on TrueNAS so ownership of existing pool data

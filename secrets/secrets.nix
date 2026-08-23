@@ -90,6 +90,12 @@ in
   "paperless-oidc-env.age".publicKeys = home-nas-keys;
   "grafana-oidc-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "grafana-secret-key.age".publicKeys = home-controller-keys ++ rdatar-macbook;
+  "upgrade-ntfy-env.age".publicKeys =
+    homelab-user-keys
+    ++ rdatar-macbook
+    ++ home-media-system-keys
+    ++ home-nas-system-keys
+    ++ home-controller-system-keys;
   "gatus-env.age".publicKeys =
     homelab-user-keys ++ home-controller-system-keys ++ home-media-system-keys ++ rdatar-macbook;
   "ha-prometheus-token.age".publicKeys = home-controller-keys ++ rdatar-macbook;

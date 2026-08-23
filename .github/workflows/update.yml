@@ -37,6 +37,7 @@ jobs:
     uses: ./.github/workflows/check.yml
     with:
       ref: ${{ needs.update-flake-lock.outputs.branch }}
+    secrets: inherit
 
   merge:
     name: Merge Pull Request

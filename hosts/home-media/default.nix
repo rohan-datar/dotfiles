@@ -19,6 +19,7 @@
     self.modules.nixos.media-ingress
     self.modules.nixos.metrics-agent
     self.modules.nixos.media-watchdog # watches home-controller from the outside
+    self.modules.nixos.auto-upgrade # unattended upgrades; canary slot, first
     self.modules.nixos.warpgate
     self.modules.nixos.mail # msmtp transport for the backup-failure alert below
     self.modules.nixos.media-restic
@@ -28,6 +29,8 @@
     FLAKE = "/home/rdatar/nix";
     NH_FLAKE = "/home/rdatar/nix";
   };
+
+  system.autoUpgrade.dates = "*-*-* 03:30";
 
   # `services.userborn` requires `system.activationScripts.users == ""`.
   # nixarr's Seerr module extends `system.activationScripts.users.deps`, which

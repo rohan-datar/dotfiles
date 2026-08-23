@@ -45,7 +45,7 @@ jobs:
   # substitute from (see modules/nix.nix).
   push-to-cache:
     name: Push ${{ matrix.host }} to binary cache
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'workflow_call' || github.ref == 'refs/heads/main'
     needs: check-flake-linux
     runs-on: ubuntu-latest
     timeout-minutes: 90
