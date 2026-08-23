@@ -17,7 +17,7 @@
   boot.loader.limine = {
     enable = true;
     efiSupport = true;
-    maxGenerations = 20;
+    maxGenerations = 5;
     secureBoot.enable = true;
     extraEntries = ''
       /Windows
