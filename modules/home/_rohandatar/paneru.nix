@@ -5,8 +5,8 @@
     settings = {
       options = {
         # mirrors niri: input.focus-follows-mouse.enable
-        focus_follows_mouse = true;
-        mouse_follows_focus = true;
+        focus_follows_mouse = false;
+        mouse_follows_focus = false;
         # 0.5 mirrors niri's default-column-width proportion; rest are paneru defaults
         preset_column_widths = [
           0.25
