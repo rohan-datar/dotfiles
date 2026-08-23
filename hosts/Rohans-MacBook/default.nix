@@ -41,6 +41,22 @@ in
     NH_FLAKE = "/Users/rohandatar/nix";
   };
 
+  # Vicinae launcher: keep the server daemon running at login
+  launchd.agents.vicinae = {
+    serviceConfig = {
+      ProgramArguments = [
+        "${pkgs.vicinae}/bin/vicinae"
+        "server"
+      ];
+      RunAtLoad = true;
+      KeepAlive = {
+        Crashed = true;
+        SuccessfulExit = false;
+      };
+      ProcessType = "Interactive";
+    };
+  };
+
   services.lorri.enable = true;
   services.emacs = {
     enable = true;
@@ -54,7 +70,7 @@ in
       swiftlint
       swift-format
       xcbeautify
-      raycast
+      vicinae
       appcleaner
       openldap
       container

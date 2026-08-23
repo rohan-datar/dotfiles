@@ -17,7 +17,6 @@ let
       self.modules.homeManager.default
       inputs.nix-index-database.homeModules.nix-index
       inputs.ragenix.homeManagerModules.default
-      inputs.vicinae.homeManagerModules.default
     ];
   };
 in
