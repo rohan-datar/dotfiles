@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+_: {
   flake.modules.nixos.login-manager =
     {
       self,
@@ -7,13 +6,16 @@
       ...
     }:
     {
-      imports = [
-        inputs.noctalia-greeter.nixosModules.default
-      ];
       config = {
         programs.niri = {
           enable = true;
           package = self.packages.${pkgs.stdenv.hostPlatform.system}.niri;
+        };
+
+        programs.noctalia = {
+          enable = true;
+          package = self.packages.${pkgs.stdenv.hostPlatform.system}.noctalia;
+          systemd.enable = true;
         };
 
         # services = {
@@ -31,9 +33,12 @@
         #     defaultSession = "niri";
         #   };
         # };
-        programs.noctalia-greeter = {
+        services.displayManager.noctalia-greeter = {
           enable = true;
-          greeter-args = "--session Niri";
+          extraArgs = [
+            "--session"
+            "Niri"
+          ];
         };
 
         # noctalia's greeter sync escalates via pkexec, which needs the setuid

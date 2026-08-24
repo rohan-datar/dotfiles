@@ -1,14 +1,7 @@
 {
   pkgs,
-  config,
-  lib,
-  inputs,
   ...
 }:
-let
-  inherit (lib) mkIf;
-  inherit (pkgs.stdenv.hostPlatform) system;
-in
 {
   config = {
     home.packages = [
@@ -18,7 +11,6 @@ in
       pkgs.pavucontrol
       pkgs.brightnessctl
       pkgs.fuzzel
-      inputs.noctalia.packages.${system}.default
     ];
   };
 }

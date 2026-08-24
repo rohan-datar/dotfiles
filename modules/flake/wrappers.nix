@@ -5,8 +5,10 @@
       wrappers = {
         control_type = "exclude";
         packages = {
-          # niri is a Linux-only compositor; don't try to build the wrapper on Darwin.
+          # niri and noctalia are Linux-only Wayland shells; don't try to
+          # build their wrappers on Darwin.
           niri = pkgs.stdenv.hostPlatform.isDarwin;
+          noctalia = pkgs.stdenv.hostPlatform.isDarwin;
         };
       };
     };
