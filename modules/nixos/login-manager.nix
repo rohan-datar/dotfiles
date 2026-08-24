@@ -18,21 +18,6 @@ _: {
           systemd.enable = true;
         };
 
-        # services = {
-        #   displayManager = {
-        #     sddm = {
-        #       enable = false;
-        #       package = pkgs.kdePackages.sddm;
-        #       autoNumlock = true;
-        #       settings.General.RememberLastSession = false;
-        #       wayland = {
-        #         enable = true;
-        #         compositor = "kwin";
-        #       };
-        #     };
-        #     defaultSession = "niri";
-        #   };
-        # };
         services.displayManager.noctalia-greeter = {
           enable = true;
           extraArgs = [
