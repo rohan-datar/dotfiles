@@ -26,16 +26,6 @@ _: {
           description = "Name of the derivation output where the generated config is placed.";
         };
 
-        configPlaceholder = lib.mkOption {
-          type = lib.types.str;
-          default = "${placeholder config.configDrvOutput}/noctalia";
-          readOnly = true;
-          description = ''
-            Placeholder for the generated config directory.
-
-            Use this inside the module to place files in an ad-hoc manner within it.
-          '';
-        };
       };
 
       config = {
@@ -302,7 +292,7 @@ _: {
           builder = ''${pkgs.remarshal}/bin/json2toml "$1" "$2"'';
         };
 
-        env.NOCTALIA_CONFIG_HOME = "${config.configPlaceholder}";
+        env.NOCTALIA_CONFIG_HOME = "${placeholder config.configDrvOutput}";
 
         package = lib.mkDefault pkgs.noctalia;
       };
