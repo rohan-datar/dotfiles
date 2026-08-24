@@ -2,10 +2,8 @@
   imports = [
     #keep-sorted start
     ./fonts.nix
-    ./packages.nix
     ./programs
     ./theme
-    ./ui
     #keep-sorted end
   ];
 

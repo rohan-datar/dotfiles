@@ -3,8 +3,6 @@
   services.displayManager.autoLogin.enable = false;
   services.displayManager.autoLogin.user = "rdatar";
 
-  programs.hyprland.enable = false;
-
   home-manager.users.rdatar = {
     imports = [
       self.modules.homeManager.rdatar

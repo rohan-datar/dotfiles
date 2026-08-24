@@ -83,7 +83,7 @@ home-manager.users.rdatar = {
 
 ## System Aspects
 
-Features are enabled by importing aspects — there are no enable flags. For example, a graphical NixOS host imports `self.modules.nixos.graphical`, which in turn imports `self.modules.nixos.wayland`, `self.modules.nixos.hyprland`, `self.modules.nixos.fonts`, `self.modules.nixos.home-manager`, etc. Graphical-only behavior lives in aspects only the graphical umbrella imports.
+Features are enabled by importing aspects — there are no enable flags. For example, a graphical NixOS host imports `self.modules.nixos.graphical`, which in turn imports `self.modules.nixos.wayland`, `self.modules.nixos.fonts`, `self.modules.nixos.home-manager`, etc. Graphical-only behavior lives in aspects only the graphical umbrella imports.
 
 ## Secret Management
 
