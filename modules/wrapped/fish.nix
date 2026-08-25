@@ -8,6 +8,28 @@
       ...
     }:
     let
+      ghosttyPkg = if pkgs.stdenv.hostPlatform.isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
+
+      # Ghostty's fish shell integration (fish_handle_reflow for prompt
+      # repaint after reflow/wake, OSC 133 prompt marks, cwd reporting).
+      # --no-config skips vendor_conf.d where Ghostty normally injects this
+      # locally, and plain ssh never sees Ghostty's env vars at all — so
+      # remote prompts used to stay blank after the Mac's display woke.
+      # Extract the script from the ghostty package itself instead of
+      # vendoring it, so it always matches the packaged version. Only the
+      # extracted text enters the closure, not the ghostty binary.
+      ghosttyFishIntegration = pkgs.runCommand "ghostty-fish-integration.fish" { } ''
+        f=
+        for cand in \
+          ${ghosttyPkg}/share/ghostty/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish \
+          ${ghosttyPkg}/Applications/Ghostty.app/Contents/Resources/ghostty/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish
+        do
+          if [ -f "$cand" ]; then f="$cand"; break; fi
+        done
+        [ -n "$f" ] || { echo "ghostty fish integration not found in ${ghosttyPkg}" >&2; exit 1; }
+        cp "$f" $out
+      '';
+
       # catppuccin/nix exposes each port as a package; a fish .theme file is
       # just "variable value" lines, so turn it into set statements we can
       # source without needing a mutable ~/.config/fish/themes dir.
@@ -90,13 +112,7 @@
           enable_transience
         end
 
-        # --no-config makes fish skip vendor_conf.d, which is how Ghostty
-        # injects its shell integration (fish_handle_reflow for prompt repaint
-        # on reflow/wake, OSC 133 prompt marks, cwd reporting). Source it
-        # manually; keep last — the script ends by exiting its own source.
-        if set -q GHOSTTY_RESOURCES_DIR
-          source "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish"
-        end
+        source ${ghosttyFishIntegration}
       '';
     };
 }
