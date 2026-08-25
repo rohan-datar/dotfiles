@@ -8,7 +8,14 @@ _: {
 
       nixarr = {
         komga.enable = true;
-        shelfmark.enable = true;
+        shelfmark = {
+          enable = true;
+          # Bind to all interfaces so Gatus (home-controller) can probe the app
+          # directly; the firewall rule below restricts 8084 to the controller.
+          # The public vhost probe can't detect upstream death, because Caddy +
+          # oauth2-proxy answer with a 302 before ever touching Shelfmark.
+          host = "0.0.0.0";
+        };
       };
 
       services.shelfmark.environment = {
@@ -45,5 +52,10 @@ _: {
 
       # Reachable only from the LAN side, for the router's Caddy to proxy.
       networking.firewall.interfaces.enp1s0.allowedTCPPorts = [ 25600 ];
+
+      # Shelfmark itself: only the controller may connect for its liveness probe.
+      networking.firewall.extraInputRules = ''
+        iifname "enp1s0" ip saddr 10.10.1.13 tcp dport 8084 accept comment "gatus -> shelfmark"
+      '';
     };
 }

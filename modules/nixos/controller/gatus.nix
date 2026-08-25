@@ -143,6 +143,20 @@ _: {
             (ingress "subtitles")
             (ingress "shelfmark")
 
+            # NOTE: the ingress probes above only prove Caddy + wildcard cert +
+            # oauth2-proxy: the unauthenticated GET is answered with a 302
+            # before any request reaches the upstream service, so a dead app
+            # still shows green. Each forward-auth service therefore also gets
+            # a direct liveness probe of the app itself.
+            {
+              name = "shelfmark-app";
+              group = "media-ingress";
+              interval = "300s";
+              url = "tcp://10.10.1.11:8084";
+              conditions = [ "[CONNECTED] == true" ];
+              alerts = ntfy;
+            }
+
             # --- Infrastructure ---
             {
               name = "nas-smb";
