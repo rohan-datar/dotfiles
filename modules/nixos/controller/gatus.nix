@@ -5,18 +5,14 @@ _: {
       # Every endpoint pushes on the same policy, so name the list once.
       ntfy = [ { type = "ntfy"; } ];
 
-      # Unauthenticated GET of a forward-auth vhost must redirect to Keycloak.
-      # One probe proves Caddy + wildcard cert + oauth2-proxy end to end.
-      ingress = name: {
+      # Direct liveness probe of an *arr app's unauthenticated /ping endpoint,
+      # bypassing Caddy and oauth2-proxy entirely.
+      arr-app = name: port: {
         inherit name;
         group = "media-ingress";
-        interval = "300s";
-        url = "https://${name}.media.rdatar.com";
-        client.ignore-redirect = true;
-        conditions = [
-          "[STATUS] == 302"
-          "[CERTIFICATE_EXPIRATION] > 240h"
-        ];
+        interval = "120s";
+        url = "http://10.10.1.11:${toString port}/ping";
+        conditions = [ "[STATUS] == 200" ];
         alerts = ntfy;
       };
     in
@@ -136,22 +132,40 @@ _: {
               alerts = ntfy;
             }
 
-            # --- Forward-auth tier ---
-            (ingress "tv")
-            (ingress "movie")
-            (ingress "trackers")
-            (ingress "subtitles")
-            (ingress "shelfmark")
+            # --- Internally accessible endpoints ---
+            {
+              name = "oauth2-proxy";
+              group = "media-ingress";
+              interval = "300s";
+              url = "https://tv.media.rdatar.com";
+              client.ignore-redirect = true;
+              conditions = [
+                "[STATUS] == 302"
+                "[CERTIFICATE_EXPIRATION] > 240h"
+              ];
+              alerts = ntfy;
+            }
 
-            # NOTE: the ingress probes above only prove Caddy + wildcard cert +
-            # oauth2-proxy: the unauthenticated GET is answered with a 302
-            # before any request reaches the upstream service, so a dead app
-            # still shows green. Each forward-auth service therefore also gets
-            # a direct liveness probe of the app itself.
+            # --- Apps behind the media.* vhosts, probed directly ---
+            (arr-app "sonarr-app" 8989)
+            (arr-app "radarr-app" 7878)
+            (arr-app "prowlarr-app" 9696)
+
+            # Bazarr has no unauthenticated ping endpoint; TCP is enough.
+            {
+              name = "bazarr-app";
+              group = "media-ingress";
+              interval = "120s";
+              url = "tcp://10.10.1.11:6767";
+              conditions = [ "[CONNECTED] == true" ];
+              alerts = ntfy;
+            }
+
+            # Shelfmark likewise has no ping endpoint.
             {
               name = "shelfmark-app";
               group = "media-ingress";
-              interval = "300s";
+              interval = "120s";
               url = "tcp://10.10.1.11:8084";
               conditions = [ "[CONNECTED] == true" ];
               alerts = ntfy;
@@ -167,9 +181,6 @@ _: {
               alerts = ntfy;
             }
             {
-              # Separates "Warpgate is down" from "the ingress path is down":
-              # if this passes while the public probe fails, the fault is in
-              # DNS/Caddy/OPNsense, not the bastion.
               name = "warpgate-direct";
               group = "infra";
               interval = "60s";

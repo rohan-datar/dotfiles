@@ -75,5 +75,12 @@ _: {
         80
         443
       ];
+
+      # Gatus (home-controller, 10.10.1.13) probes each upstream app directly,
+      # bypassing Caddy + oauth2-proxy. The public vhosts answer 302 before
+      # touching the upstreams, so they cannot detect a dead app on their own.
+      networking.firewall.extraInputRules = ''
+        iifname "enp1s0" ip saddr 10.10.1.13 tcp dport { 6767, 7878, 8084, 8989, 9696 } accept comment "gatus app liveness"
+      '';
     };
 }

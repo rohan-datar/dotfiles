@@ -52,10 +52,5 @@ _: {
 
       # Reachable only from the LAN side, for the router's Caddy to proxy.
       networking.firewall.interfaces.enp1s0.allowedTCPPorts = [ 25600 ];
-
-      # Shelfmark itself: only the controller may connect for its liveness probe.
-      networking.firewall.extraInputRules = ''
-        iifname "enp1s0" ip saddr 10.10.1.13 tcp dport 8084 accept comment "gatus -> shelfmark"
-      '';
     };
 }
