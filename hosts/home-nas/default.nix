@@ -66,6 +66,15 @@
     ];
   };
 
+  boot.kernelParams = [ "zfs.zfs_arc_max=8589934592" ]; # 8 GiB
+
+  # Compressed RAM-backed swap: absorbs transient spikes (backups, OCR bursts)
+  # without swap-on-ZFS deadlocks. systemd-oomd handles real leaks above this.
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+  };
+
   time.timeZone = "America/Chicago";
   system.stateVersion = "25.11";
 }
