@@ -193,7 +193,7 @@
                   {
                     "Jellyseerr" = {
                       icon = "jellyseerr.png";
-                      href = "https://catlog.datars.org/";
+                      href = "https://catalog.datars.org/";
                       description = "Request movies and TV";
                       widgets = [
                         {
