@@ -44,10 +44,10 @@ in
     pkgs.wl-clipboard
     pkgs.libnotify
     pkgs.glib
-    # pkgs.thunderbird
+    pkgs.thunderbird
     pkgs.cifs-utils
     pkgs.nautilus
-    pkgs.font-manager
+    # pkgs.font-manager
     pkgs.beeper
     pkgs.mpv
     inputs.editorconfig.packages.${system}.rdmacs
