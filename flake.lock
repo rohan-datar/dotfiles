@@ -317,11 +317,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787889540,
-        "narHash": "sha256-Mwcv6taYGklsQhj4Mp5S6BihzHPH1OntX0GrPWNJxkc=",
+        "lastModified": 1788235711,
+        "narHash": "sha256-Mpzj8ooXzxDjicN6xa13vrVVdKSRl9Zfssb6WOvVsco=",
         "owner": "rohan-datar",
         "repo": "editorconfig",
-        "rev": "4c2281efcd6d6771cc017d8db4ba5fc28d17a76f",
+        "rev": "707356137e2ed8bfa9dc5b48534f7d8414c39a9e",
         "type": "github"
       },
       "original": {
@@ -1259,11 +1259,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788212036,
-        "narHash": "sha256-uXXFgQXqo2OV8/19fNppbxyBg0DSuHbcEXtdoARITCA=",
+        "lastModified": 1788234882,
+        "narHash": "sha256-ObmDN3fTx/xrmdfEyxDHYnpVvIyKQgCWskcwaDg+vxs=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "8bde1cac5dec5c287933c1d24e19050ccb749d36",
+        "rev": "0c22264c8760e5e8aa0290e1141c5ead56d0e55e",
         "type": "github"
       },
       "original": {
