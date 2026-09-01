@@ -26,6 +26,7 @@ in
     casks = [
       "beeper"
       "omnidisksweeper"
+      "windows-app"
     ];
   };
 
@@ -73,7 +74,6 @@ in
       vicinae
       appcleaner
       openldap
-      remmina
       container
       ;
     emacs = inputs.editorconfig.packages.${system}.rdmacs;
