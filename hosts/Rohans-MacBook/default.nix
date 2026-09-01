@@ -26,7 +26,6 @@ in
     casks = [
       "beeper"
       "omnidisksweeper"
-      "royal-tsx"
     ];
   };
 
@@ -73,8 +72,8 @@ in
       xcbeautify
       vicinae
       appcleaner
-      openconnect
       openldap
+      remmina
       container
       ;
     emacs = inputs.editorconfig.packages.${system}.rdmacs;
