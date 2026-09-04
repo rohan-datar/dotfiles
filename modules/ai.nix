@@ -5,7 +5,7 @@ let
     {
       environment.systemPackages = builtins.attrValues {
         inherit (inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system})
-          claude-code
+          codex
           omp
           pi
           prime-agent
