@@ -175,7 +175,9 @@ _: {
               ${lib.escapeShellArg "${config.home.homeDirectory}/.local/state/rclone/org-sync/${cfg.hostId}"} \
               ${lib.escapeShellArg "${config.home.homeDirectory}/.local/share/org-sync/backups/${cfg.hostId}"} \
               ${lib.escapeShellArg "${config.home.homeDirectory}/Library/Logs"}
-            run touch ${lib.escapeShellArg "${cfg.notesDirectory}/RCLONE_TEST"}
+            if [[ ! -e ${lib.escapeShellArg "${cfg.notesDirectory}/RCLONE_TEST"} ]]; then
+              run touch ${lib.escapeShellArg "${cfg.notesDirectory}/RCLONE_TEST"}
+            fi
           '';
         }
 
