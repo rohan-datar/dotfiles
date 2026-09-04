@@ -44,7 +44,7 @@ in
     pkgs.wl-clipboard
     pkgs.libnotify
     pkgs.glib
-    pkgs.thunderbird
+    pkgs.mailspring
     pkgs.cifs-utils
     pkgs.nautilus
     # pkgs.font-manager
