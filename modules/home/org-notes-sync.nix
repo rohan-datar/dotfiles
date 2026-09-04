@@ -20,75 +20,112 @@ _: {
       rcloneConfig = "${config.xdg.configHome}/rclone/org-notes.conf";
       rcloneFilter = "${config.xdg.configHome}/rclone/org-notes.filter";
       knownHosts = "${config.home.homeDirectory}/.ssh/known_hosts-org-storage-box";
+      stateDirectory = "${config.home.homeDirectory}/.local/state/rclone/org-sync/${cfg.hostId}";
+      workDirectory = "${stateDirectory}/work";
+      initializedMarker = "${stateDirectory}/initialized";
+      remoteNotes = "org-storage-box:/home/org";
+      logDirectory = "${config.home.homeDirectory}/Library/Logs";
 
-      syncCore = pkgs.writeShellApplication {
-        name = "org-notes-sync-core";
-        runtimeInputs = [
-          pkgs.coreutils
-          pkgs.findutils
-          pkgs.openssh
-          pkgs.rclone
-        ];
-        text = builtins.readFile ./org-notes-sync.sh;
-      };
+      syncMinutes = map (step: cfg.scheduleOffsetMinutes + (step * 10)) (lib.range 0 5);
+      minuteString = minute: if minute < 10 then "0${toString minute}" else toString minute;
 
-      sync = pkgs.writeShellApplication {
-        name = "org-notes-sync";
-        runtimeInputs = [ syncCore ];
-        text = ''
-          export ORG_SYNC_HOST_ID=${lib.escapeShellArg cfg.hostId}
-          export ORG_SYNC_NOTES_DIR=${lib.escapeShellArg cfg.notesDirectory}
-          export ORG_SYNC_SSH_KEY_FILE=${lib.escapeShellArg cfg.sshKeyFile}
-          export ORG_SYNC_RCLONE_CONFIG=${lib.escapeShellArg rcloneConfig}
-          export ORG_SYNC_RCLONE_FILTER=${lib.escapeShellArg rcloneFilter}
-          export ORG_SYNC_KNOWN_HOSTS=${lib.escapeShellArg knownHosts}
-          export ORG_SYNC_INITIAL_SOURCE=${lib.escapeShellArg cfg.initialSource}
-          export ORG_SYNC_STORAGE_BOX_USER=${lib.escapeShellArg cfg.storageBoxUser}
-          exec org-notes-sync-core "$@"
-        '';
-      };
+      commonArguments = [
+        "--config"
+        rcloneConfig
+        "bisync"
+        cfg.notesDirectory
+        remoteNotes
+        "--filter-from"
+        rcloneFilter
+        "--workdir"
+        workDirectory
+        "--check-access"
+        "--check-filename"
+        "RCLONE_TEST"
+        "--create-empty-src-dirs"
+        "--compare"
+        "size,modtime"
+        "--modify-window"
+        "2s"
+        "--conflict-resolve"
+        "newer"
+        "--conflict-loser"
+        "pathname"
+        "--conflict-suffix"
+        "conflict-${cfg.hostId}"
+        "--max-delete"
+        "10"
+        "--max-lock"
+        "45m"
+        "--resilient"
+        "--recover"
+        "--check-first"
+        "--checkers"
+        "2"
+        "--transfers"
+        "2"
+        "--retries"
+        "3"
+        "--retries-sleep"
+        "10s"
+        "--low-level-retries"
+        "10"
+        "--contimeout"
+        "15s"
+        "--timeout"
+        "1m"
+        "--log-level"
+        "INFO"
+        "--stats-one-line"
+      ];
 
-      gitSnapshot = pkgs.writeShellApplication {
-        name = "org-notes-git-snapshot";
-        runtimeInputs = [
-          pkgs.coreutils
-          pkgs.git
-        ];
-        text = ''
-          notes_dir=${lib.escapeShellArg cfg.notesDirectory}
-          state_dir=${lib.escapeShellArg "${config.home.homeDirectory}/.local/state/rclone/org-sync/${cfg.hostId}"}
-          lock_dir="$state_dir/process.lock"
-          mkdir -p "$state_dir"
+      sync = pkgs.writeShellScriptBin "org-notes-sync" ''
+        set -euo pipefail
+        if [[ ! -e ${lib.escapeShellArg initializedMarker} ]]; then
+          echo "Org synchronization is not initialized. Run org-notes-sync-init once." >&2
+          exit 0
+        fi
+        exec ${pkgs.rclone}/bin/rclone ${lib.escapeShellArgs commonArguments}
+      '';
 
-          if ! mkdir "$lock_dir" 2>/dev/null; then
-            echo "Org sync is active; skipping Git snapshot." >&2
-            exit 0
-          fi
-          trap 'rm -rf "$lock_dir"' EXIT INT TERM
+      initialize = pkgs.writeShellScriptBin "org-notes-sync-init" ''
+        set -euo pipefail
+        ${pkgs.coreutils}/bin/mkdir -p \
+          ${lib.escapeShellArg cfg.notesDirectory} \
+          ${lib.escapeShellArg workDirectory}
+        if [[ ! -e ${lib.escapeShellArg "${cfg.notesDirectory}/RCLONE_TEST"} ]]; then
+          ${pkgs.coreutils}/bin/printf 'org-sync-access-check\n' \
+            >${lib.escapeShellArg "${cfg.notesDirectory}/RCLONE_TEST"}
+        fi
+        ${pkgs.rclone}/bin/rclone ${lib.escapeShellArgs commonArguments} \
+          --resync --resync-mode ${lib.escapeShellArg cfg.initialSource}
+        ${pkgs.coreutils}/bin/touch ${lib.escapeShellArg initializedMarker}
+      '';
 
-          if [[ ! -d "$notes_dir/.git" ]]; then
-            echo "Not a Git repository: $notes_dir" >&2
-            exit 1
-          fi
-
-          cd "$notes_dir"
-          git add -A
-          if git diff --cached --quiet; then
-            exit 0
-          fi
-
-          git commit -m "Automatic Org snapshot $(date '+%Y-%m-%d %H:%M:%S %Z')"
-          git push origin HEAD:main
-        '';
-      };
+      gitSnapshot = pkgs.writeShellScriptBin "org-notes-git-snapshot" ''
+        set -euo pipefail
+        notes_dir=${lib.escapeShellArg cfg.notesDirectory}
+        if [[ ! -d "$notes_dir/.git" ]]; then
+          echo "Not a Git repository: $notes_dir" >&2
+          exit 1
+        fi
+        cd "$notes_dir"
+        ${pkgs.git}/bin/git add -A
+        if ${pkgs.git}/bin/git diff --cached --quiet; then
+          exit 0
+        fi
+        ${pkgs.git}/bin/git commit -m \
+          "Automatic Org snapshot $(${pkgs.coreutils}/bin/date '+%Y-%m-%d %H:%M:%S %Z')"
+        ${pkgs.git}/bin/git push origin HEAD:main
+      '';
     in
     {
       options.services.org-notes-sync = {
-        enable = mkEnableOption "safe bidirectional Org notes synchronization";
+        enable = mkEnableOption "bidirectional Org notes synchronization";
 
         hostId = mkOption {
           type = types.str;
-          description = "Stable identifier used for independent bisync state and backups.";
+          description = "Stable identifier for this computer's independent bisync state.";
         };
 
         notesDirectory = mkOption {
@@ -114,13 +151,13 @@ _: {
             "path1"
             "path2"
           ];
-          description = "Authoritative side for the explicit one-time init command.";
+          description = "Authoritative side for the explicit one-time initialization command.";
         };
 
-        intervalSeconds = mkOption {
-          type = types.ints.positive;
-          default = 900;
-          description = "Interval between automatic synchronization runs.";
+        scheduleOffsetMinutes = mkOption {
+          type = types.ints.between 0 9;
+          default = 0;
+          description = "Minute offset for the ten-minute schedule; use a different value per computer.";
         };
 
         enableGitSnapshots = mkEnableOption "Mac-only Git snapshots and pushes";
@@ -138,6 +175,7 @@ _: {
           home.packages = [
             pkgs.rclone
             sync
+            initialize
           ]
           ++ lib.optional cfg.enableGitSnapshots gitSnapshot;
 
@@ -153,6 +191,8 @@ _: {
             host_key_algorithms = ssh-ed25519
             md5sum_command = md5sum
             sha1sum_command = sha1sum
+            connections = 3
+            concurrency = 8
           '';
 
           xdg.configFile."rclone/org-notes.filter".text = ''
@@ -172,9 +212,7 @@ _: {
           home.activation.org-notes-sync-directories = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
             run mkdir -p \
               ${lib.escapeShellArg cfg.notesDirectory} \
-              ${lib.escapeShellArg "${config.home.homeDirectory}/.local/state/rclone/org-sync/${cfg.hostId}"} \
-              ${lib.escapeShellArg "${config.home.homeDirectory}/.local/share/org-sync/backups/${cfg.hostId}"} \
-              ${lib.escapeShellArg "${config.home.homeDirectory}/Library/Logs"}
+              ${lib.escapeShellArg workDirectory}
             if [[ ! -e ${lib.escapeShellArg "${cfg.notesDirectory}/RCLONE_TEST"} ]]; then
               run touch ${lib.escapeShellArg "${cfg.notesDirectory}/RCLONE_TEST"}
             fi
@@ -190,7 +228,7 @@ _: {
             };
             Service = {
               Type = "oneshot";
-              ExecStart = "${sync}/bin/org-notes-sync run";
+              ExecStart = "${sync}/bin/org-notes-sync";
               TimeoutStartSec = "50min";
               Nice = 5;
             };
@@ -199,9 +237,8 @@ _: {
           systemd.user.timers.org-notes-sync = {
             Unit.Description = "Periodic canonical Org notes synchronization";
             Timer = {
-              OnBootSec = "5min";
-              OnUnitActiveSec = "${toString cfg.intervalSeconds}s";
-              RandomizedDelaySec = "90s";
+              OnCalendar = map (minute: "*-*-* *:${minuteString minute}:00") syncMinutes;
+              AccuracySec = "30s";
               Persistent = true;
             };
             Install.WantedBy = [ "timers.target" ];
@@ -209,20 +246,21 @@ _: {
         })
 
         (mkIf isDarwin {
+          home.activation.org-notes-sync-logs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+            run mkdir -p ${lib.escapeShellArg logDirectory}
+          '';
+
           launchd.agents.org-notes-sync = {
             enable = true;
             domain = "user";
             config = {
-              ProgramArguments = [
-                "${sync}/bin/org-notes-sync"
-                "run"
-              ];
+              ProgramArguments = [ "${sync}/bin/org-notes-sync" ];
               RunAtLoad = true;
-              StartInterval = cfg.intervalSeconds;
+              StartCalendarInterval = map (minute: { Minute = minute; }) syncMinutes;
               ProcessType = "Background";
               Nice = 5;
-              StandardOutPath = "${config.home.homeDirectory}/Library/Logs/org-notes-sync.log";
-              StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/org-notes-sync.error.log";
+              StandardOutPath = "${logDirectory}/org-notes-sync.log";
+              StandardErrorPath = "${logDirectory}/org-notes-sync.error.log";
             };
           };
         })
@@ -233,12 +271,24 @@ _: {
             domain = "user";
             config = {
               ProgramArguments = [ "${gitSnapshot}/bin/org-notes-git-snapshot" ];
-              RunAtLoad = true;
-              StartInterval = 14400;
+              StartCalendarInterval =
+                map
+                  (hour: {
+                    Hour = hour;
+                    Minute = 5;
+                  })
+                  [
+                    0
+                    4
+                    8
+                    12
+                    16
+                    20
+                  ];
               ProcessType = "Background";
               Nice = 10;
-              StandardOutPath = "${config.home.homeDirectory}/Library/Logs/org-notes-git-snapshot.log";
-              StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/org-notes-git-snapshot.error.log";
+              StandardOutPath = "${logDirectory}/org-notes-git-snapshot.log";
+              StandardErrorPath = "${logDirectory}/org-notes-git-snapshot.error.log";
             };
           };
         })

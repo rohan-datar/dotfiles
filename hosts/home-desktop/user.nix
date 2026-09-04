@@ -14,6 +14,7 @@
       enable = true;
       hostId = "home-desktop";
       initialSource = "path2";
+      scheduleOffsetMinutes = 5;
     };
 
     programs = {
