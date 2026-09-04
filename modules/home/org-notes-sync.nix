@@ -72,7 +72,7 @@ _: {
           fi
 
           cd "$notes_dir"
-          git add -A -- . ':(exclude)calendar.org' ':(exclude)reminders.org' ':(exclude)RCLONE_TEST'
+          git add -A
           if git diff --cached --quiet; then
             exit 0
           fi
