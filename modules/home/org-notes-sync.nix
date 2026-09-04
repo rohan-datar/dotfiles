@@ -1,5 +1,4 @@
-_:
-{
+_: {
   flake.modules.homeManager.org-notes-sync =
     {
       config,
@@ -152,6 +151,8 @@ _:
             known_hosts_file = ${knownHosts}
             shell_type = unix
             host_key_algorithms = ssh-ed25519
+            md5sum_command = md5sum
+            sha1sum_command = sha1sum
           '';
 
           xdg.configFile."rclone/org-notes.filter".text = ''
