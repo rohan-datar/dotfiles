@@ -7,6 +7,16 @@
 }:
 let
   inherit (pkgs.stdenv.hostPlatform) system;
+
+  mailspring = pkgs.symlinkJoin {
+    name = "mailspring-wrapped";
+    paths = [ pkgs.mailspring ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/mailspring \
+        --add-flags "--password-store=gnome-libsecret"
+    '';
+  };
 in
 {
   imports = [
@@ -44,7 +54,7 @@ in
     pkgs.wl-clipboard
     pkgs.libnotify
     pkgs.glib
-    pkgs.mailspring
+    mailspring
     pkgs.cifs-utils
     pkgs.nautilus
     # pkgs.font-manager
