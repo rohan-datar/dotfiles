@@ -7,7 +7,6 @@ let
         inherit (inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system})
           codex
           omp
-          pi
           prime-agent
           ;
       };
