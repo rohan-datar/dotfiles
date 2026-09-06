@@ -36,6 +36,7 @@
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
         systems.follows = "systems";
+        nix-wrapper-modules.follows = "nix-wrapper-modules";
       };
     };
 
@@ -115,7 +116,7 @@
     };
 
     nix-wrapper-modules = {
-      url = "github:BirdeeHub/nix-wrapper-modules";
+      url = "github:nix-community/nix-wrapper-modules";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
