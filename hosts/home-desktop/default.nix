@@ -57,7 +57,7 @@ in
     mailspring
     pkgs.cifs-utils
     pkgs.nautilus
-    # pkgs.font-manager
+    pkgs.font-manager
     pkgs.beeper
     pkgs.mpv
     inputs.editorconfig.packages.${system}.rdmacs
@@ -94,9 +94,7 @@ in
     enableIPv6 = false;
   };
 
-  # Local caching resolver. Smooths over single-upstream flakiness (Zig's
-  # built-in resolver has no retry/fallback, so transient SERVFAILs from
-  # 10.10.0.1 break Nix builds otherwise).
+  # Local caching resolver.
   services.resolved = {
     enable = true;
     settings.Resolve.DNSSEC = "false";
