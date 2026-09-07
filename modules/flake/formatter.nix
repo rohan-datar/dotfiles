@@ -12,6 +12,7 @@
           # keep-sorted start
           actionlint
           deadnix
+          just
           keep-sorted
           nixfmt
           shellcheck
@@ -23,6 +24,11 @@
           (writeShellScriptBin "statix-fix" ''
             for file in "$@"; do
               ${lib.getExe statix} fix "$file"
+            done
+          '')
+          (writeShellScriptBin "just-fmt" ''
+            for file in "$@"; do
+              ${lib.getExe just} --fmt --justfile "$file"
             done
           '')
         ];
@@ -89,6 +95,12 @@
               includes = [ "*.lua" ];
             };
             # keep-sorted end
+
+            just = {
+              command = "just-fmt";
+              includes = [ "Justfile" ];
+            };
+
           };
         };
       };

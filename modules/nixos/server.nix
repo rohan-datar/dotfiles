@@ -29,7 +29,6 @@ in
         pkgs.gcc
         pkgs.curl
         pkgs.cifs-utils
-        pkgs.nh
         inputs.editorconfig.packages.${pkgs.stdenv.hostPlatform.system}.nvim-minimal
         # direnv is not in base.nix (graphical hosts get it via home-manager).
         # Servers install the wrapped version here.

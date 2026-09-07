@@ -19,7 +19,6 @@ let
           tmux
           fzf
           starship
-          nx
           ;
       };
     in
@@ -39,6 +38,8 @@ let
         dysk
         lazygit
         gh
+        just
+        nh
         ;
       ragenix = inputs.ragenix.packages.${system}.default;
     });

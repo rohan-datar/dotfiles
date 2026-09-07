@@ -29,7 +29,7 @@ in
           metrics = true; # scraped by the local Prometheus
 
           # Survive restarts: without this Gatus keeps history and alert state in
-          # memory, so every `nx switch` resets the failure counters. The unit
+          # memory, so every `just switch` resets the failure counters. The unit
           # already gets StateDirectory=gatus.
           storage = {
             type = "sqlite";

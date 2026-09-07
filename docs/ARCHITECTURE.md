@@ -35,7 +35,7 @@ config.easy-hosts = {
 };
 ```
 
-`easy-hosts` automatically applies the class-specific default aspect set. The host directory name is the real machine hostname (`networking.hostName`), so `nx switch` and `nixos-rebuild --flake .` resolve the correct configuration without any extra mapping.
+`easy-hosts` automatically applies the class-specific default aspect set. The host directory name is the real machine hostname (`networking.hostName`), so `just switch` and `nixos-rebuild --flake .` resolve the correct configuration without any extra mapping.
 
 ## Module System
 
@@ -46,7 +46,7 @@ Automatically discovered modules use the flake-parts module interface. Files in 
 - `args.nix` — overlays, system configuration, and `perSystem` arguments
 - `formatter.nix` — `treefmt` configuration
 - `modules.nix` — enables the `flake.modules.*` namespace used by aspects
-- `packages/nx/` — the `nx` helper script
+- the root `Justfile` — workflow recipes (`fmt`, `check`, `rebuild`, `commit`, `switch`, `update`, `clean`); runs from any subdirectory
 
 ### Flake-level metadata
 
