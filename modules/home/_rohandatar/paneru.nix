@@ -3,6 +3,15 @@
     enable = true;
 
     settings = {
+
+      windows = {
+        emacs-child-frames = {
+          # Emacs pgtk child frames (corfu popup, eldoc-box) expose AX title
+          # "Name  —  (W × H)"; float them so paneru doesn't tile the popup.
+          title = "\\d+ × \\d+";
+          floating = true;
+        };
+      };
       options = {
         # mirrors niri: input.focus-follows-mouse.enable
         focus_follows_mouse = false;
