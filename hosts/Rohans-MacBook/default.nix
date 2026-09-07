@@ -77,6 +77,7 @@ in
       container
       ;
     emacs = inputs.editorconfig.packages.${system}.rdmacs;
+    texlive = inputs.editorconfig.packages.${system}.texliveCombined;
   };
 
   # $ darwin-rebuild changelog
