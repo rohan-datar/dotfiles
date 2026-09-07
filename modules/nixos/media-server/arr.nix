@@ -1,4 +1,7 @@
-{ inputs, ... }:
+{ config, inputs, ... }:
+let
+  topology = config.flake.meta.topology;
+in
 {
   flake.modules.nixos.arr = {
     imports = [
@@ -17,8 +20,7 @@
               wgConf = config.age.secrets.wgconf.path;
               accessibleFrom = [ "10.10.0.0/19" ];
             };
-
-            mediaDir = "/mnt/media";
+            mediaDir = topology.mediaStorage.mountPoint;
 
             jellyfin = {
               enable = true;

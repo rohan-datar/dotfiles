@@ -1,20 +1,23 @@
 # Configuration Architecture
 
-This document explains how the Nix configuration in this repository is structured. It follows the **dendritic pattern**: every file under `modules/` is a flake-parts module, and features are organized as aspects under `flake.modules.<class>.<name>`.
+This repository follows the **dendritic pattern**: discovered files under `modules/` are flake-parts modules, and features are organized as aspects under `flake.modules.<class>.<name>`. Underscore-prefixed directories are excluded from automatic discovery; their explicit imports are described below.
 
 ## Flake Structure
 
-`flake.nix` is the entry point. It uses `flake-parts` plus the `import-tree` input to turn every file under `modules/` into a flake-parts module automatically:
+`flake.nix` uses `flake-parts` and `import-tree` to discover the flake-parts modules under `modules/`:
 
 ```nix
 {
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-    imports = [ inputs.import-tree.flakeModule ./modules ];
+    imports = [
+      (inputs.import-tree ./modules)
+      inputs.nix-wrapper-modules.flakeModules.wrappers
+    ];
   };
 }
 ```
 
-The only explicit flake module imports are `modules/flake/`, which contains the pieces that cannot be discovered by `import-tree` (formatter, args, packages, and the `flake.modules` namespace plumbing).
+`modules/flake/` is discovered by the same import tree as the feature modules. The wrapper framework is imported separately. Discovery registers aspect definitions; it does not enable their NixOS, Darwin, or Home Manager configuration. Host and umbrella imports select which aspects are active.
 
 ## Host Management with easy-hosts
 
@@ -25,6 +28,8 @@ config.easy-hosts = {
   hosts = {
     home-desktop = { class = "nixos"; };
     home-media = { class = "nixos"; };
+    home-nas = { class = "nixos"; };
+    home-controller = { class = "nixos"; };
     Rohans-MacBook = { arch = "aarch64"; class = "darwin"; };
   };
 };
@@ -34,7 +39,7 @@ config.easy-hosts = {
 
 ## Module System
 
-All modules live under `modules/` and are flake-parts modules.
+Automatically discovered modules use the flake-parts module interface. Files in underscore-prefixed directories are imported explicitly and may use a different module interface.
 
 ### Flake-level plumbing (`modules/flake/`)
 
@@ -43,24 +48,46 @@ All modules live under `modules/` and are flake-parts modules.
 - `modules.nix` — enables the `flake.modules.*` namespace used by aspects
 - `packages/nx/` — the `nx` helper script
 
-### Class-agnostic options (`modules/meta.nix`)
+### Flake-level metadata
 
-The only custom option is at the flake level:
+- `modules/meta.nix` defines `flake.meta.defaults` — flake-wide default programs.
+- `modules/topology.nix` defines the typed `flake.meta.topology` inventory — shared host addresses, gateway, identity provider naming, and media-storage paths.
 
-- `flake.meta.defaults.{terminal,editor,browser,launcher,screenLocker,...}` — flake-wide default programs
+Flake-parts aspects capture `config.flake.meta.topology` in an outer `let`, before an inner OS or Home Manager module introduces its own `config`. Plain host modules use `self.meta.topology`. No host evaluates another host's `nixosConfigurations` to discover these values.
 
-Home Manager aspect files read it by closing over the flake-parts `config` in
-the outer function of the file. Everything else that used to be an option is
-either import-based (feature aspects, per-user OS accounts in `modules/users/`)
-or plain per-host config in `hosts/{name}/` (e.g. `FLAKE`/`NH_FLAKE` env vars).
+### Cross-host relationships (`modules/infrastructure/`)
+
+`media-storage.nix` owns the media export path and client mount point, and defines both sides of the NFS relationship:
+
+- `flake.modules.nixos.nas-nfs` — NAS export and direct-link firewall access, explicitly imported by `home-nas`.
+- `flake.modules.nixos.media-storage` — client mount, explicitly imported by `home-media`.
+
+Both aspects consume the shared address inventory. The Arr media directory, dashboard disk widget, and NAS backup exclusion also consume the relationship's paths. Defining inventory data does not activate either aspect.
+
+`media-monitoring.nix` owns one private list of direct media liveness probes and defines both sides of that relationship:
+
+- `flake.modules.nixos.media-probes` — Gatus endpoints, imported by the controller's `gatus` aspect.
+- `flake.modules.nixos.media-probe-access` — the matching controller-only firewall allowance, imported by the media host's `media-ingress` aspect.
+
+The same probe ports generate both the backend URLs and firewall rule. Public authentication/certificate checks remain separate. Gatus uses `mkBefore` and `mkAfter` around the relationship's endpoints to preserve the existing display order; importing `media-probes` alone does not enable Gatus.
+
+Keep repeated cross-host facts in the inventory and co-locate the two sides of a relationship where useful. Interface names, prefix lengths, hardware configuration, and application policy stay local. `home-assistant` is an external HAOS guest endpoint in the inventory, not another flake-managed host; its guest network configuration and Keycloak realm provisioning are not managed by the inventory.
 
 ### Class-specific aspects (`modules/nixos/` and `modules/darwin/`)
 
 Each file under these directories contributes an aspect, e.g. `flake.modules.nixos.graphical` or `flake.modules.darwin.brew`. Hosts opt in by importing the aspects they need.
 
+The NixOS `graphical` umbrella provides the common graphical environment without choosing a compositor or greeter. `home-desktop` explicitly imports `niri-desktop` for Niri, Noctalia, and the Noctalia greeter. Generic Wayland environment settings stay in `wayland`; NVIDIA settings stay in `nvidia`. Personal display scaling and the workstation DRM workaround stay in `hosts/home-desktop/default.nix`.
+
+### Host-local hardware and guests
+
+`hosts/home-nas/default.nix` owns its stable ZFS host ID, existing pool import, and bootloader/EFI choices. The `nas-zfs` aspect supplies ZFS support and scrub/trim maintenance, not those machine-specific values.
+
+The controller imports the reusable `libvirt` aspect plus the plain host module `hosts/home-controller/haos.nix`. The latter owns the guest's USB passthrough policy, shutdown behavior, Cockpit access, and domain-definition service next to `haos.xml`. The XML remains the source of the persistent domain definition; a switch does not intentionally restart the running guest.
+
 ### Home Manager aspects (`modules/home/`)
 
-Every file under `modules/home/_internal/` exposes a Home Manager aspect (`flake.modules.homeManager.<name>`). `modules/home/default.nix` also defines a default umbrella (`flake.modules.homeManager.default`) that imports the common aspects. User-specific configs live in `home/{username}/` and are attached in each host's `user.nix`.
+Files under `modules/home/_internal/` expose Home Manager aspects (`flake.modules.homeManager.<name>`). Because import-tree skips this directory, `modules/home/default.nix` explicitly imports their definitions, then separately selects the common aspects for `flake.modules.homeManager.default`. Registration and activation are distinct: for example, `neovim-full` is registered there but selected by the graphical hosts' `user.nix` files.
 
 ### Shared modules (`modules/shared/`)
 
@@ -68,7 +95,7 @@ Every file under `modules/home/_internal/` exposes a Home Manager aspect (`flake
 
 ## Home Manager Integration
 
-Home Manager is a graphical-host concern. `modules/home-manager.nix` defines `flake.modules.{nixos,darwin}.home-manager`, which the `graphical` umbrella aspects import (`useGlobalPkgs = true`, `useUserPackages = true`, shared modules include `flake.modules.homeManager.default`). Server hosts have **no Home Manager**; they get self-contained wrapped tools from `modules/wrapped/` via the `server-base` aspect instead.
+Home Manager is a graphical-host concern. `modules/home-manager.nix` defines `flake.modules.{nixos,darwin}.home-manager`, which the `graphical` umbrellas import (`useGlobalPkgs = true`, `useUserPackages = true`, shared modules include `flake.modules.homeManager.default`). Server hosts have **no Home Manager**. All hosts receive common wrapped tools through the shared `base` aspects; the `server` aspect adds server administration tools, minimal Neovim, and wrapped direnv.
 
 Per-user configs live in `modules/home/_{username}/` — the underscore prefix keeps import-tree from importing them, so the files inside are plain HM modules. `modules/home/users.nix` exposes each directory as an aspect (`flake.modules.homeManager.rdatar`, `flake.modules.homeManager.rohandatar`), and each graphical host's `user.nix` attaches it:
 

@@ -1,8 +1,7 @@
-{
-  lib,
-  self,
-  ...
-}:
+{ lib, self, ... }:
+let
+  topology = self.meta.topology;
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -23,6 +22,7 @@
     self.modules.nixos.warpgate
     self.modules.nixos.mail # msmtp transport for the backup-failure alert below
     self.modules.nixos.media-restic
+    self.modules.nixos.media-storage
   ];
 
   environment.variables = {
@@ -43,34 +43,27 @@
     interfaces = {
       enp1s0.ipv4.addresses = [
         {
-          address = "10.10.1.11";
+          address = topology.hosts.home-media.lanAddress;
           prefixLength = 19;
         }
       ];
 
       enp3s0.ipv4.addresses = [
         {
-          address = "10.10.100.2";
+          address = topology.hosts.home-media.mediaLinkAddress;
           prefixLength = 30;
         }
       ];
     };
     defaultGateway = {
-      address = "10.10.0.1";
+      address = topology.gatewayAddress;
       interface = "enp1s0";
     };
 
-    nameservers = [ "10.10.0.1" ];
+    nameservers = [ topology.gatewayAddress ];
 
     # node_exporter, for the controller's Prometheus. LAN interface only.
     firewall.interfaces.enp1s0.allowedTCPPorts = [ 9100 ];
-  };
-
-  fileSystems = {
-    "/mnt/media" = {
-      device = "10.10.100.1:/mnt/data-pool/data-share/media";
-      fsType = "nfs";
-    };
   };
 
   time.timeZone = "America/Chicago";

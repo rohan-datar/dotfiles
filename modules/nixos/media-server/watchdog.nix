@@ -1,4 +1,8 @@
-_: {
+{ config, ... }:
+let
+  topology = config.flake.meta.topology;
+in
+{
   # Who watches home-controller? A second, tiny Gatus lives here and watches only
   # the things the main Gatus cannot report on: itself and its host. Loopback
   # only — it has no UI worth exposing, it exists to send mail. Port 8181 because
@@ -47,14 +51,14 @@ _: {
           endpoints = [
             {
               name = "controller-host";
-              url = "icmp://10.10.1.13";
+              url = "icmp://${topology.hosts.home-controller.lanAddress}";
               interval = "60s";
               conditions = [ "[CONNECTED] == true" ];
               alerts = email;
             }
             {
               name = "main-gatus";
-              url = "http://10.10.1.13:8081/health";
+              url = "http://${topology.hosts.home-controller.lanAddress}:8081/health";
               interval = "60s";
               conditions = [ "[STATUS] == 200" ];
               alerts = email;
@@ -64,7 +68,7 @@ _: {
             # under auth-default-access=deny-all, and answers {"healthy":true}.
             {
               name = "ntfy";
-              url = "http://10.10.1.13:2586/v1/health";
+              url = "http://${topology.hosts.home-controller.lanAddress}:2586/v1/health";
               interval = "60s";
               conditions = [
                 "[STATUS] == 200"
@@ -74,7 +78,7 @@ _: {
             }
             {
               name = "keycloak";
-              url = "https://auth.datars.org/realms/homelab/.well-known/openid-configuration";
+              url = "${topology.identity.issuerUrl}/.well-known/openid-configuration";
               interval = "120s";
               conditions = [ "[STATUS] == 200" ];
               alerts = email;

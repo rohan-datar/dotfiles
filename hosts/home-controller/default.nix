@@ -1,4 +1,7 @@
 { self, ... }:
+let
+  topology = self.meta.topology;
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -6,7 +9,8 @@
     self.modules.nixos.rdatar # your admin account + ssh keys
     self.modules.nixos.server # openssh, fail2ban, ragenix, base server tools
     self.modules.nixos.intel-cpu # i5-7500T
-    self.modules.nixos.ha-vm
+    self.modules.nixos.libvirt # generic libvirtd + virt-manager service
+    ./haos.nix # HAOS guest: USB passthrough, cockpit UI, domain definition
     self.modules.nixos.keycloak
     self.modules.nixos.lldap # identity source of truth (Keycloak federates it)
     self.modules.nixos.metrics-agent # node_exporter, scraped over loopback
@@ -22,7 +26,7 @@
 
   system.autoUpgrade.dates = "*-*-* 06:30";
 
-  # No aspect sets a bootloader here (home-nas gets systemd-boot via nas-zfs).
+  # No aspect sets a bootloader; home-nas now declares its own systemd-boot in its host module.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -38,15 +42,15 @@
     bridges.br0.interfaces = [ "eno1" ];
     interfaces.br0.ipv4.addresses = [
       {
-        address = "10.10.1.13";
+        address = topology.hosts.home-controller.lanAddress;
         prefixLength = 19;
       }
     ]; # host's own IP
     defaultGateway = {
-      address = "10.10.0.1";
+      address = topology.gatewayAddress;
       interface = "br0";
     };
-    nameservers = [ "10.10.0.1" ];
+    nameservers = [ topology.gatewayAddress ];
   };
 
   time.timeZone = "America/Chicago";

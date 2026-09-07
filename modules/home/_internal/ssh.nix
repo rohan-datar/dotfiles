@@ -1,4 +1,8 @@
-_: {
+{ config, ... }:
+let
+  topology = config.flake.meta.topology;
+in
+{
   flake.modules.homeManager.ssh = {
     programs.ssh = {
       enable = true;
@@ -16,12 +20,12 @@ _: {
           IdentityFile = "~/.ssh/id_ed25519";
         };
         "homenas" = {
-          HostName = "10.10.1.10";
+          HostName = topology.hosts.home-nas.lanAddress;
           User = "rdatar";
           IdentityFile = "~/.ssh/id_ed25519";
         };
         "homecontroller" = {
-          HostName = "10.10.1.13";
+          HostName = topology.hosts.home-controller.lanAddress;
           User = "rdatar";
           IdentityFile = "~/.ssh/id_ed25519";
         };

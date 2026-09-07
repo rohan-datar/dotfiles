@@ -6,6 +6,7 @@
   ...
 }:
 let
+  topology = self.meta.topology;
   inherit (pkgs.stdenv.hostPlatform) system;
 
   mailspring = pkgs.symlinkJoin {
@@ -24,6 +25,7 @@ in
     ./user.nix
     self.modules.nixos.rdatar
     self.modules.nixos.graphical
+    self.modules.nixos.niri-desktop
     self.modules.nixos.intel-cpu
     self.modules.nixos.nvidia
     self.modules.nixos.sound
@@ -35,6 +37,11 @@ in
   environment.variables = {
     FLAKE = "/home/rdatar/nix";
     NH_FLAKE = "/home/rdatar/nix";
+  };
+
+  environment.sessionVariables = {
+    GDK_SCALE = "2";
+    WLR_DRM_NO_ATOMIC = "1";
   };
 
   boot.binfmt.emulatedSystems = [
@@ -90,7 +97,7 @@ in
       enable = true;
       dns = "systemd-resolved";
     };
-    nameservers = [ "10.10.0.1" ];
+    nameservers = [ topology.gatewayAddress ];
     enableIPv6 = false;
   };
 

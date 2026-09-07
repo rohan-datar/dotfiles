@@ -1,4 +1,8 @@
-_: {
+{ config, ... }:
+let
+  topology = config.flake.meta.topology;
+in
+{
   flake.modules.nixos.lldap =
     { config, ... }:
     {
@@ -32,7 +36,7 @@ _: {
 
         settings = {
           ldap_base_dn = "dc=rdatar,dc=com";
-          # LDAP for Jellyfin on 10.10.1.11 and Keycloak federation
+          # LDAP for Jellyfin on home-media and Keycloak federation
           ldap_host = "0.0.0.0";
           ldap_port = 3890;
           # LDAPS alongside plain LDAP, using the ACME cert from above.
@@ -45,7 +49,7 @@ _: {
           # Admin web UI on the LAN.
           http_host = "0.0.0.0";
           http_port = 17170;
-          http_url = "http://10.10.1.13:17170";
+          http_url = "http://${topology.hosts.home-controller.lanAddress}:17170";
           ldap_user_email = "me@rdatar.com";
         };
       };

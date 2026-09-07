@@ -1,4 +1,5 @@
-_: {
+{ self, ... }:
+{
   # TLS + forward-auth ingress for the Arr stack and qBittorrent, terminated on
   # home-media itself. Pairs with the media-oauth2-proxy aspect.
   flake.modules.nixos.media-ingress =
@@ -25,6 +26,8 @@ _: {
       '';
     in
     {
+      # Direct media liveness probes from Gatus
+      imports = [ self.modules.nixos.media-probe-access ];
       # CLOUDFLARE_DNS_API_TOKEN for the DNS-01 challenge.
       age.secrets.cloudflare-dns-token.file = ../../../secrets/cloudflare-dns-token.age;
 
@@ -76,12 +79,5 @@ _: {
         443
       ];
 
-      # Gatus (home-controller, 10.10.1.13) probes each upstream app directly,
-      # bypassing Caddy + oauth2-proxy. The public vhosts answer 302 before
-      # touching the upstreams, so they cannot detect a dead app on their own.
-      networking.firewall.extraCommands = ''
-        ip46tables -A nixos-fw -p tcp -m multiport --dports 6767,7878,8084,8989,9696 \
-          -s 10.10.1.13 -j nixos-fw-accept comment "gatus app liveness"
-      '';
     };
 }

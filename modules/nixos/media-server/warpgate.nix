@@ -1,4 +1,8 @@
-_: {
+{ config, ... }:
+let
+  topology = config.flake.meta.topology;
+in
+{
   # A clientless bastion that hands out browser-based SSH, VNC and
   # HTTP sessions to hosts which stay LAN-only.
   flake.modules.nixos.warpgate =
@@ -69,7 +73,7 @@ _: {
                 type = "custom";
                 client_id = "warpgate";
                 client_secret = ssoSecretPlaceholder;
-                issuer_url = "https://auth.datars.org/realms/homelab";
+                issuer_url = topology.identity.issuerUrl;
                 # Warpgate matches the OIDC identity to a Warpgate user by
                 # email, so `email` is load-bearing, not decorative.
                 scopes = [

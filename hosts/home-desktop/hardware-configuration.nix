@@ -6,6 +6,7 @@
   lib,
   pkgs,
   modulesPath,
+  self,
   ...
 }:
 {
@@ -60,7 +61,7 @@
 
   age.secrets.smbcredentials.file = ../../secrets/smbcredentials.age;
   fileSystems."/mnt/data-share" = {
-    device = "//10.10.1.10/data-share";
+    device = "//${self.meta.topology.hosts.home-nas.lanAddress}/data-share";
     fsType = "cifs";
     options =
       let

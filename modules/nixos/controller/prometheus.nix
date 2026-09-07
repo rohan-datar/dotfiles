@@ -1,8 +1,12 @@
-_: {
+{ config, ... }:
+let
+  topology = config.flake.meta.topology;
+in
+{
   # Metrics store for the lab. Grafana and Gatus are the only consumers and both
   # live on this host, so Prometheus binds loopback only and opens no port.
   #
-  # Port 9091, not the usual 9090: cockpit (ha-vm aspect) already owns 9090 on
+  # Port 9091, not the usual 9090: cockpit (haos module on this host) already owns 9090 on
   # every interface here, so 9090 would fail to bind.
   #
   # No Alertmanager on purpose — smartd/ZED email hardware faults directly and
@@ -12,7 +16,6 @@ _: {
       file = ../../../secrets/ha-prometheus-token.age;
       owner = "prometheus";
     };
-
     services.prometheus = {
       enable = true;
       listenAddress = "127.0.0.1";
@@ -30,20 +33,20 @@ _: {
             {
               targets = [
                 "localhost:9100" # home-controller
-                "10.10.1.11:9100" # home-media
-                "10.10.1.10:9100" # home-nas
-                "10.10.0.1:9100" # OPNsense (os-node_exporter)
+                "${topology.hosts.home-media.lanAddress}:9100" # home-media
+                "${topology.hosts.home-nas.lanAddress}:9100" # home-nas
+                "${topology.gatewayAddress}:9100" # OPNsense (os-node_exporter)
               ];
             }
           ];
         }
         {
           job_name = "zfs";
-          static_configs = [ { targets = [ "10.10.1.10:9134" ]; } ];
+          static_configs = [ { targets = [ "${topology.hosts.home-nas.lanAddress}:9134" ]; } ];
         }
         {
           job_name = "smartctl";
-          static_configs = [ { targets = [ "10.10.1.10:9633" ]; } ];
+          static_configs = [ { targets = [ "${topology.hosts.home-nas.lanAddress}:9633" ]; } ];
         }
         {
           job_name = "gatus";
@@ -53,7 +56,7 @@ _: {
           job_name = "homeassistant";
           metrics_path = "/api/prometheus";
           bearer_token_file = config.age.secrets.ha-prometheus-token.path;
-          static_configs = [ { targets = [ "10.10.1.12:8123" ]; } ];
+          static_configs = [ { targets = [ "${topology.hosts.home-assistant.lanAddress}:8123" ]; } ];
         }
       ];
     };

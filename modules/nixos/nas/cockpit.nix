@@ -1,4 +1,8 @@
-_: {
+{ config, ... }:
+let
+  topology = config.flake.meta.topology;
+in
+{
   flake.modules.nixos.nas-cockpit =
     { pkgs, ... }:
     {
@@ -13,8 +17,8 @@ _: {
         # only adds https://localhost:9090), which kills the session right after
         # login. Cover direct-IP access and the Caddy vhost.
         allowed-origins = [
-          "https://10.10.1.10:9090"
-          "wss://10.10.1.10:9090"
+          "https://${topology.hosts.home-nas.lanAddress}:9090"
+          "wss://${topology.hosts.home-nas.lanAddress}:9090"
           "https://store.rdatar.com"
           "wss://store.rdatar.com"
         ];

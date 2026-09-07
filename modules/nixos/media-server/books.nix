@@ -1,4 +1,8 @@
-_: {
+{ config, ... }:
+let
+  topology = config.flake.meta.topology;
+in
+{
   flake.modules.nixos.media-books =
     { config, pkgs, ... }:
     {
@@ -36,7 +40,7 @@ _: {
           client-authentication-method = "client_secret_basic";
         };
         provider.keycloak = {
-          issuer-uri = "https://auth.datars.org/realms/homelab";
+          issuer-uri = topology.identity.issuerUrl;
           user-name-attribute = "sub";
         };
       };

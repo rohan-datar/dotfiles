@@ -1,3 +1,7 @@
+{ config, ... }:
+let
+  topology = config.flake.meta.topology;
+in
 {
   flake.modules.nixos.homepage = {
     imports = [
@@ -16,7 +20,7 @@
           services.homepage-dashboard = {
             enable = true;
             openFirewall = true;
-            allowedHosts = "10.10.1.11:8082,home.rdatar.com";
+            allowedHosts = "${topology.hosts.home-media.lanAddress}:8082,home.rdatar.com";
 
             environmentFiles = [ config.age.secrets.homepage-env.path ];
 
@@ -63,11 +67,11 @@
               {
                 resources = {
                   label = "Storage";
-                  # /mnt/media is the NFS export from home-nas. If the NAS is down
+                  # The media mount is the NFS export from home-nas. If the NAS is down
                   # this tile errors on its own rather than taking the row with it.
                   disk = [
                     "/"
-                    "/mnt/media"
+                    "${topology.mediaStorage.mountPoint}"
                   ];
                 };
               }
@@ -226,7 +230,7 @@
                       widgets = [
                         {
                           type = "paperlessngx";
-                          url = "http://10.10.1.10:28981";
+                          url = "http://${topology.hosts.home-nas.lanAddress}:28981";
                           key = "{{HOMEPAGE_VAR_PAPERLESS_KEY}}";
                         }
                       ];
@@ -244,7 +248,7 @@
                       widgets = [
                         {
                           type = "opnsense";
-                          url = "https://10.10.0.1:8443/";
+                          url = "https://${topology.gatewayAddress}:8443/";
                           username = "{{HOMEPAGE_VAR_OPNSENSE_USER}}";
                           password = "{{HOMEPAGE_VAR_OPNSENSE_PWD}}";
                         }
@@ -259,7 +263,7 @@
                       widgets = [
                         {
                           type = "adguard";
-                          url = "http://10.10.0.1:8080/";
+                          url = "http://${topology.gatewayAddress}:8080/";
                           username = "rdatar";
                           password = "{{HOMEPAGE_VAR_ADGUARD_PWD}}";
                         }
@@ -289,9 +293,9 @@
                   {
                     "Keycloak" = {
                       icon = "keycloak.png";
-                      href = "https://auth.datars.org";
+                      href = "${topology.identity.baseUrl}";
                       description = "OIDC for the homelab realm";
-                      siteMonitor = "https://auth.datars.org";
+                      siteMonitor = "${topology.identity.baseUrl}";
                     };
                   }
                   {
@@ -315,7 +319,7 @@
                         {
                           type = "grafana";
                           version = 2; # admin/stats shape changed after Grafana 10.4
-                          url = "http://10.10.1.13:3000";
+                          url = "http://${topology.hosts.home-controller.lanAddress}:3000";
                           username = "{{HOMEPAGE_VAR_GRAFANA_USER}}";
                           password = "{{HOMEPAGE_VAR_GRAFANA_PWD}}";
                         }
@@ -330,7 +334,7 @@
                       widgets = [
                         {
                           type = "gatus";
-                          url = "http://10.10.1.13:8081";
+                          url = "http://${topology.hosts.home-controller.lanAddress}:8081";
                         }
                       ];
                     };
@@ -343,7 +347,7 @@
                       widgets = [
                         {
                           type = "ntfy";
-                          url = "http://10.10.1.13:2586";
+                          url = "http://${topology.hosts.home-controller.lanAddress}:2586";
                           topic = "homelab";
                           key = "{{HOMEPAGE_VAR_NTFY_TOKEN}}";
                         }

@@ -1,4 +1,7 @@
-{ self, ... }:
+{ self, lib, ... }:
+let
+  topology = self.meta.topology;
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -36,27 +39,29 @@
 
   networking = {
     hostName = "home-nas";
+    # Required by ZFS; arbitrary but must stay stable for this host.
+    hostId = "9796c885";
     interfaces = {
       # LAN (2.5G), matches current NAS IP so Caddy/homepage upstreams don't change.
       enp2s0.ipv4.addresses = [
         {
-          address = "10.10.1.10";
+          address = topology.hosts.home-nas.lanAddress;
           prefixLength = 19;
         }
       ]; # REPLACE iface name
-      # Direct point-to-point link to home-media (other end is 10.10.100.2/30).
+      # Direct point-to-point link to home-media.
       enp3s0.ipv4.addresses = [
         {
-          address = "10.10.100.1";
+          address = topology.hosts.home-nas.mediaLinkAddress;
           prefixLength = 30;
         }
       ]; # REPLACE iface name
     };
     defaultGateway = {
-      address = "10.10.0.1";
+      address = topology.gatewayAddress;
       interface = "enp2s0";
     };
-    nameservers = [ "10.10.0.1" ];
+    nameservers = [ topology.gatewayAddress ];
     # node (9100), zfs (9134) and smartctl (9633) exporters, for the
     # controller's Prometheus. LAN interface only.
     firewall.interfaces.enp2s0.allowedTCPPorts = [
@@ -67,6 +72,13 @@
   };
 
   boot.kernelParams = [ "zfs.zfs_arc_max=8589934592" ]; # 8 GiB
+  boot.loader.systemd-boot.enable = lib.mkDefault true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  # Import the existing TrueNAS pool. It is NOT a boot filesystem, so use extraPools.
+  boot.zfs.extraPools = [ "data-pool" ];
+  # No ZFS root here; don't force-import at boot (also the 26.11 default).
+  boot.zfs.forceImportRoot = false;
 
   # Compressed RAM-backed swap: absorbs transient spikes (backups, OCR bursts)
   # without swap-on-ZFS deadlocks. systemd-oomd handles real leaks above this.

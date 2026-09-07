@@ -1,10 +1,10 @@
-_: {
+{ config, ... }:
+let
+  topology = config.flake.meta.topology;
+in
+{
   flake.modules.nixos.keycloak =
-    {
-      config,
-      pkgs,
-      ...
-    }:
+    { config, pkgs, ... }:
     {
       age.secrets.keycloak-db-password.file = ../../../secrets/keycloak-db-password.age;
 
@@ -19,7 +19,7 @@ _: {
         };
 
         settings = {
-          hostname = "auth.datars.org";
+          hostname = topology.identity.hostname;
           http-enabled = true;
           http-host = "0.0.0.0";
           http-port = 8080;

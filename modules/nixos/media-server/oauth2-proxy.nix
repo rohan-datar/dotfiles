@@ -1,4 +1,8 @@
-_: {
+{ config, ... }:
+let
+  topology = config.flake.meta.topology;
+in
+{
   # Forward-auth backend for the *.media.rdatar.com vhosts (see media-ingress).
   # Lives on home-media because the host that runs the services fronts them.
   flake.modules.nixos.media-oauth2-proxy =
@@ -12,7 +16,7 @@ _: {
         enable = true;
         provider = "keycloak-oidc";
         clientID = "homelab-proxy";
-        oidcIssuerUrl = "https://auth.datars.org/realms/homelab";
+        oidcIssuerUrl = topology.identity.issuerUrl;
         keyFile = config.age.secrets.oauth2-proxy-env.path;
         # Loopback only — Caddy is the only client, so no firewall hole.
         httpAddress = "http://127.0.0.1:4180";

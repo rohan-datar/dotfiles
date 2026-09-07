@@ -1,4 +1,8 @@
-_: {
+{ config, ... }:
+let
+  topology = config.flake.meta.topology;
+in
+{
   flake.modules.nixos.grafana =
     { config, ... }:
     {
@@ -38,9 +42,9 @@ _: {
             client_id = "grafana";
             client_secret = "$__file{${config.age.secrets.grafana-oidc-secret.path}}";
             scopes = "openid email profile";
-            auth_url = "https://auth.datars.org/realms/homelab/protocol/openid-connect/auth";
-            token_url = "https://auth.datars.org/realms/homelab/protocol/openid-connect/token";
-            api_url = "https://auth.datars.org/realms/homelab/protocol/openid-connect/userinfo";
+            auth_url = "${topology.identity.issuerUrl}/protocol/openid-connect/auth";
+            token_url = "${topology.identity.issuerUrl}/protocol/openid-connect/token";
+            api_url = "${topology.identity.issuerUrl}/protocol/openid-connect/userinfo";
             # Admin iff in the lldap group; everyone else who can log in is a Viewer.
             # Needs the client's Group Membership mapper (claim `groups`, full path off).
             role_attribute_path = "contains(groups[*], 'grafana_admin') && 'Admin' || 'Viewer'";

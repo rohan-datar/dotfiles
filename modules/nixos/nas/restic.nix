@@ -1,4 +1,8 @@
-_: {
+{ config, ... }:
+let
+  topology = config.flake.meta.topology;
+in
+{
   # Offsite documents backup: nightly paperless export + the general SMB share,
   # minus media and books (RAIDZ1 + sanoid cover those; treated as re-obtainable).
   # Repo-per-host on the Hetzner Storage Box over SFTP:23 with a dedicated
@@ -23,7 +27,7 @@ _: {
           "/mnt/data-pool/data-share"
         ];
         exclude = [
-          "/mnt/data-pool/data-share/media" # media AND books (media/library/books)
+          topology.mediaStorage.exportPath # media AND books (media/library/books)
           "/mnt/data-pool/data-share/paperless-inbox" # transient; consumed into paperless anyway
         ];
         # 03:30 keeps the backup at least an hour behind the nightly paperless

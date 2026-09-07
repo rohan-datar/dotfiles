@@ -1,5 +1,5 @@
 _: {
-  flake.modules.nixos.login-manager =
+  flake.modules.nixos.niri-desktop =
     {
       self,
       pkgs,
