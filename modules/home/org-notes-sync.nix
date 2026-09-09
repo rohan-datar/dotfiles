@@ -203,6 +203,7 @@ _: {
             - **/#*#
             - **/.#*
             - **/.org-id-locations
+            - **/ltximg/**
           '';
 
           home.file.".ssh/known_hosts-org-storage-box".text = ''
