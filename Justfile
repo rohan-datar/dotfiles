@@ -1,42 +1,42 @@
 set positional-arguments
 set shell := ["bash", "-euo", "pipefail", "-c"]
+set script-interpreter := ["bash", "-euo", "pipefail"]
 
+export FLAKE_DIR := justfile_directory()
 export JUST_BIN := just_executable()
-export JUST_FILE := justfile()
+export JUST_JUSTFILE := justfile()
 
 # List workflows
 default:
-    @"$JUST_BIN" --justfile "$JUST_FILE" --list
+    @"$JUST_BIN" --list
 
 # Format all files with the flake's treefmt formatter
 fmt:
-    nix fmt "{{ justfile_directory() }}" >/dev/null
+    nix fmt "$FLAKE_DIR" >/dev/null
 
 # Check flake evaluation; require (default) or warn on failure
+[script]
 check mode='require':
-    #!/usr/bin/env bash
-    set -euo pipefail
     mode="${1:-require}"
     if [ "${SKIP_CHECK:-0}" = "1" ]; then
       exit 0
     fi
-    if ! nix flake check -L "{{ justfile_directory() }}" --no-build --keep-going; then
+    if ! nix flake check -L "$FLAKE_DIR" --no-build --keep-going; then
       echo "just: flake check failed" >&2
       [ "$mode" = "require" ] || exit 0
       exit 1
     fi
 
 # Rebuild and switch the current system (nh preferred)
+[script]
 rebuild:
-    #!/usr/bin/env bash
-    set -euo pipefail
     os="$(uname -s)"
     case "$os" in
       Linux)
         if command -v nh >/dev/null 2>&1; then
-          nh os switch "{{ justfile_directory() }}"
+          nh os switch "$FLAKE_DIR"
         else
-          sudo nixos-rebuild switch --flake "{{ justfile_directory() }}"
+          sudo nixos-rebuild switch --flake "$FLAKE_DIR"
         fi
         if command -v notify-send >/dev/null 2>&1; then
           notify-send -e "Rebuild OK" "System & Home-Manager applied" || true
@@ -44,9 +44,9 @@ rebuild:
         ;;
       Darwin)
         if command -v nh >/dev/null 2>&1; then
-          nh darwin switch "{{ justfile_directory() }}"
+          nh darwin switch "$FLAKE_DIR"
         else
-          darwin-rebuild switch --flake "{{ justfile_directory() }}"
+          darwin-rebuild switch --flake "$FLAKE_DIR"
         fi
         ;;
       *)
@@ -56,9 +56,8 @@ rebuild:
     esac
 
 # Commit all repo changes with a standardized message
+[script]
 commit action='change':
-    #!/usr/bin/env bash
-    set -euo pipefail
     action="${1:-change}"
     os="$(uname -s)"
     case "$os" in
@@ -89,23 +88,20 @@ commit action='change':
     git commit -m "$msg"
 
 # Format, check (warn), rebuild, and commit
-switch:
-    "$JUST_BIN" --justfile "$JUST_FILE" _switch switch
+switch: (_switch "switch")
 
 # Pull, update the lock, check (require), then switch
+[script]
 update:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    "$JUST_BIN" --justfile "$JUST_FILE" check warn
+    "$JUST_BIN" check warn
     git pull --rebase --autostash --ff-only || true
-    nix flake update "{{ justfile_directory() }}"
-    "$JUST_BIN" --justfile "$JUST_FILE" check require
-    "$JUST_BIN" --justfile "$JUST_FILE" _switch update
+    nix flake update --flake "$FLAKE_DIR"
+    "$JUST_BIN" check require
+    "$JUST_BIN" _switch update
 
 # Garbage-collect and optimise the store, keeping N generations (default 3)
+[script]
 clean keep='3':
-    #!/usr/bin/env bash
-    set -euo pipefail
     keep="${1:-3}"
     case "$keep" in
       '' | *[!0-9]*)
@@ -120,17 +116,16 @@ clean keep='3':
     nh clean all --keep "$keep" --keep-one --optimise
 
 [private]
+[script]
 _switch action='switch':
-    #!/usr/bin/env bash
-    set -euo pipefail
     action="${1:-switch}"
-    if ! "$JUST_BIN" --justfile "$JUST_FILE" fmt; then
+    if ! "$JUST_BIN" fmt; then
       echo "just: nix fmt failed (continuing)" >&2
     fi
     if [ "$action" != "update" ]; then
-      "$JUST_BIN" --justfile "$JUST_FILE" check warn
+      "$JUST_BIN" check warn
     fi
-    "$JUST_BIN" --justfile "$JUST_FILE" rebuild
-    if ! "$JUST_BIN" --justfile "$JUST_FILE" commit "$action"; then
+    "$JUST_BIN" rebuild
+    if ! "$JUST_BIN" commit "$action"; then
       echo "just: commit failed; the rebuild was already applied" >&2
     fi

@@ -37,6 +37,8 @@
         flake-parts.follows = "flake-parts";
         systems.follows = "systems";
         nix-wrapper-modules.follows = "nix-wrapper-modules";
+        llm-agents.follows = "llm-agents";
+        nixpkgs-test.follows = "nixpkgs";
       };
     };
 
