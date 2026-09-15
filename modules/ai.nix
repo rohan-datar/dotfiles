@@ -6,7 +6,7 @@ let
       environment.systemPackages = builtins.attrValues {
         inherit (inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system})
           codex
-          omp
+          # omp
           prime-agent
           ;
       };
