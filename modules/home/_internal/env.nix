@@ -79,6 +79,8 @@ in
         DO_NOT_TRACK = 1;
       };
 
+      home.sessionPath = [ "$HOME/.local/bin" ];
+
       home.shell = {
         enableShellIntegration = false;
         enableBashIntegration = config.programs.bash.enable;
