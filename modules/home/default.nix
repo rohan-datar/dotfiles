@@ -10,6 +10,7 @@
     ./_internal/direnv.nix
     ./_internal/git.nix
     ./_internal/nix-index.nix
+    ./_internal/prime-agent.nix
     ./_internal/ssh.nix
     ./_internal/zsh.nix
     ./_internal/neovim-full.nix
@@ -29,6 +30,7 @@
       self.modules.homeManager.direnv
       self.modules.homeManager.git
       self.modules.homeManager.nix-index
+      self.modules.homeManager.prime-agent
       self.modules.homeManager.ssh
       self.modules.homeManager.zsh
       self.modules.homeManager.zed
