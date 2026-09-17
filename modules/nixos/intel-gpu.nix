@@ -21,6 +21,7 @@
 
       # OpenCL support and VAAPI
       hardware.graphics = {
+        enable = true;
         extraPackages = builtins.attrValues {
           inherit (pkgs)
             libva-vdpau-driver
