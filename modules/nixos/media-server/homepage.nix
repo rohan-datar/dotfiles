@@ -190,6 +190,7 @@ in
                           type = "jellyfin";
                           url = "http://localhost:8096/";
                           key = "{{HOMEPAGE_VAR_JELLYFIN_KEY}}";
+                          version = 2;
                         }
                       ];
                     };
