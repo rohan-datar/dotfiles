@@ -26,10 +26,9 @@
           inherit (pkgs)
             libva-vdpau-driver
             intel-media-driver
-            vaapiVdpau
             intel-compute-runtime
             vpl-gpu-rt
-            intel-media-sdk
+            # intel-media-sdk
             ;
 
           intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
