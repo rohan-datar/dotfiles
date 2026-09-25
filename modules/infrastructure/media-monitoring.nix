@@ -55,8 +55,9 @@ in
 
   flake.modules.nixos.media-probe-access = _: {
     networking.firewall.extraCommands = ''
-      ip46tables -A nixos-fw -p tcp -m multiport --dports ${probePorts} \
-        -s ${topology.hosts.home-controller.lanAddress} -j nixos-fw-accept comment "gatus app liveness"
+      iptables -w -A nixos-fw -p tcp -m multiport --dports ${probePorts} \
+        -s ${topology.hosts.home-controller.lanAddress} -m comment --comment "gatus app liveness" \
+        -j nixos-fw-accept
     '';
   };
 }
