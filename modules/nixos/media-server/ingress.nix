@@ -38,6 +38,9 @@
         certs."media.rdatar.com" = {
           domain = "*.media.rdatar.com";
           dnsProvider = "cloudflare";
+          # AdGuard's private wildcard rewrite hides the public DNS-01 TXT
+          # record, so use an external resolver for lego's propagation check.
+          dnsResolver = "1.1.1.1:53";
           environmentFile = config.age.secrets.cloudflare-dns-token.path;
           group = "caddy";
         };
