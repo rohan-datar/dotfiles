@@ -1,19 +1,28 @@
+{ self, ... }:
 let
   graphicalPackages =
-    { pkgs, ... }:
     {
-      environment.systemPackages = builtins.attrValues {
-        inherit (pkgs)
-          firefox
-          fastfetch
-          # obsidian
-          discord
-          aoc-cli
-          direnv
-          pandoc
-          wireguard-ui
-          ;
-      };
+      pkgs,
+      lib,
+      ...
+    }:
+    {
+      environment.systemPackages =
+        builtins.attrValues {
+          inherit (pkgs)
+            firefox
+            fastfetch
+            # obsidian
+            discord
+            aoc-cli
+            direnv
+            pandoc
+            wireguard-ui
+            ;
+        }
+        ++ [
+          (lib.hiPrio self.packages.${pkgs.stdenv.hostPlatform.system}.ghostty)
+        ];
     };
 in
 {

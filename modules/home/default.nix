@@ -16,7 +16,6 @@
     ./_internal/neovim-full.nix
     ./_internal/zed.nix
     ./_internal/kitty.nix
-    ./_internal/ghostty.nix
   ];
 
   flake.modules.homeManager.default = {
@@ -35,7 +34,6 @@
       self.modules.homeManager.zsh
       self.modules.homeManager.zed
       self.modules.homeManager.kitty
-      self.modules.homeManager.ghostty
     ];
   };
 }
