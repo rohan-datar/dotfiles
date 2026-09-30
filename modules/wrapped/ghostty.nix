@@ -23,7 +23,7 @@ _: {
         shell-integration = "detect";
         cursor-style = "block";
         keybind = [
-          "ctrl+left_bracket=text:\x1b"
+          "ctrl+left_bracket=text:\\x1b"
         ];
       };
 
