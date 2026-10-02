@@ -42,6 +42,7 @@ let
         nh
         ;
       ragenix = inputs.ragenix.packages.${system}.default;
+      helix = inputs.editorconfig.packages.${system}.helix;
     });
 in
 {
