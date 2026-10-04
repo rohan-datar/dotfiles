@@ -8,6 +8,7 @@ let
           codex
           omp
           prime-agent
+          antigravity-cli
           ;
       };
     };

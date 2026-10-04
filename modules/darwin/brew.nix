@@ -18,7 +18,6 @@ _: {
           enable = true;
           brews = [
             "mas"
-            "swift"
           ];
           casks = [
             "zen"
