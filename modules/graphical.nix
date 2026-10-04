@@ -1,4 +1,4 @@
-{ self, ... }:
+{ inputs, self, ... }:
 let
   graphicalPackages =
     {
@@ -21,6 +21,7 @@ let
             ;
         }
         ++ [
+          inputs.editorconfig.packages.${pkgs.stdenv.hostPlatform.system}.helix-full
           (lib.hiPrio self.packages.${pkgs.stdenv.hostPlatform.system}.ghostty)
         ];
     };

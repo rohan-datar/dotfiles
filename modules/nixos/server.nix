@@ -30,6 +30,8 @@ in
         pkgs.curl
         pkgs.cifs-utils
         inputs.editorconfig.packages.${pkgs.stdenv.hostPlatform.system}.nvim-minimal
+        # Server editors must not pull in workstation toolchains (notably TeX).
+        inputs.editorconfig.packages.${pkgs.stdenv.hostPlatform.system}.helix-minimal
         # direnv is not in base.nix (graphical hosts get it via home-manager).
         # Servers install the wrapped version here.
         (lib.hiPrio (

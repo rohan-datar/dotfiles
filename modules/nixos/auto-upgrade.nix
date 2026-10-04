@@ -22,7 +22,20 @@ _: {
         persistent = lib.mkDefault true; # catch up if the machine was off
       };
 
-      systemd.services.nixos-upgrade.onFailure = [ "ntfy-failure@%n.service" ];
+      systemd.services.nixos-upgrade = {
+        onFailure = [ "ntfy-failure@%n.service" ];
+        # Bound the upgrade service, including its evaluator and activation.
+        # A failed upgrade is preferable to starving HAOS and running services.
+        # Inspect activation after an OOM failure rather than blindly retrying.
+        # Builds owned by nix-daemon in a separate cgroup are not covered.
+        serviceConfig = {
+          MemoryHigh = lib.mkDefault "3G";
+          MemoryMax = lib.mkDefault "4G";
+          OOMScoreAdjust = lib.mkDefault 500;
+          OOMPolicy = "kill";
+          MemoryOOMGroup = true;
+        };
+      };
 
       systemd.units."ntfy-failure@.service".text = ''
         [Unit]
