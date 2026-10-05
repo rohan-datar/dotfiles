@@ -27,6 +27,7 @@ in
       "beeper"
       "omnidisksweeper"
       "windows-app"
+      "vorssaint"
     ];
   };
 
