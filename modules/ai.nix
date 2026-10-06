@@ -5,10 +5,8 @@ let
     {
       environment.systemPackages = builtins.attrValues {
         inherit (inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system})
-          codex
           omp
           prime-agent
-          antigravity-cli
           ;
       };
     };
