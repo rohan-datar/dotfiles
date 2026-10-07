@@ -282,9 +282,9 @@ in
                   {
                     "OpenWRT" = {
                       icon = "openwrt.png";
-                      href = "https://10.10.0.4/";
+                      href = "https://10.10.34.2/";
                       description = "Wi-Fi access point";
-                      siteMonitor = "http://10.10.0.4/";
+                      siteMonitor = "http://10.10.34.2/";
                     };
                   }
                 ];
