@@ -70,6 +70,8 @@ in
             };
           };
 
+          services.flaresolverr.enable = true;
+
           systemd.services.jellyfin.environment = {
             VDPAU_DRIVER = "va_gl";
             LIBVA_DRIVER_NAME = "iHD";
