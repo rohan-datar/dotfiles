@@ -70,7 +70,6 @@ _: {
     {
       home.sessionVariables.PI_CONFIG_FILES = toString ompConfig;
       home.file.".omp/agent/RULES.md".source = ./coding-agent/RULES.md;
-      home.file.".omp/agent/extensions/neuralwatt/index.ts".source = ./coding-agent/neuralwatt.ts;
       home.file.".prime/agent/extensions/neuralwatt/index.ts".source = ./coding-agent/neuralwatt.ts;
     };
 }
