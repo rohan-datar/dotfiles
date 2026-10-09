@@ -81,6 +81,8 @@ in
 
       home.sessionPath = [ "$HOME/.local/bin" ];
 
+      systemd.user.sessionVariables = mkIf isLinux config.home.sessionVariables;
+
       home.shell = {
         enableShellIntegration = false;
         enableBashIntegration = config.programs.bash.enable;
