@@ -196,13 +196,19 @@ _: {
           '';
 
           xdg.configFile."rclone/org-notes.filter".text = ''
-            - /.git/**
             - /.git
+            - /.git/**
+            - .DS_Store
             - **/.DS_Store
+            - *~
             - **/*~
+            - #*#
             - **/#*#
+            - .#*
             - **/.#*
+            - .org-id-locations
             - **/.org-id-locations
+            - ltximg/**
             - **/ltximg/**
           '';
 
