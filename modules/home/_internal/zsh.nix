@@ -30,6 +30,7 @@ _: {
         lg = "lazygit";
         c = "clear";
         cat = "bat";
+        ls = "eza";
       };
 
       initContent = ''

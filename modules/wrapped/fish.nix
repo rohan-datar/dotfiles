@@ -45,11 +45,11 @@
 
       abbreviations = {
         lg = "lazygit";
-        ls = "ls --color";
-        lsa = "ls -lah";
-        l = "ls -lah";
-        ll = "ls -lh";
-        la = "ls -lAh";
+        ls = "eza";
+        lsa = "eza -lah";
+        l = "eza -lah";
+        ll = "eza -lh";
+        la = "eza -lAh";
       };
 
       shellAliases = {

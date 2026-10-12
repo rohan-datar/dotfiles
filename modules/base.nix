@@ -19,6 +19,7 @@ let
           tmux
           fzf
           starship
+          eza
           ;
       };
     in
