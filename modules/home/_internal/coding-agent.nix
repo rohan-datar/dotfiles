@@ -25,6 +25,8 @@ _: {
           commit = "@utility";
         };
 
+        cacheRetention = "long";
+
         eval = {
           py = true;
           js = true;
@@ -37,7 +39,7 @@ _: {
         providers.openai-codex = {
           # When supported by the active Codex model, make eval the main
           # orchestration surface rather than exposing a wide direct tool menu.
-          codeMode = "auto";
+          codeMode = "on";
           codeModeDirectTools = [ ];
         };
 
@@ -58,6 +60,31 @@ _: {
           softRequestBudgetNotice = true;
           maxRuntimeMs = 900000;
           speculativeLaunch = false;
+        };
+
+        tools = {
+          artifactSpillThreshold = 16;
+          artifactHeadBytes = 4;
+          artifactTailBytes = 4;
+          artifactTailLines = 100;
+        };
+
+        compaction = {
+          enabled = true;
+
+          # Don't allow ordinary coding sessions to drag 150-200k of
+          # tool archaeology through every model call.
+          thresholdTokens = 80000;
+
+          # First try the local/non-LLM operation that elides old bulky
+          # tool results. Only then spend a model call summarizing.
+          methodOrder = [
+            "shake"
+            "remote"
+            "soft"
+          ];
+
+          keepRecentTokens = 20000;
         };
 
         magicKeywords = {

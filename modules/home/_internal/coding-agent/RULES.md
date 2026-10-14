@@ -1,84 +1,80 @@
-# RLM-style execution and delegation policy
+# OMP Agent Policy
 
-## Runtime choice
+## Core execution style
 
-For substantial multi-step work, use the retained `eval` runtimes as the
-control plane rather than emitting a long sequence of isolated tool calls.
+Use the retained `eval` environment as the default control plane for substantial multi-step work.
 
-Prefer JavaScript/Bun for general orchestration:
-- filesystem and repository operations;
-- shell/process coordination;
-- JSON and structured-data manipulation;
+The primary optimization goal is to **minimize outer model round trips**. When practical, batch related filesystem, search, subprocess, parsing, and tool operations into one eval cell, keep bulky intermediate state inside the retained runtime, and return only concise results to the conversation.
+
+Prefer **JavaScript/Bun** for general orchestration:
+- filesystem and repository traversal;
+- subprocess and shell coordination;
+- JSON and structured-data processing;
 - HTTP/fetch;
-- asynchronous/concurrent work;
+- async and concurrent work;
 - calling OMP tools programmatically;
-- coordinating subagents, handles, waits, and work pools.
+- coordinating subagents and work pools.
 
-Prefer Python when the task is genuinely Python-native, numeric/scientific,
-data-analysis oriented, or a Python library is materially better suited.
+Use **Python** when the task is genuinely Python-native, numeric/scientific, data-analysis oriented, or a Python library is materially better suited.
 
-Keep useful state in the retained runtime between cells. Filter and aggregate
-large outputs there before returning concise results to the conversation.
+Do not shell out to `python -c`, `node -e`, or `bun -e` for ad-hoc computation that can be done directly in retained eval.
 
-Do not shell out to `python -c`, `node -e`, or `bun -e` for ad-hoc computation
-that can be done directly in retained eval.
+Do not create throwaway script files merely to escape the retained runtime. Temporary orchestration belongs in retained JS/Python state. Write normal project files only when the code is part of the project or is genuinely reusable.
 
-Do not create throwaway script files merely to escape the retained runtime.
-Temporary orchestration belongs in retained JS/Python state. Real project code
-and reusable repository utilities belong in normal project files.
+## Context discipline
 
-The JavaScript runtime is first-class, not a fallback. Use Bun/Node APIs,
-top-level await, fetch, filesystem APIs, and managed packages when appropriate.
+Treat model context as expensive even when the active provider is covered by a subscription.
+
+Do not dump large raw command, search, compiler, test, or file outputs into the conversation when they can be filtered, parsed, summarized, or inspected programmatically in eval first.
+
+Keep large collections, search results, parsed data, and intermediate artifacts in retained runtime state. Surface only the evidence needed for the next reasoning step.
+
+Prefer one model turn that performs several deterministic operations in eval over several model turns that each perform one tool action.
+
+When a tool result is unexpectedly large, inspect and reduce it before continuing.
 
 ## Semantic model roles
 
-Treat role names as capabilities, not concrete model identities:
+Treat role names as capabilities, not model identities. Concrete model bindings may change independently of this policy.
 
 - `@primary`: normal interactive coding and implementation.
-- `@architect`: user-selected foreground architecture/design conversation.
+- `@architect`: user-selected foreground architecture/design work.
 - `@worker`: substantial delegated implementation or reasoning.
-- `@scout`: cheap bounded repository reconnaissance.
-- `@reviewer`: independent correctness/security/design review.
-- `@utility`: tiny auxiliary tasks.
+- `@scout`: bounded repository reconnaissance and information gathering.
+- `@reviewer`: independent correctness, design, or security review.
+- `@utility`: inexpensive auxiliary work.
 
-Never depend on a specific model family or version in reasoning about these
-roles. Concrete model bindings are external configuration and may change.
+Do not reason about these roles in terms of a specific provider or model family.
 
-## Foreground model vs workers
+## Delegation policy
 
-The foreground model is selected by the user. Do not switch to `@architect`
-automatically.
+The foreground model is selected by the user. Never switch to `@architect` automatically.
 
-Never explicitly select `@architect` or an OpenCode Zen model for a
-subagent unless the user explicitly asks for such a subagent.
+Never explicitly select `@architect` for a child agent unless the user specifically requests an architect subagent.
 
-When the foreground model is `@architect`:
-- keep architecture, design, tradeoff analysis, synthesis, and direct
-  conversation with the user in the foreground session;
-- delegate bounded repository reconnaissance, code searches, implementation,
-  tests, mechanical analysis, and similar support work to configured workers;
-- do not clone the foreground architecture model into children.
+When `@architect` is the foreground model:
+- keep architecture, design, tradeoff analysis, synthesis, and direct discussion with the user in the foreground session;
+- delegate bounded repository exploration, code searches, implementation, testing, and mechanical analysis to configured workers;
+- do not clone the foreground architecture model merely to parallelize work.
 
-Use `scout`/`sonic` for narrow reconnaissance.
-Use `task` for substantial delegated implementation/reasoning.
-Use reviewer agents only for an independent review that materially helps.
+Use `@scout` for narrow discovery and reconnaissance.
+Use `@worker` for substantial delegated implementation or reasoning.
+Use `@reviewer` only when an independent review materially improves the result.
 
-Keep child assignments narrow and request concise evidence: relevant paths,
-symbols, commands, results, and conclusions.
+Keep delegated tasks narrow and ask for concise findings: relevant paths, symbols, commands, evidence, and conclusions.
 
-Do not spawn subagents for trivial work.
+Do not delegate trivial work.
 Avoid spawning multiple agents when one bounded worker is sufficient.
-Do not ask a child to delegate further work.
+Children should not delegate further work unless the user explicitly asks for deeper fan-out.
 
-## Cost and context discipline
+## Reasoning and efficiency
 
-Prefer programmatic aggregation in eval over repeated model round-trips when
-several operations can be performed and reduced to a concise result in one
-retained cell.
+Use the lowest amount of orchestration necessary to solve the task well.
 
-Do not dump large raw command/file outputs into the conversation when they can
-be searched, parsed, filtered, or summarized in eval first.
+Do not repeatedly re-read or re-search information already retained in eval state unless the repository or relevant state has changed.
 
-Spend expensive foreground-model tokens on judgment and synthesis, not
-repository archaeology that a worker/scout can perform.
+Prefer deterministic computation, filtering, and inspection inside eval over asking the model to reason repeatedly over raw data.
 
+For long-running tasks, periodically compress working state into a concise internal summary and continue from that summary rather than carrying unnecessary raw detail forward.
+
+When subscription quota or PAYG cost is relevant, favor fewer, higher-value model turns over many small turns.
