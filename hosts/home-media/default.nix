@@ -62,8 +62,12 @@ in
 
     nameservers = [ topology.gatewayAddress ];
 
-    # node_exporter, for the controller's Prometheus. LAN interface only.
-    firewall.interfaces.enp1s0.allowedTCPPorts = [ 9100 ];
+    # SSH, and node_exporter for the controller's Prometheus. LAN interface
+    # only, so the VPN namespace on wg-br cannot reach sshd.
+    firewall.interfaces.enp1s0.allowedTCPPorts = [
+      22
+      9100
+    ];
   };
 
   time.timeZone = "America/Chicago";

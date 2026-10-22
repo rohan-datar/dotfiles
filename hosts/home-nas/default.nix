@@ -62,9 +62,10 @@ in
       interface = "enp2s0";
     };
     nameservers = [ topology.gatewayAddress ];
-    # node (9100), zfs (9134) and smartctl (9633) exporters, for the
-    # controller's Prometheus. LAN interface only.
+    # SSH, plus the node (9100), zfs (9134) and smartctl (9633) exporters for
+    # the controller's Prometheus. LAN interface only.
     firewall.interfaces.enp2s0.allowedTCPPorts = [
+      22
       9100
       9134
       9633

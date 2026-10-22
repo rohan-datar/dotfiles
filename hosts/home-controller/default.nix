@@ -51,6 +51,8 @@ in
       interface = "br0";
     };
     nameservers = [ topology.gatewayAddress ];
+    # SSH on the LAN bridge only.
+    firewall.interfaces.br0.allowedTCPPorts = [ 22 ];
   };
 
   time.timeZone = "America/Chicago";

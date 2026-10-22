@@ -15,6 +15,9 @@ in
       ];
 
       services.openssh.enable = true;
+      # Each host opens 22 on its LAN interface only; RoadWarrior WireGuard
+      # clients arrive through the router on that interface.
+      services.openssh.openFirewall = false;
 
       services.fail2ban.enable = true;
 
