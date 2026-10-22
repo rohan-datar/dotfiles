@@ -14,32 +14,34 @@ in
     }:
     let
       # Remove once nixpkgs ships Warpgate >= 0.30.0.
-      wgPkg = pkgs.warpgate.overrideAttrs (finalAttrs: previousAttrs: {
-        version = "0.30.0";
-        src = pkgs.fetchFromGitHub {
-          owner = "warp-tech";
-          repo = "warpgate";
-          tag = "v${finalAttrs.version}";
-          hash = "sha256-kWBCKSBK7gAvO3x7l47CNoyQ0K9eY9d3Fq1fM95qAWQ=";
-        };
-        cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-          inherit (finalAttrs) pname version src;
-          hash = "sha256-SZyw188Ut/FQ8H+NqzKoMiTLxggymGuxL0QqD3WmPyA=";
-        };
-        passthru = previousAttrs.passthru // {
-          webUi = previousAttrs.passthru.webUi.overrideAttrs {
-            inherit (finalAttrs) version src;
-            npmDeps = previousAttrs.passthru.webUi.npmDeps.overrideAttrs {
-              inherit (finalAttrs) src;
-              outputHash = "sha256-jeNoQ884pv3mfigZ7srLSVMFbvE04zXd/2XxqN5t0LI=";
+      wgPkg = pkgs.warpgate.overrideAttrs (
+        finalAttrs: previousAttrs: {
+          version = "0.30.0";
+          src = pkgs.fetchFromGitHub {
+            owner = "warp-tech";
+            repo = "warpgate";
+            tag = "v${finalAttrs.version}";
+            hash = "sha256-kWBCKSBK7gAvO3x7l47CNoyQ0K9eY9d3Fq1fM95qAWQ=";
+          };
+          cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+            inherit (finalAttrs) pname version src;
+            hash = "sha256-SZyw188Ut/FQ8H+NqzKoMiTLxggymGuxL0QqD3WmPyA=";
+          };
+          passthru = previousAttrs.passthru // {
+            webUi = previousAttrs.passthru.webUi.overrideAttrs {
+              inherit (finalAttrs) version src;
+              npmDeps = previousAttrs.passthru.webUi.npmDeps.overrideAttrs {
+                inherit (finalAttrs) src;
+                outputHash = "sha256-jeNoQ884pv3mfigZ7srLSVMFbvE04zXd/2XxqN5t0LI=";
+              };
             };
           };
-        };
-        preBuild = ''
-          rm -rf .cargo/
-          ln -rs "${finalAttrs.passthru.webUi}" warpgate-web/dist
-        '';
-      });
+          preBuild = ''
+            rm -rf .cargo/
+            ln -rs "${finalAttrs.passthru.webUi}" warpgate-web/dist
+          '';
+        }
+      );
 
       # Warpgate cannot read secrets from the environment or from a file
       # (warp-tech/warpgate#1195), and the nixpkgs module renders `settings`
