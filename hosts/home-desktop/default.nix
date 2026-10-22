@@ -54,7 +54,7 @@ in
     pkgs.cargo
     pkgs.clang
     pkgs.gcc
-    pkgs.nodejs
+    (import ../../modules/nixos/_packages/nodejs-security.nix { inherit pkgs; }).nodejs_24
     pkgs.lua
     pkgs.gnumake
     pkgs.cacert

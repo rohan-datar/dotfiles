@@ -8,7 +8,9 @@
 {
   config = {
     programs.vicinae = {
-      package = pkgs.vicinae;
+      package = pkgs.vicinae.override {
+        nodejs = (import ../../../nixos/_packages/nodejs-security.nix { inherit pkgs; }).nodejs_24;
+      };
       enable = true;
       systemd = {
         enable = true;

@@ -16,6 +16,8 @@ in
         certs."ldap.rdatar.com" = {
           domain = "ldap.rdatar.com";
           dnsProvider = "cloudflare";
+          # The private wildcard hides public DNS-01 records from the LAN resolver.
+          dnsResolver = "1.1.1.1:53";
           environmentFile = config.age.secrets.cloudflare-dns-token.path;
           group = "lldap-certs";
           reloadServices = [ "lldap.service" ];

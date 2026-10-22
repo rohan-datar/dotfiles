@@ -7,7 +7,7 @@ in
     imports = [
       inputs.nixarr.nixosModules.default
       (
-        { config, ... }:
+        { config, pkgs, ... }:
         {
           age.secrets.wgconf.file = ../../../secrets/AirVPN-America-WG.conf.age;
           age.secrets.qui-env.file = ../../../secrets/qui-env.age;
@@ -28,6 +28,9 @@ in
             };
             seerr = {
               enable = true;
+              package = pkgs.seerr.override {
+                inherit (import ../_packages/nodejs-security.nix { inherit pkgs; }) nodejs-slim_22;
+              };
               openFirewall = true;
             };
 

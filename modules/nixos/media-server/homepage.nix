@@ -6,7 +6,7 @@ in
   flake.modules.nixos.homepage = {
     imports = [
       (
-        { config, ... }:
+        { config, pkgs, ... }:
         {
           age.secrets = {
             homepage-env = {
@@ -19,6 +19,9 @@ in
 
           services.homepage-dashboard = {
             enable = true;
+            package = pkgs.homepage-dashboard.override {
+              nodejs = (import ../_packages/nodejs-security.nix { inherit pkgs; }).nodejs_24;
+            };
             openFirewall = true;
             allowedHosts = "${topology.hosts.home-media.lanAddress}:8082,home.rdatar.com";
 

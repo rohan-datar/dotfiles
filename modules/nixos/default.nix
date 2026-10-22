@@ -18,5 +18,8 @@
       self.modules.nixos.terminfo
       self.modules.nixos.time
     ];
+
+    # Remove once nixpkgs cacert drops this compromised root.
+    security.pki.caCertificateBlacklist = [ "emSign ECC Root CA - G3" ];
   };
 }
