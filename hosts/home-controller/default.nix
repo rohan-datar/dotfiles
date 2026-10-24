@@ -12,7 +12,8 @@ in
     self.modules.nixos.libvirt # generic libvirtd + virt-manager service
     ./haos.nix # HAOS guest: USB passthrough, cockpit UI, domain definition
     self.modules.nixos.keycloak
-    self.modules.nixos.lldap # identity source of truth (Keycloak federates it)
+    self.modules.nixos.authelia # Phase 1 forward auth; Keycloak remains live
+    self.modules.nixos.lldap # identity source of truth for Keycloak and Authelia
     self.modules.nixos.metrics-agent # node_exporter, scraped over loopback
     self.modules.nixos.prometheus # loopback-only TSDB for the whole lab
     self.modules.nixos.grafana # dashboards, Keycloak OIDC

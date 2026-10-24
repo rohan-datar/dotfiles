@@ -115,6 +115,13 @@ clean keep='3':
     fi
     nh clean all --keep "$keep" --keep-one --optimise
 
+# Build the custom headless homelab NixOS installer ISO
+iso:
+    nix build "$FLAKE_DIR#nixosConfigurations.installer-iso.config.system.build.isoImage"
+
+# Provision a booted installer ISO remotely with disko + nixos-anywhere
+install host target='root@nixos-installer.local':
+    nix run github:nix-community/nixos-anywhere -- --flake "$FLAKE_DIR#{{ host }}" "{{ target }}"
 [private]
 [script]
 _switch action='switch':

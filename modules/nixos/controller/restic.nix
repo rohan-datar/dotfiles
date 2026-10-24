@@ -2,8 +2,8 @@ _: {
   # Offsite identity backup: losing this host's state loses every account and
   # passkey in the lab. PostgreSQL (Keycloak) via the in-tree dump service —
   # consistent dumps on their own timer, an hour before restic picks them up;
-  # lldap via a prepare-command SQLite .backup (safe hot copy; the DB is tiny
-  # and rarely written). Same Storage Box as home-nas but its own repo:
+  # lldap and Authelia via prepare-command SQLite .backup (safe hot copies).
+  # Same Storage Box as home-nas but its own repo:
   # separate locking, separate blast radius.
   flake.modules.nixos.controller-restic =
     { config, pkgs, ... }:
@@ -29,12 +29,16 @@ _: {
         # symlink at /var/lib/lldap; restic runs as root so both paths work.
         # Verify the filename on the live host (`sudo ls /var/lib/lldap`).
         backupPrepareCommand = ''
-          mkdir -p /var/backup/lldap
+          mkdir -p /var/backup/lldap /var/backup/authelia
           ${pkgs.sqlite}/bin/sqlite3 /var/lib/lldap/users.db ".backup /var/backup/lldap/users.db"
+          if [ -f /var/lib/authelia-main/db.sqlite3 ]; then
+            ${pkgs.sqlite}/bin/sqlite3 /var/lib/authelia-main/db.sqlite3 ".backup /var/backup/authelia/db.sqlite3"
+          fi
         '';
         paths = [
           "/var/backup/postgresql"
           "/var/backup/lldap"
+          "/var/backup/authelia"
         ];
         timerConfig = {
           OnCalendar = "03:30";

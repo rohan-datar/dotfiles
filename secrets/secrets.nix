@@ -79,6 +79,9 @@ in
   "nix-access-tokens.conf.age".publicKeys = allKeys;
   "smtp-password.age".publicKeys = allKeys;
   "keycloak-db-password.age".publicKeys = home-controller-keys;
+  "authelia-jwt-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
+  "authelia-session-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
+  "authelia-storage-encryption-key.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "lldap-env.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "lldap-admin-password.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "oauth2-proxy-env.age".publicKeys = home-media-keys;

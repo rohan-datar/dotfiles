@@ -43,10 +43,13 @@ let
     (tcpProbe "shelfmark-app" 8084)
   ];
 
-  # Ports the controller's Gatus probes need open on home-media
+  # Ports the controller's Gatus probes and OPNsense Caddy need on home-media.
   probePorts = lib.concatStringsSep "," (
     map toString (lib.sort (a: b: a < b) (map (p: p.port) mediaProbes))
   );
+
+  # Ports the Home Assistant Sonarr and Radarr integrations poll on home-media.
+  homeAssistantPorts = "7878,8989";
 in
 {
   flake.modules.nixos.media-probes = _: {
@@ -57,6 +60,12 @@ in
     networking.firewall.extraCommands = ''
       iptables -w -A nixos-fw -p tcp -m multiport --dports ${probePorts} \
         -s ${topology.hosts.home-controller.lanAddress} -m comment --comment "gatus app liveness" \
+        -j nixos-fw-accept
+      iptables -w -A nixos-fw -p tcp -m multiport --dports ${probePorts} \
+        -s ${topology.gatewayAddress} -m comment --comment "opnsense caddy reverse proxy" \
+        -j nixos-fw-accept
+      iptables -w -A nixos-fw -p tcp -m multiport --dports ${homeAssistantPorts} \
+        -s ${topology.hosts.home-assistant.lanAddress} -m comment --comment "home assistant arr integrations" \
         -j nixos-fw-accept
     '';
   };
