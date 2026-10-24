@@ -1,6 +1,5 @@
-{ self, pkgs, ... }:
+{ pkgs, ... }:
 let
-  topology = self.meta.topology;
   haosDomain = ./haos.xml;
 in
 {
@@ -15,29 +14,6 @@ in
   # Shut the guest down properly instead; a cold boot re-enumerates, and costs ~40s of
   # extra host shutdown time.
   virtualisation.libvirtd.onShutdown = "shutdown";
-
-  # Web UI for the HAOS guest: VM state + console in the browser,
-  # nicer than virt-manager over X forwarding when the VM won't boot.
-  services.cockpit = {
-    enable = true;
-    port = 9090;
-    plugins = [ pkgs.cockpit-machines ];
-
-    allowed-origins = [
-      "https://${topology.hosts.home-controller.lanAddress}:9090"
-      "wss://${topology.hosts.home-controller.lanAddress}:9090"
-      "https://controller.rdatar.com"
-      "wss://controller.rdatar.com"
-    ];
-    settings.WebService = {
-      # Caddy terminates TLS and proxies plain http; without this cockpit
-      # redirects http→https and Firefox loops. LAN-only exposure.
-      AllowUnencrypted = true;
-      ProtocolHeader = "X-Forwarded-Proto";
-      ForwardedForHeader = "X-Forwarded-For";
-    };
-  };
-  networking.firewall.interfaces.br0.allowedTCPPorts = [ 9090 ];
 
   # Both dongles go to the guest by USB passthrough, so the host must never bind them.
   # libvirt unbinds the host driver when the VM starts, but that unbind does not survive

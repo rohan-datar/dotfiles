@@ -363,22 +363,6 @@ in
               {
                 "Hosts" = [
                   {
-                    "NAS" = {
-                      icon = "cockpit.png";
-                      href = "https://store.rdatar.com";
-                      description = "home-nas, Cockpit";
-                      siteMonitor = "https://store.rdatar.com";
-                    };
-                  }
-                  {
-                    "Home Controller" = {
-                      icon = "cockpit.png";
-                      href = "https://controller.rdatar.com";
-                      description = "home-controller, Cockpit";
-                      siteMonitor = "https://controller.rdatar.com";
-                    };
-                  }
-                  {
                     "HomeAssistant" = {
                       icon = "home-assistant.png";
                       href = "https://ha.rdatar.com";

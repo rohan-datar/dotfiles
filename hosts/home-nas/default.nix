@@ -16,7 +16,6 @@ in
     self.modules.nixos.mail # msmtp transport for the two aspects below
     self.modules.nixos.nas-alerts
     self.modules.nixos.nas-restic # offsite documents backup (Storage Box)
-    self.modules.nixos.nas-cockpit
     self.modules.nixos.nas-paperless
     self.modules.nixos.metrics-agent
     self.modules.nixos.nas-metrics # zfs + smartctl exporters

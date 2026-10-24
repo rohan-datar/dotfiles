@@ -10,7 +10,7 @@ in
     self.modules.nixos.server # openssh, fail2ban, ragenix, base server tools
     self.modules.nixos.intel-cpu # i5-7500T
     self.modules.nixos.libvirt # generic libvirtd + virt-manager service
-    ./haos.nix # HAOS guest: USB passthrough, cockpit UI, domain definition
+    ./haos.nix # HAOS guest: USB passthrough, domain definition
     self.modules.nixos.keycloak
     self.modules.nixos.authelia # Phase 1 forward auth; Keycloak remains live
     self.modules.nixos.lldap # identity source of truth for Keycloak and Authelia

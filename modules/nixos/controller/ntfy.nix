@@ -4,7 +4,7 @@ _: {
   #
   # Port 2586 is ntfy's upstream default and is free on this host — the busy
   # ports here are 8080 (Keycloak), 8081 (Gatus), 3000 (Grafana), 3890/17170
-  # (lldap), 9090 (cockpit), 9091 (Prometheus) and 9100 (node_exporter).
+  # (lldap), 9090 (Prometheus), 9091 (Authelia), and 9100 (node_exporter).
   # Keeping upstream's default means the CLI and the docs need no translation.
   flake.modules.nixos.ntfy = _: {
     services.ntfy-sh = {

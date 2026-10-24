@@ -90,7 +90,7 @@ Keep shared addresses and identity naming in the topology inventory. `modules/in
 
 `modules/infrastructure/media-monitoring.nix` owns the private direct-probe list and defines `media-probes` (imported by `gatus`) and `media-probe-access` (imported by `media-ingress`). Probe targets and their firewall ports come from that one list. Public auth checks remain separate; preserve endpoint ordering when changing the Gatus composition.
 
-The NixOS `graphical` umbrella does not choose a session: `home-desktop` explicitly imports `niri-desktop`. Keep scaling and workstation DRM workarounds host-local, and NVIDIA environment settings in `nvidia`. NAS host ID/pool/boot policy lives in `hosts/home-nas/default.nix`; the controller imports generic `libvirt` plus its plain `haos.nix` module for guest-specific USB, shutdown, Cockpit, and domain policy.
+The NixOS `graphical` umbrella does not choose a session: `home-desktop` explicitly imports `niri-desktop`. Keep scaling and workstation DRM workarounds host-local, and NVIDIA environment settings in `nvidia`. NAS host ID/pool/boot policy lives in `hosts/home-nas/default.nix`; the controller imports generic `libvirt` plus its plain `haos.nix` module for guest-specific USB, shutdown, and domain policy.
 
 ### Home Manager Integration
 

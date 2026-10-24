@@ -83,7 +83,7 @@ The NixOS `graphical` umbrella provides the common graphical environment without
 
 `hosts/home-nas/default.nix` owns its stable ZFS host ID, existing pool import, and bootloader/EFI choices. The `nas-zfs` aspect supplies ZFS support and scrub/trim maintenance, not those machine-specific values.
 
-The controller imports the reusable `libvirt` aspect plus the plain host module `hosts/home-controller/haos.nix`. The latter owns the guest's USB passthrough policy, shutdown behavior, Cockpit access, and domain-definition service next to `haos.xml`. The XML remains the source of the persistent domain definition; a switch does not intentionally restart the running guest.
+The controller imports the reusable `libvirt` aspect plus the plain host module `hosts/home-controller/haos.nix`. The latter owns the guest's USB passthrough policy, shutdown behavior, and domain-definition service next to `haos.xml`. The XML remains the source of the persistent domain definition; a switch does not intentionally restart the running guest.
 
 ### Home Manager aspects (`modules/home/`)
 

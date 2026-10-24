@@ -6,9 +6,6 @@ in
   # Metrics store for the lab. Grafana and Gatus are the only consumers and both
   # live on this host, so Prometheus binds loopback only and opens no port.
   #
-  # Port 9091, not the usual 9090: cockpit (haos module on this host) already owns 9090 on
-  # every interface here, so 9090 would fail to bind.
-  #
   # No Alertmanager on purpose — smartd/ZED email hardware faults directly and
   # Gatus owns availability alerting. Alertmanager stays an additive change.
   flake.modules.nixos.prometheus = { config, ... }: {
@@ -19,7 +16,7 @@ in
     services.prometheus = {
       enable = true;
       listenAddress = "127.0.0.1";
-      port = 9091;
+      port = 9090;
       retentionTime = "90d";
       globalConfig.scrape_interval = "30s";
       # promtool runs in the build sandbox, where the agenix bearer_token_file

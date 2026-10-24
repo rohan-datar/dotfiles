@@ -121,18 +121,6 @@ in
                 conditions = [ "[STATUS] < 400" ];
                 alerts = ntfy;
               }
-              {
-                name = "warpgate";
-                group = "public";
-                interval = "60s";
-                url = "https://portal.rdatar.com";
-                client.ignore-redirect = true;
-                conditions = [
-                  "[STATUS] == 307"
-                  "[CERTIFICATE_EXPIRATION] > 240h"
-                ];
-                alerts = ntfy;
-              }
 
               # --- Internally accessible endpoints ---
               {
@@ -155,14 +143,6 @@ in
                 group = "infra";
                 interval = "120s";
                 url = "tcp://${topology.hosts.home-nas.lanAddress}:445";
-                conditions = [ "[CONNECTED] == true" ];
-                alerts = ntfy;
-              }
-              {
-                name = "warpgate-direct";
-                group = "infra";
-                interval = "60s";
-                url = "tcp://${topology.hosts.home-media.lanAddress}:8888";
                 conditions = [ "[CONNECTED] == true" ];
                 alerts = ntfy;
               }

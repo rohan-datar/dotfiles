@@ -49,7 +49,6 @@ let
     homelab-user-keys
     ++ home-nas-system-keys
     ++ home-controller-system-keys
-    ++ home-media-system-keys
     ++ rdatar-macbook;
 
   # Every NixOS host substitutes from the Storage Box binary cache, so every
@@ -102,7 +101,6 @@ in
   "gatus-env.age".publicKeys =
     homelab-user-keys ++ home-controller-system-keys ++ home-media-system-keys ++ rdatar-macbook;
   "ha-prometheus-token.age".publicKeys = home-controller-keys ++ rdatar-macbook;
-  "warpgate-sso-secret.age".publicKeys = home-media-keys ++ rdatar-macbook;
   "storagebox-ssh-key.age".publicKeys = restic-keys;
   "storagebox-netrc.age".publicKeys = nix-cache-keys;
   "restic-password.age".publicKeys = restic-keys;
