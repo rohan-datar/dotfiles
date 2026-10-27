@@ -8,6 +8,7 @@ let
           omp
           prime-agent
           ;
+        inherit (inputs.albedo.packages.${pkgs.stdenv.hostPlatform.system}) albedo;
       };
     };
 in

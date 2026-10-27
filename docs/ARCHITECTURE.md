@@ -79,6 +79,8 @@ Each file under these directories contributes an aspect, e.g. `flake.modules.nix
 
 The NixOS `graphical` umbrella provides the common graphical environment without choosing a compositor or greeter. `home-desktop` explicitly imports `niri-desktop` for Niri, Noctalia, and the Noctalia greeter. Generic Wayland environment settings stay in `wayland`; NVIDIA settings stay in `nvidia`. Personal display scaling and the workstation DRM workaround stay in `hosts/home-desktop/default.nix`.
 
+The graphical umbrellas also import `modules/ai.nix`, which installs OMP, prime-agent, and Albedo on NixOS and Darwin. Albedo uses its own pinned upstream flake and nixpkgs, including the daemon and web client.
+
 ### Host-local hardware and guests
 
 `hosts/home-nas/default.nix` owns its stable ZFS host ID, existing pool import, and bootloader/EFI choices. The `nas-zfs` aspect supplies ZFS support and scrub/trim maintenance, not those machine-specific values.

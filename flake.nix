@@ -111,6 +111,8 @@
       inputs.systems.follows = "systems";
     };
 
+    albedo.url = "git+https://tangled.org/okami.mom/albedo";
+
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
