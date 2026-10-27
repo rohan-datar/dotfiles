@@ -1,11 +1,5 @@
-{ lib, ... }:
-{
+_: {
   flake.modules.nixos.size = {
-    boot = {
-      # We enable Systemd in the initrd so we can use it to mount the root
-      # filesystem this will remove Perl from the activation
-      initrd.systemd.enable = true;
-    };
 
     # Declarative user management
     services.userborn.enable = true;
