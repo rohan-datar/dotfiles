@@ -15,7 +15,6 @@ _: {
           file = ../../../secrets/authelia-storage-encryption-key.age;
           owner = "authelia-main";
         };
-        # Shared with lldap's DynamicUser: retain root ownership and pass a credential.
         lldap-admin-password.file = ../../../secrets/lldap-admin-password.age;
       };
 
@@ -34,6 +33,18 @@ _: {
           webauthn = {
             disable = false;
             display_name = "Homelab SSO";
+            enable_passkey_login = true;
+            # A passkey verified by biometrics/PIN satisfies two_factor rules on its own.
+            # Experimental in 4.39; to be superseded by AMR-based access control policies.
+            experimental_enable_passkey_uv_two_factors = true;
+            selection_criteria = {
+              discoverability = "required";
+              user_verification = "preferred";
+            };
+          };
+          identity_validation.elevated_session = {
+            require_second_factor = true;
+            skip_second_factor = true;
           };
           authentication_backend = {
             refresh_interval = "1m";
@@ -75,9 +86,7 @@ _: {
                   "store.rdatar.com"
                   "portal.rdatar.com"
                 ];
-                policy = "one_factor";
-                # admins is the planned role; lldap_admin is LLDAP's built-in role.
-                # Explicit admin identities avoid a first-test group-mapping lockout.
+                policy = "two_factor";
                 subject = [
                   "group:admins"
                   "group:lldap_admin"
