@@ -28,9 +28,6 @@ in
             };
             seerr = {
               enable = true;
-              package = pkgs.seerr.override {
-                inherit (import ../_packages/nodejs-security.nix { inherit pkgs; }) nodejs-slim_22;
-              };
               openFirewall = true;
             };
 
