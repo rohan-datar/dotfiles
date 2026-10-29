@@ -88,7 +88,7 @@ Features are organized as aspects under `flake.modules.<class>.<name>`. Hosts op
 
 Keep shared addresses and identity naming in the topology inventory. `modules/infrastructure/media-storage.nix` owns the media export/mount paths and defines both `nas-nfs` and `media-storage`; hosts import their respective sides explicitly. Inventory data does not enable services. Keep interface names, prefix lengths, and hardware policy host-local; never read another host's evaluated `nixosConfigurations` to obtain shared facts.
 
-`modules/infrastructure/media-monitoring.nix` owns the private direct-probe list and defines `media-probes` (imported by `gatus`) and `media-probe-access` (imported by `media-ingress`). Probe targets and their firewall ports come from that one list. Public auth checks remain separate; preserve endpoint ordering when changing the Gatus composition.
+`modules/infrastructure/media-monitoring.nix` owns the private direct-probe list and defines `media-probes` (imported by `gatus`) and `media-probe-access` (imported by `home-media`; OPNsense Caddy proxies the apps directly behind Authelia forward auth). Probe targets and their firewall ports come from that one list. Public auth checks remain separate; preserve endpoint ordering when changing the Gatus composition.
 
 The NixOS `graphical` umbrella does not choose a session: `home-desktop` explicitly imports `niri-desktop`. Keep scaling and workstation DRM workarounds host-local, and NVIDIA environment settings in `nvidia`. NAS host ID/pool/boot policy lives in `hosts/home-nas/default.nix`; the controller imports generic `libvirt` plus its plain `haos.nix` module for guest-specific USB, shutdown, and domain policy.
 

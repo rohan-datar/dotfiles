@@ -14,18 +14,19 @@ in
         komga.enable = true;
         shelfmark = {
           enable = true;
-          # Bind to all interfaces so Gatus (home-controller) can probe the app
-          # directly; the firewall rule below restricts 8084 to the controller.
-          # The public vhost probe can't detect upstream death, because Caddy +
-          # oauth2-proxy answer with a 302 before ever touching Shelfmark.
+          # Bind to all interfaces so OPNsense Caddy can proxy it and Gatus
+          # (home-controller) can probe it; media-probe-access restricts 8084 to
+          # those two. The public vhost probe can't detect upstream death, because
+          # Caddy + Authelia answer with a 302 before ever touching Shelfmark.
           host = "0.0.0.0";
         };
       };
 
       services.shelfmark.environment = {
         AUTH_METHOD = "proxy";
-        PROXY_AUTH_USER_HEADER = "X-Auth-Request-User";
-        PROXY_AUTH_LOGOUT_URL = "https://shelfmark.media.rdatar.com/oauth2/sign_out";
+        # Copied from Authelia's forward-auth response by OPNsense Caddy.
+        PROXY_AUTH_USER_HEADER = "Remote-User";
+        PROXY_AUTH_LOGOUT_URL = "https://auth.rdatar.com/logout";
         INGEST_DIR = "${config.nixarr.mediaDir}/library/books";
       };
 

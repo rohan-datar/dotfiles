@@ -1,7 +1,7 @@
 { lib, config, ... }:
 let
   # The direct media liveness relationship: Gatus on home-controller probes
-  # each app on home-media directly, bypassing Caddy and oauth2-proxy.
+  # each app on home-media directly, bypassing OPNsense Caddy and Authelia.
   topology = config.flake.meta.topology;
 
   # Every probe pushes on the same policy, so name the list once.

@@ -124,7 +124,8 @@ in
 
               # --- Internally accessible endpoints ---
               {
-                name = "oauth2-proxy";
+                # OPNsense Caddy + Authelia forward auth: unauthenticated -> 302 to login.
+                name = "media-forward-auth";
                 group = "media-ingress";
                 interval = "300s";
                 url = "https://tv.media.rdatar.com";

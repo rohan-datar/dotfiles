@@ -67,7 +67,7 @@ Both aspects consume the shared address inventory. The Arr media directory, dash
 `media-monitoring.nix` owns one private list of direct media liveness probes and defines both sides of that relationship:
 
 - `flake.modules.nixos.media-probes` — Gatus endpoints, imported by the controller's `gatus` aspect.
-- `flake.modules.nixos.media-probe-access` — the matching controller-only firewall allowance, imported by the media host's `media-ingress` aspect.
+- `flake.modules.nixos.media-probe-access` — the matching firewall allowance for the controller and OPNsense Caddy, imported directly by `home-media`.
 
 The same probe ports generate both the backend URLs and firewall rule. Public authentication/certificate checks remain separate. Gatus uses `mkBefore` and `mkAfter` around the relationship's endpoints to preserve the existing display order; importing `media-probes` alone does not enable Gatus.
 

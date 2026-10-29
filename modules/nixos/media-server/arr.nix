@@ -73,6 +73,10 @@ in
             };
           };
 
+          # Login is handled by Authelia forward auth at OPNsense Caddy.           services.sonarr.settings.auth.method = "External";
+          services.radarr.settings.auth.method = "External";
+          services.prowlarr.settings.auth.method = "External";
+
           services.flaresolverr.enable = true;
 
           systemd.services.jellyfin.environment = {

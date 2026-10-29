@@ -27,7 +27,11 @@ _: {
         };
         settings = {
           theme = "auto";
-          server.address = "tcp://0.0.0.0:9091";
+          server = {
+            address = "tcp://0.0.0.0:9091";
+            # Default 4 KiB overflows (431) on large leftover cookies, e.g. oauth2-proxy's.
+            buffers.read = 16384;
+          };
           log.level = "info";
           totp.issuer = "rdatar.com";
           webauthn = {
