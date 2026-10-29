@@ -81,17 +81,11 @@ _: {
               {
                 domain = [
                   "*.media.rdatar.com"
-                  "net.rdatar.com"
-                  "dns.rdatar.com"
-                  "store.rdatar.com"
-                  "portal.rdatar.com"
                 ];
                 policy = "two_factor";
                 subject = [
-                  "group:admins"
-                  "group:lldap_admin"
-                  "user:rdatar"
-                  "user:admin"
+                  "group:media_admin"
+                  "user:rohan"
                 ];
               }
               {
