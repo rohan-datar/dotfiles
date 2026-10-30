@@ -15,6 +15,14 @@ _: {
           file = ../../../secrets/authelia-storage-encryption-key.age;
           owner = "authelia-main";
         };
+        authelia-oidc-issuer-key = {
+          file = ../../../secrets/authelia-oidc-issuer-key.age;
+          owner = "authelia-main";
+        };
+        authelia-oidc-hmac-secret = {
+          file = ../../../secrets/authelia-oidc-hmac-secret.age;
+          owner = "authelia-main";
+        };
         lldap-admin-password.file = ../../../secrets/lldap-admin-password.age;
       };
 
@@ -24,6 +32,8 @@ _: {
           jwtSecretFile = config.age.secrets.authelia-jwt-secret.path;
           sessionSecretFile = config.age.secrets.authelia-session-secret.path;
           storageEncryptionKeyFile = config.age.secrets.authelia-storage-encryption-key.path;
+          oidcIssuerPrivateKeyFile = config.age.secrets.authelia-oidc-issuer-key.path;
+          oidcHmacSecretFile = config.age.secrets.authelia-oidc-hmac-secret.path;
         };
         settings = {
           theme = "auto";
@@ -33,6 +43,43 @@ _: {
             buffers.read = 16384;
           };
           log.level = "info";
+          # Per-client admission, replacing Keycloak's client-restriction flow.
+          identity_providers.oidc.authorization_policies = {
+            grafana = {
+              default_policy = "deny";
+              rules = [
+                {
+                  policy = "two_factor";
+                  subject = [ "group:grafana_admin" ];
+                }
+              ];
+            };
+          };
+          # Authelia has no global consent default, so apply one here: every client is
+          # first-party, so skip the consent screen unless a client requires it
+          identity_providers.oidc.clients = map (client: { consent_mode = "implicit"; } // client) [
+            {
+              client_id = "grafana";
+              client_name = "Grafana";
+              # Plaintext: secrets/grafana-authelia-oidc-secret.age
+              client_secret = "$pbkdf2-sha512$310000$sTAjsjm7SrioziU52CjMkQ$CC6M2OrmwOmwZvjiHen2g7bO5rLGAncezy6yV.rAIhkg8hKEkp2.JCeFf9uot84khLq2xjw9DTwD0fjq8F94Sg";
+              public = false;
+              authorization_policy = "grafana";
+              require_pkce = true;
+              pkce_challenge_method = "S256";
+              redirect_uris = [ "https://grafana.rdatar.com/login/generic_oauth" ];
+              scopes = [
+                "openid"
+                "profile"
+                "email"
+                "groups"
+              ];
+              response_types = [ "code" ];
+              grant_types = [ "authorization_code" ];
+              token_endpoint_auth_method = "client_secret_basic";
+              userinfo_signed_response_alg = "none";
+            }
+          ];
           totp.issuer = "rdatar.com";
           webauthn = {
             disable = false;
@@ -89,7 +136,6 @@ _: {
                 policy = "two_factor";
                 subject = [
                   "group:media_admin"
-                  "user:rohan"
                 ];
               }
               {

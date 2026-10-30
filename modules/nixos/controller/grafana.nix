@@ -1,13 +1,13 @@
-{ config, ... }:
+_:
 let
-  topology = config.flake.meta.topology;
+  issuer = "https://auth.rdatar.com";
 in
 {
   flake.modules.nixos.grafana =
     { config, ... }:
     {
       age.secrets.grafana-oidc-secret = {
-        file = ../../../secrets/grafana-oidc-secret.age;
+        file = ../../../secrets/grafana-authelia-oidc-secret.age;
         owner = "grafana";
       };
 
@@ -30,7 +30,7 @@ in
           server = {
             http_addr = "0.0.0.0";
             http_port = 3000;
-            # Must match the base of the Keycloak client's redirect URI.
+            # Must match the base of the Authelia client's redirect URI.
             root_url = "https://grafana.rdatar.com";
           };
 
@@ -38,15 +38,19 @@ in
 
           "auth.generic_oauth" = {
             enabled = true;
-            name = "Keycloak";
+            name = "Authelia";
             client_id = "grafana";
             client_secret = "$__file{${config.age.secrets.grafana-oidc-secret.path}}";
-            scopes = "openid email profile";
-            auth_url = "${topology.identity.issuerUrl}/protocol/openid-connect/auth";
-            token_url = "${topology.identity.issuerUrl}/protocol/openid-connect/token";
-            api_url = "${topology.identity.issuerUrl}/protocol/openid-connect/userinfo";
+            scopes = "openid profile email groups";
+            auth_url = "${issuer}/api/oidc/authorization";
+            token_url = "${issuer}/api/oidc/token";
+            api_url = "${issuer}/api/oidc/userinfo";
+            auth_style = "InHeader"; # matches token_endpoint_auth_method client_secret_basic
+            use_pkce = true;
+            login_attribute_path = "preferred_username";
+            name_attribute_path = "name";
+            groups_attribute_path = "groups";
             # Admin iff in the lldap group; everyone else who can log in is a Viewer.
-            # Needs the client's Group Membership mapper (claim `groups`, full path off).
             role_attribute_path = "contains(groups[*], 'grafana_admin') && 'Admin' || 'Viewer'";
             allow_sign_up = true;
           };
