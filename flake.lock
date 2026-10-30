@@ -33,11 +33,11 @@
         "usage-core": "usage-core"
       },
       "locked": {
-        "lastModified": 1793314117,
-        "narHash": "sha256-a1k9PSwYns7EvMUCKo/KxbQ3E8+Ya3IZ7Vjfb9vKvPw=",
+        "lastModified": 1793317530,
+        "narHash": "sha256-U8cawjS2VXbYNhUJH9Kyz4us/R2V2AAedxe931LjV6s=",
         "ref": "refs/heads/main",
-        "rev": "4dc6543ddeabd965ad650fe7d53c16e62462877f",
-        "revCount": 1284,
+        "rev": "598153f42d0e9cc9a538f06af3908ab9f14baf67",
+        "revCount": 1286,
         "type": "git",
         "url": "https://tangled.org/okami.mom/albedo"
       },
@@ -309,11 +309,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793143657,
-        "narHash": "sha256-fjqK3b49KkhdHFyQ24/L4HaYumRLp/678T/JYjlYvac=",
+        "lastModified": 1793317567,
+        "narHash": "sha256-kmi+Gli1j7WcD7yCw4P9ApZlQMFrjzdjN555rAAh2jQ=",
         "owner": "rohan-datar",
         "repo": "editorconfig",
-        "rev": "807a5ea8ba4551cae6134edbb07805e029af5807",
+        "rev": "25d1b4e71664a9c50f5c0e61a98c147a5b974893",
         "type": "github"
       },
       "original": {
@@ -331,11 +331,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1793135903,
-        "narHash": "sha256-4mFagnfY1aT20GCFK7zYEEhSJ0IT27OTlDaza5zkryY=",
+        "lastModified": 1793310376,
+        "narHash": "sha256-kdk+yIQAdm4j+8qO2l3ETx2T1V0Z8x1qWavRnNjd1lc=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "61f8ebf9e6635cb54c701ce573a7712a8a0475de",
+        "rev": "3274e16b4ac30795f3d1c1b568d7303b284ab0d8",
         "type": "github"
       },
       "original": {
@@ -574,11 +574,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1793314902,
-        "narHash": "sha256-wJF9LRVuffenQcafVSQIWjZYTvJ/3ad+jze0vkJ6SM4=",
+        "lastModified": 1793317002,
+        "narHash": "sha256-CQXLZiKqHeemxjmH2wZWWeEmYu0uCPNHPCoBhwOYDY8=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "cd44d47df58879e491196cbe73eabc8bc8b01aff",
+        "rev": "08ad22ef9f406360b183a2c444c293e6e20c7ff4",
         "type": "github"
       },
       "original": {
@@ -740,11 +740,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1793015021,
-        "narHash": "sha256-Ee5BWo8sh3pGt70QUdRajnaginqFmWvrtdBc4gJzhks=",
+        "lastModified": 1793183032,
+        "narHash": "sha256-56mFMf8heLNfYhcgbrh4GpN5x+G9JOfTFXZC3n6w0qM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "718f670e845328e9c2cecdd832835712b2cbd065",
+        "rev": "08d3a97586f6b6343b3b5e799980773629432610",
         "type": "github"
       },
       "original": {
