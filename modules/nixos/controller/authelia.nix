@@ -63,6 +63,16 @@ _: {
                 }
               ];
             };
+            # Family-facing: password-only, as decided; owner logins still use the passkey.
+            paperless = {
+              default_policy = "deny";
+              rules = [
+                {
+                  policy = "one_factor";
+                  subject = [ "group:documents" ];
+                }
+              ];
+            };
             komga = {
               default_policy = "deny";
               rules = [
@@ -119,6 +129,31 @@ _: {
               response_types = [ "code" ];
               grant_types = [ "authorization_code" ];
               token_endpoint_auth_method = "client_secret_basic";
+              userinfo_signed_response_alg = "none";
+            }
+            {
+              client_id = "paperless";
+              client_name = "Paperless";
+              public = true;
+              authorization_policy = "paperless";
+              require_pkce = true;
+              pkce_challenge_method = "S256";
+              redirect_uris = [
+                "https://docs.datars.org/accounts/oidc/authelia/login/callback/" # web UI
+                "x-paperless://oidc-callback" # swift-paperless
+                "paperparrot://oidc-callback"
+                "https://paperparrot.me/oidc-callback"
+                "lesspaper://oidc-callback"
+              ];
+              scopes = [
+                "openid"
+                "profile"
+                "email"
+                "groups"
+              ];
+              response_types = [ "code" ];
+              grant_types = [ "authorization_code" ];
+              token_endpoint_auth_method = "none";
               userinfo_signed_response_alg = "none";
             }
             {
