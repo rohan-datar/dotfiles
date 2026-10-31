@@ -98,6 +98,12 @@ in
           };
           # Authelia has no global consent default, so apply one here: every client is
           # first-party, so skip the consent screen unless a client requires it
+          identity_providers.oidc.claims_policies.paperless.id_token = [
+            "email"
+            "email_verified"
+            "preferred_username"
+            "name"
+          ];
           identity_providers.oidc.clients = map (client: { consent_mode = "implicit"; } // client) [
             {
               client_id = "grafana";
@@ -149,6 +155,7 @@ in
               client_name = "Paperless";
               public = true;
               authorization_policy = "paperless";
+              claims_policy = "paperless";
               require_pkce = true;
               pkce_challenge_method = "S256";
               redirect_uris = [

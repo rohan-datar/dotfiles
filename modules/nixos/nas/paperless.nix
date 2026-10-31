@@ -28,7 +28,11 @@ _: {
           PAPERLESS_SOCIAL_AUTO_SIGNUP = "true"; # skip the confirm-signup form
           PAPERLESS_ACCOUNT_ALLOW_SIGNUPS = "false";
           PAPERLESS_SOCIAL_ACCOUNT_DEFAULT_GROUPS = "documents";
-          PAPERLESS_SOCIAL_ACCOUNT_SYNC_GROUPS = "true";
+          # Don't sync groups from the OIDC token: swift-paperless requests only
+          # `openid profile email`, so its tokens carry no `groups` claim and a sync
+          # would strip every group (and its permissions) on each phone login.
+          # Groups are assigned once at signup (above) and managed in Paperless.
+          PAPERLESS_SOCIAL_ACCOUNT_SYNC_GROUPS = "false";
         };
       };
 
