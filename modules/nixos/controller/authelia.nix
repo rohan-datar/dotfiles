@@ -194,8 +194,10 @@ _: {
           # account as mail.nix. iCloud only accepts verified aliases as the sender.
           notifier.smtp = {
             address = "submission://smtp.mail.me.com:587"; # STARTTLS required
-            username = "rohandatar2000@gmail.com"; # the Apple ID iCloud signs in with
+            username = "rohandatar@icloud.com";
             sender = "Homelab SSO <admin@datars.org>";
+            # A mail outage must not take down sign-in for every app.
+            disable_startup_check = true;
           };
           access_control = {
             default_policy = "deny";
