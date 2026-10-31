@@ -51,10 +51,23 @@ in
             (lib.mkBefore [
               # --- Identity ---
               {
-                name = "keycloak";
+                # Family portal and OIDC issuer.
+                name = "authelia";
                 group = "identity";
                 interval = "60s";
-                url = "${topology.identity.issuerUrl}/.well-known/openid-configuration";
+                url = "${topology.identity.baseUrl}/api/health";
+                conditions = [
+                  "[STATUS] == 200"
+                  "[CERTIFICATE_EXPIRATION] > 240h"
+                ];
+                alerts = ntfy;
+              }
+              {
+                # Forward-auth portal for *.rdatar.com (cookie domains need their own portal).
+                name = "authelia-rdatar";
+                group = "identity";
+                interval = "60s";
+                url = "https://auth.rdatar.com/api/health";
                 conditions = [
                   "[STATUS] == 200"
                   "[CERTIFICATE_EXPIRATION] > 240h"

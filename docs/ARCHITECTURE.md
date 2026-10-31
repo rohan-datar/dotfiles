@@ -71,7 +71,7 @@ Both aspects consume the shared address inventory. The Arr media directory, dash
 
 The same probe ports generate both the backend URLs and firewall rule. Public authentication/certificate checks remain separate. Gatus uses `mkBefore` and `mkAfter` around the relationship's endpoints to preserve the existing display order; importing `media-probes` alone does not enable Gatus.
 
-Keep repeated cross-host facts in the inventory and co-locate the two sides of a relationship where useful. Interface names, prefix lengths, hardware configuration, and application policy stay local. `home-assistant` is an external HAOS guest endpoint in the inventory, not another flake-managed host; its guest network configuration and Keycloak realm provisioning are not managed by the inventory.
+Keep repeated cross-host facts in the inventory and co-locate the two sides of a relationship where useful. Interface names, prefix lengths, hardware configuration, and application policy stay local. `home-assistant` is an external HAOS guest endpoint in the inventory, not another flake-managed host; its guest network configuration is not managed by the inventory.
 
 ### Class-specific aspects (`modules/nixos/` and `modules/darwin/`)
 

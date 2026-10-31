@@ -1,4 +1,8 @@
-_: {
+{ config, ... }:
+let
+  topology = config.flake.meta.topology;
+in
+{
   flake.modules.nixos.authelia =
     { config, ... }:
     {
@@ -219,7 +223,7 @@ _: {
               }
               {
                 domain = "datars.org";
-                authelia_url = "https://login.datars.org";
+                authelia_url = topology.identity.baseUrl; # https://auth.datars.org
                 default_redirection_url = "https://watch.datars.org";
               }
             ];

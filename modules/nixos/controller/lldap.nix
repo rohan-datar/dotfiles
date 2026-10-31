@@ -38,7 +38,7 @@ in
 
         settings = {
           ldap_base_dn = "dc=rdatar,dc=com";
-          # LDAP for Jellyfin on home-media and Keycloak federation
+          # LDAP for Jellyfin on home-media and Authelia
           ldap_host = "0.0.0.0";
           ldap_port = 3890;
           # LDAPS alongside plain LDAP, using the ACME cert from above.

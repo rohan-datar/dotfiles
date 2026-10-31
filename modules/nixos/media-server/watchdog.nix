@@ -77,8 +77,9 @@ in
               alerts = email;
             }
             {
-              name = "keycloak";
-              url = "${topology.identity.issuerUrl}/.well-known/openid-configuration";
+              # Direct to the service, so this still works if OPNsense Caddy is down.
+              name = "authelia";
+              url = "http://${topology.hosts.home-controller.lanAddress}:9091/api/health";
               interval = "120s";
               conditions = [ "[STATUS] == 200" ];
               alerts = email;

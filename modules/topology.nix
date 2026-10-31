@@ -32,11 +32,7 @@
             options = {
               hostname = lib.mkOption {
                 type = lib.types.str;
-                description = "Public hostname of the identity provider (Keycloak)";
-              };
-              realm = lib.mkOption {
-                type = lib.types.str;
-                description = "Keycloak realm";
+                description = "Public hostname of the identity provider (Authelia's datars.org portal)";
               };
               baseUrl = lib.mkOption {
                 type = lib.types.str;
@@ -47,12 +43,12 @@
               issuerUrl = lib.mkOption {
                 type = lib.types.str;
                 readOnly = true;
-                default = "${config.flake.meta.topology.identity.baseUrl}/realms/${config.flake.meta.topology.identity.realm}";
-                description = "Derived OIDC issuer URL";
+                default = config.flake.meta.topology.identity.baseUrl;
+                description = "Derived OIDC issuer URL (Authelia issues at its portal root)";
               };
             };
           };
-          description = "Identity provider (Keycloak) addressing";
+          description = "Identity provider (Authelia) addressing";
         };
 
         mediaStorage = lib.mkOption {
@@ -98,7 +94,6 @@
     gatewayAddress = "10.10.0.1";
     identity = {
       hostname = "auth.datars.org";
-      realm = "homelab";
     };
   };
 }

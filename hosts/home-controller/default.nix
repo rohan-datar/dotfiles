@@ -11,12 +11,11 @@ in
     self.modules.nixos.intel-cpu # i5-7500T
     self.modules.nixos.libvirt # generic libvirtd + virt-manager service
     ./haos.nix # HAOS guest: USB passthrough, domain definition
-    self.modules.nixos.keycloak
-    self.modules.nixos.authelia # Phase 1 forward auth; Keycloak remains live
-    self.modules.nixos.lldap # identity source of truth for Keycloak and Authelia
+    self.modules.nixos.authelia # SSO: forward auth + OIDC provider
+    self.modules.nixos.lldap # identity source of truth for Authelia and Jellyfin
     self.modules.nixos.metrics-agent # node_exporter, scraped over loopback
     self.modules.nixos.prometheus # loopback-only TSDB for the whole lab
-    self.modules.nixos.grafana # dashboards, Keycloak OIDC
+    self.modules.nixos.grafana # dashboards, Authelia OIDC
     self.modules.nixos.gatus # availability checks + status page
     self.modules.nixos.ntfy # push notifications, Gatus's alert channel
     self.modules.nixos.speedtest # WAN throughput exporter + its hourly job

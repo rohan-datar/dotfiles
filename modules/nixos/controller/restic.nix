@@ -1,8 +1,8 @@
 _: {
   # Offsite identity backup: losing this host's state loses every account and
-  # passkey in the lab. PostgreSQL (Keycloak) via the in-tree dump service —
-  # consistent dumps on their own timer, an hour before restic picks them up;
-  # lldap and Authelia via prepare-command SQLite .backup (safe hot copies).
+  # passkey in the lab. lldap and Authelia via prepare-command SQLite .backup
+  # (safe hot copies). Keycloak's final PostgreSQL dumps remain in older
+  # snapshots until pruned.
   # Same Storage Box as home-nas but its own repo:
   # separate locking, separate blast radius.
   flake.modules.nixos.controller-restic =
@@ -10,13 +10,6 @@ _: {
     {
       age.secrets.restic-password.file = ../../../secrets/restic-password.age;
       age.secrets.storagebox-ssh-key.file = ../../../secrets/storagebox-ssh-key.age;
-
-      # Nightly pg_dump → /var/backup/postgresql/keycloak.sql.gz
-      services.postgresqlBackup = {
-        enable = true;
-        databases = [ "keycloak" ];
-        startAt = "*-*-* 02:30:00";
-      };
 
       services.restic.backups.identity = {
         repository = "sftp:u630851-sub1@u630851.your-storagebox.de:restic/home-controller";
@@ -36,7 +29,6 @@ _: {
           fi
         '';
         paths = [
-          "/var/backup/postgresql"
           "/var/backup/lldap"
           "/var/backup/authelia"
         ];
@@ -57,9 +49,6 @@ _: {
       };
 
       systemd.services."restic-backups-identity".unitConfig.OnFailure = [
-        "backup-failure-email@%n.service"
-      ];
-      systemd.services."postgresqlBackup-keycloak".unitConfig.OnFailure = [
         "backup-failure-email@%n.service"
       ];
     };

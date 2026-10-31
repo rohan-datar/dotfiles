@@ -77,7 +77,6 @@ in
   "homepage-env.age".publicKeys = home-media-keys;
   "nix-access-tokens.conf.age".publicKeys = allKeys;
   "smtp-password.age".publicKeys = allKeys;
-  "keycloak-db-password.age".publicKeys = home-controller-keys;
   "authelia-jwt-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "authelia-session-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "authelia-storage-encryption-key.age".publicKeys = home-controller-keys ++ rdatar-macbook;
@@ -85,15 +84,12 @@ in
   "authelia-oidc-hmac-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "lldap-env.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "lldap-admin-password.age".publicKeys = home-controller-keys ++ rdatar-macbook;
-  "oauth2-proxy-env.age".publicKeys = home-media-keys;
   "cloudflare-dns-token.age".publicKeys =
     home-media-system-keys ++ home-controller-system-keys ++ homelab-user-keys;
   "qui-env.age".publicKeys = home-media-keys;
-  "komga-oidc-env.age".publicKeys = home-media-keys;
   "komga-authelia-oidc-env.age".publicKeys = home-media-keys ++ rdatar-macbook;
   "paperless-admin-password.age".publicKeys = home-nas-keys;
   "paperless-oidc-env.age".publicKeys = home-nas-keys;
-  "grafana-oidc-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "grafana-authelia-oidc-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "grafana-secret-key.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "upgrade-ntfy-env.age".publicKeys =
