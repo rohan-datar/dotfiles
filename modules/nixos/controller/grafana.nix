@@ -1,6 +1,6 @@
-_:
+{ config, ... }:
 let
-  issuer = "https://auth.rdatar.com";
+  issuer = config.flake.meta.topology.identity.issuerUrl;
 in
 {
   flake.modules.nixos.grafana =

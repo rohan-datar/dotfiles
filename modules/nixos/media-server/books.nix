@@ -1,7 +1,6 @@
-_:
+{ config, ... }:
 let
-  # Authelia (home-controller) replaces Keycloak as Komga's OIDC provider.
-  issuer = "https://auth.rdatar.com";
+  issuer = config.flake.meta.topology.identity.issuerUrl;
 in
 {
   flake.modules.nixos.media-books =
