@@ -45,6 +45,15 @@ in
             address = "tcp://0.0.0.0:9091";
             # Default 4 KiB overflows (431) on large leftover cookies
             buffers.read = 16384;
+            # Defaults (read/write 6s) are shorter than OPNsense Caddy's 120s upstream
+            # keep-alive, so Authelia times out idle pooled connections ("Request timeout ...
+            # i/o timeout", 408) that Caddy then reuses, failing UI calls at random. A
+            # session-elevation POST also waits for the iCloud SMTP send before replying.
+            timeouts = {
+              read = "3m";
+              write = "1m";
+              idle = "3m";
+            };
           };
           log.level = "info";
           # Per-client admission, replacing Keycloak's client-restriction flow.
