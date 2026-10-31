@@ -75,6 +75,28 @@ in
           services.radarr.settings.auth.method = "External";
           services.prowlarr.settings.auth.method = "External";
 
+          # nixarr's nixarr-py pins a Jellyfin OpenAPI spec hash per Jellyfin version and
+          # stops at 12.2, so evaluation fails on nixpkgs' Jellyfin 12.4. Rebuild it from
+          # nixarr's own sources, supplying the 12.4 spec hash. Remove once nixarr lists
+          # 12.4; a later Jellyfin fails loudly with a hash mismatch rather than silently.
+          nixarr.nixarr-py.package =
+            let
+              nixarrPy = "${inputs.nixarr}/nixarr/lib/nixarr-py";
+              jellyfinOpenApiHash = "sha256-AqYGSRa34I8fHY1//B+xx2I98ON4cp/Nf9NTdmhoA24="; # 12.4
+            in
+            pkgs.python3Packages.buildPythonPackage {
+              pname = "nixarr-py";
+              version = "0.1.0";
+              pyproject = true;
+              src = nixarrPy;
+              build-system = [ pkgs.python3Packages.setuptools ];
+              dependencies = pkgs.callPackage "${nixarrPy}/python-deps.nix" {
+                jellyfin = config.nixarr.jellyfin.package;
+                # The spec is python-deps.nix's only fetchurl; replace its version-keyed hash.
+                fetchurl = args: pkgs.fetchurl (removeAttrs args [ "hash" ] // { hash = jellyfinOpenApiHash; });
+              };
+            };
+
           services.flaresolverr.enable = true;
 
           systemd.services.jellyfin.environment = {

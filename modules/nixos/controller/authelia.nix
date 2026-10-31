@@ -54,6 +54,15 @@ _: {
                 }
               ];
             };
+            komga = {
+              default_policy = "deny";
+              rules = [
+                {
+                  policy = "two_factor";
+                  subject = [ "group:media" ];
+                }
+              ];
+            };
           };
           # Authelia has no global consent default, so apply one here: every client is
           # first-party, so skip the consent screen unless a client requires it
@@ -73,6 +82,26 @@ _: {
                 "profile"
                 "email"
                 "groups"
+              ];
+              response_types = [ "code" ];
+              grant_types = [ "authorization_code" ];
+              token_endpoint_auth_method = "client_secret_basic";
+              userinfo_signed_response_alg = "none";
+            }
+            {
+              client_id = "komga";
+              client_name = "Komga";
+              # Plaintext: secrets/komga-authelia-oidc-env.age (home-media)
+              client_secret = "$pbkdf2-sha512$310000$Y7yw4uW.eppYBCmzluTtRQ$qggOUHVH5dl2h/BL18rMyy.X05NNjvnE8KHH4rAoEeEM3xHGtRjKlfVAoPoox4Hb6hONQ.A13LuBQuOgydEo7g";
+              public = false;
+              authorization_policy = "komga";
+              # Spring Security does not send PKCE for confidential clients by default.
+              require_pkce = false;
+              redirect_uris = [ "https://books.datars.org/login/oauth2/code/authelia" ];
+              scopes = [
+                "openid"
+                "profile"
+                "email"
               ];
               response_types = [ "code" ];
               grant_types = [ "authorization_code" ];

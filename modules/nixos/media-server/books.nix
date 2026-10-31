@@ -1,14 +1,15 @@
-{ config, ... }:
+_:
 let
-  topology = config.flake.meta.topology;
+  # Authelia (home-controller) replaces Keycloak as Komga's OIDC provider.
+  issuer = "https://auth.rdatar.com";
 in
 {
   flake.modules.nixos.media-books =
     { config, pkgs, ... }:
     {
-      # SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAK_CLIENT_SECRET
-      # (Keycloak client `komga`).
-      age.secrets.komga-oidc-env.file = ../../../secrets/komga-oidc-env.age;
+      # SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_AUTHELIA_CLIENT_SECRET
+      # (Authelia client `komga`).
+      age.secrets.komga-oidc-env.file = ../../../secrets/komga-authelia-oidc-env.age;
 
       nixarr = {
         komga.enable = true;
@@ -31,17 +32,17 @@ in
       };
 
       services.komga.settings.spring.security.oauth2.client = {
-        registration.keycloak = {
-          provider = "keycloak";
+        registration.authelia = {
+          provider = "authelia";
           client-id = "komga";
-          client-name = "Keycloak";
-          scope = "openid,email";
+          client-name = "Authelia";
+          scope = "openid,profile,email";
           authorization-grant-type = "authorization_code";
           redirect-uri = "{baseUrl}/{action}/oauth2/code/{registrationId}";
           client-authentication-method = "client_secret_basic";
         };
-        provider.keycloak = {
-          issuer-uri = topology.identity.issuerUrl;
+        provider.authelia = {
+          issuer-uri = issuer;
           user-name-attribute = "sub";
         };
       };

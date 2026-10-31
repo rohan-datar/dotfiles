@@ -90,6 +90,7 @@ in
     home-media-system-keys ++ home-controller-system-keys ++ homelab-user-keys;
   "qui-env.age".publicKeys = home-media-keys;
   "komga-oidc-env.age".publicKeys = home-media-keys;
+  "komga-authelia-oidc-env.age".publicKeys = home-media-keys ++ rdatar-macbook;
   "paperless-admin-password.age".publicKeys = home-nas-keys;
   "paperless-oidc-env.age".publicKeys = home-nas-keys;
   "grafana-oidc-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
