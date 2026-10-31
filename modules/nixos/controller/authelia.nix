@@ -39,7 +39,7 @@ _: {
           theme = "auto";
           server = {
             address = "tcp://0.0.0.0:9091";
-            # Default 4 KiB overflows (431) on large leftover cookies, e.g. oauth2-proxy's.
+            # Default 4 KiB overflows (431) on large leftover cookies
             buffers.read = 16384;
           };
           log.level = "info";
@@ -51,6 +51,15 @@ _: {
                 {
                   policy = "two_factor";
                   subject = [ "group:grafana_admin" ];
+                }
+              ];
+            };
+            qui = {
+              default_policy = "deny";
+              rules = [
+                {
+                  policy = "two_factor";
+                  subject = [ "group:media_admin" ];
                 }
               ];
             };
@@ -76,12 +85,36 @@ _: {
               authorization_policy = "grafana";
               require_pkce = true;
               pkce_challenge_method = "S256";
-              redirect_uris = [ "https://grafana.rdatar.com/login/generic_oauth" ];
+              redirect_uris = [
+                "https://grafana.rdatar.com/login/generic_oauth"
+                "http://10.10.1.13:3000/login/generic_oauth"
+              ];
               scopes = [
                 "openid"
                 "profile"
                 "email"
                 "groups"
+              ];
+              response_types = [ "code" ];
+              grant_types = [ "authorization_code" ];
+              token_endpoint_auth_method = "client_secret_basic";
+              userinfo_signed_response_alg = "none";
+            }
+            {
+              client_id = "qui";
+              client_name = "Qui";
+              # Plaintext: QUI__OIDC_CLIENT_SECRET in secrets/qui-env.age
+              client_secret = "$pbkdf2-sha512$310000$.6NJkIGCOogMAZ6FvCYuHw$lxFOGZAGD5GhsxUA1XXgqJdCnkjd2dZyQto9c9WZj/rxhz.9pa6CO2Tn6wnxRvuEBoh9vjsOlN0NgHbxnrJyow";
+              public = false;
+              # Qui is single-user: anyone this policy admits gets full access.
+              authorization_policy = "qui";
+              # PKCE is used if Qui sends it, not required.
+              require_pkce = false;
+              redirect_uris = [ "https://torrent.rdatar.com/api/auth/oidc/callback" ];
+              scopes = [
+                "openid"
+                "profile"
+                "email"
               ];
               response_types = [ "code" ];
               grant_types = [ "authorization_code" ];
@@ -97,7 +130,10 @@ _: {
               authorization_policy = "komga";
               # Spring Security does not send PKCE for confidential clients by default.
               require_pkce = false;
-              redirect_uris = [ "https://books.datars.org/login/oauth2/code/authelia" ];
+              redirect_uris = [
+                "https://books.datars.org/login/oauth2/code/authelia"
+                "http://10.10.1.11:25600/login/oauth2/code/authelia"
+              ];
               scopes = [
                 "openid"
                 "profile"
@@ -154,7 +190,13 @@ _: {
             ];
           };
           storage.local.path = "/var/lib/authelia-main/db.sqlite3";
-          notifier.filesystem.filename = "/var/lib/authelia-main/notification.txt";
+          # Real mail for one-time codes and password resets, through the same iCloud
+          # account as mail.nix. iCloud only accepts verified aliases as the sender.
+          notifier.smtp = {
+            address = "submission://smtp.mail.me.com:587"; # STARTTLS required
+            username = "rohandatar2000@gmail.com"; # the Apple ID iCloud signs in with
+            sender = "Homelab SSO <admin@datars.org>";
+          };
           access_control = {
             default_policy = "deny";
             rules = [
@@ -181,8 +223,13 @@ _: {
         wants = [ "lldap.service" ];
         serviceConfig.LoadCredential = [
           "ldap-password:${config.age.secrets.lldap-admin-password.path}"
+          # iCloud app-specific password, declared by the mail aspect (root-owned).
+          "smtp-password:${config.age.secrets.smtp-password.path}"
         ];
-        environment.AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = "%d/ldap-password";
+        environment = {
+          AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = "%d/ldap-password";
+          AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE = "%d/smtp-password";
+        };
       };
 
       networking.firewall.interfaces.br0.allowedTCPPorts = [ 9091 ];
