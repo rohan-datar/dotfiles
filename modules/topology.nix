@@ -86,6 +86,9 @@
       home-controller = {
         lanAddress = "10.10.1.13";
       };
+      io = {
+        lanAddress = "10.10.1.14";
+      };
       # External HAOS VM endpoint, not a managed flake host.
       home-assistant = {
         lanAddress = "10.10.1.12";

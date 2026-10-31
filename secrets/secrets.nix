@@ -22,6 +22,9 @@ let
   home-controller-system-keys = [ home-controller-system-ed25519 ];
   home-controller-keys = home-controller-system-keys ++ homelab-user-keys;
 
+  io-system-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBg+RWKyB20qBJMD2vAThzvNdTOBmaTJM0tKIyw0Mk9X";
+  io-system-keys = [ io-system-ed25519 ];
+
   user-home-desktop-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB2wVTZEDwBCIvmTEiKj3pUmhOR+W9qknzbVTXhM25h6";
   user-home-desktop-rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5S21/xsJ1FVhZydkl0zMiqcZUQrbPv07rhL1INIrm6J4DdaytzBTJEOzLa/CnDRaABTGnuIYOuLJ1dxTBTxuDDtUJex/totmJKxaSQdRbTRFeEq/wY3Y8eG9E2ELpmQTsEyKUNFIrCPmWBHwRCl7UrzSOoAwPSxC5trGbYeI/hvaY0ejn3xawXWEyXHhIYzsv38X903AQIPy0++hICJ58xnTZ4eRy2dDw9KkH9PB5zCc1QPt7VNq2oedOra8KpamTokubW2Q5k1fInSBU0/mhKAz/FYnpR+mhacoK5FuKcPCfcHSoJo2wzctWt93Ekm4/+lrxV6vj/XBjDmDsWC4BErIw0v8+4UMszUKOQBplEz4zAzYnuG6vttoDwKYw5JY9hpzswsc/2WUzQ4o3vMMtLSoQZ2JtMdO5NeWHAL20cnrLS+8joARQ0hw9RoypSDRWa6VwBwoOVjg7tZNf8agnB1Ga1hqBaAw6TqXxfX+KvQDfiET5Awgi3dc4MqrVSJU=";
 
@@ -59,7 +62,8 @@ let
     ++ home-desktop
     ++ home-media-system-keys
     ++ home-controller-system-keys
-    ++ home-nas-system-keys;
+    ++ home-nas-system-keys
+    ++ io-system-keys;
 
   allKeys =
     rdatar-desktop
@@ -68,7 +72,8 @@ let
     ++ homelab-user-keys
     ++ home-media-system-keys
     ++ home-controller-system-keys
-    ++ home-nas-system-keys;
+    ++ home-nas-system-keys
+    ++ io-system-keys;
 
 in
 {
@@ -97,7 +102,8 @@ in
     ++ rdatar-macbook
     ++ home-media-system-keys
     ++ home-nas-system-keys
-    ++ home-controller-system-keys;
+    ++ home-controller-system-keys
+    ++ io-system-keys;
   "gatus-env.age".publicKeys =
     homelab-user-keys ++ home-controller-system-keys ++ home-media-system-keys ++ rdatar-macbook;
   "ha-prometheus-token.age".publicKeys = home-controller-keys ++ rdatar-macbook;

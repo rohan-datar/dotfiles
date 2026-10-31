@@ -40,6 +40,9 @@
       home-controller = {
         class = "nixos";
       };
+      io = {
+        class = "nixos";
+      };
     };
   };
 }

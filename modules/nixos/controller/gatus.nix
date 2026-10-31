@@ -176,6 +176,14 @@ in
                 conditions = [ "[CONNECTED] == true" ];
                 alerts = ntfy;
               }
+              {
+                name = "io-k3s-api";
+                group = "infra";
+                interval = "60s";
+                url = "tcp://${topology.hosts.io.lanAddress}:6443";
+                conditions = [ "[CONNECTED] == true" ];
+                alerts = ntfy;
+              }
             ])
           ];
         };

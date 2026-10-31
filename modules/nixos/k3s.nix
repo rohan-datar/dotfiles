@@ -3,7 +3,7 @@
   # Shared baseline for all k3s cluster nodes (both control-plane servers and
   # worker agents such as the N100 sandbox and HPE ProLiant ML350 Gen9).
   flake.modules.nixos.k3s-node =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
     {
       boot.kernelModules = [
         "br_netfilter"
@@ -25,7 +25,7 @@
       services.rpcbind.enable = true;
       services.openiscsi = {
         enable = true;
-        name = "iqn.2026-10.com.rdatar:k3s-node";
+        name = "iqn.2026-10.com.rdatar:${config.networking.hostName}";
       };
 
       environment.systemPackages = [

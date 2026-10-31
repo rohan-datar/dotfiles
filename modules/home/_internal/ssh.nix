@@ -29,6 +29,11 @@ in
           User = "rdatar";
           IdentityFile = "~/.ssh/id_ed25519";
         };
+        "io" = {
+          HostName = topology.hosts.io.lanAddress;
+          User = "rdatar";
+          IdentityFile = "~/.ssh/id_ed25519";
+        };
       };
     };
   };
