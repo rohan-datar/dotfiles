@@ -197,8 +197,10 @@ in
               user_verification = "preferred";
             };
           };
+          # Don't require a second factor here: passkeys are bound to one domain, so a user
+          # whose only passkey is on rdatar.com could never register one on datars.org.
           identity_validation.elevated_session = {
-            require_second_factor = true;
+            require_second_factor = false;
             skip_second_factor = true;
           };
           authentication_backend = {
