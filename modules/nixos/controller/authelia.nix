@@ -196,7 +196,7 @@ in
           totp.issuer = "rdatar.com";
           webauthn = {
             disable = false;
-            display_name = "Homelab SSO";
+            display_name = "Homelab Admin";
             enable_passkey_login = true;
             # A passkey verified by biometrics/PIN satisfies two_factor rules on its own.
             # Experimental in 4.39; to be superseded by AMR-based access control policies.
@@ -248,7 +248,7 @@ in
             smtp = {
               address = "submission://smtp.mail.me.com:587"; # STARTTLS required
               username = "rohandatar@icloud.com";
-              sender = "Homelab SSO <admin@datars.org>";
+              sender = "Homelab Admin <admin@datars.org>";
             };
           };
           access_control = {
