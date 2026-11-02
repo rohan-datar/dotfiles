@@ -89,6 +89,9 @@
       io = {
         lanAddress = "10.10.1.14";
       };
+      ganymede = {
+        lanAddress = "10.10.1.15";
+      };
       # External HAOS VM endpoint, not a managed flake host.
       home-assistant = {
         lanAddress = "10.10.1.12";

@@ -34,6 +34,11 @@ in
           User = "rdatar";
           IdentityFile = "~/.ssh/id_ed25519";
         };
+        "ganymede" = {
+          HostName = topology.hosts.ganymede.lanAddress;
+          User = "rdatar";
+          IdentityFile = "~/.ssh/id_ed25519";
+        };
       };
     };
   };

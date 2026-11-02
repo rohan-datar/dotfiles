@@ -59,6 +59,7 @@ jobs:
           - home-media
           - home-nas
           - io
+          - ganymede
     steps:
       # A NixOS closure plus its zstd `file://` copy does not fit in the ~14 GB
       # a stock runner has free.

@@ -43,6 +43,9 @@
       io = {
         class = "nixos";
       };
+      ganymede = {
+        class = "nixos";
+      };
     };
   };
 }

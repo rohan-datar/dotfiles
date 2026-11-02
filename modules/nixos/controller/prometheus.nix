@@ -32,7 +32,8 @@ in
                 "localhost:9100" # home-controller
                 "${topology.hosts.home-media.lanAddress}:9100" # home-media
                 "${topology.hosts.home-nas.lanAddress}:9100" # home-nas
-                "${topology.hosts.io.lanAddress}:9100" # io (k3s node)
+                "${topology.hosts.io.lanAddress}:9100" # io (k3s control-plane)
+                "${topology.hosts.ganymede.lanAddress}:9100" # ganymede (k3s worker / ML350)
                 "${topology.gatewayAddress}:9100" # OPNsense (os-node_exporter)
               ];
             }
