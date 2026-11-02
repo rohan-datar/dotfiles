@@ -30,21 +30,31 @@
       };
     };
 
-    # Temporary local storage on the two 1 TB SAS HDDs behind the P440ar (HBA mode).
+    # Mirrored (RAID1) 1 TB SAS HDDs behind the P440ar (HBA mode) for bulk k3s PVC storage.
     sas1 = {
       type = "disk";
       device = lib.mkDefault "/dev/disk/by-id/ata-MB1000GCEEK_WCAW31VHVAE2";
       content = {
         type = "gpt";
-        partitions.scratch1 = {
+        partitions.k3s-storage-1 = {
           size = "100%";
           content = {
-            type = "filesystem";
-            format = "ext4";
-            mountpoint = "/mnt/scratch1";
+            type = "btrfs";
+            extraArgs = [
+              "-f"
+              "-L"
+              "ganymede-k3s-storage"
+              "-m"
+              "raid1"
+              "-d"
+              "raid1"
+              "/dev/disk/by-partlabel/disk-sas2-k3s-storage-2"
+            ];
+            mountpoint = "/var/lib/rancher/k3s/storage";
             mountOptions = [
               "nofail"
               "noatime"
+              "compress=zstd"
             ];
           };
         };
@@ -56,17 +66,8 @@
       device = lib.mkDefault "/dev/disk/by-id/ata-MB1000GCEEK_WCAW36RKNDAF";
       content = {
         type = "gpt";
-        partitions.scratch2 = {
+        partitions.k3s-storage-2 = {
           size = "100%";
-          content = {
-            type = "filesystem";
-            format = "ext4";
-            mountpoint = "/mnt/scratch2";
-            mountOptions = [
-              "nofail"
-              "noatime"
-            ];
-          };
         };
       };
     };
