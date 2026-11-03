@@ -95,6 +95,15 @@ in
                 }
               ];
             };
+            onedev = {
+              default_policy = "deny";
+              rules = [
+                {
+                  policy = "two_factor";
+                  subject = [ "user:rdatar" ];
+                }
+              ];
+            };
           };
           # Authelia has no global consent default, so apply one here: every client is
           # first-party, so skip the consent screen unless a client requires it
@@ -188,6 +197,29 @@ in
               redirect_uris = [
                 "https://books.datars.org/login/oauth2/code/authelia"
                 "http://10.10.1.11:25600/login/oauth2/code/authelia"
+              ];
+              scopes = [
+                "openid"
+                "profile"
+                "email"
+              ];
+              response_types = [ "code" ];
+              grant_types = [ "authorization_code" ];
+              token_endpoint_auth_method = "client_secret_basic";
+              userinfo_signed_response_alg = "none";
+            }
+            {
+              client_id = "onedev";
+              client_name = "OneDev";
+              # Plaintext: oidc-client-secret in oort-cloud apps/onedev/secret.sops.yaml
+              client_secret = "$pbkdf2-sha512$310000$N/E5XT82SutvoEETk12vzQ$1nXV0XfmPm2L2tRmik92brr4AC8Y./CCT2HAoBrppKdB4VM6NjOn9qLP1K8YHaNmvF7IkuXK7nnILz5iid.Nvg";
+              public = false;
+              authorization_policy = "onedev";
+              claims_policy = "paperless";
+              require_pkce = true;
+              pkce_challenge_method = "S256";
+              redirect_uris = [
+                "https://git.rdatar.com/~sso/callback/Authelia"
               ];
               scopes = [
                 "openid"
