@@ -100,7 +100,10 @@ in
               rules = [
                 {
                   policy = "two_factor";
-                  subject = [ "user:rdatar" ];
+                  subject = [
+                    "user:rohan"
+                    "group:homelab_remote_admin"
+                  ];
                 }
               ];
             };
