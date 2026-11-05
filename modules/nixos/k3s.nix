@@ -71,7 +71,7 @@
       environment.variables.KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
     };
 
-  # Worker-only k3s agent node (e.g. HPE ProLiant ML350 Gen9 heavy compute node).
+  # Worker-only k3s agent node
   # Set `services.k3s.serverAddr` and `services.k3s.tokenFile` in the host module.
   flake.modules.nixos.k3s-agent = {
     imports = [ self.modules.nixos.k3s-node ];
