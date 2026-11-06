@@ -177,6 +177,24 @@ in
                 alerts = ntfy;
               }
               {
+                # Host-down checks for the k3s nodes: ganymede's 2026-11-04
+                # hardware fault went unnoticed for 43 hours.
+                name = "io-host";
+                group = "infra";
+                interval = "60s";
+                url = "icmp://${topology.hosts.io.lanAddress}";
+                conditions = [ "[CONNECTED] == true" ];
+                alerts = ntfy;
+              }
+              {
+                name = "ganymede-host";
+                group = "infra";
+                interval = "60s";
+                url = "icmp://${topology.hosts.ganymede.lanAddress}";
+                conditions = [ "[CONNECTED] == true" ];
+                alerts = ntfy;
+              }
+              {
                 name = "io-k3s-api";
                 group = "infra";
                 interval = "60s";
