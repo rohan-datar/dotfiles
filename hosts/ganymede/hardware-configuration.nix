@@ -31,6 +31,14 @@
     options ixgbe allow_unsupported_sfp=1
   '';
 
+  # Match RBSU Maximum Performance: prevent intel_idle from entering C1E/C3/C6 deep
+  # sleep states or frequency-scaling voltage steps at idle (mitigates 08h VRD transients).
+  boot.kernelParams = [
+    "intel_idle.max_cstate=1"
+    "processor.max_cstate=1"
+  ];
+  powerManagement.cpuFreqGovernor = "performance";
+
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
