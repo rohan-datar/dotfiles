@@ -15,7 +15,7 @@ in
     };
     services.prometheus = {
       enable = true;
-      listenAddress = "127.0.0.1";
+      listenAddress = "0.0.0.0";
       port = 9090;
       retentionTime = "90d";
       globalConfig.scrape_interval = "30s";

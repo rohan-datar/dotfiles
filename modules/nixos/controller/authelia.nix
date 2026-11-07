@@ -128,6 +128,7 @@ in
               pkce_challenge_method = "S256";
               redirect_uris = [
                 "https://grafana.rdatar.com/login/generic_oauth"
+                "https://grafana.k3s.rdatar.com/login/generic_oauth"
                 "http://10.10.1.13:3000/login/generic_oauth"
               ];
               scopes = [
