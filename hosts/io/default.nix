@@ -13,6 +13,8 @@ in
     self.modules.nixos.k3s-server # initial k3s control-plane / sandbox node
     self.modules.nixos.metrics-agent # node_exporter (:9100) for Prometheus
     self.modules.nixos.auto-upgrade # unattended upgrades
+    self.modules.nixos.mail # msmtp transport for backup failure mail
+    self.modules.nixos.k3s-etcd-restic # offsite etcd snapshots + server token (Storage Box)
   ];
 
   boot.loader.systemd-boot.enable = true;

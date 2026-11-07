@@ -48,6 +48,14 @@ in
           static_configs = [ { targets = [ "${topology.hosts.home-nas.lanAddress}:9633" ]; } ];
         }
         {
+          # k8s object state plus Flux's gotk_resource_info, from kube-state-metrics in
+          # the cluster (oort-cloud infrastructure/monitoring). ServiceLB publishes it on
+          # every node; its source range admits only this host.
+          job_name = "kube-state-metrics";
+          honor_labels = true;
+          static_configs = [ { targets = [ "${topology.hosts.io.lanAddress}:9400" ]; } ];
+        }
+        {
           job_name = "gatus";
           static_configs = [ { targets = [ "localhost:8081" ]; } ];
         }

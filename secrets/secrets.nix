@@ -56,6 +56,7 @@ let
     ++ home-nas-system-keys
     ++ home-controller-system-keys
     ++ ganymede-system-keys
+    ++ io-system-keys
     ++ rdatar-macbook;
 
   # Every NixOS host substitutes from the Storage Box binary cache, so every
