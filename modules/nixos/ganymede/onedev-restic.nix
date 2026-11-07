@@ -45,8 +45,11 @@ in
         checkOpts = [ "--read-data-subset=2%" ];
       };
 
-      systemd.services."restic-backups-onedev".unitConfig.OnFailure = [
-        "backup-failure-email@%n.service"
-      ];
+      systemd.services."restic-backups-onedev".unitConfig = {
+        OnFailure = [ "backup-failure-email@%n.service" ];
+        # Never back up the empty directory local-path leaves when the RAID1 is not
+        # mounted; fail (and mail) instead.
+        RequiresMountsFor = [ onedevData ];
+      };
     };
 }

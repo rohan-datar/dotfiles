@@ -26,6 +26,11 @@ in
     tokenFile = config.age.secrets.k3s-token.path;
   };
 
+  # PVCs live on the Btrfs RAID1 at this path (disks.nix, mounted nofail so the host
+  # still boots). Without the mount, local-path would hand pods empty directories on
+  # the boot SSD (as happened on 2026-11-06), so k3s must not start without it.
+  systemd.services.k3s.unitConfig.RequiresMountsFor = [ "/var/lib/rancher/k3s/storage" ];
+
   environment.variables = {
     FLAKE = "/home/rdatar/nix";
     NH_FLAKE = "/home/rdatar/nix";
