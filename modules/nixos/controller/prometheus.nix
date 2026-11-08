@@ -67,5 +67,10 @@ in
         }
       ];
     };
+
+    networking.firewall.extraCommands = ''
+      iptables -A nixos-fw -i br0 -p tcp --dport 9090 -s ${topology.hosts.io.lanAddress} -j nixos-fw-accept
+      iptables -A nixos-fw -i br0 -p tcp --dport 9090 -s ${topology.hosts.ganymede.lanAddress} -j nixos-fw-accept
+    '';
   };
 }
