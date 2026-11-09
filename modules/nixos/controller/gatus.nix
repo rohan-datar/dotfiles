@@ -119,6 +119,18 @@ in
                 alerts = ntfy;
               }
               {
+                # Grafana runs in k3s (oort-cloud apps/grafana) behind OPNsense Caddy → Traefik on io.
+                name = "grafana";
+                group = "infra";
+                interval = "120s";
+                url = "https://grafana.rdatar.com/api/health";
+                conditions = [
+                  "[STATUS] == 200"
+                  "[BODY].database == ok"
+                ];
+                alerts = ntfy;
+              }
+              {
                 name = "seerr";
                 group = "public";
                 interval = "120s";
