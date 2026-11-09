@@ -108,6 +108,14 @@ in
               ];
             };
           };
+          # Grafana evaluates role_attribute_path against the ID token first; without `groups`
+          # there it maps everyone to Viewer and never consults userinfo.
+          identity_providers.oidc.claims_policies.grafana.id_token = [
+            "groups"
+            "email"
+            "preferred_username"
+            "name"
+          ];
           # Authelia has no global consent default, so apply one here: every client is
           # first-party, so skip the consent screen unless a client requires it
           identity_providers.oidc.claims_policies.paperless.id_token = [
@@ -124,6 +132,7 @@ in
               client_secret = "$pbkdf2-sha512$310000$sTAjsjm7SrioziU52CjMkQ$CC6M2OrmwOmwZvjiHen2g7bO5rLGAncezy6yV.rAIhkg8hKEkp2.JCeFf9uot84khLq2xjw9DTwD0fjq8F94Sg";
               public = false;
               authorization_policy = "grafana";
+              claims_policy = "grafana";
               require_pkce = true;
               pkce_challenge_method = "S256";
               redirect_uris = [
