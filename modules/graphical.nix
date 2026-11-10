@@ -18,6 +18,10 @@ let
             direnv
             pandoc
             wireguard-ui
+            fluxcd
+            headlamp
+            k9s
+            kubectl
             ;
         }
         ++ [
