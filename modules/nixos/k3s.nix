@@ -3,7 +3,12 @@
   # Shared baseline for all k3s cluster nodes (both control-plane servers and
   # worker agents such as the N100 sandbox and HPE ProLiant ML350 Gen9).
   flake.modules.nixos.k3s-node =
-    { config, pkgs, ... }:
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
     {
       boot.kernelModules = [
         "br_netfilter"
@@ -37,13 +42,16 @@
 
       # Interactive work (SSH sessions, nix shells, evaluations) must never starve the
       # control plane or kubelet. On 2026-11-09 a nix-index run left behind after logout
-      # ate all of io's RAM and the node thrashed until power-cycled (no swap, oomd's
-      # pressure limit never tripped). A hard cgroup cap makes the kernel OOM-kill inside
-      # user.slice instead; MemoryHigh throttles before that.
+      # ate all of io's RAM and the node thrashed until power-cycled. A hard cgroup cap
+      # with little swap makes the kernel OOM-kill the largest process in user.slice
+      # quickly. No MemoryHigh: throttling turned a runaway into a minutes-long crawl.
+      # systemd-oomd is off for user slices here: in testing it killed an idle SSH
+      # session instead of the process using the memory.
       systemd.slices.user.sliceConfig = {
-        MemoryHigh = "40%";
         MemoryMax = "50%";
+        MemorySwapMax = "512M";
       };
+      systemd.oomd.enableUserSlices = lib.mkForce false;
 
       # A little compressed swap absorbs spikes and gives systemd-oomd the swap signal it
       # needs. Pods stay off swap (kubelet's default NoSwap behaviour; k3s runs kubelet
