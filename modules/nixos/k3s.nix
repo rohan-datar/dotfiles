@@ -35,6 +35,24 @@
         pkgs.nfs-utils
       ];
 
+      # Interactive work (SSH sessions, nix shells, evaluations) must never starve the
+      # control plane or kubelet. On 2026-11-09 a nix-index run left behind after logout
+      # ate all of io's RAM and the node thrashed until power-cycled (no swap, oomd's
+      # pressure limit never tripped). A hard cgroup cap makes the kernel OOM-kill inside
+      # user.slice instead; MemoryHigh throttles before that.
+      systemd.slices.user.sliceConfig = {
+        MemoryHigh = "40%";
+        MemoryMax = "50%";
+      };
+
+      # A little compressed swap absorbs spikes and gives systemd-oomd the swap signal it
+      # needs. Pods stay off swap (kubelet's default NoSwap behaviour; k3s runs kubelet
+      # with fail-swap-on=false).
+      zramSwap = {
+        enable = true;
+        memoryPercent = 25;
+      };
+
       # Allow pod-to-pod traffic on the Flannel CNI bridge and VXLAN interface.
       networking.firewall = {
         trustedInterfaces = [

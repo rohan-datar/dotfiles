@@ -33,7 +33,6 @@ let
         zoxide
         btop
         bat
-        comma
         any-nix-shell
         ripgrep
         dysk
@@ -43,6 +42,9 @@ let
         nh
         ;
       ragenix = inputs.ragenix.packages.${system}.default;
+      # comma with a prebuilt nix-index database: never build the index locally
+      # (that evaluates all of nixpkgs and took io down on 2026-11-09).
+      comma = inputs.nix-index-database.packages.${system}.comma-with-db;
     });
 in
 {
