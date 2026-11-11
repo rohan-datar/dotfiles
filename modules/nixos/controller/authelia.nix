@@ -168,9 +168,7 @@ in
               userinfo_signed_response_alg = "none";
             }
             {
-              # kubelogin on the owner's machines. Public: a CLI can't keep a secret, so
-              # PKCE protects the code exchange. kubelogin listens on localhost:8000,
-              # falling back to 18000.
+              # kubelogin
               client_id = "kubernetes";
               client_name = "Kubernetes";
               public = true;

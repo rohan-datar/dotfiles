@@ -80,6 +80,33 @@
 
   # Single-server or control-plane k3s node (e.g. N100 cluster node).
   flake.modules.nixos.k3s-server =
+    let
+      oidcConfig = {
+        apiVersion = "apiserver.config.k8s.io/v1";
+        kind = "AuthenticationConfiguration";
+        jwt = [
+          {
+            issuer = {
+              url = "https://auth.datars.org";
+              audiences = [
+                "kubernetes"
+                "headlamp"
+              ];
+            };
+            claimMappings = {
+              username = {
+                claim = "preferred_username";
+                prefix = "oidc:";
+              };
+              groups = {
+                claim = "groups";
+                prefix = "oidc:";
+              };
+            };
+          }
+        ];
+      };
+    in
     { lib, ... }:
     {
       imports = [ self.modules.nixos.k3s-node ];
@@ -91,10 +118,14 @@
         extraFlags = toString [
           "--write-kubeconfig-mode=0640"
           "--write-kubeconfig-group=wheel"
+          "--kube-apiserver-arg=authentication-config=/etc/rancher/k3s/authentication-config.yaml"
         ];
       };
 
-      environment.variables.KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
+      environment = {
+        variables.KUBECONFIG = "/etc/rancher/k3s/k3s.yaml";
+        etc."rancher/k3s/authentication-config.yaml".text = builtins.toJSON oidcConfig;
+      };
     };
 
   # Worker-only k3s agent node
