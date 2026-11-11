@@ -195,6 +195,26 @@ in
               token_endpoint_auth_method = "none";
             }
             {
+              client_id = "headlamp";
+              client_name = "Headlamp";
+              client_secret = "$pbkdf2-sha512$310000$ecd8OlMJ4xF2gnoPgJfQPA$PdBhxLegzTxETFOLD0pLESbGKmQ46b0/w2gnBGDNUtRn7jXDzWqTu.4AWb7PNqUonZVzmrsYBjSfe4hR2AyxKg";
+              public = false;
+              authorization_policy = "kubernetes";
+              claims_policy = "kubernetes";
+              require_pkce = true;
+              pkce_challenge_method = "S256";
+              redirect_uris = [ "https://k8s.rdatar.com/oidc-callback" ];
+              scopes = [
+                "openid"
+                "profile"
+                "email"
+                "groups"
+              ];
+              response_types = [ "code" ];
+              grant_types = [ "authorization_code" ];
+              token_endpoint_auth_method = "client_secret_basic";
+            }
+            {
               client_id = "qui";
               client_name = "Qui";
               # Plaintext: QUI__OIDC_CLIENT_SECRET in secrets/qui-env.age
