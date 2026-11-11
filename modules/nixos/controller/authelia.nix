@@ -95,6 +95,16 @@ in
                 }
               ];
             };
+            # kubectl/kubelogin and (later) Headlamp; the API server maps the group to RBAC.
+            kubernetes = {
+              default_policy = "deny";
+              rules = [
+                {
+                  policy = "two_factor";
+                  subject = [ "group:k8s_admin" ];
+                }
+              ];
+            };
             onedev = {
               default_policy = "deny";
               rules = [
@@ -118,6 +128,13 @@ in
           ];
           # Authelia has no global consent default, so apply one here: every client is
           # first-party, so skip the consent screen unless a client requires it
+          # The API server reads identity only from the ID token (no userinfo call).
+          identity_providers.oidc.claims_policies.kubernetes.id_token = [
+            "groups"
+            "email"
+            "preferred_username"
+            "name"
+          ];
           identity_providers.oidc.claims_policies.paperless.id_token = [
             "email"
             "email_verified"
@@ -149,6 +166,35 @@ in
               grant_types = [ "authorization_code" ];
               token_endpoint_auth_method = "client_secret_basic";
               userinfo_signed_response_alg = "none";
+            }
+            {
+              # kubelogin on the owner's machines. Public: a CLI can't keep a secret, so
+              # PKCE protects the code exchange. kubelogin listens on localhost:8000,
+              # falling back to 18000.
+              client_id = "kubernetes";
+              client_name = "Kubernetes";
+              public = true;
+              authorization_policy = "kubernetes";
+              claims_policy = "kubernetes";
+              require_pkce = true;
+              pkce_challenge_method = "S256";
+              redirect_uris = [
+                "http://localhost:8000"
+                "http://localhost:18000"
+              ];
+              scopes = [
+                "openid"
+                "profile"
+                "email"
+                "groups"
+                "offline_access"
+              ];
+              response_types = [ "code" ];
+              grant_types = [
+                "authorization_code"
+                "refresh_token"
+              ];
+              token_endpoint_auth_method = "none";
             }
             {
               client_id = "qui";
