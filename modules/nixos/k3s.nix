@@ -92,6 +92,8 @@
                 "kubernetes"
                 "headlamp"
               ];
+              # Required with more than one audience: accept a token issued to any of them.
+              audienceMatchPolicy = "MatchAny";
             };
             claimMappings = {
               username = {
