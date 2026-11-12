@@ -105,6 +105,15 @@ in
                 }
               ];
             };
+            termix = {
+              default_policy = "deny";
+              rules = [
+                {
+                  policy = "two_factor";
+                  subject = [ "user:rohan" ];
+                }
+              ];
+            };
             onedev = {
               default_policy = "deny";
               rules = [
@@ -132,6 +141,12 @@ in
           identity_providers.oidc.claims_policies.kubernetes.id_token = [
             "groups"
             "email"
+            "preferred_username"
+            "name"
+          ];
+          identity_providers.oidc.claims_policies.termix.id_token = [
+            "email"
+            "email_verified"
             "preferred_username"
             "name"
           ];
@@ -283,6 +298,27 @@ in
               grant_types = [ "authorization_code" ];
               token_endpoint_auth_method = "client_secret_basic";
               userinfo_signed_response_alg = "none";
+            }
+            {
+              client_id = "termix";
+              client_name = "Termix";
+              # Plaintext is SOPS-encrypted in oort-cloud/apps/termix/secret.sops.yaml.
+              client_secret = "$pbkdf2-sha512$310000$hnPMeRBGXGBzmyJW/Vhvjw$dBGfj71wkZe5OG/511dSDHE52AWinkia1hvGiwYlOIdtv.aHIer7V0u0zdaJjZOhqhKhPwGf/0GtEu14OZYzrw";
+              public = false;
+              authorization_policy = "termix";
+              claims_policy = "termix";
+              require_pkce = true;
+              pkce_challenge_method = "S256";
+              # Released SSO plugin sends credentials in the token POST body.
+              token_endpoint_auth_method = "client_secret_post";
+              redirect_uris = [ "https://termix.rdatar.com/plugin-api/sso/callback" ];
+              scopes = [
+                "openid"
+                "email"
+                "profile"
+              ];
+              response_types = [ "code" ];
+              grant_types = [ "authorization_code" ];
             }
             {
               client_id = "onedev";
