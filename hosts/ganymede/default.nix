@@ -1,4 +1,9 @@
-{ config, self, ... }:
+{
+  config,
+  pkgs,
+  self,
+  ...
+}:
 let
   topology = self.meta.topology;
 in
@@ -30,6 +35,21 @@ in
   # still boots). Without the mount, local-path would hand pods empty directories on
   # the boot SSD (as happened on 2026-11-06), so k3s must not start without it.
   systemd.services.k3s.unitConfig.RequiresMountsFor = [ "/var/lib/rancher/k3s/storage" ];
+
+  # Headless NVIDIA Tesla P100 PCIe 16GB (GP100, Pascal) in PCIe Slot 3.
+  # NVIDIA 595+ dropped Pascal; the 580 LTSB proprietary driver supports GP100.
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware = {
+    graphics.enable = true;
+    nvidia = {
+      branch = "legacy_580";
+      open = false;
+      nvidiaSettings = false;
+      nvidiaPersistenced = true;
+    };
+    nvidia-container-toolkit.enable = true;
+  };
+  environment.systemPackages = [ pkgs.nvtopPackages.nvidia ];
 
   environment.variables = {
     FLAKE = "/home/rdatar/nix";
