@@ -15,7 +15,6 @@ in
     self.modules.nixos.lldap # identity source of truth for Authelia and Jellyfin
     self.modules.nixos.metrics-agent # node_exporter, scraped over loopback
     self.modules.nixos.prometheus # loopback-only TSDB for the whole lab
-    self.modules.nixos.grafana # dashboards, Authelia OIDC
     self.modules.nixos.gatus # availability checks + status page
     self.modules.nixos.ntfy # push notifications, Gatus's alert channel
     self.modules.nixos.speedtest # WAN throughput exporter + its hourly job
