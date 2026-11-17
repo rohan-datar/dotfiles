@@ -39,6 +39,10 @@ in
   # Headless NVIDIA Tesla P100 PCIe 16GB (GP100, Pascal) in PCIe Slot 3.
   # NVIDIA 595+ dropped Pascal; the 580 LTSB proprietary driver supports GP100.
   services.xserver.videoDrivers = [ "nvidia" ];
+  boot.kernelModules = [
+    "nvidia"
+    "nvidia_uvm"
+  ];
   hardware = {
     graphics.enable = true;
     nvidia = {
