@@ -86,8 +86,13 @@ in
           4244
         ];
         # Cilium agent (9962) and Hubble (9965) metrics: Prometheus on home-controller only.
+        # Cilium's Gateway/L7 proxy uses TPROXY: packets of proxied connections carry fwmark
+        # 0x200 and are routed to local delivery (ip rule → table 2004). The loose reverse-path
+        # check evaluates the source with that mark, finds the local route, and drops them, so
+        # the TCP handshake never completes. Exempt only those marked packets.
         extraCommands = ''
           iptables -A nixos-fw -p tcp -s ${scraperAddress} -m multiport --dports 9962,9965 -j nixos-fw-accept
+          iptables -t mangle -I nixos-fw-rpfilter 1 -m mark --mark 0x200/0xf00 -m comment --comment "cilium proxy (tproxy)" -j RETURN
         '';
       };
     };
