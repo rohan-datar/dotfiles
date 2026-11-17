@@ -49,11 +49,34 @@ in
         }
         {
           # k8s object state plus Flux's gotk_resource_info, from kube-state-metrics in
-          # the cluster (oort-cloud infrastructure/monitoring). ServiceLB publishes it on
-          # every node; its source range admits only this host.
+          # the cluster (oort-cloud infrastructure/monitoring), on its Cilium LB VIP. Its
+          # source range admits only this host.
           job_name = "kube-state-metrics";
           honor_labels = true;
-          static_configs = [ { targets = [ "${topology.hosts.io.lanAddress}:9400" ]; } ];
+          static_configs = [ { targets = [ "10.10.2.12:9400" ]; } ];
+        }
+        {
+          # Cilium agent and Hubble flow metrics from each k3s node (host network).
+          job_name = "cilium";
+          static_configs = [
+            {
+              targets = [
+                "${topology.hosts.io.lanAddress}:9962"
+                "${topology.hosts.ganymede.lanAddress}:9962"
+              ];
+            }
+          ];
+        }
+        {
+          job_name = "hubble";
+          static_configs = [
+            {
+              targets = [
+                "${topology.hosts.io.lanAddress}:9965"
+                "${topology.hosts.ganymede.lanAddress}:9965"
+              ];
+            }
+          ];
         }
         {
           job_name = "gatus";
