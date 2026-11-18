@@ -66,6 +66,34 @@ in
         memoryPercent = 25;
       };
 
+      # Kubelet budget (io memory incident 2026-11-09, media-k3s migration): reserve memory and
+      # CPU for the OS, native services and k3s itself, and evict pods before the node runs
+      # out. Hosts with heavier native services override with plain values (europa).
+      services.k3s.extraKubeletConfig = {
+        systemReserved = lib.mkDefault {
+          cpu = "250m";
+          memory = "1Gi";
+        };
+        kubeReserved = lib.mkDefault {
+          cpu = "250m";
+          memory = "512Mi";
+        };
+        evictionHard = lib.mkDefault {
+          "memory.available" = "300Mi";
+          "nodefs.available" = "10%";
+          "imagefs.available" = "10%";
+        };
+      };
+
+      # Advertise the LAN address explicitly: nodes can be multi-homed (storage links, VPN
+      # bridges), and k3s would otherwise pick by default route. From topology.
+      services.k3s.nodeIP = lib.mkDefault (
+        topology.hosts.${config.networking.hostName}.lanAddress or null
+      );
+
+      # Let the kubelet stop pods cleanly when the host shuts down or reboots.
+      services.k3s.gracefulNodeShutdown.enable = true;
+
       # Cilium (ADR 0013): native routing between the nodes, so no VXLAN port. Pod traffic
       # to the node arrives on Cilium's host/veth devices. The reverse-path check stays
       # "loose" (strict drops Cilium's asymmetric routes).
@@ -167,6 +195,12 @@ in
           extraFieldDefinitions.spec.bootstrap = true;
           values = {
             kubeProxyReplacement = true;
+            # LAN NICs only (io/europa enp1s0, ganymede ens1f0). Never the NAS point-to-point
+            # link, VPN bridges or wireless; names absent on a node simply don't match.
+            devices = [
+              "enp1s0"
+              "ens1f0"
+            ];
             k8sServiceHost = ioAddress;
             k8sServicePort = 6443;
             # Both nodes share one L2 segment: route pod CIDRs directly, no tunnel.
