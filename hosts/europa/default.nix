@@ -24,6 +24,8 @@ in
     self.modules.nixos.metrics-agent
     self.modules.nixos.media-watchdog # watches home-controller from the outside
     self.modules.nixos.auto-upgrade # unattended upgrades; canary slot, first
+    self.modules.nixos.mail # msmtp transport for backup failure mail
+    self.modules.nixos.europa-restic # offsite media-state backup (Storage Box)
     self.modules.nixos.media-storage
   ];
 
