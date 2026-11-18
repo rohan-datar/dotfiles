@@ -3,8 +3,8 @@ let
   topology = config.flake.meta.topology;
 in
 {
-  # Metrics store for the lab. Grafana and Gatus are the only consumers and both
-  # live on this host, so Prometheus binds loopback only and opens no port.
+  # Metrics store for the lab. Its consumers are Gatus (this host) and Grafana, which runs
+  # in k3s (oort-cloud apps/grafana); port 9090 is opened only to the k3s nodes.
   #
   # No Alertmanager on purpose — smartd/ZED email hardware faults directly and
   # Gatus owns availability alerting. Alertmanager stays an additive change.

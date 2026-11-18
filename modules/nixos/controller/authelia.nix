@@ -160,7 +160,8 @@ in
             {
               client_id = "grafana";
               client_name = "Grafana";
-              # Plaintext: secrets/grafana-authelia-oidc-secret.age
+              # Grafana runs in k3s (oort-cloud apps/grafana). Plaintext: secrets/grafana-authelia-oidc-secret.age,
+              # also GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET in oort-cloud apps/grafana/secret.sops.yaml.
               client_secret = "$pbkdf2-sha512$310000$sTAjsjm7SrioziU52CjMkQ$CC6M2OrmwOmwZvjiHen2g7bO5rLGAncezy6yV.rAIhkg8hKEkp2.JCeFf9uot84khLq2xjw9DTwD0fjq8F94Sg";
               public = false;
               authorization_policy = "grafana";
@@ -169,7 +170,6 @@ in
               pkce_challenge_method = "S256";
               redirect_uris = [
                 "https://grafana.rdatar.com/login/generic_oauth"
-                "http://10.10.1.13:3000/login/generic_oauth"
               ];
               scopes = [
                 "openid"

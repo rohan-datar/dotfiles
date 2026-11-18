@@ -119,7 +119,7 @@ in
                 alerts = ntfy;
               }
               {
-                # Grafana runs in k3s (oort-cloud apps/grafana) behind OPNsense Caddy → Traefik on io.
+                # Grafana runs in k3s (oort-cloud apps/grafana) behind OPNsense Caddy → the Cilium Gateway VIP.
                 name = "grafana";
                 group = "infra";
                 interval = "120s";

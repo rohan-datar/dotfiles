@@ -103,7 +103,6 @@ in
   "paperless-admin-password.age".publicKeys = home-nas-keys;
   "paperless-oidc-env.age".publicKeys = home-nas-keys;
   "grafana-authelia-oidc-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
-  "grafana-secret-key.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "upgrade-ntfy-env.age".publicKeys =
     homelab-user-keys
     ++ rdatar-macbook
