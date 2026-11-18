@@ -28,7 +28,8 @@ in
       boot.kernel.sysctl = {
         "net.bridge.bridge-nf-call-ip6tables" = 1;
         "net.bridge.bridge-nf-call-iptables" = 1;
-        "net.ipv4.ip_forward" = 1;
+        # lib.mkDefault so VPN-Confinement (which sets plain `= 1`) can coexist on europa.
+        "net.ipv4.ip_forward" = lib.mkDefault 1;
       };
 
       # Required for NFS and iSCSI PersistentVolumeClaims against home-nas.
