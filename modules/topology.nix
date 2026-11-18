@@ -60,7 +60,7 @@
               };
               mountPoint = lib.mkOption {
                 type = lib.types.str;
-                description = "Mount point on the consumer (home-media)";
+                description = "Mount point on the consumer (europa)";
               };
             };
           };
@@ -79,7 +79,7 @@
         lanAddress = "10.10.1.10";
         mediaLinkAddress = "10.10.100.1";
       };
-      home-media = {
+      europa = {
         lanAddress = "10.10.1.11";
         mediaLinkAddress = "10.10.100.2";
       };

@@ -1,7 +1,7 @@
 { lib, config, ... }:
 let
   # The direct media liveness relationship: Gatus on home-controller probes
-  # each app on home-media directly, bypassing OPNsense Caddy and Authelia.
+  # each app on europa directly, bypassing OPNsense Caddy and Authelia.
   topology = config.flake.meta.topology;
 
   # Every probe pushes on the same policy, so name the list once.
@@ -15,7 +15,7 @@ let
     endpoint = {
       group = "media-ingress";
       interval = "120s";
-      url = "http://${topology.hosts.home-media.lanAddress}:${toString port}/ping";
+      url = "http://${topology.hosts.europa.lanAddress}:${toString port}/ping";
       conditions = [ "[STATUS] == 200" ];
       alerts = ntfy;
     };
@@ -28,7 +28,7 @@ let
     endpoint = {
       group = "media-ingress";
       interval = "120s";
-      url = "tcp://${topology.hosts.home-media.lanAddress}:${toString port}";
+      url = "tcp://${topology.hosts.europa.lanAddress}:${toString port}";
       conditions = [ "[CONNECTED] == true" ];
       alerts = ntfy;
     };
@@ -43,12 +43,12 @@ let
     (tcpProbe "shelfmark-app" 8084)
   ];
 
-  # Ports the controller's Gatus probes and OPNsense Caddy need on home-media.
+  # Ports the controller's Gatus probes and OPNsense Caddy need on europa.
   probePorts = lib.concatStringsSep "," (
     map toString (lib.sort (a: b: a < b) (map (p: p.port) mediaProbes))
   );
 
-  # Ports the Home Assistant Sonarr and Radarr integrations poll on home-media.
+  # Ports the Home Assistant Sonarr and Radarr integrations poll on europa.
   homeAssistantPorts = "7878,8989";
 in
 {

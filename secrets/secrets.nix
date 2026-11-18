@@ -6,13 +6,13 @@ let
     homelab-user-rsa
   ];
 
-  home-media-system-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPYALV0x6If58isPYKWvxsPoYPbBagPE9HAN360didH8";
-  home-media-system-rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCoRE55TqhIzpB9nCIXHtak1Nzmw4UrGtRwyD9hF8JDuFhJl6YQ5n+SZXOeGTupDsdcu01tNTrfhl2WSnWHJcKzdUVxfT/+7RiiE4VTRV9phpLaaTJwsb7xHDm/J7f9mclamf8ZqAHU/dWRJ/7y0/9PlUUocXYcgoa6QEe8plki8zo2z3s2WNOFIZPRQJ7XBXh9n3I19XmN05+VsMhOASAWUIPETsVDU5dNV5OmWQbErBYDNPNwXw44XFXiN2BcuxmXRYq90x/oa+vLz9vqaJhx3XA3CFqGdWvkf3I/D4rq/Hu+v6FnF3WIZJOgegcHFcmTlVWowhs5oqXzI9NeahFW+tmJMCuq7rfyHQs6ny1zU/euTd30t45ItWip7+97b1DjXU7k50fXbRknu0T5Aq/nSagYH8+1p4GuYL8/7Pygcm/Dx47qa7Tp03AltiHUuuDWsBgCLI8P+xnQ2n41e/Gtn6ZOGQ8rtbK+D2W3h+AriC+tWZIfpZ2KGqaVy2G450cqP/ixgJFoh+MpZluCaUdStDDc5tAZPmBHYeLtDoLz6n3waxSbBTI4TwUT9zj4buL8DSzGNUngc/sXJeqp6RhKKrbAzigVBMWf5yCszPwkRpNQq+qx9oTbggYw9nXrDUVja8M2n7yDUiHrMuNY9YDlGmsQxn1Lu/vbc+9aVg5enQ==";
-  home-media-system-keys = [
-    home-media-system-ed25519
-    home-media-system-rsa
+  europa-system-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPYALV0x6If58isPYKWvxsPoYPbBagPE9HAN360didH8";
+  europa-system-rsa = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCoRE55TqhIzpB9nCIXHtak1Nzmw4UrGtRwyD9hF8JDuFhJl6YQ5n+SZXOeGTupDsdcu01tNTrfhl2WSnWHJcKzdUVxfT/+7RiiE4VTRV9phpLaaTJwsb7xHDm/J7f9mclamf8ZqAHU/dWRJ/7y0/9PlUUocXYcgoa6QEe8plki8zo2z3s2WNOFIZPRQJ7XBXh9n3I19XmN05+VsMhOASAWUIPETsVDU5dNV5OmWQbErBYDNPNwXw44XFXiN2BcuxmXRYq90x/oa+vLz9vqaJhx3XA3CFqGdWvkf3I/D4rq/Hu+v6FnF3WIZJOgegcHFcmTlVWowhs5oqXzI9NeahFW+tmJMCuq7rfyHQs6ny1zU/euTd30t45ItWip7+97b1DjXU7k50fXbRknu0T5Aq/nSagYH8+1p4GuYL8/7Pygcm/Dx47qa7Tp03AltiHUuuDWsBgCLI8P+xnQ2n41e/Gtn6ZOGQ8rtbK+D2W3h+AriC+tWZIfpZ2KGqaVy2G450cqP/ixgJFoh+MpZluCaUdStDDc5tAZPmBHYeLtDoLz6n3waxSbBTI4TwUT9zj4buL8DSzGNUngc/sXJeqp6RhKKrbAzigVBMWf5yCszPwkRpNQq+qx9oTbggYw9nXrDUVja8M2n7yDUiHrMuNY9YDlGmsQxn1Lu/vbc+9aVg5enQ==";
+  europa-system-keys = [
+    europa-system-ed25519
+    europa-system-rsa
   ];
-  home-media-keys = home-media-system-keys ++ homelab-user-keys;
+  europa-keys = europa-system-keys ++ homelab-user-keys;
 
   home-nas-system-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhTxnfP8wJU3mCZKKAZwesBb31QeQ0dSo/Lx0thyG6X";
   home-nas-system-keys = [ home-nas-system-ed25519 ];
@@ -65,7 +65,7 @@ let
   nix-cache-keys =
     homelab-user-keys
     ++ home-desktop
-    ++ home-media-system-keys
+    ++ europa-system-keys
     ++ home-controller-system-keys
     ++ home-nas-system-keys
     ++ io-system-keys
@@ -76,7 +76,7 @@ let
     ++ home-desktop
     ++ rdatar-macbook
     ++ homelab-user-keys
-    ++ home-media-system-keys
+    ++ europa-system-keys
     ++ home-controller-system-keys
     ++ home-nas-system-keys
     ++ io-system-keys
@@ -85,8 +85,8 @@ let
 in
 {
   "smbcredentials.age".publicKeys = rdatar-desktop ++ home-desktop;
-  "AirVPN-America-WG.conf.age".publicKeys = home-media-keys;
-  "homepage-env.age".publicKeys = home-media-keys;
+  "AirVPN-America-WG.conf.age".publicKeys = europa-keys;
+  "homepage-env.age".publicKeys = europa-keys;
   "nix-access-tokens.conf.age".publicKeys = allKeys;
   "smtp-password.age".publicKeys = allKeys;
   "authelia-jwt-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
@@ -97,16 +97,16 @@ in
   "lldap-env.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "lldap-admin-password.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "cloudflare-dns-token.age".publicKeys =
-    home-media-system-keys ++ home-controller-system-keys ++ homelab-user-keys;
-  "qui-env.age".publicKeys = home-media-keys;
-  "komga-authelia-oidc-env.age".publicKeys = home-media-keys ++ rdatar-macbook;
+    europa-system-keys ++ home-controller-system-keys ++ homelab-user-keys;
+  "qui-env.age".publicKeys = europa-keys;
+  "komga-authelia-oidc-env.age".publicKeys = europa-keys ++ rdatar-macbook;
   "paperless-admin-password.age".publicKeys = home-nas-keys;
   "paperless-oidc-env.age".publicKeys = home-nas-keys;
   "grafana-authelia-oidc-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "upgrade-ntfy-env.age".publicKeys =
     homelab-user-keys
     ++ rdatar-macbook
-    ++ home-media-system-keys
+    ++ europa-system-keys
     ++ home-nas-system-keys
     ++ home-controller-system-keys
     ++ io-system-keys
@@ -115,9 +115,10 @@ in
     homelab-user-keys
     ++ rdatar-macbook
     ++ io-system-keys
-    ++ ganymede-system-keys;
+    ++ ganymede-system-keys
+    ++ europa-system-keys;
   "gatus-env.age".publicKeys =
-    homelab-user-keys ++ home-controller-system-keys ++ home-media-system-keys ++ rdatar-macbook;
+    homelab-user-keys ++ home-controller-system-keys ++ europa-system-keys ++ rdatar-macbook;
   "ha-prometheus-token.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "storagebox-ssh-key.age".publicKeys = restic-keys;
   "storagebox-netrc.age".publicKeys = nix-cache-keys;

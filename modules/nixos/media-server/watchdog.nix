@@ -8,7 +8,7 @@ in
   # only — it has no UI worth exposing, it exists to send mail. Port 8181 because
   # homepage owns 8082.
   #
-  # Accepted failure mode: if home-media and home-controller die together nobody
+  # Accepted failure mode: if europa and home-controller die together nobody
   # mails. That is what the family texting you is for.
   flake.modules.nixos.media-watchdog =
     { config, ... }:

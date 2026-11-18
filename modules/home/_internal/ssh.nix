@@ -14,8 +14,13 @@ in
           IdentityFile = "~/.ssh/id_rsa";
         };
 
+        "europa" = {
+          HostName = topology.hosts.europa.lanAddress;
+          User = "rdatar";
+          IdentityFile = "~/.ssh/id_ed25519";
+        };
         "homemedia" = {
-          HostName = "media.rdatar.com";
+          HostName = topology.hosts.europa.lanAddress;
           User = "rdatar";
           IdentityFile = "~/.ssh/id_ed25519";
         };

@@ -1,4 +1,9 @@
-{ lib, self, ... }:
+{
+  config,
+  lib,
+  self,
+  ...
+}:
 let
   topology = self.meta.topology;
 in
@@ -13,6 +18,7 @@ in
     self.modules.nixos.intel-cpu
     self.modules.nixos.intel-gpu
     self.modules.nixos.bluetooth
+    self.modules.nixos.k3s-agent
     # Direct app access for OPNsense Caddy (Authelia forward auth) and Gatus probes
     self.modules.nixos.media-probe-access
     self.modules.nixos.metrics-agent
@@ -20,6 +26,27 @@ in
     self.modules.nixos.auto-upgrade # unattended upgrades; canary slot, first
     self.modules.nixos.media-storage
   ];
+
+  age.secrets.k3s-token.file = ../../secrets/k3s-token.age;
+
+  services.k3s = {
+    serverAddr = "https://${topology.hosts.io.lanAddress}:6443";
+    tokenFile = config.age.secrets.k3s-token.path;
+    # Native media services still run on europa during Stage 1: reserve ~4 GiB for OS + media
+    # processes and taint the node so only DaemonSets (cilium, cilium-envoy) schedule here
+    # until media waves begin.
+    nodeTaint = [ "homelab.dev/staging=true:NoSchedule" ];
+    extraKubeletConfig = {
+      systemReserved = {
+        cpu = "500m";
+        memory = "4Gi";
+      };
+      kubeReserved = {
+        cpu = "250m";
+        memory = "768Mi";
+      };
+    };
+  };
 
   environment.variables = {
     FLAKE = "/home/rdatar/nix";
@@ -36,17 +63,18 @@ in
   boot.kernelModules = [ "btusb" ];
 
   networking = {
+    hostName = "europa";
     interfaces = {
       enp1s0.ipv4.addresses = [
         {
-          address = topology.hosts.home-media.lanAddress;
+          address = topology.hosts.europa.lanAddress;
           prefixLength = 19;
         }
       ];
 
       enp3s0.ipv4.addresses = [
         {
-          address = topology.hosts.home-media.mediaLinkAddress;
+          address = topology.hosts.europa.mediaLinkAddress;
           prefixLength = 30;
         }
       ];

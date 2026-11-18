@@ -48,7 +48,7 @@ in
           prefixLength = 19;
         }
       ]; # REPLACE iface name
-      # Direct point-to-point link to home-media.
+      # Direct point-to-point link to europa.
       enp3s0.ipv4.addresses = [
         {
           address = topology.hosts.home-nas.mediaLinkAddress;

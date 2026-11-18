@@ -27,7 +27,7 @@ Hosts are defined in `modules/hosts.nix` using the `easy-hosts` flake:
 config.easy-hosts = {
   hosts = {
     home-desktop = { class = "nixos"; };
-    home-media = { class = "nixos"; };
+    europa = { class = "nixos"; };
     home-nas = { class = "nixos"; };
     home-controller = { class = "nixos"; };
     Rohans-MacBook = { arch = "aarch64"; class = "darwin"; };
@@ -60,14 +60,14 @@ Flake-parts aspects capture `config.flake.meta.topology` in an outer `let`, befo
 `media-storage.nix` owns the media export path and client mount point, and defines both sides of the NFS relationship:
 
 - `flake.modules.nixos.nas-nfs` — NAS export and direct-link firewall access, explicitly imported by `home-nas`.
-- `flake.modules.nixos.media-storage` — client mount, explicitly imported by `home-media`.
+- `flake.modules.nixos.media-storage` — client mount, explicitly imported by `europa`.
 
 Both aspects consume the shared address inventory. The Arr media directory, dashboard disk widget, and NAS backup exclusion also consume the relationship's paths. Defining inventory data does not activate either aspect.
 
 `media-monitoring.nix` owns one private list of direct media liveness probes and defines both sides of that relationship:
 
 - `flake.modules.nixos.media-probes` — Gatus endpoints, imported by the controller's `gatus` aspect.
-- `flake.modules.nixos.media-probe-access` — the matching firewall allowance for the controller and OPNsense Caddy, imported directly by `home-media`.
+- `flake.modules.nixos.media-probe-access` — the matching firewall allowance for the controller and OPNsense Caddy, imported directly by `europa`.
 
 The same probe ports generate both the backend URLs and firewall rule. Public authentication/certificate checks remain separate. Gatus uses `mkBefore` and `mkAfter` around the relationship's endpoints to preserve the existing display order; importing `media-probes` alone does not enable Gatus.
 

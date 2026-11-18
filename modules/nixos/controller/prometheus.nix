@@ -30,7 +30,7 @@ in
             {
               targets = [
                 "localhost:9100" # home-controller
-                "${topology.hosts.home-media.lanAddress}:9100" # home-media
+                "${topology.hosts.europa.lanAddress}:9100" # europa
                 "${topology.hosts.home-nas.lanAddress}:9100" # home-nas
                 "${topology.hosts.io.lanAddress}:9100" # io (k3s control-plane)
                 "${topology.hosts.ganymede.lanAddress}:9100" # ganymede (k3s worker / ML350)
@@ -63,6 +63,7 @@ in
               targets = [
                 "${topology.hosts.io.lanAddress}:9962"
                 "${topology.hosts.ganymede.lanAddress}:9962"
+                "${topology.hosts.europa.lanAddress}:9962"
               ];
             }
           ];
@@ -74,6 +75,7 @@ in
               targets = [
                 "${topology.hosts.io.lanAddress}:9965"
                 "${topology.hosts.ganymede.lanAddress}:9965"
+                "${topology.hosts.europa.lanAddress}:9965"
               ];
             }
           ];
@@ -94,6 +96,7 @@ in
     networking.firewall.extraCommands = ''
       iptables -A nixos-fw -i br0 -p tcp --dport 9090 -s ${topology.hosts.io.lanAddress} -j nixos-fw-accept
       iptables -A nixos-fw -i br0 -p tcp --dport 9090 -s ${topology.hosts.ganymede.lanAddress} -j nixos-fw-accept
+      iptables -A nixos-fw -i br0 -p tcp --dport 9090 -s ${topology.hosts.europa.lanAddress} -j nixos-fw-accept
     '';
   };
 }

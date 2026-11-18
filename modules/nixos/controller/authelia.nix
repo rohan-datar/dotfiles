@@ -279,7 +279,7 @@ in
             {
               client_id = "komga";
               client_name = "Komga";
-              # Plaintext: secrets/komga-authelia-oidc-env.age (home-media)
+              # Plaintext: secrets/komga-authelia-oidc-env.age (europa)
               client_secret = "$pbkdf2-sha512$310000$Y7yw4uW.eppYBCmzluTtRQ$qggOUHVH5dl2h/BL18rMyy.X05NNjvnE8KHH4rAoEeEM3xHGtRjKlfVAoPoox4Hb6hONQ.A13LuBQuOgydEo7g";
               public = false;
               authorization_policy = "komga";

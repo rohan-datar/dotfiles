@@ -134,7 +134,7 @@ in
                 name = "seerr";
                 group = "public";
                 interval = "120s";
-                url = "http://${topology.hosts.home-media.lanAddress}:5055";
+                url = "http://${topology.hosts.europa.lanAddress}:5055";
                 conditions = [ "[STATUS] < 400" ];
                 alerts = ntfy;
               }
@@ -203,6 +203,14 @@ in
                 group = "infra";
                 interval = "60s";
                 url = "icmp://${topology.hosts.ganymede.lanAddress}";
+                conditions = [ "[CONNECTED] == true" ];
+                alerts = ntfy;
+              }
+              {
+                name = "europa-host";
+                group = "infra";
+                interval = "60s";
+                url = "icmp://${topology.hosts.europa.lanAddress}";
                 conditions = [ "[CONNECTED] == true" ];
                 alerts = ntfy;
               }

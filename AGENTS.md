@@ -34,7 +34,7 @@ just clean
 
 # Build a specific host without switching
 nix build .#nixosConfigurations.home-desktop.config.system.build.toplevel
-nix build .#nixosConfigurations.home-media.config.system.build.toplevel
+nix build .#nixosConfigurations.europa.config.system.build.toplevel
 nix build .#darwinConfigurations.Rohans-MacBook.config.system.build.toplevel
 ```
 
@@ -58,7 +58,7 @@ Hosts are defined in `modules/hosts.nix` with their class and architecture:
 | Host | Class | Arch | Role |
 |------|-------|------|------|
 | **home-desktop** | nixos | x86_64 | Desktop (Niri/Noctalia, NVIDIA) |
-| **home-media** | nixos | x86_64 | Media server (arr stack, Jellyfin) — no home-manager |
+| **europa** | nixos | x86_64 | k3s worker & media server (arr stack, Jellyfin) — no home-manager |
 | **home-nas** | nixos | x86_64 | ZFS storage, SMB/NFS, Paperless — no home-manager |
 | **home-controller** | nixos | x86_64 | Home Assistant VM, identity, monitoring — no home-manager |
 | **Rohans-MacBook** | darwin | aarch64 | MacBook (Paneru, Homebrew) |
@@ -88,7 +88,7 @@ Features are organized as aspects under `flake.modules.<class>.<name>`. Hosts op
 
 Keep shared addresses and identity naming in the topology inventory. `modules/infrastructure/media-storage.nix` owns the media export/mount paths and defines both `nas-nfs` and `media-storage`; hosts import their respective sides explicitly. Inventory data does not enable services. Keep interface names, prefix lengths, and hardware policy host-local; never read another host's evaluated `nixosConfigurations` to obtain shared facts.
 
-`modules/infrastructure/media-monitoring.nix` owns the private direct-probe list and defines `media-probes` (imported by `gatus`) and `media-probe-access` (imported by `home-media`; OPNsense Caddy proxies the apps directly behind Authelia forward auth). Probe targets and their firewall ports come from that one list. Public auth checks remain separate; preserve endpoint ordering when changing the Gatus composition.
+`modules/infrastructure/media-monitoring.nix` owns the private direct-probe list and defines `media-probes` (imported by `gatus`) and `media-probe-access` (imported by `europa`; OPNsense Caddy proxies the apps directly behind Authelia forward auth). Probe targets and their firewall ports come from that one list. Public auth checks remain separate; preserve endpoint ordering when changing the Gatus composition.
 
 The NixOS `graphical` umbrella does not choose a session: `home-desktop` explicitly imports `niri-desktop`. Keep scaling and workstation DRM workarounds host-local, and NVIDIA environment settings in `nvidia`. NAS host ID/pool/boot policy lives in `hosts/home-nas/default.nix`; the controller imports generic `libvirt` plus its plain `haos.nix` module for guest-specific USB, shutdown, and domain policy.
 

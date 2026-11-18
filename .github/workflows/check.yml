@@ -56,7 +56,7 @@ jobs:
         host:
           - home-controller
           - home-desktop
-          - home-media
+          - europa
           - home-nas
           - io
           - ganymede

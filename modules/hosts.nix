@@ -31,7 +31,7 @@
         arch = "aarch64";
         class = "darwin";
       };
-      home-media = {
+      europa = {
         class = "nixos";
       };
       home-nas = {
