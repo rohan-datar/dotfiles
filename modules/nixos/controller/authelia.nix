@@ -415,6 +415,13 @@ in
                 ];
               }
               {
+                # Hubble UI (k3s, via the Cilium Gateway) has no login of its own; Caddy
+                # forward-auth asks Authelia, and only k8s_admin with 2FA gets through.
+                domain = [ "hubble.rdatar.com" ];
+                policy = "two_factor";
+                subject = [ "group:k8s_admin" ];
+              }
+              {
                 domain = [ "*.datars.org" ];
                 policy = "one_factor";
               }
