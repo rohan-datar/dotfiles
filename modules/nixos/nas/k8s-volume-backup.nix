@@ -26,7 +26,7 @@ _: {
         set -euo pipefail
         ${cleanup job}
         stamp="${job}-$(date +%Y%m%d%H%M%S)"
-        mkdir -p /run/${job}
+        install -d -m 0700 /run/${job}
         for zv in $(${zfs} list -H -o name -t volume -r data-pool/k8s/iscsi); do
           pvc=$(${zfs} get -H -o value org.rdatar:pvc "$zv")
           [ "$pvc" = "-" ] && pvc="unlabelled/$(basename "$zv")"
@@ -74,8 +74,7 @@ _: {
 
       services.restic.backups = {
         k8s-volumes-ganymede =
-          job "k8s-volumes-ganymede"
-            "sftp:restic-nas@10.10.1.15:/var/lib/rancher/k3s/storage/restic/home-nas-k8s"
+          job "k8s-volumes-ganymede" "sftp:restic-nas@10.10.1.15:/srv/restic-nas/home-nas-k8s"
             "ssh -i ${keyDir}/id_ed25519 -o StrictHostKeyChecking=accept-new restic-nas@10.10.1.15 -s sftp"
             "01:00"
             [
@@ -98,6 +97,10 @@ _: {
       systemd.services =
         lib.genAttrs [ "restic-backups-k8s-volumes-ganymede" "restic-backups-k8s-volumes-storagebox" ] (_: {
           unitConfig.OnFailure = [ "backup-failure-email@%n.service" ];
+          # Each Exec* step gets its own private mount namespace with PrivateTmp, so the
+          # clones mounted in the prepare step would be invisible to restic. Mount in the
+          # host namespace instead (/run/<job> is 0700 root).
+          serviceConfig.PrivateTmp = lib.mkForce false;
         })
         // {
           k8s-storage-datasets.postStart = ''

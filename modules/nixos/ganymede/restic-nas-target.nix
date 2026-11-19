@@ -9,13 +9,25 @@ _: {
       users.users.restic-nas = {
         isSystemUser = true;
         group = "restic-nas";
-        home = "/var/lib/rancher/k3s/storage/restic";
+        home = "/srv/restic-nas";
         createHome = true;
         shell = pkgs.bashInteractive;
         openssh.authorizedKeys.keys = [
           ''restrict,command="${pkgs.openssh}/libexec/sftp-server" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJlCBTd67mged4MQhYBhRxyjVtw9l8uQ8dvslOHDiH/V home-nas-k8s-backup''
         ];
       };
-      systemd.tmpfiles.rules = [ "d /var/lib/rancher/k3s/storage/restic 0700 restic-nas restic-nas -" ];
+      # The data lives on the Btrfs RAID1, whose root (k3s local-path storage) is 0700 root;
+      # bind it to its own path so restic-nas can reach it without opening that root up.
+      systemd.tmpfiles.rules = [
+        "d /var/lib/rancher/k3s/storage/restic 0700 restic-nas restic-nas -"
+        "d /srv/restic-nas 0700 restic-nas restic-nas -"
+      ];
+      fileSystems."/srv/restic-nas" = {
+        device = "/var/lib/rancher/k3s/storage/restic";
+        options = [
+          "bind"
+          "x-systemd.requires-mounts-for=/var/lib/rancher/k3s/storage"
+        ];
+      };
     };
 }
