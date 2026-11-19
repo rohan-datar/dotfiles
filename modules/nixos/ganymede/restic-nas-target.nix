@@ -24,6 +24,7 @@ _: {
       ];
       fileSystems."/srv/restic-nas" = {
         device = "/var/lib/rancher/k3s/storage/restic";
+        fsType = "none";
         options = [
           "bind"
           "x-systemd.requires-mounts-for=/var/lib/rancher/k3s/storage"
