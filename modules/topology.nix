@@ -11,11 +11,6 @@
                   type = lib.types.str;
                   description = "Host's LAN address";
                 };
-                mediaLinkAddress = lib.mkOption {
-                  type = lib.types.nullOr lib.types.str;
-                  default = null;
-                  description = "Address on the point-to-point NAS/media link, if the host has one";
-                };
               };
             }
           );
@@ -77,11 +72,9 @@
     hosts = {
       home-nas = {
         lanAddress = "10.10.1.10";
-        mediaLinkAddress = "10.10.100.1";
       };
       europa = {
         lanAddress = "10.10.1.11";
-        mediaLinkAddress = "10.10.100.2";
       };
       home-controller = {
         lanAddress = "10.10.1.13";

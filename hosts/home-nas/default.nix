@@ -49,13 +49,6 @@ in
           prefixLength = 19;
         }
       ]; # REPLACE iface name
-      # Direct point-to-point link to europa.
-      enp3s0.ipv4.addresses = [
-        {
-          address = topology.hosts.home-nas.mediaLinkAddress;
-          prefixLength = 30;
-        }
-      ]; # REPLACE iface name
     };
     defaultGateway = {
       address = topology.gatewayAddress;

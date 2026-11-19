@@ -59,7 +59,7 @@ Flake-parts aspects capture `config.flake.meta.topology` in an outer `let`, befo
 
 `media-storage.nix` owns the media export path and client mount point, and defines both sides of the NFS relationship:
 
-- `flake.modules.nixos.nas-nfs` — NAS export and direct-link firewall access, explicitly imported by `home-nas`.
+- `flake.modules.nixos.nas-nfs` — NAS LAN NFSv4 export and source-IP firewall access for k3s nodes, explicitly imported by `home-nas`.
 - `flake.modules.nixos.media-storage` — client mount, explicitly imported by `europa`.
 
 Both aspects consume the shared address inventory. The Arr media directory, dashboard disk widget, and NAS backup exclusion also consume the relationship's paths. Defining inventory data does not activate either aspect.

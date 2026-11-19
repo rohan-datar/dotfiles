@@ -73,13 +73,6 @@ in
           prefixLength = 19;
         }
       ];
-
-      enp3s0.ipv4.addresses = [
-        {
-          address = topology.hosts.europa.mediaLinkAddress;
-          prefixLength = 30;
-        }
-      ];
     };
     defaultGateway = {
       address = topology.gatewayAddress;
