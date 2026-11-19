@@ -12,6 +12,7 @@ in
     self.modules.nixos.nas-zfs
     self.modules.nixos.nas-samba
     self.modules.nixos.nas-nfs
+    self.modules.nixos.nas-iscsi # k3s durable storage tier (ADR 0014)
     self.modules.nixos.nas-snapshots
     self.modules.nixos.mail # msmtp transport for the two aspects below
     self.modules.nixos.nas-alerts
