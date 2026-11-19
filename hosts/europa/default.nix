@@ -14,7 +14,6 @@ in
     self.modules.nixos.rdatar
     self.modules.nixos.server
     self.modules.nixos.arr
-    self.modules.nixos.media-books
     self.modules.nixos.intel-cpu
     self.modules.nixos.intel-gpu
     self.modules.nixos.bluetooth
@@ -57,9 +56,8 @@ in
 
   system.autoUpgrade.dates = "*-*-* 03:30";
 
-  # `services.userborn` requires `system.activationScripts.users == ""`.
-  # nixarr's Seerr module extends `system.activationScripts.users.deps`, which
-  # turns it into an attrset and conflicts with userborn.
+  # Kept off while nixarr still manages service users on europa; re-enable separately
+  # with dry-activate UID/GID verification once nixarr is retired.
   services.userborn.enable = lib.mkForce false;
 
   boot.kernelModules = [ "btusb" ];

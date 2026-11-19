@@ -279,7 +279,7 @@ in
             {
               client_id = "komga";
               client_name = "Komga";
-              # Plaintext: secrets/komga-authelia-oidc-env.age (europa)
+              # Plaintext is SOPS-encrypted in oort-cloud/apps/media/komga-secret.sops.yaml.
               client_secret = "$pbkdf2-sha512$310000$Y7yw4uW.eppYBCmzluTtRQ$qggOUHVH5dl2h/BL18rMyy.X05NNjvnE8KHH4rAoEeEM3xHGtRjKlfVAoPoox4Hb6hONQ.A13LuBQuOgydEo7g";
               public = false;
               authorization_policy = "komga";
@@ -287,7 +287,6 @@ in
               require_pkce = false;
               redirect_uris = [
                 "https://books.datars.org/login/oauth2/code/authelia"
-                "http://10.10.1.11:25600/login/oauth2/code/authelia"
               ];
               scopes = [
                 "openid"

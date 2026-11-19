@@ -1,15 +1,16 @@
 { lib, config, ... }:
 let
-  # The direct media liveness relationship: Gatus on home-controller probes
-  # each app on europa directly, bypassing OPNsense Caddy and Authelia.
+  # The direct media liveness relationship (ADR 0008): Gatus on home-controller probes
+  # each app directly, bypassing OPNsense Caddy and Authelia forward-auth.
+  # Native apps on europa are probed on their host ports; k3s-migrated apps are probed
+  # through Cilium's internal Gateway VIP (10.10.2.20, restricted to HA + home-controller).
   topology = config.flake.meta.topology;
+  internalGatewayVip = "10.10.2.20";
 
   # Every probe pushes on the same policy, so name the list once.
   ntfy = [ { type = "ntfy"; } ];
 
-  # Direct liveness probe of an HTTP app's unauthenticated /ping endpoint.
-  # Carries both the port (for the firewall) and the Gatus endpoint, so the
-  # port is only maintained once.
+  # Direct liveness probe of a native HTTP app's unauthenticated /ping endpoint on europa.
   httpProbe = name: port: {
     inherit name port;
     endpoint = {
@@ -21,8 +22,7 @@ let
     };
   };
 
-  # Direct TCP liveness probe for apps without an unauthenticated /ping
-  # endpoint (Bazarr, Shelfmark).
+  # Direct TCP liveness probe for native apps without an unauthenticated /ping endpoint.
   tcpProbe = name: port: {
     inherit name port;
     endpoint = {
@@ -34,18 +34,32 @@ let
     };
   };
 
+  # Direct HTTP liveness probe via k3s gateway/internal (no host port opened on europa).
+  k8sHttpProbe = name: host: path: {
+    inherit name;
+    port = null;
+    endpoint = {
+      group = "media-ingress";
+      interval = "120s";
+      url = "http://${internalGatewayVip}${path}";
+      headers.Host = host;
+      conditions = [ "[STATUS] == 200" ];
+      alerts = ntfy;
+    };
+  };
+
   # The five direct media probes, in canonical order.
   mediaProbes = [
     (httpProbe "sonarr-app" 8989)
     (httpProbe "radarr-app" 7878)
     (httpProbe "prowlarr-app" 9696)
     (tcpProbe "bazarr-app" 6767)
-    (tcpProbe "shelfmark-app" 8084)
+    (k8sHttpProbe "shelfmark-app" "shelfmark.media.rdatar.com" "/api/health")
   ];
 
-  # Ports the controller's Gatus probes and OPNsense Caddy need on europa.
+  # Ports the controller's Gatus probes and OPNsense Caddy still need on europa.
   probePorts = lib.concatStringsSep "," (
-    map toString (lib.sort (a: b: a < b) (map (p: p.port) mediaProbes))
+    map toString (lib.sort (a: b: a < b) (lib.filter (p: p != null) (map (p: p.port) mediaProbes)))
   );
 
   # Ports the Home Assistant Sonarr and Radarr integrations poll on europa.
@@ -66,6 +80,17 @@ in
         -j nixos-fw-accept
       iptables -w -A nixos-fw -p tcp -m multiport --dports ${homeAssistantPorts} \
         -s ${topology.hosts.home-assistant.lanAddress} -m comment --comment "home assistant arr integrations" \
+        -j nixos-fw-accept
+      # Coexistence during k3s media migration: let migrated pods on io/ganymede reach
+      # still-native *arr services on europa until Wave 2 completes.
+      iptables -w -A nixos-fw -p tcp -m multiport --dports ${probePorts} \
+        -s ${topology.hosts.io.lanAddress} -m comment --comment "k3s io -> native media coexistence" \
+        -j nixos-fw-accept
+      iptables -w -A nixos-fw -p tcp -m multiport --dports ${probePorts} \
+        -s ${topology.hosts.ganymede.lanAddress} -m comment --comment "k3s ganymede -> native media coexistence" \
+        -j nixos-fw-accept
+      iptables -w -A nixos-fw -p tcp -m multiport --dports ${probePorts} \
+        -s ${topology.hosts.europa.lanAddress} -m comment --comment "k3s europa -> native media coexistence" \
         -j nixos-fw-accept
     '';
   };

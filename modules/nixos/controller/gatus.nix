@@ -131,11 +131,15 @@ in
                 alerts = ntfy;
               }
               {
+                # Seerr runs in k3s (oort-cloud apps/media/seerr.pkl) behind OPNsense Caddy.
                 name = "seerr";
                 group = "public";
                 interval = "120s";
-                url = "http://${topology.hosts.europa.lanAddress}:5055";
-                conditions = [ "[STATUS] < 400" ];
+                url = "https://catalog.datars.org/api/v1/status";
+                conditions = [
+                  "[STATUS] == 200"
+                  "[CERTIFICATE_EXPIRATION] > 240h"
+                ];
                 alerts = ntfy;
               }
               {
