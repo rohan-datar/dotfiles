@@ -81,16 +81,11 @@ in
       iptables -w -A nixos-fw -p tcp -m multiport --dports ${homeAssistantPorts} \
         -s ${topology.hosts.home-assistant.lanAddress} -m comment --comment "home assistant arr integrations" \
         -j nixos-fw-accept
-      # Coexistence during k3s media migration: let migrated pods on io/ganymede reach
-      # still-native *arr services on europa until Wave 2 completes.
+      # Coexistence during the k3s media migration: migrated pods reach the still-native
+      # *arr services on europa until Wave 2. Cilium does not masquerade pod traffic to
+      # cluster nodes, so it arrives from the pod CIDR (10.42.0.0/16), not a node IP.
       iptables -w -A nixos-fw -p tcp -m multiport --dports ${probePorts} \
-        -s ${topology.hosts.io.lanAddress} -m comment --comment "k3s io -> native media coexistence" \
-        -j nixos-fw-accept
-      iptables -w -A nixos-fw -p tcp -m multiport --dports ${probePorts} \
-        -s ${topology.hosts.ganymede.lanAddress} -m comment --comment "k3s ganymede -> native media coexistence" \
-        -j nixos-fw-accept
-      iptables -w -A nixos-fw -p tcp -m multiport --dports ${probePorts} \
-        -s ${topology.hosts.europa.lanAddress} -m comment --comment "k3s europa -> native media coexistence" \
+        -s 10.42.0.0/16 -m comment --comment "k3s pods -> native media coexistence" \
         -j nixos-fw-accept
     '';
   };
