@@ -13,6 +13,7 @@ in
     self.modules.nixos.nas-samba
     self.modules.nixos.nas-nfs
     self.modules.nixos.nas-iscsi # k3s durable storage tier (ADR 0014)
+    self.modules.nixos.nas-k8s-volume-backup # zvol clone → restic (Storage Box + ganymede)
     self.modules.nixos.nas-snapshots
     self.modules.nixos.mail # msmtp transport for the two aspects below
     self.modules.nixos.nas-alerts
