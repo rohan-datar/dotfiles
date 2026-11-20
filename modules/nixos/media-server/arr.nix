@@ -27,11 +27,6 @@ in
               openFirewall = true;
             };
 
-            bazarr.enable = true;
-            prowlarr.enable = true;
-            radarr.enable = true;
-            sonarr.enable = true;
-
             qbittorrent = {
               enable = true;
               vpn.enable = true;
@@ -45,36 +40,11 @@ in
                 };
               };
             };
-
-            recyclarr = {
-              enable = true;
-
-              configuration = {
-                sonarr = {
-                  series = {
-                    base_url = "http://localhost:8989";
-                    api_key = "!env_var SONARR_API_KEY";
-                  };
-                };
-                radarr = {
-                  movies = {
-                    base_url = "http://localhost:7878";
-                    api_key = "!env_var RADARR_API_KEY";
-                  };
-                };
-              };
-            };
           };
-
-          # Login is handled by Authelia forward auth at OPNsense Caddy.
-          services.sonarr.settings.auth.method = "External";
-          services.radarr.settings.auth.method = "External";
-          services.prowlarr.settings.auth.method = "External";
 
           # nixarr's nixarr-py pins a Jellyfin OpenAPI spec hash per Jellyfin version and
           # stops at 12.2, so evaluation fails on nixpkgs' Jellyfin 12.4. Rebuild it from
-          # nixarr's own sources, supplying the 12.4 spec hash. Remove once nixarr lists
-          # 12.4; a later Jellyfin fails loudly with a hash mismatch rather than silently.
+          # nixarr's own sources, supplying the 12.4 spec hash. Removed with nixarr in Wave 4.
           nixarr.nixarr-py.package =
             let
               nixarrPy = "${inputs.nixarr}/nixarr/lib/nixarr-py";
@@ -92,8 +62,6 @@ in
                 fetchurl = args: pkgs.fetchurl (removeAttrs args [ "hash" ] // { hash = jellyfinOpenApiHash; });
               };
             };
-
-          services.flaresolverr.enable = true;
 
           systemd.services.jellyfin.environment = {
             VDPAU_DRIVER = "va_gl";

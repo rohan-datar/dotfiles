@@ -64,12 +64,7 @@ Flake-parts aspects capture `config.flake.meta.topology` in an outer `let`, befo
 
 Both aspects consume the shared address inventory. The Arr media directory, dashboard disk widget, and NAS backup exclusion also consume the relationship's paths. Defining inventory data does not activate either aspect.
 
-`media-monitoring.nix` owns one private list of direct media liveness probes and defines both sides of that relationship:
-
-- `flake.modules.nixos.media-probes` — Gatus endpoints, imported by the controller's `gatus` aspect.
-- `flake.modules.nixos.media-probe-access` — the matching firewall allowance for the controller and OPNsense Caddy, imported directly by `europa`.
-
-The same probe ports generate both the backend URLs and firewall rule. Public authentication/certificate checks remain separate. Gatus uses `mkBefore` and `mkAfter` around the relationship's endpoints to preserve the existing display order; importing `media-probes` alone does not enable Gatus.
+`media-monitoring.nix` owns the private list of direct media liveness probes (`flake.modules.nixos.media-probes`, imported by the controller's `gatus` aspect), targeting Cilium's `gateway/internal` VIP (`10.10.2.20`). Public authentication/certificate checks remain separate. Gatus uses `mkBefore` and `mkAfter` around the relationship's endpoints to preserve the existing display order; importing `media-probes` alone does not enable Gatus.
 
 Keep repeated cross-host facts in the inventory and co-locate the two sides of a relationship where useful. Interface names, prefix lengths, hardware configuration, and application policy stay local. `home-assistant` is an external HAOS guest endpoint in the inventory, not another flake-managed host; its guest network configuration is not managed by the inventory.
 

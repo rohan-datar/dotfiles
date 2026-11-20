@@ -18,8 +18,6 @@ in
     self.modules.nixos.intel-gpu
     self.modules.nixos.bluetooth
     self.modules.nixos.k3s-agent
-    # Direct app access for OPNsense Caddy (Authelia forward auth) and Gatus probes
-    self.modules.nixos.media-probe-access
     self.modules.nixos.metrics-agent
     self.modules.nixos.media-watchdog # watches home-controller from the outside
     self.modules.nixos.auto-upgrade # unattended upgrades; canary slot, first
