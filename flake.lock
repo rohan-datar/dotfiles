@@ -38,11 +38,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1795127150,
-        "narHash": "sha256-xRVaNpyXxjmHafHkq265nmTKqr4CwQlCjsTyC1D+nLc=",
+        "lastModified": 1795137680,
+        "narHash": "sha256-U5uj9R3Gq8tldCyvxKPig9M/MtfaGu6J707WEYpNVCk=",
         "ref": "refs/heads/main",
-        "rev": "43a1c6d6948e7d5e0a12d37a21b6dc07a6b26fcb",
-        "revCount": 2935,
+        "rev": "d5431a8c4c5cc9edd10e2f98b4bce2affd684b44",
+        "revCount": 3054,
         "type": "git",
         "url": "https://tangled.org/okami.mom/albedo"
       },
@@ -315,11 +315,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794967322,
-        "narHash": "sha256-LOxnAZaoM5twjL/GRCRsB7w9WVKxNadAsRKBQjmWgKs=",
+        "lastModified": 1795138709,
+        "narHash": "sha256-MPxfrgLs5nbukMu7zSO+z8VCTeJXwuUfLbAHfXdF8Ec=",
         "owner": "rohan-datar",
         "repo": "editorconfig",
-        "rev": "3fbc799504d0d561bad3320ecc0c74e970fb9830",
+        "rev": "e1382815f29d65735b8516c58b134d4f795782b1",
         "type": "github"
       },
       "original": {
@@ -337,11 +337,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1794939441,
-        "narHash": "sha256-2qKjQa0xoSp2JzETzk4+cIwXCSbCwP4IWeoRC6MeH/c=",
+        "lastModified": 1795127490,
+        "narHash": "sha256-c4/UFOPvOqosY4K6nuI56uWP0ptNw//zs+ZnB753Sxg=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "a967db207c6126b0cb162a3a683d34f8aee1ba63",
+        "rev": "815efcab26afe8faa8e3804cf13264708d623b63",
         "type": "github"
       },
       "original": {
@@ -638,11 +638,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1795095256,
-        "narHash": "sha256-psFOVEJ/Z/7wo9VbDnGz3z06NYzT4zJqCL3jfUAKG7A=",
+        "lastModified": 1795136326,
+        "narHash": "sha256-SIQ2I5EZgbaTUyyMO8E/IeT+UQKkYMKQMPXh+kl49ZY=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "60037f203e5f2dd1f318318c93e78a9a5e42646a",
+        "rev": "3e6e622935b31f805b3ef893d71b97c1469965e1",
         "type": "github"
       },
       "original": {
