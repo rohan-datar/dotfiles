@@ -22,11 +22,6 @@ in
             };
             mediaDir = topology.mediaStorage.mountPoint;
 
-            jellyfin = {
-              enable = true;
-              openFirewall = true;
-            };
-
             qbittorrent = {
               enable = true;
               vpn.enable = true;
@@ -63,10 +58,6 @@ in
               };
             };
 
-          systemd.services.jellyfin.environment = {
-            VDPAU_DRIVER = "va_gl";
-            LIBVA_DRIVER_NAME = "iHD";
-          };
           systemd.services.qui.serviceConfig.EnvironmentFile = config.age.secrets.qui-env.path;
         }
       )
