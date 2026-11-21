@@ -30,14 +30,13 @@ in
   services.k3s = {
     serverAddr = "https://${topology.hosts.io.lanAddress}:6443";
     tokenFile = config.age.secrets.k3s-token.path;
-    # Native media services still run on europa during Stage 1: reserve ~4 GiB for OS + media
-    # processes and taint the node so only DaemonSets (cilium, cilium-envoy) schedule here
-    # until media waves begin.
-    nodeTaint = [ "homelab.dev/staging=true:NoSchedule" ];
+    # Native media services are gone (Wave 4, 2026-11-21): europa is a regular agent. Reserve
+    # only what the OS itself needs. Note: k3s applies --node-taint at registration only, so the
+    # old homelab.dev/staging taint must also be removed with kubectl.
     extraKubeletConfig = {
       systemReserved = {
-        cpu = "500m";
-        memory = "4Gi";
+        cpu = "250m";
+        memory = "1Gi";
       };
       kubeReserved = {
         cpu = "250m";
