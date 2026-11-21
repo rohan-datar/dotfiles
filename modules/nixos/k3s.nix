@@ -102,8 +102,11 @@ in
         trustedInterfaces = [
           "cilium_host"
           "cilium_net"
+          "cilium_wg0" # decrypted pod traffic from other nodes (Cilium transparent encryption)
           "lxc+"
         ];
+        # Cilium transparent encryption: WireGuard between the nodes' pods (kernel WireGuard).
+        allowedUDPPorts = [ 51871 ];
         # 6443/tcp: Kubernetes API server
         # 10250/tcp: Kubelet metrics & logs
         # 4240/tcp: Cilium health checks between nodes
@@ -218,6 +221,12 @@ in
               burst = 40;
             };
             gatewayAPI.enabled = true;
+            # Encrypt pod-to-pod traffic between nodes with WireGuard (keys managed by Cilium).
+            # Host-to-host traffic (kubelet, etcd, iSCSI/NFS to the NAS) is not covered.
+            encryption = {
+              enabled = true;
+              type = "wireguard";
+            };
             operator.replicas = 1;
             prometheus.enabled = true;
             hubble = {
