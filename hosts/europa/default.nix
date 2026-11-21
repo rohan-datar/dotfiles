@@ -53,10 +53,6 @@ in
 
   system.autoUpgrade.dates = "*-*-* 03:30";
 
-  # Kept off while nixarr still manages service users on europa; re-enable separately
-  # with dry-activate UID/GID verification once nixarr is retired.
-  services.userborn.enable = lib.mkForce false;
-
   boot.kernelModules = [ "btusb" ];
 
   networking = {
