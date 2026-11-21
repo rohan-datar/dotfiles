@@ -1,18 +1,10 @@
-_: {
+{ self, ... }: {
   # Mail transport (msmtp) comes from the shared `mail` aspect — this aspect
   # only decides what gets mailed and assumes sendmail/msmtp are present.
   flake.modules.nixos.nas-alerts =
     { pkgs, ... }:
     {
-      # SMART pre-failure indicators: journal + email.
-      services.smartd = {
-        enable = true;
-        notifications.mail = {
-          enable = true;
-          recipient = "me@rdatar.com";
-          sender = "nas@rdatar.com";
-        };
-      };
+      imports = [ self.modules.nixos.smart-alerts ];
 
       # ZED emails ZFS events (errors, resilvers, scrub results).
       # enableMail stays false: that option expects a mail(1)-style binary; calling

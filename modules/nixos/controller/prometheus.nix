@@ -45,7 +45,14 @@ in
         }
         {
           job_name = "smartctl";
-          static_configs = [ { targets = [ "${topology.hosts.home-nas.lanAddress}:9633" ]; } ];
+          static_configs = [
+            {
+              targets = [
+                "${topology.hosts.home-nas.lanAddress}:9633"
+                "${topology.hosts.ganymede.lanAddress}:9633"
+              ];
+            }
+          ];
         }
         {
           # k8s object state plus Flux's gotk_resource_info, from kube-state-metrics in

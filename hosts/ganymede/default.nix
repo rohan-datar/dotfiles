@@ -6,6 +6,13 @@
 }:
 let
   topology = self.meta.topology;
+  # The P440ar in HBA mode exposes all three physical disks through SAT.
+  # Stable by-id paths avoid probing the node’s attached iSCSI PVC devices.
+  smartDevices = [
+    "/dev/disk/by-id/ata-Fanxiang_S101_128GB_26081394635000016"
+    "/dev/disk/by-id/ata-MB1000GCEEK_WCAW31VHVAE2"
+    "/dev/disk/by-id/ata-MB1000GCEEK_WCAW36RKNDAF"
+  ];
 in
 {
   imports = [
@@ -16,6 +23,7 @@ in
     self.modules.nixos.intel-cpu # Xeon E5-2680 v4
     self.modules.nixos.k3s-agent # heavy k3s worker node joined to io
     self.modules.nixos.metrics-agent # node_exporter (:9100) for Prometheus
+    self.modules.nixos.smart-alerts # SMART journal + email alerts
     self.modules.nixos.auto-upgrade # unattended upgrades
     self.modules.nixos.mail # msmtp transport for backup failure mail
     self.modules.nixos.onedev-restic # offsite OneDev backup (Storage Box)
@@ -36,6 +44,19 @@ in
   # still boots). Without the mount, local-path would hand pods empty directories on
   # the boot SSD (as happened on 2026-11-06), so k3s must not start without it.
   systemd.services.k3s.unitConfig.RequiresMountsFor = [ "/var/lib/rancher/k3s/storage" ];
+
+  services.prometheus.exporters.smartctl = {
+    enable = true; # :9633, scraped only by home-controller
+    devices = map (device: "${device} -d sat") smartDevices;
+  };
+
+  services.smartd = {
+    autodetect = false;
+    devices = map (device: {
+      inherit device;
+      options = "-d sat";
+    }) smartDevices;
+  };
 
   # Headless NVIDIA Tesla P100 PCIe 16GB (GP100, Pascal) in PCIe Slot 3.
   # NVIDIA 595+ dropped Pascal; the 580 LTSB proprietary driver supports GP100.
@@ -79,6 +100,10 @@ in
       22
       9100
     ];
+    # smartctl_exporter (:9633): Prometheus on home-controller only.
+    firewall.extraCommands = ''
+      iptables -A nixos-fw -p tcp -s ${topology.hosts.home-controller.lanAddress} --dport 9633 -j nixos-fw-accept
+    '';
   };
 
   time.timeZone = "America/Chicago";
