@@ -100,11 +100,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixarr = {
-      url = "github:nix-media-server/nixarr";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     vicinae-extensions = {
       url = "github:vicinaehq/extensions";
       inputs.nixpkgs.follows = "nixpkgs";

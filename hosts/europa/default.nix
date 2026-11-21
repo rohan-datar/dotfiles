@@ -13,7 +13,6 @@ in
     ./disks.nix
     self.modules.nixos.rdatar
     self.modules.nixos.server
-    self.modules.nixos.arr
     self.modules.nixos.intel-cpu
     self.modules.nixos.intel-gpu
     self.modules.nixos.bluetooth

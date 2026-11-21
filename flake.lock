@@ -755,29 +755,6 @@
         "type": "github"
       }
     },
-    "nixarr": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "treefmt-nix": "treefmt-nix_3",
-        "vpnconfinement": "vpnconfinement",
-        "website-builder": "website-builder"
-      },
-      "locked": {
-        "lastModified": 1793629010,
-        "narHash": "sha256-Hgj0GrcPkXD/N6QFgz3i4HPhzObHVVpDsHngy1QVIH4=",
-        "owner": "nix-media-server",
-        "repo": "nixarr",
-        "rev": "8035dc9a3fcbed25e29e8b0eb3572899d4bd465b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-media-server",
-        "repo": "nixarr",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1793110635,
@@ -1028,7 +1005,6 @@
         "nix-darwin": "nix-darwin",
         "nix-index-database": "nix-index-database",
         "nix-wrapper-modules": "nix-wrapper-modules",
-        "nixarr": "nixarr",
         "nixpkgs": "nixpkgs_2",
         "paneru": "paneru",
         "ragenix": "ragenix",
@@ -1262,27 +1238,6 @@
         "type": "github"
       }
     },
-    "treefmt-nix_3": {
-      "inputs": {
-        "nixpkgs": [
-          "nixarr",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1775125835,
-        "narHash": "sha256-2qYcPgzFhnQWchHo0SlqLHrXpux5i6ay6UHA+v2iH4U=",
-        "owner": "numtide",
-        "repo": "treefmt-nix",
-        "rev": "75925962939880974e3ab417879daffcba36c4a3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "treefmt-nix",
-        "type": "github"
-      }
-    },
     "usage-core": {
       "flake": false,
       "locked": {
@@ -1367,42 +1322,6 @@
       "original": {
         "owner": "vicinaehq",
         "repo": "extensions",
-        "type": "github"
-      }
-    },
-    "vpnconfinement": {
-      "locked": {
-        "lastModified": 1767604552,
-        "narHash": "sha256-FddhMxnc99KYOZ/S3YNqtDSoxisIhVtJ7L4s8XD2u0A=",
-        "owner": "Maroka-chan",
-        "repo": "VPN-Confinement",
-        "rev": "a6b2da727853886876fd1081d6bb2880752937f3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Maroka-chan",
-        "repo": "VPN-Confinement",
-        "type": "github"
-      }
-    },
-    "website-builder": {
-      "inputs": {
-        "nixpkgs": [
-          "nixarr",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1771957511,
-        "narHash": "sha256-MxpsyVQguwmeN40gblvcYLtL4xiriGYB6UyP+JergpQ=",
-        "owner": "rasmus-kirk",
-        "repo": "website-builder",
-        "rev": "896af41c1a01f934799356f1f51cfddff2abda82",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rasmus-kirk",
-        "repo": "website-builder",
         "type": "github"
       }
     },
