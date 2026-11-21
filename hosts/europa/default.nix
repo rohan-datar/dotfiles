@@ -29,6 +29,27 @@ in
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGRiVyvaYnCdl0vptlAYqvaf4+0M4HAVfOB7W6GCZROn termix"
   ];
 
+  # Recovery bastion staging: private SSH port-forward only, no Caddy route.
+  # Use fresh state; the retired Warpgate deployment used /var/lib/warpgate.
+  services.warpgate = {
+    enable = true;
+    settings = {
+      database_url = "sqlite:/var/lib/warpgate-recovery/db";
+      http = {
+        listen = "127.0.0.1:8888";
+        certificate = "/var/lib/warpgate-recovery/tls.certificate.pem";
+        key = "/var/lib/warpgate-recovery/tls.key.pem";
+        trust_x_forwarded_headers = false;
+      };
+      ssh = {
+        enable = false;
+        keys = "/var/lib/warpgate-recovery/ssh-keys";
+      };
+      sso_providers = [ ];
+    };
+  };
+  systemd.services.warpgate.serviceConfig.StateDirectory = lib.mkForce "warpgate-recovery";
+
   age.secrets.k3s-token.file = ../../secrets/k3s-token.age;
 
   services.k3s = {
