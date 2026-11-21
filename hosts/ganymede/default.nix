@@ -30,6 +30,11 @@ in
     self.modules.nixos.restic-nas-target # on-site repo for home-nas k8s volume backups
   ];
 
+  # Termix: add only this host's public key here, not the private key.
+  users.users.rdatar.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBbv16tZ3Tmi1CruX+HUzWj1nOgvs75yDSpJZtKmWKM3 termix"
+  ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 

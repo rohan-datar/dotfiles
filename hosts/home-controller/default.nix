@@ -23,6 +23,11 @@ in
     self.modules.nixos.auto-upgrade # unattended upgrades; last (most critical)
   ];
 
+  # Termix: add only this host's public key here, not the private key.
+  users.users.rdatar.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGYyMqsBczs9uKkrrEli7ex/RinG0qMJqrYJO1de64S9 callisto-termix"
+  ];
+
   system.autoUpgrade.dates = "*-*-* 06:30";
 
   # No aspect sets a bootloader; home-nas now declares its own systemd-boot in its host module.

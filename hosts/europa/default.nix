@@ -24,6 +24,11 @@ in
     self.modules.nixos.media-storage
   ];
 
+  # Termix: add only this host's public key here, not the private key.
+  users.users.rdatar.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGRiVyvaYnCdl0vptlAYqvaf4+0M4HAVfOB7W6GCZROn termix"
+  ];
+
   age.secrets.k3s-token.file = ../../secrets/k3s-token.age;
 
   services.k3s = {

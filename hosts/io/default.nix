@@ -17,6 +17,11 @@ in
     self.modules.nixos.k3s-etcd-restic # offsite etcd snapshots + server token (Storage Box)
   ];
 
+  # Termix: add only this host's public key here, not the private key.
+  users.users.rdatar.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICq10Ke+doDqkkH13k0d1Fgp2EoDGlkhJtVf5B4ffVb6 termix"
+  ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 

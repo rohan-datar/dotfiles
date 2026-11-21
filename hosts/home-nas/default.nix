@@ -24,6 +24,11 @@ in
     self.modules.nixos.auto-upgrade # unattended upgrades
   ];
 
+  # Termix: add only this host's public key here, not the private key.
+  users.users.rdatar.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILIg+/4BKXGCepaFElPicq5L0yfeuCoE7C4uZt2sTod7 ceres-termix"
+  ];
+
   # Match the UID/GID rdatar had on TrueNAS so ownership of existing pool data
   # (written over SMB as uid/gid 3001) stays correct. Other hosts keep uid 1000.
   users.users.rdatar = {
