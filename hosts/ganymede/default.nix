@@ -47,7 +47,8 @@ in
 
   services.prometheus.exporters.smartctl = {
     enable = true; # :9633, scraped only by home-controller
-    devices = map (device: "${device} -d sat") smartDevices;
+    # smartctl_exporter takes "path;type" (not smartctl's "-d" flag).
+    devices = map (device: "${device};sat") smartDevices;
   };
 
   services.smartd = {
