@@ -232,7 +232,7 @@ in
             {
               client_id = "qui";
               client_name = "Qui";
-              # Plaintext: QUI__OIDC_CLIENT_SECRET in secrets/qui-env.age
+              # Plaintext: QUI__OIDC_CLIENT_SECRET in oort-cloud apps/media/qui-env.sops.yaml
               client_secret = "$pbkdf2-sha512$310000$.6NJkIGCOogMAZ6FvCYuHw$lxFOGZAGD5GhsxUA1XXgqJdCnkjd2dZyQto9c9WZj/rxhz.9pa6CO2Tn6wnxRvuEBoh9vjsOlN0NgHbxnrJyow";
               public = false;
               # Qui is single-user: anyone this policy admits gets full access.

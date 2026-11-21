@@ -86,7 +86,6 @@ let
 in
 {
   "smbcredentials.age".publicKeys = rdatar-desktop ++ home-desktop;
-  "AirVPN-America-WG.conf.age".publicKeys = europa-keys;
   "homepage-env.age".publicKeys = europa-keys;
   "nix-access-tokens.conf.age".publicKeys = allKeys;
   "smtp-password.age".publicKeys = allKeys;
@@ -99,8 +98,6 @@ in
   "lldap-admin-password.age".publicKeys = home-controller-keys ++ rdatar-macbook;
   "cloudflare-dns-token.age".publicKeys =
     europa-system-keys ++ home-controller-system-keys ++ homelab-user-keys;
-  "qui-env.age".publicKeys = europa-keys;
-  "komga-authelia-oidc-env.age".publicKeys = europa-keys ++ rdatar-macbook;
   "paperless-admin-password.age".publicKeys = home-nas-keys;
   "paperless-oidc-env.age".publicKeys = home-nas-keys;
   "grafana-authelia-oidc-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
