@@ -21,6 +21,7 @@ _: {
           ];
           casks = [
             "zen"
+            "netbirdio/tap/netbird-ui"
           ];
           onActivation.cleanup = "zap";
           onActivation.autoUpdate = true;

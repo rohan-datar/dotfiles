@@ -69,12 +69,8 @@ in
     inherit (pkgs)
       mkalias
       iina
-      swiftlint
-      swift-format
-      xcbeautify
       vicinae
       appcleaner
-      openldap
       container
       ;
     emacs = inputs.editorconfig.packages.${system}.rdmacs;
