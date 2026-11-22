@@ -90,6 +90,10 @@ let
         ];
       };
 
+      # Mount the /home volume in the initrd: activation's createHome runs before systemd
+      # mounts ordinary filesystems, so otherwise the home lands under the mount point.
+      fileSystems."/home".neededForBoot = true;
+
       networking = {
         hostName = name;
         useNetworkd = true;
@@ -187,7 +191,10 @@ let
             "--service"
             "--no-open"
             "--port ${toString webPort}"
-            "--allow ${topology.gatewayAddress}/32"
+            # --allow names the network the listener serves: it binds this machine's
+            # address inside it and accepts its clients. The guest firewall then limits
+            # 4317 to OPNsense Caddy.
+            "--allow 10.10.0.0/19"
             "--public-url ${publicUrl}"
           ];
           Environment = unitEnv;
