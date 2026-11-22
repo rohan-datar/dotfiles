@@ -79,7 +79,7 @@ in
             {
               # Direct to the service, so this still works if OPNsense Caddy is down.
               name = "authelia";
-              url = "http://${topology.hosts.callisto.lanAddress}:9091/api/health";
+              url = "http://${topology.identity.autheliaVip}:9091/api/health";
               interval = "120s";
               conditions = [ "[STATUS] == 200" ];
               alerts = email;

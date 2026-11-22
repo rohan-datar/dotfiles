@@ -30,6 +30,14 @@
         identity = lib.mkOption {
           type = lib.types.submodule {
             options = {
+              autheliaVip = lib.mkOption {
+                type = lib.types.str;
+                description = "Cilium L4 VIP for Caddy and the europa SSO watchdog";
+              };
+              lldapProbeVip = lib.mkOption {
+                type = lib.types.str;
+                description = "Cilium L4 VIP for the native directory watchdog";
+              };
               hostname = lib.mkOption {
                 type = lib.types.str;
                 description = "Public hostname of the identity provider (Authelia's datars.org portal)";
@@ -98,6 +106,8 @@
     gatewayAddress = "10.10.0.1";
     k3sApiAddress = "10.10.2.1";
     identity = {
+      autheliaVip = "10.10.2.26";
+      lldapProbeVip = "10.10.2.27";
       hostname = "auth.datars.org";
     };
   };

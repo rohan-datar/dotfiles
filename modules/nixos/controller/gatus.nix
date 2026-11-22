@@ -116,7 +116,7 @@ in
                 name = "lldap";
                 group = "identity";
                 interval = "60s";
-                url = "tcp://${topology.hosts.callisto.lanAddress}:3890";
+                url = "tcp://${topology.identity.lldapProbeVip}:3890";
                 conditions = [ "[CONNECTED] == true" ];
                 alerts = email;
               }
