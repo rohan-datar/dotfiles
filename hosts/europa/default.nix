@@ -29,17 +29,19 @@ in
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGRiVyvaYnCdl0vptlAYqvaf4+0M4HAVfOB7W6GCZROn termix"
   ];
 
-  # Recovery bastion staging: private SSH port-forward only, no Caddy route.
+  # Native recovery bastion; only OPNsense Caddy can reach the backend.
   # Use fresh state; the retired Warpgate deployment used /var/lib/warpgate.
   services.warpgate = {
     enable = true;
     settings = {
       database_url = "sqlite:/var/lib/warpgate-recovery/db";
       http = {
-        listen = "127.0.0.1:8888";
+        listen = "${topology.hosts.europa.lanAddress}:8888";
+        external_host = "portal.rdatar.com";
+        external_port = 443;
         certificate = "/var/lib/warpgate-recovery/tls.certificate.pem";
         key = "/var/lib/warpgate-recovery/tls.key.pem";
-        trust_x_forwarded_headers = false;
+        trust_x_forwarded_headers = true;
       };
       ssh = {
         enable = false;
@@ -102,6 +104,13 @@ in
       22
       9100
     ];
+
+    # Prepend both rules so trusted interfaces and other allow rules cannot
+    # bypass the source check for this forwarded-header-trusting listener.
+    firewall.extraCommands = ''
+      iptables -I nixos-fw 1 -d ${topology.hosts.europa.lanAddress}/32 -p tcp --dport 8888 -j DROP
+      iptables -I nixos-fw 1 -i enp1s0 -s ${topology.gatewayAddress}/32 -d ${topology.hosts.europa.lanAddress}/32 -p tcp --dport 8888 -j nixos-fw-accept
+    '';
   };
 
   time.timeZone = "America/Chicago";
