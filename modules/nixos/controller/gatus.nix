@@ -153,6 +153,16 @@ in
 
               # --- Internally accessible endpoints ---
               {
+                # Probe Paperless through the internal Cilium Gateway, independently of Caddy.
+                name = "paperless-app";
+                group = "infra";
+                interval = "120s";
+                url = "http://10.10.2.20/accounts/login/";
+                headers.Host = "docs.datars.org";
+                conditions = [ "[STATUS] == 200" ];
+                alerts = ntfy;
+              }
+              {
                 # OPNsense Caddy + Authelia forward auth: unauthenticated -> 302 to login.
                 name = "media-forward-auth";
                 group = "media-ingress";
