@@ -12,13 +12,10 @@ in
     self.modules.nixos.k3s-joining-server # embedded etcd + light workloads
     self.modules.nixos.libvirt # generic libvirtd + virt-manager service
     ./haos.nix # HAOS guest: USB passthrough, domain definition
-    self.modules.nixos.authelia # SSO: forward auth + OIDC provider
-    self.modules.nixos.lldap # identity source of truth for Authelia and Jellyfin
     self.modules.nixos.metrics-agent # node_exporter, scraped by k3s Prometheus
     self.modules.nixos.gatus # independent watchdog and status page
     self.modules.nixos.speedtest # WAN throughput exporter + its hourly job
     self.modules.nixos.mail # msmtp transport for backup failure mail
-    self.modules.nixos.controller-restic # offsite identity backup (Storage Box)
     self.modules.nixos.auto-upgrade # unattended upgrades; last (most critical)
   ];
 
