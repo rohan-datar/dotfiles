@@ -106,9 +106,10 @@ in
       22
       9100
     ];
-    # smartctl_exporter (:9633): Prometheus on callisto only.
+    # smartctl_exporter (:9633): native Prometheus plus Cilium-filtered scrapers.
     firewall.extraCommands = ''
       iptables -A nixos-fw -p tcp -s ${topology.hosts.callisto.lanAddress} --dport 9633 -j nixos-fw-accept
+      iptables -A nixos-fw -p tcp -s 10.42.0.0/16 --dport 9633 -j nixos-fw-accept
     '';
   };
 

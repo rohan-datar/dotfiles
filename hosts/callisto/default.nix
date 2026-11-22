@@ -88,6 +88,10 @@ in
     nameservers = [ topology.gatewayAddress ];
     # SSH on the LAN bridge only.
     firewall.interfaces.br0.allowedTCPPorts = [ 22 ];
+    firewall.extraCommands = ''
+      # Prometheus pod scrapes are restricted by the cluster Cilium egress policy.
+      iptables -A nixos-fw -p tcp -s 10.42.0.0/16 --dport 9100 -j nixos-fw-accept
+    '';
   };
 
   time.timeZone = "America/Chicago";
