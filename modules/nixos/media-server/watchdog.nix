@@ -68,7 +68,7 @@ in
             # under auth-default-access=deny-all, and answers {"healthy":true}.
             {
               name = "ntfy";
-              url = "http://${topology.hosts.callisto.lanAddress}:2586/v1/health";
+              url = "https://ntfy.datars.org/v1/health";
               interval = "60s";
               conditions = [
                 "[STATUS] == 200"

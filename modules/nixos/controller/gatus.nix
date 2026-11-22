@@ -56,9 +56,9 @@ in
             };
           };
 
-          # Staging: everyday checks still use native ntfy until the explicit cutover.
+          # Everyday alerts use the stable HTTPS vhost, currently served by k3s.
           alerting.ntfy = {
-            url = "http://127.0.0.1:2586";
+            url = "https://ntfy.datars.org";
             topic = "homelab";
             token = "\${GATUS_NTFY_TOKEN}";
             default-alert = {
