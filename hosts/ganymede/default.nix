@@ -88,9 +88,26 @@ in
     NH_FLAKE = "/home/rdatar/nix";
   };
 
+  # Keep the microVM's LAN bridge L2-only for transit frames, as on callisto:
+  # k3s-node loads br_netfilter, but bridged guest traffic must not go through
+  # Kubernetes/Cilium's IP FORWARD hooks. The guest runs its own firewall.
+  boot.kernel.sysctl = {
+    "net.bridge.bridge-nf-call-iptables" = 0;
+    "net.bridge.bridge-nf-call-ip6tables" = 0;
+  };
+
   networking = {
     hostName = "ganymede";
-    interfaces.ens1f0.ipv4.addresses = [
+    # ens1f0 is now a bridge port; br0 carries the host IP (and k3s nodeIP stays
+    # 10.10.1.15). The kernel bridge takes the lowest port MAC, i.e. ens1f0's.
+    bridges.br0 = {
+      interfaces = [ "ens1f0" ];
+      rstp = false;
+    };
+    # Pin the bridge to ens1f0's MAC so a lower-addressed tap joining later can't
+    # change the host's L2 identity (router ARP, VIP announcements). Read 2026-11-22.
+    interfaces.br0.macAddress = "14:02:ec:89:da:c0";
+    interfaces.br0.ipv4.addresses = [
       {
         address = topology.hosts.ganymede.lanAddress;
         prefixLength = 19;
@@ -98,11 +115,11 @@ in
     ];
     defaultGateway = {
       address = topology.gatewayAddress;
-      interface = "ens1f0";
+      interface = "br0";
     };
     nameservers = [ topology.gatewayAddress ];
-    # SSH and node_exporter on the 10GbE LAN interface.
-    firewall.interfaces.ens1f0.allowedTCPPorts = [
+    # SSH and node_exporter on the 10GbE LAN bridge.
+    firewall.interfaces.br0.allowedTCPPorts = [
       22
       9100
     ];
