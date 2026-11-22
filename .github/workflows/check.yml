@@ -54,10 +54,10 @@ jobs:
       fail-fast: false
       matrix:
         host:
-          - home-controller
+          - callisto
           - home-desktop
           - europa
-          - home-nas
+          - ceres
           - io
           - ganymede
     steps:

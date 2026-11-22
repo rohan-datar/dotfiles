@@ -27,7 +27,7 @@ in
     self.modules.nixos.auto-upgrade # unattended upgrades
     self.modules.nixos.mail # msmtp transport for backup failure mail
     self.modules.nixos.onedev-restic # offsite OneDev backup (Storage Box)
-    self.modules.nixos.restic-nas-target # on-site repo for home-nas k8s volume backups
+    self.modules.nixos.restic-nas-target # on-site repo for ceres k8s volume backups
   ];
 
   # Termix: add only this host's public key here, not the private key.
@@ -51,7 +51,7 @@ in
   systemd.services.k3s.unitConfig.RequiresMountsFor = [ "/var/lib/rancher/k3s/storage" ];
 
   services.prometheus.exporters.smartctl = {
-    enable = true; # :9633, scraped only by home-controller
+    enable = true; # :9633, scraped only by callisto
     # smartctl_exporter takes "path;type" (not smartctl's "-d" flag).
     devices = map (device: "${device};sat") smartDevices;
   };
@@ -106,9 +106,9 @@ in
       22
       9100
     ];
-    # smartctl_exporter (:9633): Prometheus on home-controller only.
+    # smartctl_exporter (:9633): Prometheus on callisto only.
     firewall.extraCommands = ''
-      iptables -A nixos-fw -p tcp -s ${topology.hosts.home-controller.lanAddress} --dport 9633 -j nixos-fw-accept
+      iptables -A nixos-fw -p tcp -s ${topology.hosts.callisto.lanAddress} --dport 9633 -j nixos-fw-accept
     '';
   };
 

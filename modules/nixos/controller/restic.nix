@@ -3,7 +3,7 @@ _: {
   # passkey in the lab. lldap and Authelia via prepare-command SQLite .backup
   # (safe hot copies). Keycloak's final PostgreSQL dumps remain in older
   # snapshots until pruned.
-  # Same Storage Box as home-nas but its own repo:
+  # Same Storage Box as ceres but its own repo:
   # separate locking, separate blast radius.
   flake.modules.nixos.controller-restic =
     { config, pkgs, ... }:

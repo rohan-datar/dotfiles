@@ -1,11 +1,11 @@
 _: {
   # Shared outbound mail via iCloud SMTP (see Apple support 102525), split out of
-  # nas-alerts so home-controller's backup failure hooks can send too. Auth uses an
+  # nas-alerts so callisto's backup failure hooks can send too. Auth uses an
   # app-specific password stored in ragenix; regular Apple ID passwords are rejected.
   #
-  # From stays nas@rdatar.com on every host: iCloud rejects senders that aren't the
-  # account's primary address or a verified alias, and nas@ is the alias known to
-  # work. Switching to a host-neutral homelab@ needs that alias verified first.
+  # From uses host-neutral homelab@rdatar.com on every host. iCloud rejects senders
+  # that aren't the account's primary address or a verified alias; homelab@ is a
+  # verified alias on the account.
   flake.modules.nixos.mail =
     { config, pkgs, ... }:
     {
@@ -23,7 +23,7 @@ _: {
           # iCloud wants the account's primary address as the username; the custom-domain
           # address works as From once it's an alias on the account.
           user = "rohandatar@icloud.com";
-          from = "nas@rdatar.com";
+          from = "homelab@rdatar.com";
           # Absolute path required: passwordeval runs inside arbitrary service
           # contexts (smartd's unit has no coreutils in PATH, so bare `cat` fails).
           passwordeval = "${pkgs.uutils-coreutils-noprefix}/bin/cat ${config.age.secrets.smtp-password.path}";

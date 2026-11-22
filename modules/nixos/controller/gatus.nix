@@ -78,7 +78,7 @@ in
                 name = "lldap";
                 group = "identity";
                 interval = "60s";
-                url = "tcp://${topology.hosts.home-controller.lanAddress}:3890";
+                url = "tcp://${topology.hosts.callisto.lanAddress}:3890";
                 conditions = [ "[CONNECTED] == true" ];
                 alerts = ntfy;
               }
@@ -169,18 +169,18 @@ in
             (lib.mkAfter [
               # --- Infrastructure ---
               {
-                name = "nas-smb";
+                name = "ceres-smb";
                 group = "infra";
                 interval = "120s";
-                url = "tcp://${topology.hosts.home-nas.lanAddress}:445";
+                url = "tcp://${topology.hosts.ceres.lanAddress}:445";
                 conditions = [ "[CONNECTED] == true" ];
                 alerts = ntfy;
               }
               {
-                name = "home-assistant";
+                name = "homeassistant";
                 group = "infra";
                 interval = "120s";
-                url = "http://${topology.hosts.home-assistant.lanAddress}:8123";
+                url = "http://${topology.hosts.homeassistant.lanAddress}:8123";
                 conditions = [ "[STATUS] < 400" ];
                 alerts = ntfy;
               }

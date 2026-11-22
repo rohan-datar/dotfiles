@@ -14,13 +14,13 @@ let
   ];
   europa-keys = europa-system-keys ++ homelab-user-keys;
 
-  home-nas-system-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhTxnfP8wJU3mCZKKAZwesBb31QeQ0dSo/Lx0thyG6X";
-  home-nas-system-keys = [ home-nas-system-ed25519 ];
-  home-nas-keys = home-nas-system-keys ++ homelab-user-keys;
+  ceres-system-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBhTxnfP8wJU3mCZKKAZwesBb31QeQ0dSo/Lx0thyG6X";
+  ceres-system-keys = [ ceres-system-ed25519 ];
+  ceres-keys = ceres-system-keys ++ homelab-user-keys;
 
-  home-controller-system-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN31h8o/Mo0cBJGV4nfSKEFZ03cy3e5mJ/Ic2VTsiPQN";
-  home-controller-system-keys = [ home-controller-system-ed25519 ];
-  home-controller-keys = home-controller-system-keys ++ homelab-user-keys;
+  callisto-system-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN31h8o/Mo0cBJGV4nfSKEFZ03cy3e5mJ/Ic2VTsiPQN";
+  callisto-system-keys = [ callisto-system-ed25519 ];
+  callisto-keys = callisto-system-keys ++ homelab-user-keys;
 
   io-system-ed25519 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBg+RWKyB20qBJMD2vAThzvNdTOBmaTJM0tKIyw0Mk9X";
   io-system-keys = [ io-system-ed25519 ];
@@ -53,8 +53,8 @@ let
 
   restic-keys =
     homelab-user-keys
-    ++ home-nas-system-keys
-    ++ home-controller-system-keys
+    ++ ceres-system-keys
+    ++ callisto-system-keys
     ++ ganymede-system-keys
     ++ io-system-keys
     ++ europa-system-keys
@@ -67,8 +67,8 @@ let
     homelab-user-keys
     ++ home-desktop
     ++ europa-system-keys
-    ++ home-controller-system-keys
-    ++ home-nas-system-keys
+    ++ callisto-system-keys
+    ++ ceres-system-keys
     ++ io-system-keys
     ++ ganymede-system-keys;
 
@@ -78,8 +78,8 @@ let
     ++ rdatar-macbook
     ++ homelab-user-keys
     ++ europa-system-keys
-    ++ home-controller-system-keys
-    ++ home-nas-system-keys
+    ++ callisto-system-keys
+    ++ ceres-system-keys
     ++ io-system-keys
     ++ ganymede-system-keys;
 
@@ -89,24 +89,24 @@ in
   "homepage-env.age".publicKeys = europa-keys;
   "nix-access-tokens.conf.age".publicKeys = allKeys;
   "smtp-password.age".publicKeys = allKeys;
-  "authelia-jwt-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
-  "authelia-session-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
-  "authelia-storage-encryption-key.age".publicKeys = home-controller-keys ++ rdatar-macbook;
-  "authelia-oidc-issuer-key.age".publicKeys = home-controller-keys ++ rdatar-macbook;
-  "authelia-oidc-hmac-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
-  "lldap-env.age".publicKeys = home-controller-keys ++ rdatar-macbook;
-  "lldap-admin-password.age".publicKeys = home-controller-keys ++ rdatar-macbook;
+  "authelia-jwt-secret.age".publicKeys = callisto-keys ++ rdatar-macbook;
+  "authelia-session-secret.age".publicKeys = callisto-keys ++ rdatar-macbook;
+  "authelia-storage-encryption-key.age".publicKeys = callisto-keys ++ rdatar-macbook;
+  "authelia-oidc-issuer-key.age".publicKeys = callisto-keys ++ rdatar-macbook;
+  "authelia-oidc-hmac-secret.age".publicKeys = callisto-keys ++ rdatar-macbook;
+  "lldap-env.age".publicKeys = callisto-keys ++ rdatar-macbook;
+  "lldap-admin-password.age".publicKeys = callisto-keys ++ rdatar-macbook;
   "cloudflare-dns-token.age".publicKeys =
-    europa-system-keys ++ home-controller-system-keys ++ homelab-user-keys;
-  "paperless-admin-password.age".publicKeys = home-nas-keys;
-  "paperless-oidc-env.age".publicKeys = home-nas-keys;
-  "grafana-authelia-oidc-secret.age".publicKeys = home-controller-keys ++ rdatar-macbook;
+    europa-system-keys ++ callisto-system-keys ++ homelab-user-keys;
+  "paperless-admin-password.age".publicKeys = ceres-keys;
+  "paperless-oidc-env.age".publicKeys = ceres-keys;
+  "grafana-authelia-oidc-secret.age".publicKeys = callisto-keys ++ rdatar-macbook;
   "upgrade-ntfy-env.age".publicKeys =
     homelab-user-keys
     ++ rdatar-macbook
     ++ europa-system-keys
-    ++ home-nas-system-keys
-    ++ home-controller-system-keys
+    ++ ceres-system-keys
+    ++ callisto-system-keys
     ++ io-system-keys
     ++ ganymede-system-keys;
   "k3s-token.age".publicKeys =
@@ -116,8 +116,8 @@ in
     ++ ganymede-system-keys
     ++ europa-system-keys;
   "gatus-env.age".publicKeys =
-    homelab-user-keys ++ home-controller-system-keys ++ europa-system-keys ++ rdatar-macbook;
-  "ha-prometheus-token.age".publicKeys = home-controller-keys ++ rdatar-macbook;
+    homelab-user-keys ++ callisto-system-keys ++ europa-system-keys ++ rdatar-macbook;
+  "ha-prometheus-token.age".publicKeys = callisto-keys ++ rdatar-macbook;
   "storagebox-ssh-key.age".publicKeys = restic-keys;
   "storagebox-netrc.age".publicKeys = nix-cache-keys;
   "restic-password.age".publicKeys = restic-keys;

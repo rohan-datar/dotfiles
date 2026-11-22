@@ -51,7 +51,7 @@ in
           # Admin web UI on the LAN.
           http_host = "0.0.0.0";
           http_port = 17170;
-          http_url = "http://${topology.hosts.home-controller.lanAddress}:17170";
+          http_url = "http://${topology.hosts.callisto.lanAddress}:17170";
           ldap_user_email = "me@rdatar.com";
         };
       };

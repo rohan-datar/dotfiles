@@ -34,10 +34,10 @@
       europa = {
         class = "nixos";
       };
-      home-nas = {
+      ceres = {
         class = "nixos";
       };
-      home-controller = {
+      callisto = {
         class = "nixos";
       };
       io = {

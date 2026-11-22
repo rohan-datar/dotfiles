@@ -7,7 +7,7 @@ _: {
       openFirewall = true;
       settings = {
         global = {
-          "server string" = "home-nas";
+          "server string" = "ceres";
           "min protocol" = "SMB3";
           "server smb encrypt" = "required";
           # macOS compatibility (fruit) globals:

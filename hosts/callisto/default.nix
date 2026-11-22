@@ -34,7 +34,7 @@ in
 
   system.autoUpgrade.dates = "*-*-* 06:30";
 
-  # No aspect sets a bootloader; home-nas now declares its own systemd-boot in its host module.
+  # No aspect sets a bootloader; ceres now declares its own systemd-boot in its host module.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -46,11 +46,11 @@ in
   };
 
   networking = {
-    hostName = "home-controller";
+    hostName = "callisto";
     bridges.br0.interfaces = [ "eno1" ];
     interfaces.br0.ipv4.addresses = [
       {
-        address = topology.hosts.home-controller.lanAddress;
+        address = topology.hosts.callisto.lanAddress;
         prefixLength = 19;
       }
     ]; # host's own IP

@@ -28,8 +28,8 @@ config.easy-hosts = {
   hosts = {
     home-desktop = { class = "nixos"; };
     europa = { class = "nixos"; };
-    home-nas = { class = "nixos"; };
-    home-controller = { class = "nixos"; };
+    ceres = { class = "nixos"; };
+    callisto = { class = "nixos"; };
     Rohans-MacBook = { arch = "aarch64"; class = "darwin"; };
   };
 };
@@ -59,14 +59,14 @@ Flake-parts aspects capture `config.flake.meta.topology` in an outer `let`, befo
 
 `media-storage.nix` owns the media export path and client mount point, and defines both sides of the NFS relationship:
 
-- `flake.modules.nixos.nas-nfs` — NAS LAN NFSv4 export and source-IP firewall access for k3s nodes, explicitly imported by `home-nas`.
+- `flake.modules.nixos.nas-nfs` — NAS LAN NFSv4 export and source-IP firewall access for k3s nodes, explicitly imported by `ceres`.
 - `flake.modules.nixos.media-storage` — client mount, explicitly imported by `europa`.
 
 Both aspects consume the shared address inventory. The Arr media directory, dashboard disk widget, and NAS backup exclusion also consume the relationship's paths. Defining inventory data does not activate either aspect.
 
 `media-monitoring.nix` owns the private list of direct media liveness probes (`flake.modules.nixos.media-probes`, imported by the controller's `gatus` aspect), targeting Cilium's `gateway/internal` VIP (`10.10.2.20`). Public authentication/certificate checks remain separate. Gatus uses `mkBefore` and `mkAfter` around the relationship's endpoints to preserve the existing display order; importing `media-probes` alone does not enable Gatus.
 
-Keep repeated cross-host facts in the inventory and co-locate the two sides of a relationship where useful. Interface names, prefix lengths, hardware configuration, and application policy stay local. `home-assistant` is an external HAOS guest endpoint in the inventory, not another flake-managed host; its guest network configuration is not managed by the inventory.
+Keep repeated cross-host facts in the inventory and co-locate the two sides of a relationship where useful. Interface names, prefix lengths, hardware configuration, and application policy stay local. `homeassistant` is an external HAOS guest endpoint in the inventory, not another flake-managed host; its guest network configuration is not managed by the inventory.
 
 ### Class-specific aspects (`modules/nixos/` and `modules/darwin/`)
 
@@ -78,9 +78,9 @@ The graphical umbrellas also import `modules/ai.nix`, which installs OMP, prime-
 
 ### Host-local hardware and guests
 
-`hosts/home-nas/default.nix` owns its stable ZFS host ID, existing pool import, and bootloader/EFI choices. The `nas-zfs` aspect supplies ZFS support and scrub/trim maintenance, not those machine-specific values.
+`hosts/ceres/default.nix` owns its stable ZFS host ID, existing pool import, and bootloader/EFI choices. The `nas-zfs` aspect supplies ZFS support and scrub/trim maintenance, not those machine-specific values.
 
-The controller imports the reusable `libvirt` aspect plus the plain host module `hosts/home-controller/haos.nix`. The latter owns the guest's USB passthrough policy, shutdown behavior, and domain-definition service next to `haos.xml`. The XML remains the source of the persistent domain definition; a switch does not intentionally restart the running guest.
+The controller imports the reusable `libvirt` aspect plus the plain host module `hosts/callisto/haos.nix`. The latter owns the guest's USB passthrough policy, shutdown behavior, and domain-definition service next to `haos.xml`. The XML remains the source of the persistent domain definition; a switch does not intentionally restart the running guest.
 
 ### Home Manager aspects (`modules/home/`)
 

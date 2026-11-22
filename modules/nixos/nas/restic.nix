@@ -6,7 +6,7 @@ in
   # Offsite documents backup: nightly paperless export + the general SMB share,
   # minus media and books (RAIDZ1 + sanoid cover those; treated as re-obtainable).
   # Repo-per-host on the Hetzner Storage Box over SFTP:23 with a dedicated
-  # keypair — separate locking and blast radius from home-controller's repo.
+  # keypair — separate locking and blast radius from callisto's repo.
   # Failure path: Persistent=true replays missed runs, OnFailure mails via the
   # shared `mail` aspect's backup-failure-email@ template.
   flake.modules.nixos.nas-restic =

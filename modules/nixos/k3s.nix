@@ -2,7 +2,7 @@
 let
   topology = config.flake.meta.topology;
   ioAddress = topology.hosts.io.lanAddress;
-  scraperAddress = topology.hosts.home-controller.lanAddress;
+  scraperAddress = topology.hosts.callisto.lanAddress;
 in
 {
   # Shared baseline for all k3s cluster nodes (both control-plane servers and
@@ -32,7 +32,7 @@ in
         "net.ipv4.ip_forward" = lib.mkDefault 1;
       };
 
-      # Required for NFS and iSCSI PersistentVolumeClaims against home-nas.
+      # Required for NFS and iSCSI PersistentVolumeClaims against ceres.
       services.rpcbind.enable = true;
       services.openiscsi = {
         enable = true;
@@ -117,7 +117,7 @@ in
           4240
           4244
         ];
-        # Cilium agent (9962) and Hubble (9965) metrics: Prometheus on home-controller only.
+        # Cilium agent (9962) and Hubble (9965) metrics: Prometheus on callisto only.
         # Cilium's Gateway/L7 proxy uses TPROXY: packets of proxied connections carry fwmark
         # 0x200 and are routed to local delivery (ip rule → table 2004). The loose reverse-path
         # check evaluates the source with that mark, finds the local route, and drops them, so

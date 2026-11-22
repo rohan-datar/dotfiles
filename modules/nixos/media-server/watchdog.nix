@@ -3,12 +3,12 @@ let
   topology = config.flake.meta.topology;
 in
 {
-  # Who watches home-controller? A second, tiny Gatus lives here and watches only
+  # Who watches callisto? A second, tiny Gatus lives here and watches only
   # the things the main Gatus cannot report on: itself and its host. Loopback
   # only — it has no UI worth exposing, it exists to send mail. Port 8181 because
   # homepage owns 8082.
   #
-  # Accepted failure mode: if europa and home-controller die together nobody
+  # Accepted failure mode: if europa and callisto die together nobody
   # mails. That is what the family texting you is for.
   flake.modules.nixos.media-watchdog =
     { config, ... }:
@@ -35,7 +35,7 @@ in
           };
 
           alerting.email = {
-            from = "status@rdatar.com";
+            from = "homelab@rdatar.com";
             username = "rohandatar@icloud.com";
             password = "\${GATUS_SMTP_PASSWORD}";
             host = "smtp.mail.me.com";
@@ -50,15 +50,15 @@ in
 
           endpoints = [
             {
-              name = "controller-host";
-              url = "icmp://${topology.hosts.home-controller.lanAddress}";
+              name = "callisto-host";
+              url = "icmp://${topology.hosts.callisto.lanAddress}";
               interval = "60s";
               conditions = [ "[CONNECTED] == true" ];
               alerts = email;
             }
             {
               name = "main-gatus";
-              url = "http://${topology.hosts.home-controller.lanAddress}:8081/health";
+              url = "http://${topology.hosts.callisto.lanAddress}:8081/health";
               interval = "60s";
               conditions = [ "[STATUS] == 200" ];
               alerts = email;
@@ -68,7 +68,7 @@ in
             # under auth-default-access=deny-all, and answers {"healthy":true}.
             {
               name = "ntfy";
-              url = "http://${topology.hosts.home-controller.lanAddress}:2586/v1/health";
+              url = "http://${topology.hosts.callisto.lanAddress}:2586/v1/health";
               interval = "60s";
               conditions = [
                 "[STATUS] == 200"
@@ -79,7 +79,7 @@ in
             {
               # Direct to the service, so this still works if OPNsense Caddy is down.
               name = "authelia";
-              url = "http://${topology.hosts.home-controller.lanAddress}:9091/api/health";
+              url = "http://${topology.hosts.callisto.lanAddress}:9091/api/health";
               interval = "120s";
               conditions = [ "[STATUS] == 200" ];
               alerts = email;

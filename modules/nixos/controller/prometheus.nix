@@ -29,9 +29,9 @@ in
           static_configs = [
             {
               targets = [
-                "localhost:9100" # home-controller
+                "localhost:9100" # callisto
                 "${topology.hosts.europa.lanAddress}:9100" # europa
-                "${topology.hosts.home-nas.lanAddress}:9100" # home-nas
+                "${topology.hosts.ceres.lanAddress}:9100" # ceres
                 "${topology.hosts.io.lanAddress}:9100" # io (k3s control-plane)
                 "${topology.hosts.ganymede.lanAddress}:9100" # ganymede (k3s worker / ML350)
                 "${topology.gatewayAddress}:9100" # OPNsense (os-node_exporter)
@@ -41,14 +41,14 @@ in
         }
         {
           job_name = "zfs";
-          static_configs = [ { targets = [ "${topology.hosts.home-nas.lanAddress}:9134" ]; } ];
+          static_configs = [ { targets = [ "${topology.hosts.ceres.lanAddress}:9134" ]; } ];
         }
         {
           job_name = "smartctl";
           static_configs = [
             {
               targets = [
-                "${topology.hosts.home-nas.lanAddress}:9633"
+                "${topology.hosts.ceres.lanAddress}:9633"
                 "${topology.hosts.ganymede.lanAddress}:9633"
               ];
             }
@@ -95,7 +95,7 @@ in
           job_name = "homeassistant";
           metrics_path = "/api/prometheus";
           bearer_token_file = config.age.secrets.ha-prometheus-token.path;
-          static_configs = [ { targets = [ "${topology.hosts.home-assistant.lanAddress}:8123" ]; } ];
+          static_configs = [ { targets = [ "${topology.hosts.homeassistant.lanAddress}:8123" ]; } ];
         }
       ];
     };

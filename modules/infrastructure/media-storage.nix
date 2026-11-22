@@ -8,7 +8,7 @@ in
     mountPoint = "/mnt/media";
   };
 
-  # NAS side: export the media dataset over LAN NFSv4 (ADR 0014). Imported by home-nas.
+  # NAS side: export the media dataset over LAN NFSv4 (ADR 0014). Imported by ceres.
   # - Exported strictly to the k3s pool node LAN IPs (the dedicated 10.10.100.0/30 link is retired).
   # - europa keeps no_root_squash while native services still run there; io and ganymede only
   #   ever mount through the kubelet for non-root pods, so root is squashed.
@@ -36,7 +36,7 @@ in
   # Media side: mount the NAS export over LAN NFSv4.2. Imported by europa.
   flake.modules.nixos.media-storage = _: {
     fileSystems."${topology.mediaStorage.mountPoint}" = {
-      device = "${topology.hosts.home-nas.lanAddress}:${topology.mediaStorage.exportPath}";
+      device = "${topology.hosts.ceres.lanAddress}:${topology.mediaStorage.exportPath}";
       fsType = "nfs";
       options = [ "nfsvers=4.2" ];
     };

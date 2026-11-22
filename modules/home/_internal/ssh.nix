@@ -24,13 +24,13 @@ in
           User = "rdatar";
           IdentityFile = "~/.ssh/id_ed25519";
         };
-        "homenas" = {
-          HostName = topology.hosts.home-nas.lanAddress;
+        "ceres" = {
+          HostName = topology.hosts.ceres.lanAddress;
           User = "rdatar";
           IdentityFile = "~/.ssh/id_ed25519";
         };
-        "homecontroller" = {
-          HostName = topology.hosts.home-controller.lanAddress;
+        "callisto" = {
+          HostName = topology.hosts.callisto.lanAddress;
           User = "rdatar";
           IdentityFile = "~/.ssh/id_ed25519";
         };

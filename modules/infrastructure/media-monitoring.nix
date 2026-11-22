@@ -1,8 +1,8 @@
 _:
 let
-  # The direct media liveness relationship (ADR 0008): Gatus on home-controller probes
+  # The direct media liveness relationship (ADR 0008): Gatus on callisto probes
   # each k3s media app directly through Cilium's internal Gateway VIP (10.10.2.20,
-  # restricted to HA + home-controller), bypassing OPNsense Caddy and Authelia forward-auth.
+  # restricted to HA + callisto), bypassing OPNsense Caddy and Authelia forward-auth.
   internalGatewayVip = "10.10.2.20";
 
   # Every probe pushes on the same policy, so name the list once.

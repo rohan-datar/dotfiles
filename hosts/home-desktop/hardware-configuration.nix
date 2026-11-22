@@ -61,7 +61,7 @@
 
   age.secrets.smbcredentials.file = ../../secrets/smbcredentials.age;
   fileSystems."/mnt/data-share" = {
-    device = "//${self.meta.topology.hosts.home-nas.lanAddress}/data-share";
+    device = "//${self.meta.topology.hosts.ceres.lanAddress}/data-share";
     fsType = "cifs";
     options =
       let

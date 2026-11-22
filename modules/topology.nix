@@ -51,7 +51,7 @@
             options = {
               exportPath = lib.mkOption {
                 type = lib.types.str;
-                description = "Export path on the NAS (home-nas) for the media NFS share";
+                description = "Export path on the NAS (ceres) for the media NFS share";
               };
               mountPoint = lib.mkOption {
                 type = lib.types.str;
@@ -70,13 +70,13 @@
   # infrastructure/media-storage.nix so the NAS↔media relationship owns them.
   config.flake.meta.topology = {
     hosts = {
-      home-nas = {
+      ceres = {
         lanAddress = "10.10.1.10";
       };
       europa = {
         lanAddress = "10.10.1.11";
       };
-      home-controller = {
+      callisto = {
         lanAddress = "10.10.1.13";
       };
       io = {
@@ -86,7 +86,7 @@
         lanAddress = "10.10.1.15";
       };
       # External HAOS VM endpoint, not a managed flake host.
-      home-assistant = {
+      homeassistant = {
         lanAddress = "10.10.1.12";
       };
     };

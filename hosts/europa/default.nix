@@ -18,7 +18,7 @@ in
     self.modules.nixos.bluetooth
     self.modules.nixos.k3s-agent
     self.modules.nixos.metrics-agent
-    self.modules.nixos.media-watchdog # watches home-controller from the outside
+    self.modules.nixos.media-watchdog # watches callisto from the outside
     self.modules.nixos.auto-upgrade # unattended upgrades; canary slot, first
     self.modules.nixos.mail # msmtp transport for backup failure mail
     self.modules.nixos.media-storage

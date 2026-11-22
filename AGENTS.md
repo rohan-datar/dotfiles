@@ -59,8 +59,8 @@ Hosts are defined in `modules/hosts.nix` with their class and architecture:
 |------|-------|------|------|
 | **home-desktop** | nixos | x86_64 | Desktop (Niri/Noctalia, NVIDIA) |
 | **europa** | nixos | x86_64 | k3s worker & media server (arr stack, Jellyfin) — no home-manager |
-| **home-nas** | nixos | x86_64 | ZFS storage, SMB/NFS, Paperless — no home-manager |
-| **home-controller** | nixos | x86_64 | Home Assistant VM, identity, monitoring — no home-manager |
+| **ceres** | nixos | x86_64 | ZFS storage, SMB/NFS, Paperless — no home-manager |
+| **callisto** | nixos | x86_64 | Home Assistant VM, identity, monitoring — no home-manager |
 | **Rohans-MacBook** | darwin | aarch64 | MacBook (Paneru, Homebrew) |
 
 `perClass` applies `self.modules.<class>.default`. Each host dir (`hosts/{name}/`) has `default.nix` plus `hardware-configuration.nix` and `user.nix` where applicable; everything else is opted into by importing aspects (e.g. `self.modules.nixos.graphical`, `self.modules.nixos.rdatar`).
@@ -90,7 +90,7 @@ Keep shared addresses and identity naming in the topology inventory. `modules/in
 
 `modules/infrastructure/media-monitoring.nix` owns the private direct-probe list (`media-probes`, imported by `gatus`), probing k3s media apps directly through Cilium's `gateway/internal` VIP (`10.10.2.20`) bypassing OPNsense Caddy and Authelia forward auth. Public auth checks remain separate; preserve endpoint ordering when changing the Gatus composition.
 
-The NixOS `graphical` umbrella does not choose a session: `home-desktop` explicitly imports `niri-desktop`. Keep scaling and workstation DRM workarounds host-local, and NVIDIA environment settings in `nvidia`. NAS host ID/pool/boot policy lives in `hosts/home-nas/default.nix`; the controller imports generic `libvirt` plus its plain `haos.nix` module for guest-specific USB, shutdown, and domain policy.
+The NixOS `graphical` umbrella does not choose a session: `home-desktop` explicitly imports `niri-desktop`. Keep scaling and workstation DRM workarounds host-local, and NVIDIA environment settings in `nvidia`. NAS host ID/pool/boot policy lives in `hosts/ceres/default.nix`; the controller imports generic `libvirt` plus its plain `haos.nix` module for guest-specific USB, shutdown, and domain policy.
 
 ### Home Manager Integration
 

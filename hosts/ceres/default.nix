@@ -44,14 +44,14 @@ in
   };
 
   networking = {
-    hostName = "home-nas";
+    hostName = "ceres";
     # Required by ZFS; arbitrary but must stay stable for this host.
     hostId = "9796c885";
     interfaces = {
       # LAN (2.5G), matches current NAS IP so Caddy/homepage upstreams don't change.
       enp2s0.ipv4.addresses = [
         {
-          address = topology.hosts.home-nas.lanAddress;
+          address = topology.hosts.ceres.lanAddress;
           prefixLength = 19;
         }
       ]; # REPLACE iface name
