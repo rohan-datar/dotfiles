@@ -11,7 +11,8 @@ in
   flake.modules.nixos.gatus =
     { config, ... }:
     let
-      # Every endpoint pushes on the same policy, so name the list once.
+      # Cluster/identity failure must not depend on in-cluster notifications.
+      email = [ { type = "email"; } ];
       ntfy = [ { type = "ntfy"; } ];
 
     in
@@ -19,6 +20,10 @@ in
       # Direct probes of the media apps come
       imports = [ self.modules.nixos.media-probes ];
       age.secrets.gatus-env.file = ../../../secrets/gatus-env.age;
+      age.secrets.gatus-watchdog-env.file = ../../../secrets/gatus-watchdog-env.age;
+      systemd.services.gatus.serviceConfig.EnvironmentFile = lib.mkAfter [
+        config.age.secrets.gatus-watchdog-env.path
+      ];
 
       services.gatus = {
         enable = true;
@@ -36,6 +41,22 @@ in
             path = "/var/lib/gatus/data.db";
           };
 
+          # Same independent iCloud transport and sender as europa's native watchdog.
+          alerting.email = {
+            from = "homelab@rdatar.com";
+            username = "rohandatar@icloud.com";
+            password = "\${GATUS_SMTP_PASSWORD}";
+            host = "smtp.mail.me.com";
+            port = 587;
+            to = "me@rdatar.com";
+            default-alert = {
+              failure-threshold = 3;
+              success-threshold = 2;
+              send-on-resolved = true;
+            };
+          };
+
+          # Staging: everyday checks still use native ntfy until the explicit cutover.
           alerting.ntfy = {
             url = "http://127.0.0.1:2586";
             topic = "homelab";
@@ -46,6 +67,23 @@ in
               send-on-resolved = true;
             };
           };
+
+          external-endpoints = [
+            {
+              name = "monitoring-watchdog";
+              group = "cluster";
+              token = "\${GATUS_WATCHDOG_TOKEN}";
+              heartbeat.interval = "6m";
+              alerts = [
+                {
+                  type = "email";
+                  failure-threshold = 1;
+                  success-threshold = 1;
+                  send-on-resolved = true;
+                }
+              ];
+            }
+          ];
 
           endpoints = lib.mkMerge [
             (lib.mkBefore [
@@ -60,7 +98,7 @@ in
                   "[STATUS] == 200"
                   "[CERTIFICATE_EXPIRATION] > 240h"
                 ];
-                alerts = ntfy;
+                alerts = email;
               }
               {
                 # Forward-auth portal for *.rdatar.com (cookie domains need their own portal).
@@ -72,7 +110,7 @@ in
                   "[STATUS] == 200"
                   "[CERTIFICATE_EXPIRATION] > 240h"
                 ];
-                alerts = ntfy;
+                alerts = email;
               }
               {
                 name = "lldap";
@@ -80,7 +118,7 @@ in
                 interval = "60s";
                 url = "tcp://${topology.hosts.callisto.lanAddress}:3890";
                 conditions = [ "[CONNECTED] == true" ];
-                alerts = ntfy;
+                alerts = email;
               }
 
               # --- Public vhosts. ---
@@ -173,7 +211,7 @@ in
                   "[STATUS] == 302"
                   "[CERTIFICATE_EXPIRATION] > 240h"
                 ];
-                alerts = ntfy;
+                alerts = email;
               }
             ])
             (lib.mkAfter [
@@ -229,12 +267,12 @@ in
                 alerts = ntfy;
               }
               {
-                name = "io-k3s-api";
+                name = "k3s-api";
                 group = "infra";
                 interval = "60s";
-                url = "tcp://${topology.hosts.io.lanAddress}:6443";
+                url = "tcp://${topology.k3sApiAddress}:6443";
                 conditions = [ "[CONNECTED] == true" ];
-                alerts = ntfy;
+                alerts = email;
               }
             ])
           ];

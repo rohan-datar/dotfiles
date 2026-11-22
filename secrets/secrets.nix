@@ -117,6 +117,7 @@ in
     ++ callisto-system-keys;
   "gatus-env.age".publicKeys =
     homelab-user-keys ++ callisto-system-keys ++ europa-system-keys ++ rdatar-macbook;
+  "gatus-watchdog-env.age".publicKeys = callisto-keys ++ rdatar-macbook;
   "ha-prometheus-token.age".publicKeys = callisto-keys ++ rdatar-macbook;
   "storagebox-ssh-key.age".publicKeys = restic-keys;
   "storagebox-netrc.age".publicKeys = nix-cache-keys;

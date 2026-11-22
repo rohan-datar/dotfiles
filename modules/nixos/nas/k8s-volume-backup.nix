@@ -2,7 +2,7 @@ _: {
   # Backups of the k3s durable tier (ADR 0014 step 6). The app volumes are ZFS zvols with
   # ext4 inside (democratic-csi, data-pool/k8s/iscsi), so file-level restic can't see their
   # contents. Each job, on its own:
-  #   1. snapshots every zvol, clones the snapshot under data-pool/k8s/backup-clones,
+  #   1. snapshots selected zvols, clones the snapshot under data-pool/k8s/backup-clones,
   #   2. mounts each clone read-only at /run/<job>/<namespace>/<pvc> (stable paths, so restic
   #      deduplicates run to run; the clone is writable so ext4 can replay its journal),
   #   3. runs restic over that tree, then unmounts and destroys clones + snapshots (also on
@@ -22,7 +22,7 @@ _: {
       zfs = "${config.boot.zfs.package}/bin/zfs";
       clones = "data-pool/k8s/backup-clones";
       keyDir = "/mnt/data-pool/k8s/backup-keys"; # on the pool: moves with a chassis swap
-      prepare = job: ''
+      prepare = job: excludedPVCs: ''
         set -euo pipefail
         ${cleanup job}
         stamp="${job}-$(date +%Y%m%d%H%M%S)"
@@ -30,6 +30,12 @@ _: {
         for zv in $(${zfs} list -H -o name -t volume -r data-pool/k8s/iscsi); do
           pvc=$(${zfs} get -H -o value org.rdatar:pvc "$zv")
           [ "$pvc" = "-" ] && pvc="unlabelled/$(basename "$zv")"
+          ${lib.optionalString (excludedPVCs != [ ]) ''
+            # Exclude only these exact org.rdatar:pvc labels before making snapshots.
+            case "$pvc" in
+              ${lib.concatMapStringsSep "|" lib.escapeShellArg excludedPVCs}) continue ;;
+            esac
+          ''}
           ${zfs} snapshot "$zv@$stamp"
           clone="${clones}/${job}-$(basename "$zv")"
           ${zfs} clone "$zv@$stamp" "$clone"
@@ -50,13 +56,13 @@ _: {
           ${zfs} destroy "$s"
         done
       '';
-      job = name: repository: sftpCommand: timer: keep: {
+      job = name: repository: sftpCommand: timer: keep: excludedPVCs: {
         inherit repository;
         passwordFile = config.age.secrets.restic-password.path;
         extraOptions = [ "sftp.command='${sftpCommand}'" ];
         initialize = true;
         paths = [ "/run/${name}" ];
-        backupPrepareCommand = prepare name;
+        backupPrepareCommand = prepare name excludedPVCs;
         backupCleanupCommand = cleanup name;
         timerConfig = {
           OnCalendar = timer;
@@ -81,7 +87,8 @@ _: {
               "--keep-daily 14"
               "--keep-weekly 8"
               "--keep-monthly 6"
-            ];
+            ]
+            [ ];
         k8s-volumes-storagebox =
           job "k8s-volumes-storagebox" "sftp:u630851-sub1@u630851.your-storagebox.de:restic/ceres-k8s"
             "ssh -p 23 -i ${config.age.secrets.storagebox-ssh-key.path} -o StrictHostKeyChecking=accept-new u630851-sub1@u630851.your-storagebox.de -s sftp"
@@ -90,6 +97,11 @@ _: {
               "--keep-daily 7"
               "--keep-weekly 5"
               "--keep-monthly 12"
+            ]
+            [
+              # Reconstructible metrics stay in the onsite backup; ntfy remains offsite.
+              "monitoring/prometheus-lab-prometheus-db-prometheus-lab-prometheus-0"
+              "monitoring/prometheus-lab-prometheus-db-prometheus-lab-prometheus-1"
             ];
       };
 
