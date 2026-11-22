@@ -16,7 +16,7 @@ in
       age.secrets.storagebox-ssh-key.file = ../../../secrets/storagebox-ssh-key.age;
 
       services.restic.backups.data = {
-        repository = "sftp:u630851-sub1@u630851.your-storagebox.de:restic/home-nas";
+        repository = "sftp:u630851-sub1@u630851.your-storagebox.de:restic/ceres";
         passwordFile = config.age.secrets.restic-password.path;
         extraOptions = [
           "sftp.command='ssh -p 23 -i ${config.age.secrets.storagebox-ssh-key.path} -o StrictHostKeyChecking=accept-new u630851-sub1@u630851.your-storagebox.de -s sftp'"

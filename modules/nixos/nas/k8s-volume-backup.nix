@@ -74,7 +74,7 @@ _: {
 
       services.restic.backups = {
         k8s-volumes-ganymede =
-          job "k8s-volumes-ganymede" "sftp:restic-nas@10.10.1.15:/srv/restic-nas/home-nas-k8s"
+          job "k8s-volumes-ganymede" "sftp:restic-nas@10.10.1.15:/srv/restic-nas/ceres-k8s"
             "ssh -i ${keyDir}/id_ed25519 -o StrictHostKeyChecking=accept-new restic-nas@10.10.1.15 -s sftp"
             "01:00"
             [
@@ -83,7 +83,7 @@ _: {
               "--keep-monthly 6"
             ];
         k8s-volumes-storagebox =
-          job "k8s-volumes-storagebox" "sftp:u630851-sub1@u630851.your-storagebox.de:restic/home-nas-k8s"
+          job "k8s-volumes-storagebox" "sftp:u630851-sub1@u630851.your-storagebox.de:restic/ceres-k8s"
             "ssh -p 23 -i ${config.age.secrets.storagebox-ssh-key.path} -o StrictHostKeyChecking=accept-new u630851-sub1@u630851.your-storagebox.de -s sftp"
             "01:45"
             [
