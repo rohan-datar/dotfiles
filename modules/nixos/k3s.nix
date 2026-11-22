@@ -299,11 +299,11 @@ in
         extraFieldDefinitions.spec.bootstrap = true;
         values = {
           kubeProxyReplacement = true;
-          # LAN L3 interfaces only. br0 owns callisto's host IP; never select
-          # its bridge ports eno1/vnet*. Names absent on a node do not match.
+          # LAN L3 interfaces only. br0 owns callisto's and ganymede's host IPs;
+          # never select their bridge ports (eno1, ens1f0, vnet*, vm-*). Names
+          # absent on a node do not match.
           devices = [
             "enp1s0"
-            "ens1f0"
             "enp2s0"
             "br0"
           ];
