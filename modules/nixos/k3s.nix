@@ -138,16 +138,7 @@ in
         # the TCP handshake never completes. Exempt only those marked packets.
         extraCommands = ''
           iptables -A nixos-fw -p tcp -s ${scraperAddress} -m multiport --dports 9962,9965 -j nixos-fw-accept
-          ${lib.optionalString
-            (builtins.elem config.networking.hostName [
-              "io"
-              "ganymede"
-              "europa"
-            ])
-            ''
-              iptables -A nixos-fw -p tcp -s 10.42.0.0/16 -m multiport --dports 9962,9965 -j nixos-fw-accept
-            ''
-          }
+          iptables -A nixos-fw -p tcp -s 10.42.0.0/16 -m multiport --dports 9962,9965 -j nixos-fw-accept
           iptables -t mangle -I nixos-fw-rpfilter 1 -m mark --mark 0x200/0xf00 -m comment --comment "cilium proxy (tproxy)" -j RETURN
         '';
       };
