@@ -15,8 +15,12 @@ _: {
 
         flake = lib.mkDefault "github:rohan-datar/dotfiles";
 
+        # The three k3s/etcd servers (io, ceres, callisto) must never switch at the same
+        # time: two of three restarting k3s at once loses etcd quorum. Each server sets its
+        # own non-overlapping window (io 04:00, ceres 05:00, callisto 06:30); the 15-minute
+        # jitter keeps the windows apart. Agents may overlap.
         dates = lib.mkDefault "*-*-* 05:00";
-        randomizedDelaySec = lib.mkDefault "45min";
+        randomizedDelaySec = lib.mkDefault "15min";
 
         allowReboot = lib.mkDefault false; # reboots stay a deliberate act
         persistent = lib.mkDefault true; # catch up if the machine was off

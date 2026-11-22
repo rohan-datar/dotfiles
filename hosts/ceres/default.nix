@@ -107,6 +107,9 @@ in
     memoryPercent = 50;
   };
 
+  # etcd server: own upgrade window, apart from the other servers (see auto-upgrade.nix).
+  system.autoUpgrade.dates = "*-*-* 05:00";
+
   time.timeZone = "America/Chicago";
   system.stateVersion = "25.11";
 }

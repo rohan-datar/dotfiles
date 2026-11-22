@@ -33,6 +33,7 @@ in
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHHIZy+xl+7QCrfBYb7REzjtFIoEXUZuw4uAIurOFYj2"
   ];
 
+  # etcd server: own upgrade window, apart from io (04:00) and ceres (05:00).
   system.autoUpgrade.dates = "*-*-* 06:30";
 
   # No aspect sets a bootloader; ceres now declares its own systemd-boot in its host module.

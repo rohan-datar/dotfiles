@@ -61,6 +61,9 @@ in
     ];
   };
 
+  # etcd server: own upgrade window, apart from the other servers (see auto-upgrade.nix).
+  system.autoUpgrade.dates = "*-*-* 04:00";
+
   time.timeZone = "America/Chicago";
   system.stateVersion = "25.11";
 }
