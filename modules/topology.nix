@@ -22,6 +22,11 @@
           description = "Default gateway (OPNsense)";
         };
 
+        k3sApiAddress = lib.mkOption {
+          type = lib.types.str;
+          description = "Floating LAN IPv4 address for the k3s API";
+        };
+
         identity = lib.mkOption {
           type = lib.types.submodule {
             options = {
@@ -91,6 +96,7 @@
       };
     };
     gatewayAddress = "10.10.0.1";
+    k3sApiAddress = "10.10.2.1";
     identity = {
       hostname = "auth.datars.org";
     };

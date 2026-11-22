@@ -10,7 +10,8 @@ in
     self.modules.nixos.server # openssh, fail2ban, ragenix, base server tools
     self.modules.nixos.intel-cpu # N100
     self.modules.nixos.intel-gpu # N100 iGPU
-    self.modules.nixos.k3s-server # initial k3s control-plane / sandbox node
+    self.modules.nixos.k3s-server
+    self.modules.nixos.k3s-bootstrap # sole writer of the CNI and Gateway API CRD AddOns
     self.modules.nixos.metrics-agent # node_exporter (:9100) for Prometheus
     self.modules.nixos.auto-upgrade # unattended upgrades
     self.modules.nixos.mail # msmtp transport for backup failure mail
@@ -32,6 +33,12 @@ in
   environment.variables = {
     FLAKE = "/home/rdatar/nix";
     NH_FLAKE = "/home/rdatar/nix";
+  };
+
+  services.k3s.clusterInit = true;
+  services.keepalived.vrrpInstances.k3s-api = {
+    interface = "enp1s0";
+    priority = 150;
   };
 
   networking = {
