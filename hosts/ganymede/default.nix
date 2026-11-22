@@ -28,6 +28,7 @@ in
     self.modules.nixos.mail # msmtp transport for backup failure mail
     self.modules.nixos.onedev-restic # offsite OneDev backup (Storage Box)
     self.modules.nixos.restic-nas-target # on-site repo for ceres k8s volume backups
+    self.modules.nixos.pallas-vm # persistent albedo microVM on br0 (ADR 0012)
   ];
 
   # Termix: add only this host's public key here, not the private key.

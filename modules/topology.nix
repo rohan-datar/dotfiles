@@ -98,6 +98,10 @@
       ganymede = {
         lanAddress = "10.10.1.15";
       };
+      # albedo microVM guest on ganymede (modules/nixos/ganymede/pallas-vm.nix).
+      pallas = {
+        lanAddress = "10.10.1.16";
+      };
       # External HAOS VM endpoint, not a managed flake host.
       homeassistant = {
         lanAddress = "10.10.1.12";
