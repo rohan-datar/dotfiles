@@ -1,6 +1,14 @@
 { config, lib, ... }:
 let
   topology = config.flake.meta.topology;
+  nodeAddresses = with topology.hosts; [
+    europa.lanAddress
+    io.lanAddress
+    ganymede.lanAddress
+  ];
+  paperlessClients = lib.concatMapStringsSep " " (
+    ip: "${ip}(rw,sync,no_subtree_check,root_squash)"
+  ) nodeAddresses;
 in
 {
   flake.meta.topology.mediaStorage = {
@@ -19,18 +27,14 @@ in
       enable = true;
       exports = ''
         ${topology.mediaStorage.exportPath} ${topology.hosts.europa.lanAddress}(rw,sync,no_subtree_check,no_root_squash) ${topology.hosts.io.lanAddress}(rw,sync,no_subtree_check,root_squash) ${topology.hosts.ganymede.lanAddress}(rw,sync,no_subtree_check,root_squash)
+        /mnt/data-pool/paperless/media ${paperlessClients}
+        /mnt/data-pool/data-share/paperless-inbox ${paperlessClients}
+        /mnt/data-pool/paperless-export ${paperlessClients}
       '';
     };
-    networking.firewall.extraCommands =
-      lib.concatMapStrings
-        (ip: ''
-          iptables -A nixos-fw -p tcp --dport 2049 -s ${ip} -j nixos-fw-accept
-        '')
-        [
-          topology.hosts.europa.lanAddress
-          topology.hosts.io.lanAddress
-          topology.hosts.ganymede.lanAddress
-        ];
+    networking.firewall.extraCommands = lib.concatMapStrings (ip: ''
+      iptables -A nixos-fw -p tcp --dport 2049 -s ${ip} -j nixos-fw-accept
+    '') nodeAddresses;
   };
 
   # Media side: mount the NAS export over LAN NFSv4.2. Imported by europa.
