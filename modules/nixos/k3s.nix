@@ -1,7 +1,6 @@
 { self, config, ... }:
 let
   topology = config.flake.meta.topology;
-  ioAddress = topology.hosts.io.lanAddress;
   scraperAddress = topology.hosts.callisto.lanAddress;
   apiAddress = topology.k3sApiAddress;
   ciliumChart =
@@ -305,7 +304,7 @@ in
             "enp2s0"
             "br0"
           ];
-          k8sServiceHost = ioAddress;
+          k8sServiceHost = apiAddress;
           k8sServicePort = 6443;
           # All nodes share one L2 segment: route pod CIDRs directly, no tunnel.
           routingMode = "native";
