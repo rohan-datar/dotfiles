@@ -108,6 +108,7 @@ in
             topology.hosts.io.lanAddress
             topology.hosts.ganymede.lanAddress
             topology.hosts.europa.lanAddress
+            topology.hosts.callisto.lanAddress
           ]
       );
     };

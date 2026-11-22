@@ -77,7 +77,7 @@ in
       # with fail-swap-on=false).
       zramSwap = {
         enable = true;
-        memoryPercent = 25;
+        memoryPercent = lib.mkDefault 25;
       };
 
       # Kubelet budget (io memory incident 2026-11-09, media-k3s migration): reserve memory and
@@ -262,6 +262,20 @@ in
         etc."rancher/k3s/authentication-config.yaml".text = builtins.toJSON oidcConfig;
       };
     };
+
+  # Joiners use the existing cluster's token, not a new cluster-init token.
+  flake.modules.nixos.k3s-joining-server = { config, pkgs, ... }: {
+    imports = [ self.modules.nixos.k3s-server ];
+
+    age.secrets.k3s-token.file = ../../secrets/k3s-token.age;
+    services.k3s = {
+      serverAddr = "https://${apiAddress}:6443";
+      tokenFile = config.age.secrets.k3s-token.path;
+      # Helm fetches this from the Kubernetes API Service, which can route
+      # to any server. Only io publishes the AddOn, not the archive itself.
+      charts.cilium = ciliumChart pkgs;
+    };
+  };
 
   # One writer for cluster-wide K3s AddOns: server manifest directories are not
   # synchronized. io owns these files, but running workloads do not depend on it.

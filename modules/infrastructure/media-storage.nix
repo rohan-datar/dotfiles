@@ -5,6 +5,7 @@ let
     europa.lanAddress
     io.lanAddress
     ganymede.lanAddress
+    callisto.lanAddress
   ];
   paperlessClients = lib.concatMapStringsSep " " (
     ip: "${ip}(rw,sync,no_subtree_check,root_squash)"
@@ -18,15 +19,15 @@ in
 
   # NAS side: export the media dataset over LAN NFSv4 (ADR 0014). Imported by ceres.
   # - Exported strictly to the k3s pool node LAN IPs (the dedicated 10.10.100.0/30 link is retired).
-  # - europa keeps no_root_squash while native services still run there; io and ganymede only
-  #   ever mount through the kubelet for non-root pods, so root is squashed.
+  # - Keep the existing europa exception; io, ganymede and callisto mount through
+  #   the kubelet for non-root pods, so root is squashed.
   # - Firewall rules are keyed on source IPs, not NIC names, so a NAS chassis swap needs no
   #   change here. NFSv4 only from the LAN (2049; no rpcbind/mountd opened).
   flake.modules.nixos.nas-nfs = _: {
     services.nfs.server = {
       enable = true;
       exports = ''
-        ${topology.mediaStorage.exportPath} ${topology.hosts.europa.lanAddress}(rw,sync,no_subtree_check,no_root_squash) ${topology.hosts.io.lanAddress}(rw,sync,no_subtree_check,root_squash) ${topology.hosts.ganymede.lanAddress}(rw,sync,no_subtree_check,root_squash)
+        ${topology.mediaStorage.exportPath} ${topology.hosts.europa.lanAddress}(rw,sync,no_subtree_check,no_root_squash) ${topology.hosts.io.lanAddress}(rw,sync,no_subtree_check,root_squash) ${topology.hosts.ganymede.lanAddress}(rw,sync,no_subtree_check,root_squash) ${topology.hosts.callisto.lanAddress}(rw,sync,no_subtree_check,root_squash)
         /mnt/data-pool/paperless/media ${paperlessClients}
         /mnt/data-pool/data-share/paperless-inbox ${paperlessClients}
         /mnt/data-pool/paperless-export ${paperlessClients}

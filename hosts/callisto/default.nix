@@ -9,6 +9,7 @@ in
     self.modules.nixos.rdatar # your admin account + ssh keys
     self.modules.nixos.server # openssh, fail2ban, ragenix, base server tools
     self.modules.nixos.intel-cpu # i5-7500T
+    self.modules.nixos.k3s-joining-server # embedded etcd + light workloads
     self.modules.nixos.libvirt # generic libvirtd + virt-manager service
     ./haos.nix # HAOS guest: USB passthrough, domain definition
     self.modules.nixos.authelia # SSO: forward auth + OIDC provider
@@ -43,6 +44,32 @@ in
   environment.variables = {
     FLAKE = "/home/rdatar/nix";
     NH_FLAKE = "/home/rdatar/nix";
+  };
+
+  services.k3s.extraKubeletConfig = {
+    # HAOS is configured for 4 GiB; the whole host used ~5.2 GiB before k3s.
+    # Round up for guest overhead and growth in native services, separately
+    # budget the control plane; do not count the HAOS guest as reclaimable RAM.
+    systemReserved = {
+      cpu = "1000m";
+      memory = "7Gi";
+    };
+    kubeReserved = {
+      cpu = "500m";
+      memory = "2Gi";
+    };
+  };
+  services.keepalived.vrrpInstances.k3s-api = {
+    interface = "br0";
+    priority = 100;
+  };
+
+  # Keep libvirt's HAOS LAN bridge L2-only for transit frames. k3s-node
+  # loads br_netfilter, but bridged guest traffic previously bypassed host
+  # iptables; do not send it through Kubernetes/Cilium's IP FORWARD hooks.
+  boot.kernel.sysctl = {
+    "net.bridge.bridge-nf-call-iptables" = 0;
+    "net.bridge.bridge-nf-call-ip6tables" = 0;
   };
 
   networking = {

@@ -9,6 +9,7 @@ in
     self.modules.nixos.rdatar # your admin account + ssh keys
     self.modules.nixos.server # openssh, fail2ban, ragenix, base server tools
     self.modules.nixos.intel-cpu # N100
+    self.modules.nixos.k3s-joining-server # tainted, embedded etcd + API
     self.modules.nixos.nas-zfs
     self.modules.nixos.nas-samba
     self.modules.nixos.nas-nfs
@@ -40,6 +41,26 @@ in
   environment.variables = {
     FLAKE = "/home/rdatar/nix";
     NH_FLAKE = "/home/rdatar/nix";
+  };
+
+  services.k3s = {
+    extraFlags = lib.mkAfter [ "--node-taint=node-role.kubernetes.io/control-plane=:NoSchedule" ];
+    extraKubeletConfig = {
+      # 8 GiB ZFS ARC + native NAS services/OCR and host overhead. Leave
+      # headroom for etcd/apiserver and node DaemonSets (the taint is not a cap).
+      systemReserved = {
+        cpu = "1000m";
+        memory = "11Gi";
+      };
+      kubeReserved = {
+        cpu = "500m";
+        memory = "2Gi";
+      };
+    };
+  };
+  services.keepalived.vrrpInstances.k3s-api = {
+    interface = "enp2s0";
+    priority = 120;
   };
 
   networking = {

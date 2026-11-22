@@ -112,7 +112,9 @@ in
     ++ rdatar-macbook
     ++ io-system-keys
     ++ ganymede-system-keys
-    ++ europa-system-keys;
+    ++ europa-system-keys
+    ++ ceres-system-keys
+    ++ callisto-system-keys;
   "gatus-env.age".publicKeys =
     homelab-user-keys ++ callisto-system-keys ++ europa-system-keys ++ rdatar-macbook;
   "ha-prometheus-token.age".publicKeys = callisto-keys ++ rdatar-macbook;
