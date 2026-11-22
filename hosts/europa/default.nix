@@ -55,7 +55,7 @@ in
   age.secrets.k3s-token.file = ../../secrets/k3s-token.age;
 
   services.k3s = {
-    serverAddr = "https://${topology.hosts.io.lanAddress}:6443";
+    serverAddr = "https://${topology.k3sApiAddress}:6443";
     tokenFile = config.age.secrets.k3s-token.path;
     # Native media services are gone (Wave 4, 2026-11-21): europa is a regular agent. Reserve
     # only what the OS itself needs. Note: k3s applies --node-taint at registration only, so the

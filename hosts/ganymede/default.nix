@@ -41,7 +41,7 @@ in
   age.secrets.k3s-token.file = ../../secrets/k3s-token.age;
 
   services.k3s = {
-    serverAddr = "https://${topology.hosts.io.lanAddress}:6443";
+    serverAddr = "https://${topology.k3sApiAddress}:6443";
     tokenFile = config.age.secrets.k3s-token.path;
   };
 
