@@ -98,8 +98,6 @@ in
   "lldap-admin-password.age".publicKeys = callisto-keys ++ rdatar-macbook;
   "cloudflare-dns-token.age".publicKeys =
     europa-system-keys ++ callisto-system-keys ++ homelab-user-keys;
-  "paperless-admin-password.age".publicKeys = ceres-keys;
-  "paperless-oidc-env.age".publicKeys = ceres-keys;
   "grafana-authelia-oidc-secret.age".publicKeys = callisto-keys ++ rdatar-macbook;
   "upgrade-ntfy-env.age".publicKeys =
     homelab-user-keys
