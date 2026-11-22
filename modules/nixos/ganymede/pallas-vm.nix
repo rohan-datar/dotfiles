@@ -265,7 +265,23 @@ in
         "${pkgs.iproute2}/bin/ip link set ${tap} master br0 up"
       ];
 
-      systemd.tmpfiles.rules = [ "d ${exportDir} 0700 root root -" ];
+      # VM images (up to ~104 GiB sparse) live on the Btrfs RAID1, not the 128 GB boot
+      # SSD. Same bind pattern as /srv/restic-nas. +C (no copy-on-write) is set on the
+      # empty directory so new raw images inherit it and don't fragment under CoW.
+      systemd.tmpfiles.rules = [
+        "d /var/lib/rancher/k3s/storage/microvms 0755 root root -"
+        "h /var/lib/rancher/k3s/storage/microvms - - - - +C"
+        "d ${exportDir} 0700 root root -"
+      ];
+      fileSystems."/var/lib/microvms" = {
+        device = "/var/lib/rancher/k3s/storage/microvms";
+        fsType = "none";
+        options = [
+          "bind"
+          "x-systemd.requires-mounts-for=/var/lib/rancher/k3s/storage"
+        ];
+      };
+      systemd.services."microvm@${name}".unitConfig.RequiresMountsFor = [ "/var/lib/microvms" ];
 
       services.restic.backups.${name} = {
         repository = "sftp:u630851-sub1@u630851.your-storagebox.de:restic/${name}";
