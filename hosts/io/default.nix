@@ -17,9 +17,13 @@ in
     self.modules.nixos.k3s-etcd-restic # offsite etcd snapshots + server token (Storage Box)
   ];
 
-  # Termix: add only this host's public key here, not the private key.
+  # Host-local SSH access. Keep these keys out of the shared root key list.
   users.users.rdatar.openssh.authorizedKeys.keys = [
+    # Termix
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICq10Ke+doDqkkH13k0d1Fgp2EoDGlkhJtVf5B4ffVb6 termix"
+
+    # Warpgate
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHHIZy+xl+7QCrfBYb7REzjtFIoEXUZuw4uAIurOFYj2"
   ];
 
   boot.loader.systemd-boot.enable = true;
