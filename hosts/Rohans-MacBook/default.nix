@@ -12,6 +12,7 @@ in
     ./user.nix
     self.modules.darwin.rohandatar
     self.modules.darwin.graphical
+    self.modules.darwin.pallas-access # albedo VM may SSH in as rohandatar (owner, 2026-11-22)
   ];
 
   environment.pathsToLink = [ "/libexec" ];
@@ -57,6 +58,15 @@ in
       };
       ProcessType = "Interactive";
     };
+  };
+
+  # Remote Login for the albedo VM (and the owner): keys only, never passwords.
+  services.openssh = {
+    enable = true;
+    extraConfig = ''
+      PasswordAuthentication no
+      KbdInteractiveAuthentication no
+    '';
   };
 
   services.lorri.enable = true;

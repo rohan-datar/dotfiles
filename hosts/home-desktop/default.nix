@@ -24,6 +24,7 @@ in
     ./hardware-configuration.nix
     ./user.nix
     self.modules.nixos.rdatar
+    self.modules.nixos.pallas-access # albedo VM may SSH in as rdatar (owner, 2026-11-22)
     self.modules.nixos.graphical
     self.modules.nixos.niri-desktop
     self.modules.nixos.intel-cpu
