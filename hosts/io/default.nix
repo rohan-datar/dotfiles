@@ -14,6 +14,7 @@ in
     self.modules.nixos.k3s-bootstrap # sole writer of the CNI and Gateway API CRD AddOns
     self.modules.nixos.metrics-agent # node_exporter (:9100) for Prometheus
     self.modules.nixos.auto-upgrade # unattended upgrades
+    self.modules.nixos.albedo-ops # albedo VM: observe + deploy-merged-main (tiers)
     self.modules.nixos.mail # msmtp transport for backup failure mail
     self.modules.nixos.k3s-etcd-restic # offsite etcd snapshots + server token (Storage Box)
   ];

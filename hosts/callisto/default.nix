@@ -17,6 +17,7 @@ in
     self.modules.nixos.speedtest # WAN throughput exporter + its hourly job
     self.modules.nixos.mail # msmtp transport for backup failure mail
     self.modules.nixos.auto-upgrade # unattended upgrades; last (most critical)
+    self.modules.nixos.albedo-ops # albedo VM: observe + deploy-merged-main (tiers)
   ];
 
   # Host-local SSH access. Keep these keys out of the shared root key list.
