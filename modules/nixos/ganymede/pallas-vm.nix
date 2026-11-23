@@ -238,13 +238,11 @@ let
 
       # Nightly consistent export for the host's restic job: an online SQLite backup
       # (backup API, safe beside the running daemon) plus everything else in the home.
-      systemd.tmpfiles.rules = [ "d /srv/backup-export/rdatar 0700 rdatar users -" ];
       systemd.services.albedo-backup-export = {
         description = "Export albedo state for the host backup";
-        serviceConfig = {
-          Type = "oneshot";
-          User = "rdatar";
-        };
+        # Runs as root: the share's root is 0700 root on the host side, and root
+        # inside the guest reads the owner's home and keeps ownership in the copy.
+        serviceConfig.Type = "oneshot";
         path = [
           pkgs.sqlite
           pkgs.rsync
