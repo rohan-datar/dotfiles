@@ -143,6 +143,14 @@ let
 
       services.openssh = {
         enable = true;
+        # The guest's root (and /etc) is tmpfs: keep host keys on the /var volume so
+        # clients don't see a "host identification changed" warning after every boot.
+        hostKeys = [
+          {
+            path = "/var/lib/ssh/ssh_host_ed25519_key";
+            type = "ed25519";
+          }
+        ];
         settings = {
           PasswordAuthentication = false;
           KbdInteractiveAuthentication = false;
