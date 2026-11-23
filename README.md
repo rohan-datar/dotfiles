@@ -33,13 +33,3 @@ The configuration is organized into several key directories:
 - `secrets/`: Encrypted secrets using Agenix
 
 This takes heavy inspiration from [isabelroses' dotfiles](https://github.com/isabelroses/dotfiles)
-
-## Temporary security overrides
-
-`modules/nixos/_packages/nodejs-security.nix` pins the October 21, 2026
-security release Node.js 24.22.1 for Homepage, Vicinae, and the desktop's Node CLI
-without globally rebuilding unrelated Node consumers. Remove this scoped override
-once nixpkgs-unstable supplies those fixes. Seerr uses stock nixpkgs Node.js 22.23.4
-with the patched shared Brotli library, allowing reuse of the upstream binary cache.
-LDAP ACME DNS-01 propagation checks use an external resolver because the
-LAN's private wildcard masks the public challenge records.
