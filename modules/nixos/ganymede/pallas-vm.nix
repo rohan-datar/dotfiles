@@ -170,7 +170,13 @@ let
         pkgs.sqlite
         pkgs.rsync
         pkgs.just
+        # Remote kernels and session moves stage albedo's Python env with the host
+        # interpreter; without one uv downloads a generic CPython NixOS can't run.
+        pkgs.python311
       ];
+
+      # Generic Linux binaries (uv-managed tools, prebuilt CLIs) run inside this VM.
+      programs.nix-ld.enable = true;
 
       zramSwap.enable = true;
 
