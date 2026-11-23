@@ -1,9 +1,14 @@
+{ config, ... }:
+let
+  topology = config.flake.meta.topology;
+in
 {
   # SSO access to the homelab k3s cluster from the owner's workstations.
   # The kubeconfig holds no secrets: kubelogin opens Authelia in a browser and caches
   # short-lived tokens under ~/.kube/cache. The client-certificate context in
   # ~/.kube/config stays as the break-glass login, so it is listed first and remains
-  # the default until `kubectl config use-context homelab-sso`.
+  # the default until `kubectl config use-context homelab-sso`. On a host without that
+  # file (the desktop), current-context below makes the SSO context the default.
   flake.modules.homeManager.kubernetes =
     { pkgs, ... }:
     let
@@ -14,7 +19,8 @@
           {
             name = "homelab-sso";
             cluster = {
-              server = "https://10.10.1.14:6443";
+              # keepalived API VIP, so access survives losing any one server.
+              server = "https://${topology.k3sApiAddress}:6443";
               # Public CA certificate (kube-root-ca.crt), not a secret.
               certificate-authority = "${./kubernetes/homelab-ca.crt}";
             };
@@ -28,7 +34,7 @@
               command = "${pkgs.kubelogin-oidc}/bin/kubectl-oidc_login";
               args = [
                 "get-token"
-                "--oidc-issuer-url=https://auth.datars.org"
+                "--oidc-issuer-url=https://${topology.identity.hostname}"
                 "--oidc-client-id=kubernetes"
                 "--oidc-pkce-method=S256"
                 "--oidc-extra-scope=profile"
@@ -49,6 +55,9 @@
             };
           }
         ];
+        # kubectl takes current-context from the first KUBECONFIG file that sets one,
+        # so a break-glass ~/.kube/config still wins where it exists.
+        current-context = "homelab-sso";
       };
     in
     {
