@@ -181,6 +181,21 @@ let
         # Remote kernels and session moves stage albedo's Python env with the host
         # interpreter; without one uv downloads a generic CPython NixOS can't run.
         pkgs.python311
+        # Homelab operations from agent sessions (read-only cluster access, PR workflows):
+        pkgs.kubectl # ~/.kube/config = albedo-readonly ServiceAccount (oort-cloud PR #15)
+        pkgs.fluxcd # flux get/logs/tree (reads only, with that identity)
+        pkgs.k9s
+        pkgs.gh # PRs as the pallas-agent App (token from ~/.config/albedo/gh-agent-token)
+        pkgs.openssl # gh-agent-token signs the App JWT
+        pkgs.curl
+        pkgs.jq
+        pkgs.yq-go
+        pkgs.crane # image digests from registries
+        pkgs.sops # encrypt-only here: pallas is not a SOPS recipient
+        pkgs.age
+        pkgs.pkl # render oort-cloud (CI pins the same 0.32.x)
+        pkgs.go # pin-policy tests
+        pkgs.actionlint
       ];
 
       # Generic Linux binaries (uv-managed tools, prebuilt CLIs) run inside this VM.
