@@ -36,6 +36,7 @@ let
     {
       imports = [
         inputs.microvm.nixosModules.microvm
+        inputs.home-manager.nixosModules.home-manager
         self.modules.nixos.rdatar # owner account + SSH keys (owner-approved, 2026-11-22)
       ];
 
@@ -118,6 +119,28 @@ let
         };
       };
 
+      # Local names (luna.lan, sol.lan) come from the router's DNS; never fall back to
+      # public resolvers, which can't answer them.
+      services.resolved.settings.Resolve.FallbackDNS = [ "" ];
+
+      # Org notes, synchronized like the workstations (rclone bisync with the dedicated
+      # Storage Box subaccount; Git snapshots stay Mac-only). Home Manager only for this.
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        users.rdatar = {
+          imports = [ self.modules.homeManager.org-notes-sync ];
+          services.org-notes-sync = {
+            enable = true;
+            hostId = "pallas";
+            initialSource = "path2"; # Storage Box is authoritative for the first run
+            scheduleOffsetMinutes = 7; # Mac :00, desktop :05
+            sshKeyFile = "${home}/.ssh/org-storage-box"; # VM's own key, owner-authorized
+          };
+          home.stateVersion = "25.11";
+        };
+      };
+
       services.openssh = {
         enable = true;
         settings = {
@@ -147,7 +170,13 @@ let
         pkgs.sqlite
         pkgs.rsync
         pkgs.just
+        # Remote kernels and session moves stage albedo's Python env with the host
+        # interpreter; without one uv downloads a generic CPython NixOS can't run.
+        pkgs.python311
       ];
+
+      # Generic Linux binaries (uv-managed tools, prebuilt CLIs) run inside this VM.
+      programs.nix-ld.enable = true;
 
       zramSwap.enable = true;
 
@@ -209,13 +238,11 @@ let
 
       # Nightly consistent export for the host's restic job: an online SQLite backup
       # (backup API, safe beside the running daemon) plus everything else in the home.
-      systemd.tmpfiles.rules = [ "d /srv/backup-export/rdatar 0700 rdatar users -" ];
       systemd.services.albedo-backup-export = {
         description = "Export albedo state for the host backup";
-        serviceConfig = {
-          Type = "oneshot";
-          User = "rdatar";
-        };
+        # Runs as root: the share's root is 0700 root on the host side, and root
+        # inside the guest reads the owner's home and keeps ownership in the copy.
+        serviceConfig.Type = "oneshot";
         path = [
           pkgs.sqlite
           pkgs.rsync
