@@ -22,6 +22,7 @@ in
     self.modules.nixos.metrics-agent
     self.modules.nixos.nas-metrics # zfs + smartctl exporters
     self.modules.nixos.auto-upgrade # unattended upgrades
+    self.modules.nixos.albedo-ops # albedo VM: observe + deploy-merged-main (tiers)
   ];
 
   # Termix: add only this host's public key here, not the private key.

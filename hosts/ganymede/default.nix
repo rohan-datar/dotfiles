@@ -25,6 +25,7 @@ in
     self.modules.nixos.metrics-agent # node_exporter (:9100) for Prometheus
     self.modules.nixos.smart-alerts # SMART journal + email alerts
     self.modules.nixos.auto-upgrade # unattended upgrades
+    self.modules.nixos.albedo-ops # albedo VM: observe + deploy-merged-main (tiers)
     self.modules.nixos.mail # msmtp transport for backup failure mail
     self.modules.nixos.onedev-restic # offsite OneDev backup (Storage Box)
     self.modules.nixos.restic-nas-target # on-site repo for ceres k8s volume backups

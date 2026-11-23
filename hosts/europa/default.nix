@@ -20,6 +20,7 @@ in
     self.modules.nixos.metrics-agent
     self.modules.nixos.media-watchdog # watches callisto from the outside
     self.modules.nixos.auto-upgrade # unattended upgrades; canary slot, first
+    self.modules.nixos.albedo-ops # albedo VM: observe + deploy-merged-main (tiers)
     self.modules.nixos.mail # msmtp transport for backup failure mail
     self.modules.nixos.media-storage
   ];
