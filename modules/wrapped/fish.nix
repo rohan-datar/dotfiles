@@ -73,6 +73,14 @@
         set -e fish_private_mode
         set -g fish_history fish
 
+        # Home Manager session variables reach this --no-config fish only through
+        # the Linux systemd user environment, and only in a session started after
+        # the switch; macOS never gets them. Set the kubeconfig search path from
+        # modules/home/_internal/kubernetes.nix here too.
+        if not set -q KUBECONFIG; and test -f $HOME/.kube/homelab-sso.yaml
+          set -gx KUBECONFIG $HOME/.kube/config:$HOME/.kube/homelab-sso.yaml
+        end
+
         # Key bindings
         function fish_user_key_bindings
           # Execute this once per mode that emacs bindings should be used in
