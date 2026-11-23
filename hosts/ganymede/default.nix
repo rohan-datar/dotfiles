@@ -23,6 +23,7 @@ in
     self.modules.nixos.intel-cpu # Xeon E5-2680 v4
     self.modules.nixos.k3s-agent # heavy k3s worker node joined to io
     self.modules.nixos.metrics-agent # node_exporter (:9100) for Prometheus
+    self.modules.nixos.gpu-metrics # P100 telemetry via node_exporter textfile (no hwmon/iLO visibility)
     self.modules.nixos.smart-alerts # SMART journal + email alerts
     self.modules.nixos.auto-upgrade # unattended upgrades
     self.modules.nixos.albedo-ops # albedo VM: observe + deploy-merged-main (tiers)
