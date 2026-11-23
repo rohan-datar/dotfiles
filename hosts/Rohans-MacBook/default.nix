@@ -76,6 +76,20 @@ in
   };
 
   services.netbird.enable = true;
+  # The netbird UI in nixpkgs is broken on darwin and the brew
+  # version defaults to /var/run/netbird.sock, while the nix-darwin
+  # services uses /var/run/netbird/sock, so we symlink them on startup
+  launchd.daemons.netbird-sock-link = {
+    serviceConfig = {
+      ProgramArguments = [
+        "/bin/ln"
+        "-sf"
+        "/var/run/netbird/sock"
+        "/var/run/netbird.sock"
+      ];
+      RunAtLoad = true;
+    };
+  };
 
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
