@@ -75,6 +75,8 @@ in
     package = inputs.editorconfig.packages.${system}.rdmacs;
   };
 
+  services.netbird.enable = true;
+
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
       mkalias

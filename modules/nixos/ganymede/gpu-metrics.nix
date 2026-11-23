@@ -1,5 +1,4 @@
-_:
-{
+_: {
   # GPU telemetry for Prometheus (ml350-physical, 2026-11-23): the proprietary NVIDIA driver's
   # temperature isn't visible to node_exporter's hwmon collector, and iLO 4 can't see a
   # non-HPE GPU, so there was no GPU temperature history at all. A tiny sampler writes
