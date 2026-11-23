@@ -1,0 +1,49 @@
+name: pin-policy
+
+on:
+  pull_request_target:
+    branches: [main]
+    types: [opened, reopened, synchronize, labeled, unlabeled, edited, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: read
+  checks: read
+  statuses: read
+
+concurrency:
+  group: pin-policy-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  pin-policy:
+    name: pin-policy
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    defaults:
+      run:
+        working-directory: .github/pin-policy
+    env:
+      CGO_ENABLED: 0
+      GOTOOLCHAIN: local
+      GOWORK: 'off'
+      GOPROXY: 'off'
+    steps:
+      # On pull_request_target github.sha is a trusted base-branch commit.
+      # Never resolve the checkout from a PR head, merge ref, or PR-controlled string.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
+        with:
+          go-version: '1.26.11'
+          cache: false
+      - name: Test policy
+        run: go test ./...
+      - name: Evaluate PR through GitHub's API
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: go run .
