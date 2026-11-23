@@ -33,6 +33,9 @@ in
       isServer = (config.services.k3s.enable or false) && config.services.k3s.role == "server";
       kubeconfig = "/etc/rancher/k3s/k3s.yaml";
       kubectl = "${pkgs.kubectl}/bin/kubectl --kubeconfig ${kubeconfig}";
+      # The lock goes through the API VIP so a server whose own k3s is broken can still take
+      # it via a healthy peer and upgrade itself (that upgrade may be the fix).
+      kubectlVip = "${kubectl} --server https://${topology.k3sApiAddress}:6443 --request-timeout=10s";
       tools = lib.makeBinPath [
         pkgs.coreutils
         pkgs.gawk
@@ -55,7 +58,13 @@ in
         now=$(date -u +%Y-%m-%dT%H:%M:%S.000000Z)
         case "''${1:-}" in
           acquire)
-            if current=$(${kubectl} -n kube-system get lease nixos-upgrade -o json 2>/dev/null); then
+            # No API anywhere means no quorum: the lock protects nothing then, and blocking
+            # the upgrade would only remove a repair path. Proceed, loudly.
+            if ! ${kubectlVip} get --raw /livez >/dev/null 2>&1; then
+              echo "WARNING: Kubernetes API unreachable via ${topology.k3sApiAddress}; upgrading WITHOUT the nixos-upgrade lease" >&2
+              exit 0
+            fi
+            if current=$(${kubectlVip} -n kube-system get lease nixos-upgrade -o json 2>/dev/null); then
               holder=$(jq -r '.spec.holderIdentity // ""' <<<"$current")
               renew=$(jq -r '.spec.renewTime // ""' <<<"$current")
               duration=$(jq -r '.spec.leaseDurationSeconds // 0' <<<"$current")
@@ -66,9 +75,9 @@ in
                 exit 1
               fi
               # resourceVersion makes the takeover fail if someone else changed it meanwhile.
-              manifest ",\"resourceVersion\":\"$version\"" "$now" | ${kubectl} replace -f - >/dev/null
+              manifest ",\"resourceVersion\":\"$version\"" "$now" | ${kubectlVip} replace -f - >/dev/null
             else
-              manifest "" "$now" | ${kubectl} create -f - >/dev/null
+              manifest "" "$now" | ${kubectlVip} create -f - >/dev/null
             fi
             echo "nixos-upgrade lease acquired by $host"
             ;;
@@ -77,10 +86,10 @@ in
             # unit here; an unreleased lease expires on its own (45 min, inside the gaps
             # between the 04:00 / 05:00 / 06:30 server windows).
             for _ in $(seq 18); do
-              if holder=$(${kubectl} -n kube-system get lease nixos-upgrade \
+              if holder=$(${kubectlVip} -n kube-system get lease nixos-upgrade \
                    -o jsonpath='{.spec.holderIdentity}' 2>/dev/null); then
                 if [ "$holder" = "$host" ]; then
-                  ${kubectl} -n kube-system delete lease nixos-upgrade --ignore-not-found >/dev/null || true
+                  ${kubectlVip} -n kube-system delete lease nixos-upgrade --ignore-not-found >/dev/null || true
                 fi
                 exit 0
               fi
@@ -165,9 +174,10 @@ in
         }
       ];
 
-      # Scheduled and triggered upgrades alike take the cluster Lease on servers. If the API
-      # is unreachable the run fails (and alerts) rather than risk two etcd members at once;
-      # a human can still switch by hand.
+      # Scheduled and triggered upgrades alike take the cluster Lease on servers (via the API
+      # VIP). Lease held by another server: the run fails and alerts. No API at all: the run
+      # proceeds without the lock (quorum is already gone). albedo-deploy-main stays
+      # fail-closed.
       systemd.services.nixos-upgrade.serviceConfig = lib.mkIf isServer {
         ExecStartPre = [ "${lease} acquire" ];
         ExecStopPost = [ "${lease} release" ];
