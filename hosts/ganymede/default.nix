@@ -88,7 +88,7 @@ in
   };
   environment.systemPackages = [ pkgs.nvtopPackages.nvidia ];
 
-  # Cap the P100 at 160 W. The passive card + printed duct cannot dissipate the
+  # Cap the P100 at 140 W (benchmark envelope: llm-bench phase-a-3 requires <= 145 W). The passive card + printed duct cannot dissipate the
   # full 250 W board power at Gen9 baseline fans: llm-bench phase-a-1 (2026-11-23)
   # hit 78 °C with driver SW thermal slowdown (clock reason 0x20) in under three
   # minutes, and iLO 4 cannot read a non-HPE GPU's temperature, so the fans never
@@ -96,7 +96,7 @@ in
   # decode is memory-bound, so the tokens/s cost is modest. Raise or remove only
   # after sustained cooling validation.
   systemd.services.nvidia-power-cap = {
-    description = "Tesla P100 power cap (160 W)";
+    description = "Tesla P100 power cap (140 W)";
     wantedBy = [ "multi-user.target" ];
     after = [ "nvidia-persistenced.service" ];
     serviceConfig = {
@@ -107,7 +107,7 @@ in
     # future refinement could re-apply on nvidia module (re)load via udev.
     script = ''
       ${nvidia-smi} -pm 1
-      ${nvidia-smi} -pl 160
+      ${nvidia-smi} -pl 140
     '';
   };
 
