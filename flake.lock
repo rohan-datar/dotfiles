@@ -499,6 +499,27 @@
         "type": "github"
       }
     },
+    "gen9-t4-ocsd": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1795578378,
+        "narHash": "sha256-tilyterjuPC4vxyeFVNX82SgnYoB84Mk3Tnds+gCJw0=",
+        "owner": "rohan-datar",
+        "repo": "gen9-t4-ocsd-thermal-bridge",
+        "rev": "b20b239829e08b9c453fdbd33f7787de1c9f6c0e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rohan-datar",
+        "ref": "ml350-p100-publish-offset",
+        "repo": "gen9-t4-ocsd-thermal-bridge",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -1019,6 +1040,7 @@
         "easy-hosts": "easy-hosts",
         "editorconfig": "editorconfig",
         "flake-parts": "flake-parts_2",
+        "gen9-t4-ocsd": "gen9-t4-ocsd",
         "home-manager": "home-manager_2",
         "homebrew": "homebrew",
         "import-tree": "import-tree_2",
