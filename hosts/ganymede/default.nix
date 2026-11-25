@@ -26,6 +26,7 @@ in
     self.modules.nixos.k3s-agent # heavy k3s worker node joined to io
     self.modules.nixos.metrics-agent # node_exporter (:9100) for Prometheus
     self.modules.nixos.gpu-metrics # P100 telemetry via node_exporter textfile (no hwmon/iLO visibility)
+    self.modules.nixos.ocsd-thermal-bridge # P100 temperature -> iLO fan control via OCSD (27-PCI 3)
     self.modules.nixos.smart-alerts # SMART journal + email alerts
     self.modules.nixos.auto-upgrade # unattended upgrades
     self.modules.nixos.albedo-ops # albedo VM: observe + deploy-merged-main (tiers)
@@ -91,8 +92,8 @@ in
   # Cap the P100 at 140 W (benchmark envelope: llm-bench phase-a-3 requires <= 145 W). The passive card + printed duct cannot dissipate the
   # full 250 W board power at Gen9 baseline fans: llm-bench phase-a-1 (2026-11-23)
   # hit 78 °C with driver SW thermal slowdown (clock reason 0x20) in under three
-  # minutes, and iLO 4 cannot read a non-HPE GPU's temperature, so the fans never
-  # ramp for it. 160 W matches the Pascal llama.cpp community benchmark level and
+  # minutes, because iLO 4 cannot read a non-HPE GPU's temperature. The OCSD bridge
+  # (ocsd-thermal-bridge) now feeds it to iLO; 140 W + bridge passed phase-a-4. 160 W matches the Pascal llama.cpp community benchmark level and
   # decode is memory-bound, so the tokens/s cost is modest. Raise or remove only
   # after sustained cooling validation.
   systemd.services.nvidia-power-cap = {
