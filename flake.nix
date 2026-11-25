@@ -108,6 +108,13 @@
 
     albedo.url = "git+https://tangled.org/okami.mom/albedo";
 
+    # iLO 4 OCSD thermal bridge for ganymede's Tesla P100 (fork of
+    # oceanmedianow/gen9-t4-ocsd-thermal-bridge, adapted for the ML350 Gen9)
+    gen9-t4-ocsd = {
+      url = "github:rohan-datar/gen9-t4-ocsd-thermal-bridge/ml350-p100-publish-offset";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Declarative microVMs (persistent albedo guest on ganymede, ADR 0012)
     microvm = {
       url = "github:microvm-nix/microvm.nix";
